@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capi Career Path Simulator</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#050a1a;color:#e0e8ff;min-height:100vh;overflow-x:hidden}
+.screen{display:none;min-height:100vh;padding:20px}
+.screen.active{display:flex;flex-direction:column;align-items:center;justify-content:center}
+/* Stars background */
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at 20% 50%,#0d1f3c 0%,#050a1a 60%);z-index:-2}
+.stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s infinite alternate}
+@keyframes twinkle{0%{opacity:.2}100%{opacity:.9}}
+/* Glow effects */
+.glow-blue{text-shadow:0 0 20px #00d4ff,0 0 40px #00d4ff}
+.glow-green{text-shadow:0 0 20px #00ff88,0 0 40px #00ff88}
+.glow-purple{text-shadow:0 0 20px #bf5fff,0 0 40px #bf5fff}
+/* Cards */
+.card{background:rgba(255,255,255,.05);border:1px solid rgba(100,180,255,.2);border-radius:16px;padding:28px;max-width:700px;width:100%;backdrop-filter:blur(10px)}
+.card-large{max-width:860px}
+/* Buttons */
+.btn{padding:14px 32px;border:none;border-radius:8px;font-size:15px;cursor:pointer;transition:all .2s;font-weight:600;letter-spacing:.5px}
+.btn-primary{background:linear-gradient(135deg,#0080ff,#00d4ff);color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,212,255,.4)}
+.btn-outline{background:transparent;border:1px solid rgba(100,180,255,.5);color:#7ec8ff}
+.btn-outline:hover{background:rgba(100,180,255,.1);transform:translateY(-2px)}
+.btn-answer{background:rgba(255,255,255,.05);border:1px solid rgba(100,180,255,.25);color:#d0e8ff;border-radius:10px;padding:14px 20px;font-size:14px;cursor:pointer;transition:all .2s;text-align:left;width:100%;margin-bottom:10px;line-height:1.5}
+.btn-answer:hover{background:rgba(0,150,255,.15);border-color:#00a8ff;transform:translateX(4px)}
+.btn-answer.selected{background:rgba(0,180,255,.2);border-color:#00d4ff;color:#fff}
+.btn-answer.correct{background:rgba(0,255,136,.15);border-color:#00ff88}
+/* Progress */
+.progress-bar{height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;margin:16px 0}
+.progress-fill{height:100%;background:linear-gradient(90deg,#0080ff,#00d4ff);border-radius:3px;transition:width .4s}
+/* Logo */
+.logo{font-size:52px;margin-bottom:4px}
+.title-main{font-size:36px;font-weight:800;letter-spacing:2px;margin-bottom:8px}
+.title-sub{font-size:16px;opacity:.7;letter-spacing:1px}
+/* Role badges */
+.role-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:50px;font-weight:700;font-size:14px;letter-spacing:1px}
+.role-Explorer{background:rgba(0,212,255,.15);border:1px solid #00d4ff;color:#00d4ff}
+.role-Builder{background:rgba(255,140,0,.15);border:1px solid #ff8c00;color:#ff8c00}
+.role-Operator{background:rgba(0,255,136,.15);border:1px solid #00ff88;color:#00ff88}
+.role-Connector{background:rgba(191,95,255,.15);border:1px solid #bf5fff;color:#bf5fff}
+.role-Communicator{background:rgba(255,80,100,.15);border:1px solid #ff5064;color:#ff5064}
+/* Mission cards */
+.mission-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;max-width:860px;width:100%}
+.mission-card{background:rgba(255,255,255,.04);border:1px solid rgba(100,180,255,.2);border-radius:14px;padding:20px;cursor:pointer;transition:all .25s}
+.mission-card:hover{background:rgba(0,120,255,.1);border-color:#00a8ff;transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,150,255,.2)}
+/* Scan effect */
+@keyframes scan{0%{top:-10%}100%{top:110%}}
+.scan-line{position:fixed;left:0;width:100%;height:3px;background:linear-gradient(90deg,transparent,#00d4ff,transparent);opacity:.6;animation:scan 2s linear infinite;z-index:10}
+/* Certificate */
+.cert{background:linear-gradient(135deg,rgba(5,15,40,.95),rgba(10,25,60,.95));border:2px solid;border-radius:20px;padding:40px;max-width:700px;width:100%;text-align:center;position:relative;overflow:hidden}
+.cert::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at center,rgba(0,100,255,.1) 0%,transparent 70%);pointer-events:none}
+.cert-title{font-size:13px;letter-spacing:4px;opacity:.6;margin-bottom:8px;text-transform:uppercase}
+.cert-main{font-size:26px;font-weight:800;margin:12px 0}
+.cert-gene{font-size:44px;font-weight:900;margin:16px 0;letter-spacing:4px}
+/* Responsive */
+@media(max-width:600px){.title-main{font-size:24px}.mission-grid{grid-template-columns:1fr}.cert-gene{font-size:30px}}
+/* Theme select */
+.theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:700px;width:100%}
+.theme-card{background:rgba(255,255,255,.04);border:1px solid rgba(100,180,255,.2);border-radius:16px;padding:28px;cursor:pointer;transition:all .25s;text-align:center}
+.theme-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,100,255,.2)}
+.theme-icon{font-size:54px;margin-bottom:12px}
+@media(max-width:500px){.theme-grid{grid-template-columns:1fr}}
+/* Fade */
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .5s ease forwards}
+/* Scanning animation */
+@keyframes pulse{0%,100%{opacity:.5;transform:scale(.98)}50%{opacity:1;transform:scale(1.01)}}
+.pulsing{animation:pulse 1.5s ease infinite}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+
+<!-- SCREEN 0: INTRO -->
+<div class="screen active" id="s-intro">
+  <div style="text-align:center;max-width:600px" class="fade-in">
+    <div class="logo">🦔</div>
+    <div class="title-main glow-blue">VIỆN NGHIÊN CỨU CAPI</div>
+    <div class="title-sub">CAREER PATH SIMULATOR</div>
+    <div style="margin:32px 0;opacity:.7;line-height:1.8;font-size:15px">
+      Chào mừng bạn đến với <strong style="color:#00d4ff">Hành trình Điểm chạm Tương lai</strong>.<br>
+      Tôi là <strong style="color:#00ff88">Capi</strong> — cộng sự của bạn.<br>
+      Hãy để mình quét <em>Capi-Gene</em> và khám phá mật mã nghề nghiệp của bạn!
+    </div>
+    <button class="btn btn-primary" onclick="startGame()" style="font-size:17px;padding:18px 48px">
+      🚀 BẮT ĐẦU HÀNH TRÌNH
+    </button>
+  </div>
+</div>
+
+<!-- SCREEN 1: PHASE 1 -->
+<div class="screen" id="s-phase1">
+  <div class="card card-large fade-in" style="max-width:700px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="color:#00d4ff;font-size:13px;letter-spacing:2px">⚡ PHASE 1 — SCANNING</span>
+      <span id="q-counter" style="font-size:13px;opacity:.6"></span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="p1-progress" style="width:0%"></div></div>
+    <div style="font-size:13px;color:#7ec8ff;margin-bottom:16px;min-height:20px" id="q-capi"></div>
+    <div style="font-size:17px;font-weight:600;margin-bottom:22px;line-height:1.5" id="q-text"></div>
+    <div id="answers"></div>
+  </div>
+</div>
+
+<!-- SCREEN 2: PHASE 1 RESULT -->
+<div class="screen" id="s-phase1-result">
+  <div class="card fade-in" style="text-align:center">
+    <div class="scan-line" id="scan-line"></div>
+    <div style="font-size:13px;letter-spacing:3px;color:#00d4ff;margin-bottom:20px">🔬 KẾT QUẢ QUÉT — CAPI-GENE SƠ BỘ</div>
+    <div style="font-size:15px;margin-bottom:12px;opacity:.8">Capi phát hiện...</div>
+    <div id="p1-role-icon" style="font-size:64px;margin:16px 0"></div>
+    <div id="p1-role-badge" style="margin-bottom:16px"></div>
+    <div id="p1-role-name" style="font-size:28px;font-weight:800;margin-bottom:12px"></div>
+    <div id="p1-role-desc" style="font-size:14px;opacity:.75;line-height:1.7;margin-bottom:24px"></div>
+    <div style="font-size:14px;opacity:.6;font-style:italic;margin-bottom:28px">
+      "Ồ, một <span id="p1-role-name2"></span> đầy triển vọng! Nhưng lý thuyết là chưa đủ.<br>
+      Hãy chọn cổng mô phỏng để mình xem bạn tỏa sáng thế nào trong thực tế nhé!"
+    </div>
+    <button class="btn btn-primary" onclick="showThemeSelect()">Chọn Cổng Mô Phỏng →</button>
+  </div>
+</div>
+
+<!-- SCREEN 3: THEME SELECT -->
+<div class="screen" id="s-theme">
+  <div style="text-align:center;margin-bottom:28px" class="fade-in">
+    <div style="font-size:13px;letter-spacing:2px;color:#00d4ff;margin-bottom:8px">PHASE 2 — THỬ THÁCH THỰC CHIẾN</div>
+    <div style="font-size:24px;font-weight:700">Chọn Cổng Mô Phỏng</div>
+  </div>
+  <div class="theme-grid fade-in">
+    <div class="theme-card" onclick="selectTheme('space')" style="border-color:rgba(0,180,255,.3)">
+      <div class="theme-icon">🚀</div>
+      <div style="font-size:16px;font-weight:700;margin-bottom:8px;color:#00d4ff">ARK-CAPI</div>
+      <div style="font-size:13px;opacity:.7;line-height:1.6">Mật mã Hành tinh Mới<br>Kịch tính · Cấp bách · Giải cứu thế giới</div>
+      <div style="margin-top:12px;font-size:12px;color:#7ec8ff">3 nhiệm vụ: Tái chế · Y tế AI · Cứu hộ</div>
+    </div>
+    <div class="theme-card" onclick="selectTheme('techno')" style="border-color:rgba(191,95,255,.3)">
+      <div class="theme-icon">🏢</div>
+      <div style="font-size:16px;font-weight:700;margin-bottom:8px;color:#bf5fff">TECHNO INTERN</div>
+      <div style="font-size:13px;opacity:.7;line-height:1.6">Thực tập sinh STEAM<br>Chuyên nghiệp · Thực tế · Thăng tiến</div>
+      <div style="margin-top:12px;font-size:12px;color:#bf8fff">3 nhiệm vụ: Smart Home · Kho vận · Drone</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 4: MISSION SELECT -->
+<div class="screen" id="s-mission-select">
+  <div style="text-align:center;margin-bottom:24px" class="fade-in">
+    <div id="theme-label" style="font-size:13px;letter-spacing:2px;margin-bottom:8px;color:#00d4ff"></div>
+    <div style="font-size:22px;font-weight:700">Chọn Nhiệm Vụ</div>
+  </div>
+  <div class="mission-grid fade-in" id="mission-grid"></div>
+</div>
+
+<!-- SCREEN 5: PHASE 2 QUESTIONS -->
+<div class="screen" id="s-phase2">
+  <div class="card card-large fade-in" style="max-width:720px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span id="m-label" style="font-size:12px;letter-spacing:1.5px;opacity:.6"></span>
+      <span id="m-counter" style="font-size:13px;opacity:.6"></span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="p2-progress" style="width:0%"></div></div>
+    <div style="font-size:13px;color:#7ec8ff;margin-bottom:14px;min-height:18px" id="m-chapter"></div>
+    <div style="font-size:16px;font-weight:600;margin-bottom:20px;line-height:1.55" id="m-text"></div>
+    <div id="m-answers"></div>
+  </div>
+</div>
+
+<!-- SCREEN 6: MISSION COMPLETE -->
+<div class="screen" id="s-mission-done">
+  <div class="card fade-in" style="text-align:center">
+    <div style="font-size:56px;margin-bottom:16px">🎉</div>
+    <div style="font-size:22px;font-weight:800;margin-bottom:8px" class="glow-green">NHIỆM VỤ HOÀN THÀNH!</div>
+    <div style="font-size:15px;opacity:.7;margin-bottom:24px;line-height:1.7">
+      Tuyệt vời! Bạn đã vượt qua thử thách thực chiến.<br>
+      Capi rất ấn tượng với cách bạn xử lý tình huống!
+    </div>
+    <div style="font-size:14px;opacity:.6;margin-bottom:28px">
+      Bạn có muốn thử sức với nhiệm vụ khác không?
+    </div>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-outline" onclick="showMissionSelect()">🔄 Thử nhiệm vụ khác</button>
+      <button class="btn btn-primary" onclick="startPhase3()">➡️ Tiếp tục Phase 3</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 7: PHASE 3 -->
+<div class="screen" id="s-phase3">
+  <div class="card fade-in" style="max-width:680px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="color:#bf5fff;font-size:13px;letter-spacing:2px">💎 PHASE 3 — REFLECTION</span>
+      <span id="r-counter" style="font-size:13px;opacity:.6"></span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="p3-progress" style="width:0%;background:linear-gradient(90deg,#bf5fff,#ff5064)"></div></div>
+    <div style="font-size:13px;color:#bf8fff;margin-bottom:14px">
+      🦔 Capi: "Trước khi nhận kết quả, hãy cùng mình trò chuyện thêm nhé!"
+    </div>
+    <div style="font-size:16px;font-weight:600;margin-bottom:20px;line-height:1.55" id="r-text"></div>
+    <div id="r-answers"></div>
+  </div>
+</div>
+
+<!-- SCREEN 8: CERTIFICATE -->
+<div class="screen" id="s-cert">
+  <div class="cert fade-in" id="cert-container">
+    <div class="cert-title">🦔 VIỆN NGHIÊN CỨU CAPI</div>
+    <div class="cert-title" style="margin-top:4px">CHỨNG NHẬN ĐỊNH DANH</div>
+    <div style="font-size:28px;margin:20px 0 4px">✦ CAPI-GENE ✦</div>
+    <div id="cert-role-icon" style="font-size:72px;margin:16px 0"></div>
+    <div id="cert-role-badge" style="margin-bottom:12px;font-size:18px"></div>
+    <div class="cert-gene" id="cert-gene-text"></div>
+    <div id="cert-tagline" style="font-size:16px;opacity:.8;margin:12px 0 20px;line-height:1.6"></div>
+    <div id="cert-match-msg" style="background:rgba(255,255,255,.06);border-radius:10px;padding:16px;margin:16px 0;font-size:14px;line-height:1.7"></div>
+    <div style="margin-top:20px">
+      <div style="font-size:12px;opacity:.5;letter-spacing:2px;margin-bottom:10px">SUGGESTED CAREERS</div>
+      <div id="cert-careers" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center"></div>
+    </div>
+    <div style="margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:13px;opacity:.5">
+      🦔 Capi Career Path Simulator • Viện Nghiên cứu Capi
+    </div>
+    <button class="btn btn-outline" onclick="restart()" style="margin-top:20px;width:100%">🔁 Chơi lại từ đầu</button>
+  </div>
+</div>
+
+<script>
+// ====== GAME DATA ======
+const ROLES = {
+  Explorer: {
+    icon:'🔭', name:'Explorer', vn:'Nhà Khám Phá',
+    desc:'Bạn luôn tìm cách hiểu sâu bản chất vấn đề. Bạn yêu thích phân tích dữ liệu, nghiên cứu và khám phá những điều chưa ai biết.',
+    tagline:'Tò mò là sức mạnh. Hiểu sâu là vũ khí.',
+    careers:['Data Analyst','UX Researcher','AI Scientist','Product Analyst','Business Intelligence'],
+    color:'#00d4ff', glow:'0 0 30px rgba(0,212,255,.5)'
+  },
+  Builder: {
+    icon:'🔧', name:'Builder', vn:'Người Kiến Tạo',
+    desc:'Bạn thích tạo ra những thứ có thể nhìn thấy và chạm vào được. Từ code đến robot, bạn biến ý tưởng thành hiện thực bằng đôi tay và khối óc.',
+    tagline:'Ý tưởng không đủ — phải xây mới ra.',
+    careers:['Software Engineer','Product Engineer','Hardware Engineer','Dev Lead','CTO'],
+    color:'#ff8c00', glow:'0 0 30px rgba(255,140,0,.5)'
+  },
+  Operator: {
+    icon:'⚙️', name:'Operator', vn:'Nhà Vận Hành',
+    desc:'Bạn là người đảm bảo mọi thứ chạy trơn tru và đúng tiến độ. Tỉ mỉ, có hệ thống và đáng tin cậy — đó là thế mạnh của bạn.',
+    tagline:'Không quy trình, không thành quả.',
+    careers:['Project Manager','Operations Lead','Scrum Master','System Admin','DevOps Engineer'],
+    color:'#00ff88', glow:'0 0 30px rgba(0,255,136,.5)'
+  },
+  Connector: {
+    icon:'🤝', name:'Connector', vn:'Người Kết Nối',
+    desc:'Bạn có năng lực đặc biệt trong việc hiểu người khác và tạo ra sự gắn kết. Bạn xây dựng niềm tin và biến tập hợp người thành đội ngũ.',
+    tagline:'Một mình đi nhanh — cùng nhau đi xa.',
+    careers:['Product Manager','Team Lead','Community Manager','HR Tech','Partnership Lead'],
+    color:'#bf5fff', glow:'0 0 30px rgba(191,95,255,.5)'
+  },
+  Communicator: {
+    icon:'📢', name:'Communicator', vn:'Nhà Truyền Thông',
+    desc:'Bạn biến thông tin phức tạp thành câu chuyện truyền cảm hứng. Kỹ năng thuyết phục và chia sẻ ý tưởng là thế mạnh nổi bật của bạn.',
+    tagline:'Ý tưởng hay chỉ tỏa sáng khi được kể đúng.',
+    careers:['Tech Writer','Product Marketer','Dev Advocate','Startup Founder','Innovation Consultant'],
+    color:'#ff5064', glow:'0 0 30px rgba(255,80,100,.5)'
+  }
+};
+
+// Phase 1 questions - 15 questions mapping to 5 roles
+const P1_MAP = [
+  ['Explorer','Builder','Connector'],
+  ['Explorer','Builder','Connector'],
+  ['Explorer','Builder','Connector'],
+  ['Operator','Communicator','Explorer'],
+  ['Operator','Communicator','Explorer'],
+  ['Operator','Communicator','Explorer'],
+  ['Builder','Connector','Operator'],
+  ['Builder','Connector','Operator'],
+  ['Builder','Connector','Operator'],
+  ['Communicator','Explorer','Builder'],
+  ['Communicator','Explorer','Builder'],
+  ['Communicator','Explorer','Builder'],
+  ['Connector','Operator','Communicator'],
+  ['Connector','Operator','Communicator'],
+  ['Connector','Operator','Communicator']
+];
+
+const PHASE1_QS = [
+  {q:'Khi gặp một vấn đề mới, bạn thường bắt đầu bằng cách nào?',a:'Thu thập thông tin và phân tích các dữ liệu liên quan',b:'Thử nghiệm ngay một giải pháp cụ thể để xem kết quả',c:'Trao đổi với mọi người để hiểu vấn đề từ nhiều góc độ'},
+  {q:'Trong một dự án nhóm, bạn cảm thấy hài lòng nhất khi nào?',a:'Khi tìm ra nguyên nhân sâu xa của một vấn đề khó',b:'Khi tạo ra được một sản phẩm hoặc giải pháp hoạt động tốt',c:'Khi cả nhóm phối hợp ăn ý và đạt mục tiêu cùng nhau'},
+  {q:'Bạn tiếp cận một chủ đề mới theo cách nào?',a:'Đọc kỹ tài liệu, tìm các góc độ thú vị để khám phá',b:'Thực hành ngay lập tức để xem thực tế ra sao',c:'Hỏi người đã có kinh nghiệm về chủ đề đó'},
+  {q:'Khi chuẩn bị cho một sự kiện quan trọng, bạn làm gì trước tiên?',a:'Lập danh sách chi tiết các việc cần làm theo từng bước',b:'Chuẩn bị các câu chuyện và điểm nhấn thu hút người tham dự',c:'Nghiên cứu xem các sự kiện tương tự đã được tổ chức thế nào'},
+  {q:'Công việc nào khiến bạn hào hứng nhất khi được giao?',a:'Quản lý và tối ưu hóa một quy trình làm việc',b:'Thuyết trình hoặc chia sẻ ý tưởng với mọi người',c:'Tìm hiểu và phân tích một lĩnh vực bạn chưa biết nhiều'},
+  {q:'Bạn thích môi trường làm việc như thế nào nhất?',a:'Có quy trình rõ ràng, có tổ chức và đáng tin cậy',b:'Năng động, nhiều cơ hội giao tiếp và chia sẻ ý kiến',c:'Tự do khám phá và thử nghiệm các cách tiếp cận mới'},
+  {q:'Khi có một sản phẩm bị lỗi, bạn phản ứng thế nào?',a:'Tìm cách sửa chữa và cải tiến nó ngay',b:'Tập hợp mọi người lại để cùng tìm hướng giải quyết',c:'Lập quy trình kiểm tra để ngăn lỗi tương tự xảy ra'},
+  {q:'Điều gì khiến bạn tự hào nhất về bản thân?',a:'Khả năng tạo ra hoặc xây dựng những thứ mới',b:'Khả năng kết nối và hiểu được người xung quanh',c:'Sự kỹ lưỡng và đáng tin cậy trong công việc'},
+  {q:'Trong một trò chơi nhóm, bạn thường đóng vai trò gì?',a:'Người thiết kế chiến thuật và xây dựng các công cụ',b:'Người kết nối các thành viên và duy trì tinh thần nhóm',c:'Người đảm bảo mọi người tuân theo quy tắc và kế hoạch'},
+  {q:'Khi học một kỹ năng mới, cách nào hiệu quả nhất với bạn?',a:'Xem ví dụ thực tế rồi tự giải thích lại cho người khác',b:'Đọc nhiều tài liệu để hiểu lý thuyết sâu sắc',c:'Thực hành trực tiếp dù chưa hoàn toàn hiểu lý thuyết'},
+  {q:'Điều bạn ưu tiên nhất khi chia sẻ thông tin với người khác?',a:'Truyền đạt sao cho người nghe hiểu và thấy hứng thú',b:'Cung cấp đầy đủ dữ liệu và bằng chứng để thuyết phục',c:'Trình bày giải pháp cụ thể có thể thực hiện ngay'},
+  {q:'Bạn tự thấy mình ở đâu trong một buổi hội thảo?',a:'Đang chia sẻ ý kiến và tạo ra các cuộc thảo luận thú vị',b:'Đang ghi chép và tìm kiếm các góc nhìn mới',c:'Đang thực hành theo workshop hoặc xây demo nhỏ'},
+  {q:'Bạn giỏi nhất điều gì khi làm việc nhóm?',a:'Xây dựng niềm tin và tạo môi trường làm việc tốt',b:'Đảm bảo deadlines được tuân thủ và mọi thứ đúng tiến độ',c:'Trình bày và bảo vệ ý tưởng nhóm trước các bên liên quan'},
+  {q:'Khi dự án gặp khó khăn, bạn thường làm gì đầu tiên?',a:'Nói chuyện với từng người để hiểu họ đang cảm thấy thế nào',b:'Xem xét lại kế hoạch và điều chỉnh để đưa mọi thứ về đúng hướng',c:'Chia sẻ thông tin cập nhật để mọi người cùng nắm bắt'},
+  {q:'Bạn muốn được nhớ đến thế nào sau khi hoàn thành dự án?',a:'Người đã kéo cả nhóm lại và tạo ra tinh thần đoàn kết',b:'Người đảm bảo dự án hoàn thành đúng hẹn và đúng chất lượng',c:'Người đã kể câu chuyện của dự án theo cách truyền cảm hứng nhất'}
+];
+
+// Phase 3 reflection questions - one per role
+const PHASE3_QS = [
+  {role:'Explorer',q:'Khi gặp một vấn đề khó, việc ngồi lại tháo gỡ từng chút một làm bạn thấy thú vị hay khá mệt mỏi?',a:'Rất thú vị — đó là lúc mình tỏa sáng!',b:'Tùy trường hợp, đôi khi thú vị đôi khi mệt',c:'Khá mệt — mình thích hành động hơn'},
+  {role:'Builder',q:'Bạn thấy vui nhất khi lên kế hoạch trên giấy hay khi trực tiếp nhúng tay vào thực hiện?',a:'Khi nhúng tay vào thực hiện và thấy sản phẩm hình thành',b:'Cả hai đều quan trọng và bổ sung cho nhau',c:'Khi lên kế hoạch — sắp xếp ý tưởng rất thỏa mãn'},
+  {role:'Operator',q:'Làm việc theo quy trình tỉ mỉ để kết quả hoàn hảo nhất có khiến bạn thấy an tâm và thoải mái không?',a:'Rất an tâm — quy trình tốt là nền tảng thành công',b:'Ổn, nhưng mình cũng cần linh hoạt đôi chút',c:'Hơi gò bó — mình thích sự linh hoạt hơn'},
+  {role:'Connector',q:'Giữa tự làm một mình và kết nối mọi người để cùng làm, đâu là điều khiến bạn tự tin hơn?',a:'Kết nối mọi người — mình mạnh nhất khi làm cùng nhau',b:'Tùy tình huống, đôi khi cần làm một mình',c:'Tự làm một mình — mình kiểm soát được kết quả hơn'},
+  {role:'Communicator',q:'Việc truyền đạt ý tưởng để thuyết phục và truyền cảm hứng cho người khác có làm bạn hào hứng không?',a:'Rất hào hứng — đó là điều mình thích làm nhất!',b:'Khá hào hứng, đặc biệt khi ý tưởng quan trọng',c:'Bình thường thôi — mình không thích làm trung tâm'}
+];
+
+// Mission data
+const MISSIONS = {
+  space: {
+    label:'🚀 CHIẾN DỊCH ARK-CAPI',
+    color:'#00d4ff',
+    missions:[
+      {id:'m1', icon:'♻️', title:'Dòng Sông Xanh', sub:'Hệ thống Tái chế', desc:'Thiết kế robot thu gom rác trên sông, chuyển hóa thành năng lượng cho tàu Ark-Capi!'},
+      {id:'m2', icon:'🏥', title:'Trạm Y Tế Hạnh Phúc', sub:'AI Healthcare Assistant', desc:'Lập trình AI phân loại bệnh nhân và hỗ trợ bác sĩ theo dõi sức khỏe tự động!'},
+      {id:'m6', icon:'🤖', title:'Robot Cứu Hộ', sub:'Disaster Response Robot', desc:'Điều khiển robot đi vào vùng nguy hiểm, tìm kiếm nạn nhân và cứu hộ khẩn cấp!'}
+    ]
+  },
+  techno: {
+    label:'🏢 THỰC TẬP SINH TECHNO',
+    color:'#bf5fff',
+    missions:[
+      {id:'m3', icon:'🏠', title:'Căn Hộ Thông Minh', sub:'Smart Home Automation', desc:'Lập trình kịch bản tự động hóa cho các thiết bị trong ngôi nhà thông minh!'},
+      {id:'m4', icon:'📦', title:'Kho Tự Vận Hành', sub:'Autonomous Warehouse', desc:'Quy hoạch lộ trình robot, tối ưu hệ thống kho vận tự động hóa hoàn toàn!'},
+      {id:'m5', icon:'🚁', title:'Mạng Lưới Drone', sub:'Drone Delivery Network', desc:'Mô phỏng quỹ đạo bay, điều khiển drone giao hàng khẩn cấp vượt mọi địa hình!'}
+    ]
+  }
+};
+
+// Mission questions (A=Explorer, B=Builder, C=Connector mapping)
+const MISSION_QS = {
+  m1:[
+    {q:'"Rác nhựa bủa vây khắp nơi! Trước khi bắt đầu, mình nên làm gì đầu tiên?"',chapter:'Chương 1: Trinh sát',a:'Đi dọc bờ sông xem rác tập trung ở đâu và là loại gì',b:'Nghĩ xem robot cần làm được những việc gì để xử lý rác',c:'Hỏi người dân quanh đây xem tình hình rác thường ra sao'},
+    {q:'"Sao ban đêm rác lại nhiều hơn? Mình tìm hiểu thử không?"',chapter:'Chương 1: Trinh sát',a:'Quan sát xem vì sao ban đêm rác lại tăng',b:'Ghi lại để sau thiết kế robot chạy ban đêm tốt hơn',c:'Thử quan sát nhiều khung giờ để kiểm tra lại'},
+    {q:'"Mọi người ở đây vẫn chưa tin robot lắm. Bạn sẽ làm thế nào?"',chapter:'Chương 1: Trinh sát',a:'Tìm hiểu xem người dân đang lo lắng điều gì',b:'Điều chỉnh robot để kết quả xử lý rác ổn định và rõ ràng hơn',c:'Giải thích rõ cách robot hoạt động và lợi ích mang lại'},
+    {q:'"Để làm robot, chúng ta chia công việc. Bạn muốn làm phần nào?"',chapter:'Chương 2: Chế tạo',a:'Nghiên cứu về bài toán môi trường và dòng chảy',b:'Xây dựng hoặc cải tiến phần cốt lõi của robot',c:'Lên kế hoạch để robot có thể chạy tốt ngoài thực tế'},
+    {q:'"Bắt tay vào làm! Bước đầu tiên để biến ý tưởng thành robot là gì?"',chapter:'Chương 2: Chế tạo',a:'Đặt câu hỏi để làm rõ vấn đề và nhu cầu thực tế',b:'Vẽ ngay một bản phác thảo các bộ phận cơ khí của robot',c:'Nói chuyện với mọi người để thống nhất mục tiêu chung'},
+    {q:'"Khung robot hình thành nhưng có 2 phương án. Bạn ra quyết định thế nào?"',chapter:'Chương 2: Chế tạo',a:'So sánh ưu và nhược điểm của từng phương án',b:'Tạo phiên bản thử đơn giản để kiểm tra nhanh',c:'Chia sẻ bản vẽ để mọi người cùng đóng góp ý kiến'},
+    {q:'"Robot mẫu xong! Giờ chạy thử, bạn làm gì trước?"',chapter:'Chương 2: Chế tạo',a:'Tìm hiểu mọi người kỳ vọng gì để chạy thử đúng nhu cầu',b:'Kiểm tra lại từng mối nối để robot hoạt động ổn định',c:'Giải thích rõ để mọi người hiểu robot sẽ hoạt động thế nào'},
+    {q:'"Điều khiển robot ngoài sông khó lắm. Bạn muốn nâng cấp phần nào?"',chapter:'Chương 2: Chế tạo',a:'Cài thêm bản đồ tự động quét các vùng có rác',b:'Chỉnh bộ điều khiển từ xa để tay cầm nhạy hơn',c:'Thiết lập hệ thống thông báo trạng thái robot cho cả nhóm'},
+    {q:'"Robot hoạt động khá ồn khiến người dân khó chịu. Bạn làm gì?"',chapter:'Chương 2: Chế tạo',a:'Hỏi mọi người xem nó gây ồn thế nào và ảnh hưởng ra sao',b:'Điều chỉnh thiết kế để giảm tiếng ồn nhưng giữ hiệu quả',c:'Giải thích để mọi người hiểu và bớt khó chịu hơn'},
+    {q:'"Nước chảy xiết, robot sẽ bị trôi. Chúng ta nên làm gì?"',chapter:'Chương 3: Thử thách',a:'Khoanh vùng đoạn dòng chảy phức tạp để hiểu nguyên nhân',b:'Điều chỉnh công suất động cơ để giữ vị trí',c:'Điều chỉnh cách vận hành ở các đoạn rủi ro'},
+    {q:'"Cánh tay robot bị kẹt không gắp được nữa. Bạn sẽ làm gì?"',chapter:'Chương 3: Thử thách',a:'Dùng camera soi kỹ bên trong để tìm nguyên nhân lỗi',b:'Tự tay sửa chữa, thay thế linh kiện hỏng ngay tại chỗ',c:'Điều chỉnh cách vận hành để tránh tình huống dễ gây kẹt'},
+    {q:'"Robot bắt đầu thu được tinh thể năng lượng. Bạn làm gì tiếp?"',chapter:'Chương 4: Nhân rộng',a:'Kiểm tra lại xem robot có thật sự hiệu quả không',b:'Cải tiến để robot thu được nhiều hơn',c:'Chuẩn bị để mang robot đi dùng ở nhiều nơi khác'},
+    {q:'"Muốn robot chạy tốt hơn thì bạn làm gì?"',chapter:'Chương 4: Nhân rộng',a:'Xem lại dữ liệu để thử áp dụng ở nơi khác',b:'Chỉnh lại robot để dễ dùng ở nhiều khu vực hơn',c:'Nghĩ cách triển khai cho nhiều nơi giống như vậy'},
+    {q:'"Robot đột ngột dừng lại ngay trước giờ nạp lõi. Phản ứng của bạn?"',chapter:'Chương 5: Thử thách cuối',a:'Dừng lại để tìm nguyên nhân một cách có hệ thống',b:'Sửa nhanh để chạy lại ngay lập tức',c:'Điều chỉnh cách vận hành để tránh lỗi lặp lại'},
+    {q:'"Các lõi năng lượng gần đủ. Trước khi nạp lần cuối, bạn làm gì?"',chapter:'Chương 5: Thử thách cuối',a:'Kiểm tra lại toàn bộ để chắc chắn không có sai sót',b:'Tối ưu thêm để đạt hiệu quả cao nhất',c:'Nhắc lại hành trình để mọi người hiểu ý nghĩa nhiệm vụ'}
+  ],
+  m2:[
+    {q:'Mọi người đang stress quá, năng lượng lõi thấp kỷ lục. Bạn tính làm gì đầu tiên?',chapter:'Chương 1: Trinh sát',a:'Quan sát xem bước nào đang làm mọi người tốn thời gian nhất',b:'Liệt kê các yêu cầu kỹ thuật mà AI cần có để hỗ trợ',c:'Hỏi các y tá xem họ đang thấy mệt ở bước nào nhất'},
+    {q:'Bác sĩ mất quá nhiều thời gian đọc hồ sơ nên mặt hơi quạu rồi. Bạn làm gì tiếp?',chapter:'Chương 1: Trinh sát',a:'Tìm lý do tại sao việc tổng hợp thông tin lại bị chậm',b:'Xây ý tưởng về AI giúp tóm tắt hồ sơ cho nhanh',c:'Sắp xếp lại cách tiếp cận thông tin để bác sĩ đỡ mất công'},
+    {q:'Một vài bác sĩ chưa tin vào hệ thống AI mới. Trong tình huống này, bạn làm gì?',chapter:'Chương 1: Trinh sát',a:'Tìm hiểu xem bác sĩ đang lo lắng điều gì',b:'Điều chỉnh hệ thống AI để kết quả rõ ràng và ổn định hơn',c:'Giải thích rõ cách AI hoạt động và lợi ích mang lại'},
+    {q:'Bắt đầu chế tạo AI thôi. Bạn muốn làm phần nào?',chapter:'Chương 2: Chế tạo',a:'Tìm hiểu sâu vấn đề cần giải quyết trước khi vào giải pháp',b:'Phác thảo cấu trúc và các bộ phận kỹ thuật của AI',c:'Thảo luận với team để thống nhất mục tiêu giúp bác sĩ'},
+    {q:'AI phải thật xịn thì mọi người mới vui. Bạn muốn tập trung vào phần nào nhất?',chapter:'Chương 2: Chế tạo',a:'Phân tích dữ liệu bệnh án và thông tin',b:'Xây dựng phần cốt lõi của AI',c:'Lên kế hoạch để AI có thể chạy tốt ngoài thực tế'},
+    {q:'Mọi người đang có nhiều ý kiến khác nhau về cách làm AI. Bạn ra quyết định thế nào?',chapter:'Chương 2: Chế tạo',a:'So sánh ưu và nhược điểm của từng phương án trước khi chọn',b:'Tạo phiên bản thử đơn giản để kiểm tra nhanh',c:'Thảo luận để mọi người hiểu lý do và cùng chốt hướng đi'},
+    {q:'Sắp xong rồi! Để AI có thể chạy thử mượt mà, bạn sẽ làm gì?',chapter:'Chương 2: Chế tạo',a:'Tìm hiểu trước bác sĩ muốn thấy điều gì trong buổi chạy thử',b:'Kiểm tra lại toàn bộ hệ thống để chạy thử ổn định nhất',c:'Trình bày rõ ràng cách hệ thống hỗ trợ để bác sĩ dễ nắm'},
+    {q:'Ôi không, hệ thống AI đưa ra một số kết quả chưa chính xác. Làm gì bây giờ?',chapter:'Chương 2: Chế tạo',a:'Khoanh vùng nguyên nhân chính để hiểu lỗi xuất phát từ đâu',b:'Điều chỉnh và cải thiện mô hình để kết quả đáng tin cậy hơn',c:'Xem lại cách hệ thống đang được sử dụng để giảm sai sót'},
+    {q:'Thiếu dữ liệu huấn luyện nên AI cứ báo lỗi. Bạn tính sao?',chapter:'Chương 2: Chế tạo',a:'Xác định rõ còn thiếu loại dữ liệu nào và tìm thêm nguồn',b:'Linh hoạt thay đổi cách làm để tận dụng dữ liệu đang có',c:'Kết nối thêm với các bệnh viện khác để gom thêm dữ liệu'},
+    {q:'Các bác sĩ đang thấy hệ thống hơi khó dùng. Bạn ưu tiên làm gì?',chapter:'Chương 2: Chế tạo',a:'Hỏi kỹ bác sĩ xem họ đang vướng chỗ nào',b:'Chỉnh lại giao diện sao cho dễ nhìn và dễ dùng hơn',c:'Chỉ dẫn tận tình hơn để bác sĩ làm quen với AI'},
+    {q:'AI bắt đầu giúp các ca nhẹ, bệnh nhân bắt đầu mỉm cười. Giờ bạn muốn theo dõi chỉ số nào?',chapter:'Chương 3: Vận hành',a:'Xem AI phân loại các ca bệnh có chuẩn không',b:'Kiểm tra và cải tiến thêm cho hệ thống AI',c:'Chuẩn bị để hệ thống có thể xử lý lượng dữ liệu lớn hơn'},
+    {q:'AI sắp được dùng ở nhiều phòng khác để nạp thêm năng lượng. Bạn bắt đầu từ đâu?',chapter:'Chương 3: Vận hành',a:'Kiểm tra hệ thống hiện tại có đủ sức gánh thêm dữ liệu mới',b:'Nâng cấp kỹ thuật để AI chạy mượt khi có nhiều người dùng',c:'Xây quy trình để các khoa phối hợp dùng AI chung không rối'},
+    {q:'Dự án phòng khám được cả phi hành đoàn chú ý. Bạn muốn tận dụng cơ hội này thế nào?',chapter:'Chương 3: Vận hành',a:'Dùng số liệu thực tế để chứng minh AI đã giúp ích thế nào',b:'Tranh thủ nâng cấp công nghệ để AI ngày càng mạnh hơn',c:'Kể câu chuyện về sự thay đổi để lan tỏa niềm tin'},
+    {q:'Căng rồi! AI gặp sự cố, chỉ số Happy đang giảm mạnh. Bạn xử lý sao?',chapter:'Chương 4: Thử thách',a:'Tạm dừng để kiểm tra nhanh nguyên nhân chính',b:'Ưu tiên chuyển sang phương án an toàn hoặc sửa ngay lỗi nhỏ',c:'Giải thích nhanh cho bác sĩ để họ yên tâm phối hợp'},
+    {q:'Giờ cao điểm mà hệ thống lại đứng máy! Bạn xử lý thế nào?',chapter:'Chương 4: Thử thách',a:'Kiểm tra nhanh AI chậm do quá nhiều người hay nghẽn ở đâu',b:'Tập trung nâng cấp kỹ thuật để AI chịu được lượng cao',c:'Tạm thời chia lượt khám để AI chạy ổn qua giờ cao điểm'}
+  ],
+  m3:[
+    {q:'Khi vừa đến ngôi nhà sẽ triển khai smart home, nhóm cần chọn hướng tiếp cận ban đầu. Bạn đề xuất gì?',chapter:'Chương 1: Trinh sát',a:'Quan sát cách mọi người sinh hoạt để nhận ra những việc lặp lại',b:'Ghi lại những việc thủ công để xem phần nào có thể tự động hóa',c:'Hỏi trực tiếp các thành viên xem họ thấy bất tiện ở đâu'},
+    {q:'Đèn và điều hòa trong nhà thường xuyên bị quên tắt. Bạn đề xuất bước tiếp theo?',chapter:'Chương 1: Trinh sát',a:'Xác định thời điểm hoặc thói quen khiến việc quên tắt xảy ra',b:'Thiết kế cơ chế tự động phù hợp để hỗ trợ tắt thiết bị đúng lúc',c:'Cùng gia đình thống nhất các quy tắc sử dụng đơn giản'},
+    {q:'Một người lớn tuổi gặp khó khăn khi dùng app điều khiển. Bạn sẽ ưu tiên xử lý thế nào?',chapter:'Chương 1: Trinh sát',a:'Quan sát cách họ dùng app để xem đang bị vướng ở bước nào',b:'Chỉnh lại giao diện để đơn giản và dễ dùng hơn',c:'Hướng dẫn trực tiếp và kiên nhẫn cho đến khi họ quen'},
+    {q:'Một vài cư dân lo ngại về bảo mật và quyền riêng tư. Bạn sẽ làm gì?',chapter:'Chương 1: Trinh sát',a:'Tìm hiểu cụ thể những rủi ro họ đang lo lắng',b:'Tăng cường bảo mật hệ thống để kết quả đủ thuyết phục',c:'Giải thích rõ cách hệ thống bảo vệ dữ liệu của họ'},
+    {q:'Trong buổi họp đầu tiên của nhóm dự án, bạn thường đóng vai trò nào?',chapter:'Chương 2: Chế tạo',a:'Đặt câu hỏi then chốt để cả nhóm hiểu rõ nhu cầu trước khi bàn',b:'Đề xuất sớm một hướng kỹ thuật để mọi người có điểm bám',c:'Kết nối các ý tưởng thành hướng đi chung dễ theo'},
+    {q:'Nhóm có nhiều phương án thiết kế và cần sớm chốt hướng đi. Bạn nghiêng về cách nào?',chapter:'Chương 2: Chế tạo',a:'So sánh ưu nhược điểm từng phương án trước khi quyết định',b:'Tạo phiên bản thử đơn giản để xem phương án nào phù hợp',c:'Dẫn dắt thảo luận để cả nhóm cùng chốt một hướng đi'},
+    {q:'Nếu được chọn một phần việc trong dự án, bạn muốn nhận phần nào nhất?',chapter:'Chương 2: Chế tạo',a:'Nghiên cứu nhu cầu người dùng và phân tích dữ liệu sử dụng',b:'Lập trình các kịch bản tự động hóa cho thiết bị',c:'Phối hợp với gia đình để đưa hệ thống vào vận hành'},
+    {q:'Sắp demo cho cư dân rồi. Bạn muốn tập trung vào phần nào nhất?',chapter:'Chương 2: Chế tạo',a:'Tìm hiểu họ đang kỳ vọng điều gì để demo chạm đúng nhu cầu',b:'Kiểm tra lại toàn bộ hệ thống để demo diễn ra ổn định',c:'Chuẩn bị giải thích rõ cách hệ thống hoạt động và lợi ích'},
+    {q:'Trong quá trình test, hệ thống bất ngờ bật điện khi không cần. Bạn ưu tiên xử lý gì?',chapter:'Chương 3: Vận hành',a:'Tìm nguyên nhân chính gây lỗi để biết vấn đề ở đâu',b:'Cải thiện hệ thống để giảm khả năng lặp lại lỗi',c:'Điều chỉnh cách vận hành để hạn chế lỗi trong thực tế'},
+    {q:'Nhóm đang thiếu một số thiết bị cần thiết để tiếp tục test. Bạn xử lý thế nào?',chapter:'Chương 3: Vận hành',a:'Chọn phần quan trọng nhất để thử trước dù thiết bị chưa đủ',b:'Tận dụng và điều chỉnh thiết bị đang có để vẫn test được',c:'Tìm thêm thiết bị từ đối tác hoặc bộ phận liên quan'},
+    {q:'Một số người dùng phản hồi hệ thống còn hơi khó dùng. Bạn ưu tiên làm gì?',chapter:'Chương 3: Vận hành',a:'Thu thập phản hồi cụ thể để biết họ đang vướng ở đâu',b:'Cải thiện trải nghiệm để hệ thống trực quan hơn',c:'Hướng dẫn chi tiết hơn để người dùng quen dần'},
+    {q:'Nhóm cân nhắc triển khai cho nhiều căn hộ khác. Bạn muốn bắt đầu từ đâu?',chapter:'Chương 3: Vận hành',a:'Xem hệ thống hiện tại đã đủ ổn để mở rộng chưa',b:'Tối ưu hệ thống để khi nhân rộng vẫn hoạt động ổn định',c:'Xây quy trình triển khai để các căn hộ áp dụng dễ dàng'},
+    {q:'Hệ thống hoạt động tốt trong giai đoạn đầu. Bạn muốn nhóm tập trung gì tiếp?',chapter:'Chương 4: Mở rộng',a:'Đo hiệu quả kỹ hơn để biết tác động thực sự',b:'Tiếp tục cải tiến để hiệu suất và độ ổn định tốt hơn',c:'Chuẩn bị để mở rộng triển khai sang thêm nhiều khu vực'},
+    {q:'Ngay sát thời điểm chốt phương án, người dùng lại thay đổi yêu cầu. Bạn xử lý thế nào?',chapter:'Chương 4: Mở rộng',a:'Trao đổi trực tiếp để hỏi rõ lý do và nhu cầu thực sự',b:'Xem hệ thống cần chỉnh ở đâu để đáp ứng yêu cầu mới',c:'Họp nhanh với team để thống nhất ưu tiên trước khi chốt'},
+    {q:'Hệ thống bắt đầu phản hồi chậm khi nhiều thiết bị hoạt động cùng lúc. Bạn xử lý sao?',chapter:'Chương 4: Mở rộng',a:'Phân tích nhanh dữ liệu để xác định nguyên nhân quá tải',b:'Tối ưu các thành phần kỹ thuật để hệ thống chịu tải tốt hơn',c:'Sắp xếp lại lịch sử dụng để tránh quá tải đồng thời'}
+  ],
+  m4:[
+    {q:'Khi vừa đến kho để khảo sát, nhóm cần chọn hướng tiếp cận đầu tiên. Bạn đề xuất gì?',chapter:'Chương 1: Trinh sát',a:'Đi một vòng để xem hàng hóa bị ùn ở đâu và công đoạn nào mất thời gian',b:'Tìm những việc lặp đi lặp lại mà robot có thể hỗ trợ',c:'Trao đổi với nhân viên để hiểu họ thấy bất tiện ở đâu nhất'},
+    {q:'Nhân viên mất khá nhiều thời gian tìm đúng vị trí hàng. Bạn đề xuất bước tiếp theo?',chapter:'Chương 1: Trinh sát',a:'Xem lại quy trình để hiểu vì sao việc tìm hàng lại bị chậm',b:'Nghĩ cách robot hoặc hệ thống hỗ trợ tìm hàng nhanh hơn',c:'Sắp xếp lại vị trí hàng để nhân viên thao tác thuận tiện hơn'},
+    {q:'Một nhân viên gặp khó khăn khi dùng hệ thống mới. Bạn ưu tiên xử lý thế nào?',chapter:'Chương 1: Trinh sát',a:'Quan sát nhân viên đang bị vướng ở bước nào',b:'Chỉnh lại giao diện để dễ hiểu và thao tác dễ hơn',c:'Tạo hướng dẫn đơn giản để nhân viên làm vài bước cơ bản là xong'},
+    {q:'Một số nhân viên lo ngại về an toàn khi robot hoạt động chung. Bạn ưu tiên làm gì?',chapter:'Chương 1: Trinh sát',a:'Tìm hiểu họ đang lo lắng điều gì nhất về robot',b:'Cải thiện cảm biến và vùng an toàn để giảm rủi ro',c:'Giải thích rõ robot hoạt động an toàn thế nào và khi nào dừng'},
+    {q:'Trong buổi họp đầu tiên của nhóm dự án, bạn thường đóng vai trò nào nhất?',chapter:'Chương 2: Chế tạo',a:'Đặt câu hỏi quan trọng để cả nhóm hiểu rõ vấn đề trước',b:'Đưa ra một hướng giải pháp kỹ thuật cụ thể để bắt đầu',c:'Kết nối các ý tưởng thành hướng đi chung mà cả nhóm theo được'},
+    {q:'Nhóm có nhiều phương án cải thiện vận hành kho. Bạn sẽ nghiêng về cách nào?',chapter:'Chương 2: Chế tạo',a:'So sánh nhanh các phương án để xem cách nào phù hợp nhất',b:'Chọn một phương án và thử nhanh ở quy mô nhỏ xem hiệu quả',c:'Giúp cả nhóm trao đổi để thống nhất nhanh hướng đi chung'},
+    {q:'Nếu được chọn một phần việc quan trọng trong dự án, bạn muốn nhận phần nào?',chapter:'Chương 2: Chế tạo',a:'Nghiên cứu cách vận hành và dữ liệu kho để hiểu bài toán',b:'Xây dựng hoặc cải tiến robot và hệ thống lõi',c:'Đưa hệ thống vào vận hành thực tế và đảm bảo mọi thứ chạy trơn'},
+    {q:'Nhóm sắp demo hệ thống cho quản lý kho. Bạn muốn tập trung phần nào nhất?',chapter:'Chương 2: Chế tạo',a:'Tìm hiểu người xem kỳ vọng gì để demo chạm đúng nhu cầu',b:'Kiểm tra lại toàn bộ để demo diễn ra ổn định ít lỗi nhất',c:'Giải thích rõ hệ thống hoạt động ra sao và giúp ích thế nào'},
+    {q:'Trong quá trình test, hệ thống bất ngờ chạy sai gây lỗi. Bạn ưu tiên làm gì trước?',chapter:'Chương 3: Vận hành',a:'Tìm nguyên nhân chính gây lỗi: dữ liệu, robot hay luồng xử lý',b:'Cải thiện hệ thống để giảm lỗi lặp lại trong những lần tiếp',c:'Điều chỉnh cách vận hành để hạn chế lỗi khi tiếp tục test'},
+    {q:'Nhóm đang thiếu robot hoặc thiết bị để tiếp tục test. Bạn xử lý thế nào?',chapter:'Chương 3: Vận hành',a:'Chọn phần quan trọng nhất để thử trước dù chưa đủ thiết bị',b:'Tận dụng thiết bị đang có để nhóm vẫn tiếp tục test được',c:'Tìm thêm robot từ đối tác hoặc bộ phận liên quan'},
+    {q:'Sau khi dùng thử, nhân viên cho rằng hệ thống còn hơi khó dùng. Bạn ưu tiên làm gì?',chapter:'Chương 3: Vận hành',a:'Xem kỹ nhân viên đang bị vướng ở bước nào',b:'Cải thiện trải nghiệm để hệ thống trực quan và dễ thao tác hơn',c:'Hướng dẫn cách dùng rõ ràng hơn để nhân viên sử dụng hiệu quả'},
+    {q:'Nhóm cân nhắc triển khai hệ thống cho nhiều kho khác. Bạn muốn bắt đầu từ đâu?',chapter:'Chương 3: Vận hành',a:'Xem hệ thống hiện tại đã đủ ổn để áp dụng cho kho khác chưa',b:'Tối ưu để khi mở rộng robot và phần mềm vẫn hoạt động ổn định',c:'Xây quy trình triển khai để nhiều kho áp dụng không bị rối'},
+    {q:'Hệ thống đang hoạt động tốt. Bạn muốn nhóm tập trung gì tiếp?',chapter:'Chương 4: Mở rộng',a:'Đo hiệu quả kỹ hơn để biết hệ thống tạo ra tác động thực sự',b:'Tiếp tục cải tiến để hiệu suất và độ ổn định tốt hơn',c:'Chuẩn bị để mở rộng triển khai sang nhiều khu vực'},
+    {q:'Ngay sát giờ chốt, phía khách hàng thay đổi yêu cầu. Bạn xử lý thế nào?',chapter:'Chương 4: Mở rộng',a:'Tìm hiểu kỹ lý do thật sự phía sau yêu cầu mới',b:'Điều chỉnh hệ thống ở những phần phù hợp để đáp ứng thay đổi',c:'Họp nhanh với team để thống nhất ưu tiên trước khi chốt'},
+    {q:'Trong giờ cao điểm, hệ thống bắt đầu phản hồi chậm. Bạn xử lý sao?',chapter:'Chương 4: Mở rộng',a:'Xem hệ thống đang bị quá tải ở phần nào: dữ liệu hay thiết bị',b:'Tối ưu kỹ thuật để hệ thống chịu tải tốt hơn',c:'Phối hợp với các bộ phận liên quan để xử lý đồng thời'}
+  ],
+  m5:[
+    {q:'Khi vừa đến khu vực thử nghiệm giao hàng bằng drone, nhóm cần chọn hướng tiếp cận. Bạn đề xuất gì?',chapter:'Chương 1: Trinh sát',a:'Quan sát luồng di chuyển và địa hình để nắm bức tranh vận hành',b:'Hình dung các khâu mà drone có thể hỗ trợ hiệu quả hơn',c:'Trao đổi với shipper và khách hàng để hiểu nhu cầu thực tế'},
+    {q:'Giao hàng thường chậm ở khu đông xe và khó tiếp cận. Bạn đề xuất bước tiếp theo?',chapter:'Chương 1: Trinh sát',a:'Xác định nguyên nhân chính và các điểm nghẽn làm chậm giao hàng',b:'Điều chỉnh cách thiết kế tuyến bay để giao hàng hiệu quả hơn',c:'Sắp xếp lại quy trình giao nhận để giảm độ trễ thực tế'},
+    {q:'Khách hàng gặp khó khăn theo dõi trạng thái đơn hàng bằng drone. Bạn ưu tiên gì?',chapter:'Chương 1: Trinh sát',a:'Theo dõi cách họ dùng để xem bị rối ở bước nào',b:'Cải thiện giao diện và hệ thống theo dõi để trực quan hơn',c:'Đơn giản hóa cách nhận thông báo để theo dõi thuận tiện hơn'},
+    {q:'Cơ quan quản lý lo ngại về an toàn bay và quyền riêng tư. Bạn muốn đóng vai trò nào?',chapter:'Chương 1: Trinh sát',a:'Tìm hiểu cụ thể những rủi ro khiến họ chưa yên tâm',b:'Nâng khả năng an toàn và kiểm soát hệ thống để thuyết phục',c:'Giải thích rõ cách hệ thống kiểm soát rủi ro và bảo vệ dữ liệu'},
+    {q:'Trong buổi họp thiết kế mạng lưới drone, bạn thường đóng vai trò nào?',chapter:'Chương 2: Chế tạo',a:'Đặt câu hỏi then chốt để làm rõ bài toán và các ràng buộc',b:'Đưa ra sớm một hướng kỹ thuật cho tuyến bay hoặc tracking',c:'Kết nối các ý tưởng thành hướng triển khai chung dễ theo'},
+    {q:'Team tranh luận giữa nhiều phương án triển khai mạng lưới drone. Bạn nghiêng về đâu?',chapter:'Chương 2: Chế tạo',a:'So sánh ưu nhược và điều kiện áp dụng từng phương án trước',b:'Tạo nhanh một phiên bản thử để xem phương án nào tốt hơn',c:'Dẫn dắt trao đổi để cả nhóm đi đến lựa chọn thống nhất'},
+    {q:'Bạn được giao một phần việc quan trọng. Bạn muốn nhận phần nào nhất?',chapter:'Chương 2: Chế tạo',a:'Phân tích dữ liệu tuyến đường và rủi ro để nhóm ra quyết định',b:'Phát triển phần lõi: điều phối chuyến bay hoặc kiểm soát drone',c:'Tổ chức triển khai và vận hành để hệ thống chạy trơn ngoài thực tế'},
+    {q:'Trước buổi demo cho đối tác, bạn muốn tập trung phần nào nhất?',chapter:'Chương 2: Chế tạo',a:'Tìm hiểu người xem đang kỳ vọng gì để demo chạm đúng',b:'Rà soát toàn bộ drone và hệ thống để demo ổn định nhất',c:'Chuẩn bị giải thích rõ về giá trị và cách vận hành hệ thống'},
+    {q:'Trong quá trình test, một số drone giao hàng thất bại giữa đường. Bạn muốn điều tra gì?',chapter:'Chương 3: Vận hành',a:'Khoanh vùng nguyên nhân: điều kiện bay, cảm biến hay logic',b:'Điều chỉnh thuật toán và cảm biến để tăng độ ổn định',c:'Điều chỉnh quy trình vận hành để giảm lỗi khi triển khai'},
+    {q:'Team đang thiếu thiết bị để tiếp tục test như kế hoạch. Bạn xử lý thế nào?',chapter:'Chương 3: Vận hành',a:'Tìm phương án thay thế để vẫn kiểm tra được giả thuyết chính',b:'Tận dụng và chỉnh sửa những gì đang có để làm việc tạm thời',c:'Kết nối với đối tác để hỗ trợ thêm nguồn lực'},
+    {q:'Người dùng phản hồi hệ thống nhận hàng bằng drone còn gây lo lắng. Bạn ưu tiên gì?',chapter:'Chương 3: Vận hành',a:'Thu thập phản hồi cụ thể để biết điều gì khiến họ chưa yên tâm',b:'Điều chỉnh trải nghiệm nhận hàng để mọi thứ rõ ràng hơn',c:'Giải thích và hướng dẫn để người dùng thấy quen và yên tâm'},
+    {q:'Hệ thống được đề xuất mở rộng toàn thành phố. Bạn muốn bắt đầu từ đâu?',chapter:'Chương 3: Vận hành',a:'Đánh giá khả năng mở rộng và rủi ro khi tăng quy mô',b:'Tối ưu kiến trúc hệ thống và fleet drone để vận hành ổn định',c:'Xây cách tổ chức và điều phối để hệ thống chạy được ở quy mô lớn'},
+    {q:'Hệ thống hoạt động tốt trong giai đoạn đầu. Nhóm nên tập trung gì tiếp?',chapter:'Chương 4: Mở rộng',a:'Đo hiệu quả kỹ hơn để biết tác động thực sự của hệ thống',b:'Tiếp tục cải tiến để drone và hệ thống ngày càng tốt hơn',c:'Chuẩn bị để mở rộng sang nhiều khu vực và thành phố'},
+    {q:'Nhiều thành phố khác quan tâm đến mô hình này. Bạn muốn đóng vai trò gì?',chapter:'Chương 4: Mở rộng',a:'Tìm hiểu đặc điểm đô thị và rủi ro từng nơi trước khi triển khai',b:'Điều chỉnh hệ thống drone để phù hợp điều kiện cụ thể của từng nơi',c:'Xây dựng cách phối hợp để nhiều thành phố cùng triển khai hiệu quả'},
+    {q:'Hệ thống bắt đầu quá tải khi số lượng đơn giao tăng mạnh cùng lúc. Bạn ưu tiên gì?',chapter:'Chương 4: Mở rộng',a:'Phân tích dữ liệu để xác định điểm nghẽn chính đang làm chậm',b:'Tối ưu hệ thống điều phối và cách phân bổ drone để chịu tải',c:'Phối hợp với các bên liên quan để xử lý quá tải cùng nhau'}
+  ],
+  m6:[
+    {q:'Khi vừa đến hiện trường sau trận động đất, nhóm cần chọn hướng tiếp cận. Bạn đề xuất gì?',chapter:'Chương 1: Trinh sát',a:'Quan sát hiện trường để nắm mức độ nguy hiểm và ưu tiên khu vực',b:'Hình dung các nhiệm vụ robot có thể hỗ trợ ngay cho đội cứu hộ',c:'Trao đổi với đội cứu hộ để hiểu nhu cầu cấp bách nhất'},
+    {q:'Đội cứu hộ đang mất nhiều thời gian tìm kiếm trong khu vực rộng. Bạn đề xuất gì?',chapter:'Chương 1: Trinh sát',a:'Xác định nguyên nhân chính khiến tìm kiếm chậm và kém hiệu quả',b:'Đề xuất dùng robot quét khu vực và phát hiện dấu hiệu sống',c:'Sắp xếp lại phạm vi và thứ tự tìm kiếm để dùng thời gian hiệu quả'},
+    {q:'Một số robot gặp khó khăn khi di chuyển qua đống đổ nát. Bạn ưu tiên xử lý thế nào?',chapter:'Chương 1: Trinh sát',a:'Theo dõi địa hình và cách robot di chuyển để xem mất ổn định ở đâu',b:'Điều chỉnh thiết kế robot để phù hợp địa hình phức tạp hơn',c:'Sắp xếp lại cách vận hành để tránh những khu vực quá rủi ro'},
+    {q:'Một số thành viên cứu hộ chưa tin tưởng robot. Bạn làm gì?',chapter:'Chương 1: Trinh sát',a:'Tìm hiểu cụ thể điều gì khiến họ còn dè dặt',b:'Nâng độ ổn định và hiệu quả robot để kết quả đủ thuyết phục',c:'Giải thích rõ robot sẽ hỗ trợ ở bước nào và giới hạn nằm ở đâu'},
+    {q:'Trong buổi họp nhanh giữa đội cứu hộ và kỹ thuật, bạn đóng vai trò nào nhất?',chapter:'Chương 2: Chế tạo',a:'Đặt câu hỏi then chốt để làm rõ nhu cầu thực tế tại hiện trường',b:'Đưa ra sớm một hướng giải pháp robot phù hợp tình huống',c:'Kết nối các ý kiến thành bản kế hoạch chung để cùng triển khai'},
+    {q:'Team tranh luận giữa hai cách triển khai robot. Bạn nghiêng về đâu?',chapter:'Chương 2: Chế tạo',a:'So sánh ưu nhược và điều kiện áp dụng từng phương án',b:'Tạo nhanh một phiên bản thử robot để xem phương án nào tốt hơn',c:'Dẫn dắt trao đổi để cả nhóm đi đến một lựa chọn thống nhất'},
+    {q:'Bạn được giao một nhiệm vụ quan trọng trong chiến dịch cứu hộ. Bạn nhận phần nào?',chapter:'Chương 2: Chế tạo',a:'Phân tích dữ liệu hiện trường và tín hiệu người sống sót',b:'Phụ trách điều khiển, sửa hoặc cải tiến robot tại hiện trường',c:'Tổ chức cách robot phối hợp với đội cứu hộ cho trơn tru'},
+    {q:'Trước buổi demo nhanh cho đội cứu hộ, bạn muốn tập trung phần nào?',chapter:'Chương 2: Chế tạo',a:'Tìm hiểu họ kỳ vọng robot làm được gì trong điều kiện thực tế',b:'Rà soát toàn bộ robot để phần trình diễn ổn định nhất',c:'Chuẩn bị giải thích rõ ràng về cách robot hỗ trợ và giới hạn'},
+    {q:'Trong quá trình test, robot không phát hiện được nạn nhân ở khu vực khó. Bạn ưu tiên gì?',chapter:'Chương 3: Vận hành',a:'Khoanh vùng nguyên nhân robot đang bỏ sót tín hiệu ở bước nào',b:'Điều chỉnh cảm biến và thuật toán để tăng khả năng phát hiện',c:'Xem lại cách triển khai và phạm vi để giảm khả năng bỏ sót'},
+    {q:'Thiếu thiết bị quan trọng nên chưa thể tiếp tục triển khai. Bạn xử lý thế nào?',chapter:'Chương 3: Vận hành',a:'Tìm phương án thay thế để vẫn thử nghiệm và hỗ trợ nhiệm vụ',b:'Tận dụng và chỉnh sửa những gì đang có để tạo giải pháp tạm thời',c:'Kết nối với đơn vị khác để xin hỗ trợ nguồn lực còn thiếu'},
+    {q:'Nạn nhân và người dân cảm thấy hoảng sợ khi thấy robot. Bạn ưu tiên gì?',chapter:'Chương 3: Vận hành',a:'Tìm hiểu cụ thể điều gì đang khiến họ lo lắng',b:'Điều chỉnh hình thức và cách tiếp cận của robot để giảm căng thẳng',c:'Giải thích và trấn an để họ hiểu robot đang hỗ trợ gì'},
+    {q:'Dự án đề xuất mở rộng sang nhiều khu vực cứu hộ. Bạn muốn bắt đầu từ đâu?',chapter:'Chương 3: Vận hành',a:'Đánh giá khả năng mở rộng và rủi ro khi tăng quy mô',b:'Tối ưu robot và hệ thống để giải pháp nhân rộng dễ hơn',c:'Xây cách triển khai và phối hợp đủ rõ để nhiều đội áp dụng'},
+    {q:'Robot đã giúp đội cứu hộ hiệu quả hơn ở khu vực đầu. Nhóm nên tập trung gì tiếp?',chapter:'Chương 4: Mở rộng',a:'Thu thập thêm dữ liệu để đo mức hiệu quả thực sự',b:'Phân tích điểm mạnh yếu robot để xác định hướng cải tiến',c:'Chuẩn bị để mở rộng triển khai sang nhiều khu vực cứu hộ'},
+    {q:'Nhiều tổ chức cứu hộ khác quan tâm đến hệ thống. Bạn muốn đảm nhận gì?',chapter:'Chương 4: Mở rộng',a:'Chia sẻ kinh nghiệm và kết nối các đội hình thành mạng lưới',b:'Điều chỉnh robot và hệ thống phù hợp điều kiện từng khu vực',c:'Xây dựng cách phối hợp để triển khai hiệu quả ngoài thực tế'},
+    {q:'Dự án bắt đầu được chú ý rộng rãi. Bạn muốn tận dụng cơ hội này theo cách nào?',chapter:'Chương 4: Mở rộng',a:'Dùng dữ liệu và kết quả thực tế để làm rõ tác động hệ thống',b:'Tập trung hoàn thiện và nâng cấp robot để hoạt động tốt hơn',c:'Chia sẻ câu chuyện từ hiện trường để mọi người hiểu và ủng hộ'}
+  ]
+};
+
+// ====== GAME STATE ======
+let state = {
+  p1Scores:{Explorer:0,Builder:0,Operator:0,Connector:0,Communicator:0},
+  p1Role:null,
+  p2Scores:{Explorer:0,Builder:0,Operator:0,Connector:0,Communicator:0},
+  p3Scores:{Explorer:0,Builder:0,Operator:0,Connector:0,Communicator:0},
+  p3Role:null,
+  theme:null,
+  missionId:null,
+  missionDone:false,
+  curQ:0,
+  phase:1
+};
+
+// ====== NAVIGATION ======
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function startGame(){
+  state={p1Scores:{Explorer:0,Builder:0,Operator:0,Connector:0,Communicator:0},p1Role:null,p2Scores:{Explorer:0,Builder:0,Operator:0,Connector:0,Communicator:0},p3Scores:{Explorer:0,Builder:0,Operator:0,Connector:0,Communicator:0},p3Role:null,theme:null,missionId:null,missionDone:false,curQ:0,phase:1};
+  state.curQ=0;
+  renderPhase1Question();
+  showScreen('s-phase1');
+}
+
+// ====== PHASE 1 ======
+function renderPhase1Question(){
+  const q=PHASE1_QS[state.curQ];
+  const map=P1_MAP[state.curQ];
+  document.getElementById('q-counter').textContent=`Câu ${state.curQ+1} / 15`;
+  document.getElementById('q-capi').textContent='🦔 Capi: "Hãy cho mình biết về bạn!"';
+  document.getElementById('q-text').textContent=q.q;
+  document.getElementById('p1-progress').style.width=((state.curQ/15)*100)+'%';
+  const ans=document.getElementById('answers');
+  ans.innerHTML=['A','B','C'].map((l,i)=>`<button class="btn-answer" onclick="answerP1('${['a','b','c'][i]}','${map[i]}')">${l}. ${q[['a','b','c'][i]]}</button>`).join('');
+}
+
+function answerP1(letter,role){
+  state.p1Scores[role]=(state.p1Scores[role]||0)+1;
+  state.curQ++;
+  if(state.curQ<15){renderPhase1Question();}
+  else{showP1Result();}
+}
+
+function showP1Result(){
+  // Determine top role
+  let top=Object.entries(state.p1Scores).sort((a,b)=>b[1]-a[1])[0][0];
+  state.p1Role=top;
+  const r=ROLES[top];
+  // Remove scan line
+  document.getElementById('scan-line').style.display='none';
+  document.getElementById('p1-role-icon').textContent=r.icon;
+  document.getElementById('p1-role-badge').innerHTML=`<span class="role-badge role-${top}">${r.icon} ${r.vn}</span>`;
+  document.getElementById('p1-role-name').textContent=r.vn;
+  document.getElementById('p1-role-name').style.color=r.color;
+  document.getElementById('p1-role-desc').textContent=r.desc;
+  document.getElementById('p1-role-name2').textContent=r.vn;
+  document.getElementById('cert-container').style.borderColor=r.color;
+  setTimeout(()=>document.getElementById('scan-line').style.display='block',100);
+  showScreen('s-phase1-result');
+}
+
+function showThemeSelect(){
+  showScreen('s-theme');
+}
+
+function selectTheme(t){
+  state.theme=t;
+  showMissionSelect();
+}
+
+function showMissionSelect(){
+  const theme=MISSIONS[state.theme];
+  document.getElementById('theme-label').textContent=theme.label;
+  document.getElementById('theme-label').style.color=theme.color;
+  const grid=document.getElementById('mission-grid');
+  grid.innerHTML=theme.missions.map(m=>`
+    <div class="mission-card" onclick="startMission('${m.id}')" style="border-color:rgba(${state.theme==='space'?'0,180,255':'191,95,255'},.25)">
+      <div style="font-size:40px;margin-bottom:12px">${m.icon}</div>
+      <div style="font-size:16px;font-weight:700;margin-bottom:4px">${m.title}</div>
+      <div style="font-size:12px;opacity:.5;margin-bottom:10px;letter-spacing:1px">${m.sub}</div>
+      <div style="font-size:13px;opacity:.7;line-height:1.5">${m.desc}</div>
+    </div>`).join('');
+  showScreen('s-mission-select');
+}
+
+// ====== PHASE 2 ======
+function startMission(id){
+  state.missionId=id;
+  state.curQ=0;
+  state.p2Scores={Explorer:0,Builder:0,Operator:0,Connector:0,Communicator:0};
+  renderMissionQuestion();
+  showScreen('s-phase2');
+}
+
+function getP2RoleMap(){
+  // A=Explorer, B=Builder, C=Connector for most mission questions
+  // This is a consistent mapping across all mission questions
+  return ['Explorer','Builder','Connector'];
+}
+
+function renderMissionQuestion(){
+  const qs=MISSION_QS[state.missionId];
+  const q=qs[state.curQ];
+  const map=getP2RoleMap();
+  const mInfo=Object.values(MISSIONS).flatMap(t=>t.missions).find(m=>m.id===state.missionId);
+  document.getElementById('m-label').textContent=`${mInfo?mInfo.icon:''} ${mInfo?mInfo.title:''} — PHASE 2`;
+  document.getElementById('m-counter').textContent=`Câu ${state.curQ+1} / ${qs.length}`;
+  document.getElementById('m-chapter').textContent=`🦔 Capi | ${q.chapter}`;
+  document.getElementById('m-text').textContent=q.q;
+  document.getElementById('p2-progress').style.width=((state.curQ/qs.length)*100)+'%';
+  const ans=document.getElementById('m-answers');
+  ans.innerHTML=['A','B','C'].map((l,i)=>`<button class="btn-answer" onclick="answerP2('${['a','b','c'][i]}','${map[i]}')">${l}. ${q[['a','b','c'][i]]}</button>`).join('');
+}
+
+function answerP2(letter,role){
+  state.p2Scores[role]=(state.p2Scores[role]||0)+1;
+  state.curQ++;
+  const qs=MISSION_QS[state.missionId];
+  if(state.curQ<qs.length){renderMissionQuestion();}
+  else{state.missionDone=true;showScreen('s-mission-done');}
+}
+
+// ====== PHASE 3 ======
+function startPhase3(){
+  state.curQ=0;
+  state.p3Scores={Explorer:0,Builder:0,Operator:0,Connector:0,Communicator:0};
+  renderP3Question();
+  showScreen('s-phase3');
+}
+
+// Phase 3 scoring: A = matching role (+2), B = partial (+1), C = other (0)
+function renderP3Question(){
+  const q=PHASE3_QS[state.curQ];
+  document.getElementById('r-counter').textContent=`Câu ${state.curQ+1} / 5`;
+  document.getElementById('p3-progress').style.width=((state.curQ/5)*100)+'%';
+  document.getElementById('r-text').textContent=q.q;
+  const ans=document.getElementById('r-answers');
+  ans.innerHTML=`
+    <button class="btn-answer" onclick="answerP3('a','${q.role}',2)">${q.a}</button>
+    <button class="btn-answer" onclick="answerP3('b','${q.role}',1)">${q.b}</button>
+    <button class="btn-answer" onclick="answerP3('c','${q.role}',0)">${q.c}</button>`;
+}
+
+function answerP3(letter,role,pts){
+  state.p3Scores[role]=(state.p3Scores[role]||0)+pts;
+  state.curQ++;
+  if(state.curQ<5){renderP3Question();}
+  else{showCertificate();}
+}
+
+// ====== CERTIFICATE ======
+function showCertificate(){
+  // Determine Phase 3 role (from reflection questions)
+  let p3Top=Object.entries(state.p3Scores).sort((a,b)=>b[1]-a[1])[0][0];
+  state.p3Role=p3Top;
+
+  // Final role = combine p1 + p2 + p3
+  const combined={};
+  const roles=Object.keys(ROLES);
+  roles.forEach(r=>{
+    combined[r]=(state.p1Scores[r]||0)*2+(state.p2Scores[r]||0)*1.5+(state.p3Scores[r]||0)*2.5;
+  });
+  const finalRole=Object.entries(combined).sort((a,b)=>b[1]-a[1])[0][0];
+  const r=ROLES[finalRole];
+  const cert=document.getElementById('cert-container');
+  cert.style.borderColor=r.color;
+  cert.style.boxShadow=r.glow;
+  document.getElementById('cert-role-icon').textContent=r.icon;
+  document.getElementById('cert-role-badge').innerHTML=`<span class="role-badge role-${finalRole}" style="font-size:16px">${r.icon} ${r.vn}</span>`;
+  document.getElementById('cert-gene-text').textContent=r.name.toUpperCase();
+  document.getElementById('cert-gene-text').style.color=r.color;
+  document.getElementById('cert-tagline').textContent=`"${r.tagline}"`;
+
+  let matchMsg='';
+  if(state.p1Role===finalRole){
+    matchMsg=`✨ <strong>Bạn là một ${r.vn} đích thực!</strong><br>Cả quá trình đánh giá đều xác nhận rõ ràng — đây chính là tố chất nghề nghiệp cốt lõi của bạn.`;
+  } else {
+    const r1=ROLES[state.p1Role];
+    matchMsg=`🌟 <strong>Khám phá mới!</strong><br>Bạn khởi đầu như một ${r1.vn}, nhưng thực tế tỏa sáng ở ${r.vn}. Bạn đang phát triển và mở rộng bản thân!`;
+  }
+  document.getElementById('cert-match-msg').innerHTML=matchMsg;
+
+  const careersEl=document.getElementById('cert-careers');
+  careersEl.innerHTML=r.careers.map(c=>`<span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:6px 14px;font-size:13px">${c}</span>`).join('');
+
+  showScreen('s-cert');
+}
+
+function restart(){startGame();}
+
+// ====== STARS ======
+(function createStars(){
+  const s=document.getElementById('stars');
+  for(let i=0;i<120;i++){
+    const d=document.createElement('div');
+    d.className='star';
+    const size=Math.random()*2.5+0.5;
+    d.style.cssText=`width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s`;
+    s.appendChild(d);
+  }
+})();
+</script>
+</body>
+</html>
