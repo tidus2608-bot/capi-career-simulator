@@ -1,3 +1,8 @@
 name = "capi-career-simulator"
 pages_build_output_dir = "."
 compatibility_date = "2025-01-01"
+
+[[d1_databases]]
+binding       = "DB"
+database_name = "capi-db"
+database_id   = "a74da774-022c-42e9-9548-c5a64366c360"
