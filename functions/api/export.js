@@ -1,14 +1,10 @@
-/**
- * GET /api/export
- * Returns all results as a downloadable CSV file.
- * Protected by the same ?key=<ADMIN_KEY> as /api/results.
- */
+import { verifySession } from '../_auth.js';
+
 export async function onRequestGet(ctx) {
   const { request, env } = ctx;
-  const url = new URL(request.url);
-  const key = url.searchParams.get('key');
 
-  if (!env.ADMIN_KEY || key !== env.ADMIN_KEY) {
+  const email = await verifySession(request, env);
+  if (!email) {
     return new Response('Unauthorized', { status: 401 });
   }
 
@@ -17,13 +13,10 @@ export async function onRequestGet(ctx) {
       SELECT id, created_at, final_role, mission_id,
              p1_scores, p2_scores, p3_scores,
              confidence, share_hash
-      FROM results
-      ORDER BY created_at DESC
+      FROM results ORDER BY created_at DESC
     `).all();
 
-    const ROLES = ['E', 'B', 'O', 'C', 'Cm'];
-
-    // CSV header
+    const ROLES  = ['E', 'B', 'O', 'C', 'Cm'];
     const header = [
       'id', 'created_at', 'final_role', 'mission_id', 'confidence',
       'p1_E','p1_B','p1_O','p1_C','p1_Cm',
@@ -37,10 +30,8 @@ export async function onRequestGet(ctx) {
       const p2 = safeJson(row.p2_scores);
       const p3 = safeJson(row.p3_scores);
       return [
-        row.id,
-        row.created_at,
-        csvEsc(row.final_role),
-        csvEsc(row.mission_id),
+        row.id, row.created_at,
+        csvEsc(row.final_role), csvEsc(row.mission_id),
         row.confidence ?? '',
         ...ROLES.map(r => p1[r] ?? 0),
         ...ROLES.map(r => p2[r] ?? 0),
@@ -49,12 +40,12 @@ export async function onRequestGet(ctx) {
       ].join(',');
     });
 
-    const csv = [header, ...lines].join('\r\n');
+    const csv      = [header, ...lines].join('\r\n');
     const filename = `capi-results-${new Date().toISOString().slice(0, 10)}.csv`;
 
     return new Response(csv, {
       headers: {
-        'Content-Type': 'text/csv; charset=utf-8',
+        'Content-Type':        'text/csv; charset=utf-8',
         'Content-Disposition': `attachment; filename="${filename}"`,
         'Access-Control-Allow-Origin': '*',
       },
@@ -80,7 +71,7 @@ function csvEsc(val) {
 export async function onRequestOptions() {
   return new Response(null, {
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin':  '*',
       'Access-Control-Allow-Methods': 'GET, OPTIONS',
     },
   });
