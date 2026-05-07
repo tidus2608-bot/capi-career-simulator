@@ -6,8 +6,31 @@
  *   GOOGLE_CLIENT_ID     – OAuth 2.0 client ID
  *   GOOGLE_CLIENT_SECRET – OAuth 2.0 client secret
  *   SESSION_SECRET       – random string ≥ 32 chars for signing cookies
- *   ALLOWED_EMAIL        – the one Google account allowed admin access
+ *
+ * At least one of the following must be set:
+ *   ALLOWED_EMAIL        – comma-separated list of allowed email addresses
+ *   ALLOWED_DOMAIN       – domain suffix; any *@<domain> is granted access
+ *                          e.g. ALLOWED_DOMAIN=steamforvietnam.org
  */
+
+/**
+ * Returns true if `email` is authorised for admin access.
+ * Checks ALLOWED_EMAIL (comma-separated) and ALLOWED_DOMAIN (e.g. steamforvietnam.org).
+ */
+function isAllowed(email, env) {
+  if (!email) return false;
+  // Domain check — any *@<ALLOWED_DOMAIN> is permitted
+  if (env.ALLOWED_DOMAIN) {
+    const domain = env.ALLOWED_DOMAIN.trim().toLowerCase().replace(/^@/, '');
+    if (email.toLowerCase().endsWith('@' + domain)) return true;
+  }
+  // Exact email(s) check
+  if (env.ALLOWED_EMAIL) {
+    const allowed = env.ALLOWED_EMAIL.split(',').map(e => e.trim().toLowerCase());
+    if (allowed.includes(email.toLowerCase())) return true;
+  }
+  return false;
+}
 
 async function hmacSign(data, secret) {
   const enc = new TextEncoder();
@@ -38,7 +61,7 @@ export async function verifySession(request, env) {
 
     const { email, ts } = JSON.parse(atob(payload));
     if (Date.now() - ts > 86_400_000) return null; // 24 h expiry
-    if (email !== env.ALLOWED_EMAIL)   return null;
+    if (!isAllowed(email, env))        return null;
     return email;
   } catch {
     return null;
