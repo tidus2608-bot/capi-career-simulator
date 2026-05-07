@@ -240,4 +240,4 @@ const Capi = ({ outfit = "lab", pose = "idle", size = 180, style = {} }) => {
   )
 }
 
-export default Capi
+export default React.memo(Capi)

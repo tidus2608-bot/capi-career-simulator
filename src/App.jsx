@@ -15,7 +15,7 @@ import {
   CertificateScene,
   HistoryScene,
   Transition,
-} from './components/Scenes.jsx'
+} from './components/scenes/index.js'
 
 // ─── Supabase ──────────────────────────────────────────────────────────────
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
