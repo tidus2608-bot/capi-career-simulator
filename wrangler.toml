@@ -2,7 +2,9 @@ name = "capi-career-simulator"
 pages_build_output_dir = "dist"
 compatibility_date = "2025-01-01"
 
-[[d1_databases]]
-binding       = "DB"
-database_name = "capi-db"
-database_id   = "a74da774-022c-42e9-9548-c5a64366c360"
+# Frontend writes directly to Supabase. The /api/* admin endpoints read from
+# Supabase via service-role (set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY
+# as Cloudflare Pages secrets in the dashboard, not here).
+#
+# The legacy D1 binding was removed in the decommission-d1 PR. If you need
+# to read the old D1 `results` table, restore the binding manually.

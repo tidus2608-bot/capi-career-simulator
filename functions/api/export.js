@@ -1,5 +1,12 @@
 import { verifySession } from '../_auth.js';
+import { supabaseRest } from '../_supabase.js';
 
+/**
+ * GET /api/export
+ *
+ * Auth: signed admin session cookie.
+ * Streams a CSV of all `runs` rows (Supabase via service-role).
+ */
 export async function onRequestGet(ctx) {
   const { request, env } = ctx;
 
@@ -9,56 +16,75 @@ export async function onRequestGet(ctx) {
   }
 
   try {
-    const rows = await env.DB.prepare(`
-      SELECT id, created_at, final_role, mission_id,
-             p1_scores, p2_scores, p3_scores,
-             confidence, share_hash
-      FROM results ORDER BY created_at DESC
-    `).all();
+    const sb = supabaseRest(env);
 
-    const ROLES  = ['E', 'B', 'O', 'C', 'Cm'];
+    // Pull everything in pages of 1000.
+    const all = [];
+    const PAGE = 1000;
+    for (let offset = 0; ; offset += PAGE) {
+      const { rows } = await sb.select('runs', {
+        select: 'id,created_at,display_name,theme,mission_id,primary_role,secondary_role,profile_type,confidence_factor,scores',
+        order: 'created_at.desc',
+        limit: PAGE,
+        offset,
+      });
+      all.push(...rows);
+      if (rows.length < PAGE) break;
+      if (all.length >= 50000) break; // hard cap
+    }
+
+    const ROLES = ['explorer', 'builder', 'operator', 'connector', 'communicator'];
     const header = [
-      'id', 'created_at', 'final_role', 'mission_id', 'confidence',
-      'p1_E','p1_B','p1_O','p1_C','p1_Cm',
-      'p2_E','p2_B','p2_O','p2_C','p2_Cm',
-      'p3_E','p3_B','p3_O','p3_C','p3_Cm',
-      'share_hash',
+      'id', 'created_at', 'display_name', 'theme', 'mission_id',
+      'primary_role', 'secondary_role', 'profile_type', 'confidence_factor',
+      ...ROLES.map(r => `final_${r}`),
+      ...ROLES.map(r => `phase1_${r}`),
+      ...ROLES.map(r => `phase2_${r}`),
+      ...ROLES.map(r => `phase3_${r}`),
     ].join(',');
 
-    const lines = (rows.results || []).map(row => {
-      const p1 = safeJson(row.p1_scores);
-      const p2 = safeJson(row.p2_scores);
-      const p3 = safeJson(row.p3_scores);
+    const lines = all.map(row => {
+      const s = row.scores || {};
+      const final  = s.final  || {};
+      const phase1 = s.phase1 || {};
+      const phase2 = s.phase2 || {};
+      const phase3 = s.phase3 || {};
       return [
-        row.id, row.created_at,
-        csvEsc(row.final_role), csvEsc(row.mission_id),
-        row.confidence ?? '',
-        ...ROLES.map(r => p1[r] ?? 0),
-        ...ROLES.map(r => p2[r] ?? 0),
-        ...ROLES.map(r => p3[r] ?? 0),
-        csvEsc(row.share_hash || ''),
+        row.id,
+        row.created_at,
+        csvEsc(row.display_name),
+        csvEsc(row.theme),
+        row.mission_id ?? '',
+        csvEsc(row.primary_role),
+        csvEsc(row.secondary_role),
+        csvEsc(row.profile_type),
+        row.confidence_factor ?? '',
+        ...ROLES.map(r => round1(final[r])),
+        ...ROLES.map(r => round1(phase1[r])),
+        ...ROLES.map(r => round1(phase2[r])),
+        ...ROLES.map(r => round1(phase3[r])),
       ].join(',');
     });
 
-    const csv      = [header, ...lines].join('\r\n');
-    const filename = `capi-results-${new Date().toISOString().slice(0, 10)}.csv`;
+    const csv = [header, ...lines].join('\r\n');
+    const filename = `capi-runs-${new Date().toISOString().slice(0, 10)}.csv`;
 
     return new Response(csv, {
       headers: {
-        'Content-Type':        'text/csv; charset=utf-8',
+        'Content-Type': 'text/csv; charset=utf-8',
         'Content-Disposition': `attachment; filename="${filename}"`,
-        'Access-Control-Allow-Origin': '*',
       },
     });
-
   } catch (err) {
     console.error('export error', err);
     return new Response('Internal error', { status: 500 });
   }
 }
 
-function safeJson(str) {
-  try { return JSON.parse(str || '{}'); } catch { return {}; }
+export async function onRequestOptions() {
+  return new Response(null, {
+    headers: { 'Access-Control-Allow-Methods': 'GET, OPTIONS' },
+  });
 }
 
 function csvEsc(val) {
@@ -68,11 +94,7 @@ function csvEsc(val) {
     ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
-export async function onRequestOptions() {
-  return new Response(null, {
-    headers: {
-      'Access-Control-Allow-Origin':  '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    },
-  });
+function round1(n) {
+  if (n == null) return '';
+  return Math.round(Number(n) * 10) / 10;
 }
