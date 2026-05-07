@@ -91,6 +91,17 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
+  // ── Resume AudioContext on first interaction (Chrome/Safari autoplay policy) ──
+  useEffect(() => {
+    const resume = () => capiAudio.resume()
+    window.addEventListener('pointerdown', resume, { once: true })
+    window.addEventListener('keydown', resume, { once: true })
+    return () => {
+      window.removeEventListener('pointerdown', resume)
+      window.removeEventListener('keydown', resume)
+    }
+  }, [])
+
   const toggleMute = () => {
     const m = capiAudio.toggle()
     setMuted(m)
@@ -267,6 +278,8 @@ export default function App() {
       <button
         className="audio-toggle"
         title={muted ? 'Bật âm thanh' : 'Tắt âm thanh'}
+        aria-label={muted ? 'Bật âm thanh' : 'Tắt âm thanh'}
+        aria-pressed={muted}
         onClick={toggleMute}
       >
         {muted ? (
