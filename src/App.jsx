@@ -24,7 +24,7 @@ const SUPABASE_ANON = import.meta.env.VITE_SUPABASE_ANON_KEY
 if (!SUPABASE_URL || !SUPABASE_ANON) {
   throw new Error(
     'Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY. ' +
-    'Copy .env.example to .env and fill in your Supabase project credentials.'
+      'Copy .env.example to .env and fill in your Supabase project credentials.',
   )
 }
 
@@ -70,7 +70,9 @@ export default function App() {
       setUser(session?.user ?? null)
       setAuthLoading(false)
     })
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null)
       setAuthLoading(false)
     })
@@ -80,23 +82,32 @@ export default function App() {
   // ── Dev keyboard shortcut ──
   useEffect(() => {
     const onKey = (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === '.') { e.preventDefault(); setTweaksOpen(o => !o) }
+      if ((e.ctrlKey || e.metaKey) && e.key === '.') {
+        e.preventDefault()
+        setTweaksOpen((o) => !o)
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  const toggleMute = () => { const m = capiAudio.toggle(); setMuted(m) }
+  const toggleMute = () => {
+    const m = capiAudio.toggle()
+    setMuted(m)
+  }
 
   // ── Stage transitions ──
-  const startScan = () => { setStartedAt(new Date().toISOString()); setStage('scan') }
+  const startScan = () => {
+    setStartedAt(new Date().toISOString())
+    setStage('scan')
+  }
 
   const onScanDone = (answers) => {
     setPhase1Answers(answers)
     // Derive preliminary top role for narrative (from self-perception scores)
     const spScores = {}
     for (const [qId, val] of Object.entries(answers.selfPerception)) {
-      const q = PHASE1_QUESTIONS.find(q => q.id === qId)
+      const q = PHASE1_QUESTIONS.find((q) => q.id === qId)
       if (q) spScores[q.role] = (spScores[q.role] || 0) + val
     }
     setPhase1TopRole(topRole(spScores))
@@ -104,8 +115,14 @@ export default function App() {
   }
 
   const onRoleContinue = () => setStage('theme')
-  const onThemePick = (themeId) => { setSelectedTheme(themeId); setStage('mission-pick') }
-  const onMissionPick = (missionId) => { setSelectedMission(missionId); setStage('mission-play') }
+  const onThemePick = (themeId) => {
+    setSelectedTheme(themeId)
+    setStage('mission-pick')
+  }
+  const onMissionPick = (missionId) => {
+    setSelectedMission(missionId)
+    setStage('mission-play')
+  }
 
   const onMissionComplete = (answers) => {
     setPhase2Answers(answers)
@@ -203,7 +220,9 @@ export default function App() {
   // ── Render ──
   let content
   if (stage === 'intro') {
-    content = <IntroScene onStart={startScan} user={user} authLoading={authLoading} supabase={supabase} />
+    content = (
+      <IntroScene onStart={startScan} user={user} authLoading={authLoading} supabase={supabase} />
+    )
   } else if (stage === 'scan') {
     content = <ScanningScene onComplete={onScanDone} />
   } else if (stage === 'role-reveal') {
@@ -211,7 +230,13 @@ export default function App() {
   } else if (stage === 'theme') {
     content = <ThemeScene onPick={onThemePick} />
   } else if (stage === 'mission-pick') {
-    content = <MissionPickScene themeId={selectedTheme} onPick={onMissionPick} onBack={() => setStage('theme')} />
+    content = (
+      <MissionPickScene
+        themeId={selectedTheme}
+        onPick={onMissionPick}
+        onBack={() => setStage('theme')}
+      />
+    )
   } else if (stage === 'mission-play') {
     content = <MissionPlayScene missionId={selectedMission} onComplete={onMissionComplete} />
   } else if (stage === 'reflect') {
@@ -229,7 +254,9 @@ export default function App() {
       />
     )
   } else if (stage === 'history') {
-    content = <HistoryScene user={user} supabase={supabase} onBack={() => setStage('certificate')} />
+    content = (
+      <HistoryScene user={user} supabase={supabase} onBack={() => setStage('certificate')} />
+    )
   }
 
   return (
@@ -237,30 +264,214 @@ export default function App() {
       <Transition k={stage + selectedMission + selectedTheme}>{content}</Transition>
 
       {/* Audio toggle */}
-      <button className="audio-toggle" title={muted ? 'Bật âm thanh' : 'Tắt âm thanh'} onClick={toggleMute}>
-        {muted
-          ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>
-          : <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>
-        }
+      <button
+        className="audio-toggle"
+        title={muted ? 'Bật âm thanh' : 'Tắt âm thanh'}
+        onClick={toggleMute}
+      >
+        {muted ? (
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M11 5 6 9H2v6h4l5 4V5z" />
+            <line x1="22" y1="9" x2="16" y2="15" />
+            <line x1="16" y1="9" x2="22" y2="15" />
+          </svg>
+        ) : (
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M11 5 6 9H2v6h4l5 4V5z" />
+            <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+            <path d="M19 5a9 9 0 0 1 0 14" />
+          </svg>
+        )}
       </button>
 
       {/* Dev tweaks panel */}
       <div className={`glass tweaks ${tweaksOpen ? 'open' : ''}`}>
         <h4>Tweaks · Capi-Gene</h4>
-        <label>Chế độ chơi đầy đủ (20 câu / mission)</label>
+        <div className="tweak-label">Chế độ chơi đầy đủ (20 câu / mission)</div>
         <div className="seg">
-          <button className={tweaks.fullPlay ? 'active' : ''} onClick={() => setTweaks(t => ({ ...t, fullPlay: true }))}>Full (20)</button>
-          <button className={!tweaks.fullPlay ? 'active' : ''} onClick={() => setTweaks(t => ({ ...t, fullPlay: false }))}>Quick (5)</button>
+          <button
+            className={tweaks.fullPlay ? 'active' : ''}
+            onClick={() => setTweaks((t) => ({ ...t, fullPlay: true }))}
+          >
+            Full (20)
+          </button>
+          <button
+            className={!tweaks.fullPlay ? 'active' : ''}
+            onClick={() => setTweaks((t) => ({ ...t, fullPlay: false }))}
+          >
+            Quick (5)
+          </button>
         </div>
-        <label>Bỏ qua phase</label>
+        <div className="tweak-label">Bỏ qua phase</div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
-          <button className="btn btn-ghost" style={{ padding: '8px 10px', fontSize: 12 }}
-            onClick={() => { setPhase1Answers({ selfPerception: { Q1:4,Q2:4,Q3:4,Q10:3,Q11:3,Q12:3,Q19:2,Q20:2,Q21:2,Q28:3,Q29:3,Q30:3,Q37:2,Q38:2,Q39:2 }, confidence: { C1:4, C2:4 } }); setPhase1TopRole('builder'); setStage('theme') }}>→ Theme</button>
-          <button className="btn btn-ghost" style={{ padding: '8px 10px', fontSize: 12 }}
-            onClick={() => { const ph1 = { selfPerception:{Q1:4,Q2:4,Q3:4,Q10:3,Q11:3,Q12:3,Q19:2,Q20:2,Q21:2,Q28:3,Q29:3,Q30:3,Q37:2,Q38:2,Q39:2}, confidence:{C1:4,C2:4} }; const ph2 = {1:'B',2:'B',3:'B',4:'A',5:'A',6:'B',7:'C',8:'A',9:'B',10:'C',11:'A',12:'B',13:'C',14:'A',15:'B',16:'C',17:'A',18:'B',19:'C',20:'A'}; setPhase1Answers(ph1); setPhase2Answers(ph2); setSelectedMission(1); setSelectedTheme('ark-capi'); setPhase1TopRole('builder'); setStage('reflect') }}>→ Reflect</button>
-          <button className="btn btn-ghost" style={{ padding: '8px 10px', fontSize: 12 }}
-            onClick={() => { const ph1={selfPerception:{Q1:4,Q2:4,Q3:4,Q10:3,Q11:3,Q12:3,Q19:2,Q20:2,Q21:2,Q28:3,Q29:3,Q30:3,Q37:2,Q38:2,Q39:2},confidence:{C1:4,C2:4}}; const ph2={1:'B',2:'B',3:'B',4:'A',5:'A',6:'B',7:'C',8:'A',9:'B',10:'C',11:'A',12:'B',13:'C',14:'A',15:'B',16:'C',17:'A',18:'B',19:'C',20:'A'}; const ph3={explorer:3,builder:5,operator:2,connector:3,communicator:2}; const r=calculateScore(1,ph1,ph2,ph3); const c=buildCertificateCopy(r); setPhase1Answers(ph1);setPhase2Answers(ph2);setPhase3Answers(ph3);setSelectedMission(1);setSelectedTheme('ark-capi');setScoringResult(r);setCertCopy(c);setStage('certificate') }}>→ Cert</button>
-          <button className="btn btn-ghost" style={{ padding: '8px 10px', fontSize: 12 }} onClick={onRestart}>Restart</button>
+          <button
+            className="btn btn-ghost"
+            style={{ padding: '8px 10px', fontSize: 12 }}
+            onClick={() => {
+              setPhase1Answers({
+                selfPerception: {
+                  Q1: 4,
+                  Q2: 4,
+                  Q3: 4,
+                  Q10: 3,
+                  Q11: 3,
+                  Q12: 3,
+                  Q19: 2,
+                  Q20: 2,
+                  Q21: 2,
+                  Q28: 3,
+                  Q29: 3,
+                  Q30: 3,
+                  Q37: 2,
+                  Q38: 2,
+                  Q39: 2,
+                },
+                confidence: { C1: 4, C2: 4 },
+              })
+              setPhase1TopRole('builder')
+              setStage('theme')
+            }}
+          >
+            → Theme
+          </button>
+          <button
+            className="btn btn-ghost"
+            style={{ padding: '8px 10px', fontSize: 12 }}
+            onClick={() => {
+              const ph1 = {
+                selfPerception: {
+                  Q1: 4,
+                  Q2: 4,
+                  Q3: 4,
+                  Q10: 3,
+                  Q11: 3,
+                  Q12: 3,
+                  Q19: 2,
+                  Q20: 2,
+                  Q21: 2,
+                  Q28: 3,
+                  Q29: 3,
+                  Q30: 3,
+                  Q37: 2,
+                  Q38: 2,
+                  Q39: 2,
+                },
+                confidence: { C1: 4, C2: 4 },
+              }
+              const ph2 = {
+                1: 'B',
+                2: 'B',
+                3: 'B',
+                4: 'A',
+                5: 'A',
+                6: 'B',
+                7: 'C',
+                8: 'A',
+                9: 'B',
+                10: 'C',
+                11: 'A',
+                12: 'B',
+                13: 'C',
+                14: 'A',
+                15: 'B',
+                16: 'C',
+                17: 'A',
+                18: 'B',
+                19: 'C',
+                20: 'A',
+              }
+              setPhase1Answers(ph1)
+              setPhase2Answers(ph2)
+              setSelectedMission(1)
+              setSelectedTheme('ark-capi')
+              setPhase1TopRole('builder')
+              setStage('reflect')
+            }}
+          >
+            → Reflect
+          </button>
+          <button
+            className="btn btn-ghost"
+            style={{ padding: '8px 10px', fontSize: 12 }}
+            onClick={() => {
+              const ph1 = {
+                selfPerception: {
+                  Q1: 4,
+                  Q2: 4,
+                  Q3: 4,
+                  Q10: 3,
+                  Q11: 3,
+                  Q12: 3,
+                  Q19: 2,
+                  Q20: 2,
+                  Q21: 2,
+                  Q28: 3,
+                  Q29: 3,
+                  Q30: 3,
+                  Q37: 2,
+                  Q38: 2,
+                  Q39: 2,
+                },
+                confidence: { C1: 4, C2: 4 },
+              }
+              const ph2 = {
+                1: 'B',
+                2: 'B',
+                3: 'B',
+                4: 'A',
+                5: 'A',
+                6: 'B',
+                7: 'C',
+                8: 'A',
+                9: 'B',
+                10: 'C',
+                11: 'A',
+                12: 'B',
+                13: 'C',
+                14: 'A',
+                15: 'B',
+                16: 'C',
+                17: 'A',
+                18: 'B',
+                19: 'C',
+                20: 'A',
+              }
+              const ph3 = { explorer: 3, builder: 5, operator: 2, connector: 3, communicator: 2 }
+              const r = calculateScore(1, ph1, ph2, ph3)
+              const c = buildCertificateCopy(r)
+              setPhase1Answers(ph1)
+              setPhase2Answers(ph2)
+              setPhase3Answers(ph3)
+              setSelectedMission(1)
+              setSelectedTheme('ark-capi')
+              setScoringResult(r)
+              setCertCopy(c)
+              setStage('certificate')
+            }}
+          >
+            → Cert
+          </button>
+          <button
+            className="btn btn-ghost"
+            style={{ padding: '8px 10px', fontSize: 12 }}
+            onClick={onRestart}
+          >
+            Restart
+          </button>
         </div>
       </div>
     </ErrorBoundary>
