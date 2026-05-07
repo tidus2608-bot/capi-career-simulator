@@ -13,7 +13,7 @@ function emptyScores() {
 }
 
 export function getMission(missionId) {
-  const m = missionsData.missions.find(m => m.id === missionId)
+  const m = missionsData.missions.find((m) => m.id === missionId)
   if (!m) throw new Error(`Mission ${missionId} not found`)
   return m
 }
@@ -67,7 +67,7 @@ export function calculateMaxScores(mission) {
   for (const q of mission.questions) {
     const optionScores = q.options.map(scoreOption)
     for (const role of ROLES) {
-      const best = Math.max(...optionScores.map(s => s[role]))
+      const best = Math.max(...optionScores.map((s) => s[role]))
       max[role] += best * q.weight
     }
   }
@@ -81,7 +81,7 @@ export function calculatePhase2(missionId, answers) {
   for (const q of mission.questions) {
     const ans = answers[q.id]
     if (!ans) continue
-    const opt = q.options.find(o => o.label === ans)
+    const opt = q.options.find((o) => o.label === ans)
     if (!opt) continue
     const optScore = scoreOption(opt)
     for (const role of ROLES) raw[role] += optScore[role] * q.weight
@@ -115,7 +115,10 @@ export function calculateScore(missionId, phase1Answers, phase2Answers, phase3An
 
   const final = emptyScores()
   for (const role of ROLES) {
-    final[role] = FINAL_WEIGHTS.phase1 * p1[role] + FINAL_WEIGHTS.phase2 * p2[role] + FINAL_WEIGHTS.phase3 * p3[role]
+    final[role] =
+      FINAL_WEIGHTS.phase1 * p1[role] +
+      FINAL_WEIGHTS.phase2 * p2[role] +
+      FINAL_WEIGHTS.phase3 * p3[role]
   }
 
   const realityGap = emptyScores()
@@ -140,22 +143,40 @@ export function calculateScore(missionId, phase1Answers, phase2Answers, phase3An
   else profileType = 'Aligned'
 
   const primaryFinal = final[primaryRole]
-  const scoreBand = missionsData.score_bands.find(b => primaryFinal >= b.min && primaryFinal <= b.max) ?? missionsData.score_bands[0]
+  const scoreBand =
+    missionsData.score_bands.find((b) => primaryFinal >= b.min && primaryFinal <= b.max) ??
+    missionsData.score_bands[0]
 
-  return { phase1: p1, phase2: p2, phase3: p3, final, realityGap, learningGap, primaryRole, secondaryRole, confidenceFactor, profileType, scoreBand }
+  return {
+    phase1: p1,
+    phase2: p2,
+    phase3: p3,
+    final,
+    realityGap,
+    learningGap,
+    primaryRole,
+    secondaryRole,
+    confidenceFactor,
+    profileType,
+    scoreBand,
+  }
 }
 
 // ─── Certificate copy ───────────────────────────────────────────────────────
 
 function getRoleData(key) {
-  return missionsData.roles.find(r => r.key === key)
+  return missionsData.roles.find((r) => r.key === key)
 }
 
-function round1(n) { return Math.round(n * 10) / 10 }
+function round1(n) {
+  return Math.round(n * 10) / 10
+}
 
 function profileNarrative(type, role) {
-  if (type === 'Hidden') return `Bạn không nghĩ mình là ${role.name_vn}, nhưng hành vi của bạn cho thấy điều ngược lại. Đây là một sức mạnh tiềm ẩn cần được khám phá thêm.`
-  if (type === 'Emerging') return `Sau khi trải nghiệm, bạn đã nhận ra mình phù hợp với vai trò ${role.name_vn} hơn so với suy nghĩ ban đầu. Một góc nhìn mới đang hình thành.`
+  if (type === 'Hidden')
+    return `Bạn không nghĩ mình là ${role.name_vn}, nhưng hành vi của bạn cho thấy điều ngược lại. Đây là một sức mạnh tiềm ẩn cần được khám phá thêm.`
+  if (type === 'Emerging')
+    return `Sau khi trải nghiệm, bạn đã nhận ra mình phù hợp với vai trò ${role.name_vn} hơn so với suy nghĩ ban đầu. Một góc nhìn mới đang hình thành.`
   return `Cả ba phase đều cho thấy bạn là một ${role.name_vn}. Bạn hiểu rõ bản thân và đang đi đúng hướng.`
 }
 
@@ -183,7 +204,7 @@ export function buildCertificateCopy(result) {
   const primaryInterpretationVn = `${primary.name_vn} (${primary.name_en}): ${primary.short_description_vn}`
   const secondaryInterpretationVn = `${secondary.name_vn} (${secondary.name_en}): ${secondary.short_description_vn}`
 
-  const fullScoreBreakdown = ROLES.map(role => {
+  const fullScoreBreakdown = ROLES.map((role) => {
     const rd = getRoleData(role)
     return {
       role,

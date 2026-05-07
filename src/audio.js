@@ -15,12 +15,12 @@ class CapiAudio {
       this.master = this.ctx.createGain();
       this.master.gain.value = this.muted ? 0 : 0.22;
       this.master.connect(this.ctx.destination);
-    } catch (e) {}
+    } catch { /* noop */ }
   }
 
   setMuted(m) {
     this.muted = m;
-    try { localStorage.setItem("capi_muted", m ? "1" : "0"); } catch (e) {}
+    try { localStorage.setItem("capi_muted", m ? "1" : "0"); } catch { /* noop */ }
     if (this.master) this.master.gain.linearRampToValueAtTime(m ? 0 : 0.22, this.ctx.currentTime + 0.2);
   }
 
@@ -72,10 +72,10 @@ class CapiAudio {
       out.gain.cancelScheduledValues(this.ctx.currentTime);
       out.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 0.6);
       setTimeout(() => {
-        nodes.forEach(n => { try { n.stop(); } catch (e) {} });
-        try { out.disconnect(); } catch (e) {}
+        nodes.forEach(n => { try { n.stop(); } catch { /* noop */ } });
+        try { out.disconnect(); } catch { /* noop */ }
       }, 800);
-    } catch (e) {}
+    } catch { /* noop */ }
     this.currentPad = null;
   }
 

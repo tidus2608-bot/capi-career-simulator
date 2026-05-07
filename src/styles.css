@@ -340,7 +340,7 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
   margin: 0 0 12px;
   color: var(--cyan);
 }
-.tweaks label {
+.tweaks label, .tweaks .tweak-label {
   display: block;
   margin: 12px 0 6px;
   font-size: 11px;
