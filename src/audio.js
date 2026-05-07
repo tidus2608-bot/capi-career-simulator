@@ -26,6 +26,14 @@ class CapiAudio {
 
   toggle() { this.setMuted(!this.muted); return this.muted; }
 
+  /** Resume the AudioContext if suspended (Chrome/Safari autoplay policy). */
+  resume() {
+    this._ensure();
+    if (this.ctx && this.ctx.state === "suspended") {
+      this.ctx.resume().catch(() => { /* noop */ });
+    }
+  }
+
   /* A simple ambient pad built from detuned oscillators */
   pad(freqs = [110, 164.8, 220], color = "warm") {
     this._ensure();
