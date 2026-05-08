@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import { capiAudio } from './audio.js'
-import { topRole } from './data.js'
+import { topRole, PHASE1_QUESTIONS } from './data.js'
 import { calculateScore, buildCertificateCopy } from './lib/scoring.js'
+import ErrorBoundary from './components/ErrorBoundary.jsx'
 import {
   IntroScene,
   ScanningScene,
@@ -17,9 +18,19 @@ import {
 } from './components/Scenes.jsx'
 
 // ─── Supabase ──────────────────────────────────────────────────────────────
-const SUPABASE_URL = 'https://lnuzsduemmavoqenhqhz.supabase.co'
-const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxudXpzZHVlbW1hdm9xZW5ocWh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1OTM3OTcsImV4cCI6MjA5MzE2OTc5N30.OM7jZQt7ce_g5_VuhYqwDZqJaojKXObTjvOJf8jUaQ0'
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+if (!SUPABASE_URL || !SUPABASE_ANON) {
+  throw new Error(
+    'Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY. ' +
+    'Copy .env.example to .env and fill in your Supabase project credentials.'
+  )
+}
+
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON)
+
+const SAVE_TIMEOUT_MS = 10_000
 
 // ─── Tweaks panel ─────────────────────────────────────────────────────────
 const TWEAK_DEFAULTS = { fullPlay: true }
@@ -28,19 +39,25 @@ const TWEAK_DEFAULTS = { fullPlay: true }
 export default function App() {
   const [stage, setStage] = useState('intro')
   const [user, setUser] = useState(null)
+  const [authLoading, setAuthLoading] = useState(true)
 
   // Phase answers
   const [phase1Answers, setPhase1Answers] = useState({ selfPerception: {}, confidence: {} })
   const [phase1TopRole, setPhase1TopRole] = useState(null)
   const [selectedTheme, setSelectedTheme] = useState(null)
-  const [selectedMission, setSelectedMission] = useState(null)  // numeric ID
-  const [phase2Answers, setPhase2Answers] = useState({})        // { questionId: 'A'|'B'|'C' }
-  const [phase3Answers, setPhase3Answers] = useState({})        // { roleKey: 1..5 }
+  const [selectedMission, setSelectedMission] = useState(null)
+  const [phase2Answers, setPhase2Answers] = useState({})
+  const [phase3Answers, setPhase3Answers] = useState({})
 
   // Computed results
   const [scoringResult, setScoringResult] = useState(null)
   const [certCopy, setCertCopy] = useState(null)
   const [startedAt, setStartedAt] = useState(null)
+
+  // Save status
+  const [saveStatus, setSaveStatus] = useState('idle') // 'idle' | 'saving' | 'success' | 'error' | 'skipped'
+  const [saveError, setSaveError] = useState(null)
+  const savedRunIdRef = useRef(null)
 
   // UI
   const [tweaks, setTweaks] = useState(TWEAK_DEFAULTS)
@@ -51,9 +68,11 @@ export default function App() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
+      setAuthLoading(false)
     })
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null)
+      setAuthLoading(false)
     })
     return () => subscription.unsubscribe()
   }, [])
@@ -77,7 +96,7 @@ export default function App() {
     // Derive preliminary top role for narrative (from self-perception scores)
     const spScores = {}
     for (const [qId, val] of Object.entries(answers.selfPerception)) {
-      const q = (window.__p1qs || []).find(q => q.id === qId)
+      const q = PHASE1_QUESTIONS.find(q => q.id === qId)
       if (q) spScores[q.role] = (spScores[q.role] || 0) + val
     }
     setPhase1TopRole(topRole(spScores))
@@ -95,45 +114,74 @@ export default function App() {
 
   const onReflectDone = (answers) => {
     setPhase3Answers(answers)
-    // Compute final score
     const result = calculateScore(selectedMission, phase1Answers, phase2Answers, answers)
     const cert = buildCertificateCopy(result)
     setScoringResult(result)
     setCertCopy(cert)
-    // Save to Supabase (fire and forget)
-    saveRun(result, answers)
     setStage('certificate')
+    saveRun(result, answers)
   }
 
+  const buildRunRow = (result, p3Answers) => ({
+    user_id: user.id,
+    display_name: user.user_metadata?.full_name ?? user.email ?? null,
+    theme: selectedTheme,
+    mission_id: selectedMission,
+    started_at: startedAt,
+    completed_at: new Date().toISOString(),
+    phase1_answers: phase1Answers,
+    phase2_answers: phase2Answers,
+    phase3_answers: p3Answers,
+    scores: {
+      phase1: result.phase1,
+      phase2: result.phase2,
+      phase3: result.phase3,
+      final: result.final,
+      reality_gap: result.realityGap,
+      learning_gap: result.learningGap,
+    },
+    confidence_factor: result.confidenceFactor,
+    primary_role: result.primaryRole,
+    secondary_role: result.secondaryRole,
+    profile_type: result.profileType,
+  })
+
   const saveRun = async (result, p3Answers) => {
-    if (!user) return
-    try {
-      await supabase.from('runs').insert({
-        user_id: user.id,
-        display_name: user.user_metadata?.full_name ?? user.email ?? null,
-        theme: selectedTheme,
-        mission_id: selectedMission,
-        started_at: startedAt,
-        completed_at: new Date().toISOString(),
-        phase1_answers: phase1Answers,
-        phase2_answers: phase2Answers,
-        phase3_answers: p3Answers,
-        scores: {
-          phase1: result.phase1,
-          phase2: result.phase2,
-          phase3: result.phase3,
-          final: result.final,
-          reality_gap: result.realityGap,
-          learning_gap: result.learningGap,
-        },
-        confidence_factor: result.confidenceFactor,
-        primary_role: result.primaryRole,
-        secondary_role: result.secondaryRole,
-        profile_type: result.profileType,
-      })
-    } catch (e) {
-      console.warn('Run save failed', e)
+    if (!user) {
+      setSaveStatus('skipped')
+      return
     }
+
+    setSaveStatus('saving')
+    setSaveError(null)
+
+    const ctrl = new AbortController()
+    const timeoutId = setTimeout(() => ctrl.abort(), SAVE_TIMEOUT_MS)
+
+    try {
+      const row = buildRunRow(result, p3Answers)
+      const existingId = savedRunIdRef.current
+
+      const query = existingId
+        ? supabase.from('runs').update(row).eq('id', existingId).select('id').single()
+        : supabase.from('runs').insert(row).select('id').single()
+
+      const { data, error } = await query.abortSignal(ctrl.signal)
+      clearTimeout(timeoutId)
+
+      if (error) throw error
+      if (data?.id) savedRunIdRef.current = data.id
+      setSaveStatus('success')
+    } catch (err) {
+      clearTimeout(timeoutId)
+      console.warn('Run save failed', err)
+      setSaveError(err?.message || 'Lưu thất bại')
+      setSaveStatus('error')
+    }
+  }
+
+  const retrySave = () => {
+    if (scoringResult) saveRun(scoringResult, phase3Answers)
   }
 
   const onRestart = () => {
@@ -147,29 +195,45 @@ export default function App() {
     setScoringResult(null)
     setCertCopy(null)
     setStartedAt(null)
+    setSaveStatus('idle')
+    setSaveError(null)
+    savedRunIdRef.current = null
   }
 
   // ── Render ──
   let content
-  if (stage === 'intro')         content = <IntroScene onStart={startScan} user={user} supabase={supabase} />
-  else if (stage === 'scan')     content = <ScanningScene onComplete={onScanDone} />
-  else if (stage === 'role-reveal') content = <RoleRevealScene role={phase1TopRole} onContinue={onRoleContinue} />
-  else if (stage === 'theme')    content = <ThemeScene onPick={onThemePick} />
-  else if (stage === 'mission-pick') content = <MissionPickScene themeId={selectedTheme} onPick={onMissionPick} onBack={() => setStage('theme')} />
-  else if (stage === 'mission-play') content = <MissionPlayScene missionId={selectedMission} onComplete={onMissionComplete} />
-  else if (stage === 'reflect')  content = <ReflectionScene onComplete={onReflectDone} />
-  else if (stage === 'certificate') content = (
-    <CertificateScene
-      result={scoringResult}
-      certCopy={certCopy}
-      onRestart={onRestart}
-      onHistory={user ? () => setStage('history') : null}
-    />
-  )
-  else if (stage === 'history')  content = <HistoryScene user={user} supabase={supabase} onBack={() => setStage('certificate')} />
+  if (stage === 'intro') {
+    content = <IntroScene onStart={startScan} user={user} authLoading={authLoading} supabase={supabase} />
+  } else if (stage === 'scan') {
+    content = <ScanningScene onComplete={onScanDone} />
+  } else if (stage === 'role-reveal') {
+    content = <RoleRevealScene role={phase1TopRole} onContinue={onRoleContinue} />
+  } else if (stage === 'theme') {
+    content = <ThemeScene onPick={onThemePick} />
+  } else if (stage === 'mission-pick') {
+    content = <MissionPickScene themeId={selectedTheme} onPick={onMissionPick} onBack={() => setStage('theme')} />
+  } else if (stage === 'mission-play') {
+    content = <MissionPlayScene missionId={selectedMission} onComplete={onMissionComplete} />
+  } else if (stage === 'reflect') {
+    content = <ReflectionScene onComplete={onReflectDone} />
+  } else if (stage === 'certificate') {
+    content = (
+      <CertificateScene
+        result={scoringResult}
+        certCopy={certCopy}
+        saveStatus={saveStatus}
+        saveError={saveError}
+        onRetrySave={retrySave}
+        onRestart={onRestart}
+        onHistory={user ? () => setStage('history') : null}
+      />
+    )
+  } else if (stage === 'history') {
+    content = <HistoryScene user={user} supabase={supabase} onBack={() => setStage('certificate')} />
+  }
 
   return (
-    <>
+    <ErrorBoundary>
       <Transition k={stage + selectedMission + selectedTheme}>{content}</Transition>
 
       {/* Audio toggle */}
@@ -199,6 +263,6 @@ export default function App() {
           <button className="btn btn-ghost" style={{ padding: '8px 10px', fontSize: 12 }} onClick={onRestart}>Restart</button>
         </div>
       </div>
-    </>
+    </ErrorBoundary>
   )
 }

@@ -48,7 +48,7 @@ const LikertSlider = ({ labels, value, onChange }) => {
 /* ══════════════════════════════════════════════════════════════════════════
    INTRO SCREEN
 ══════════════════════════════════════════════════════════════════════════ */
-export const IntroScene = ({ onStart, user, supabase }) => {
+export const IntroScene = ({ onStart, user, authLoading, supabase }) => {
   const [signingIn, setSigningIn] = useState(false)
   useEffect(() => { capiAudio.pad([110, 164.8, 220, 329.6], 'cold') }, [])
 
@@ -83,7 +83,11 @@ export const IntroScene = ({ onStart, user, supabase }) => {
             Capi sẽ quét hệ thống tư duy của bạn qua 15 câu hỏi, dẫn bạn vào một nhiệm vụ mô phỏng thực chiến 20 câu, và giải mã <em style={{ color:'var(--cyan)', fontStyle:'normal' }}>Capi-Gene</em> — mật mã nghề nghiệp của bạn.
           </p>
 
-          {user ? (
+          {authLoading ? (
+            <div className="mono" style={{ color:'var(--ink-mute)', marginBottom:16 }}>
+              Đang kiểm tra đăng nhập...
+            </div>
+          ) : user ? (
             <div>
               <div className="mono" style={{ color:'var(--green)', marginBottom:16 }}>
                 ✓ Đã đăng nhập: {user.user_metadata?.full_name || user.email}
@@ -119,8 +123,6 @@ export const IntroScene = ({ onStart, user, supabase }) => {
    PHASE 1 — SCAN (15 Likert + 2 confidence checks)
 ══════════════════════════════════════════════════════════════════════════ */
 export const ScanningScene = ({ onComplete }) => {
-  // Store phase1 questions in a global so App can access role mapping
-  useEffect(() => { window.__p1qs = PHASE1_QUESTIONS }, [])
   useEffect(() => { capiAudio.pad([130.8, 196, 261.6, 392], 'cold') }, [])
 
   const total = PHASE1_QUESTIONS.length + CONFIDENCE_CHECKS.length  // 17
@@ -581,7 +583,7 @@ export const ReflectionScene = ({ onComplete }) => {
 /* ══════════════════════════════════════════════════════════════════════════
    CERTIFICATE — 12 sections
 ══════════════════════════════════════════════════════════════════════════ */
-export const CertificateScene = ({ result, certCopy, onRestart, onHistory }) => {
+export const CertificateScene = ({ result, certCopy, saveStatus, saveError, onRetrySave, onRestart, onHistory }) => {
   const [flashed, setFlashed] = useState(true)
   useEffect(() => { const t = setTimeout(() => setFlashed(false), 900); capiAudio.sfx('success'); return () => clearTimeout(t) }, [])
 
@@ -609,6 +611,43 @@ export const CertificateScene = ({ result, certCopy, onRestart, onHistory }) => 
           <div className="mono" style={{ position:'absolute', top:24, right:28, color:'var(--ink-mute)', fontSize:11 }}>
             CERT #{Math.floor(Math.random() * 9000 + 1000)} · {new Date().toISOString().slice(0,10)}
           </div>
+
+          {/* Save status banner */}
+          {saveStatus && saveStatus !== 'idle' && (
+            <div
+              style={{
+                marginTop: 28,
+                padding: '10px 14px',
+                borderRadius: 8,
+                fontSize: 13,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                border: '1px solid',
+                borderColor: saveStatus === 'error' ? 'var(--magenta)' : saveStatus === 'success' ? 'var(--green)' : 'var(--line)',
+                background: saveStatus === 'error' ? 'rgba(255,45,122,0.08)' : saveStatus === 'success' ? 'rgba(61,220,132,0.06)' : 'rgba(255,255,255,0.02)',
+                color: saveStatus === 'error' ? 'var(--magenta)' : saveStatus === 'success' ? 'var(--green)' : 'var(--ink-dim)',
+              }}
+            >
+              {saveStatus === 'saving' && <span>⏳ Đang lưu kết quả vào tài khoản...</span>}
+              {saveStatus === 'success' && <span>✓ Đã lưu kết quả vào tài khoản. Bạn có thể xem lại trong "Lịch sử".</span>}
+              {saveStatus === 'skipped' && <span style={{ color: 'var(--ink-dim)' }}>Bạn chưa đăng nhập — kết quả này sẽ không được lưu lại.</span>}
+              {saveStatus === 'error' && (
+                <>
+                  <span style={{ flex: 1 }}>Không lưu được kết quả{saveError ? `: ${saveError}` : '.'}</span>
+                  {onRetrySave && (
+                    <button
+                      className="btn btn-ghost"
+                      style={{ padding: '6px 12px', fontSize: 12, color: 'var(--magenta)', borderColor: 'var(--magenta)' }}
+                      onClick={onRetrySave}
+                    >
+                      Thử lại
+                    </button>
+                  )}
+                </>
+              )}
+            </div>
+          )}
 
           {/* ── S1: Role Radar ── */}
           <div style={{ ...sectionStyle, marginTop:32, textAlign:'center' }}>
