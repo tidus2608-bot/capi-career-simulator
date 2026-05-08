@@ -102,7 +102,10 @@ export async function onRequestGet({
     )
   } catch (err) {
     console.error('results error', err)
-    return json({ ok: false, error: 'Internal error' }, 500, cors)
+    // Authenticated admins see the actual error; this is gated above by
+    // verifySession, so it's safe to surface details to the caller.
+    const message = err instanceof Error ? err.message : String(err)
+    return json({ ok: false, error: 'Internal error', detail: message }, 500, cors)
   }
 }
 
