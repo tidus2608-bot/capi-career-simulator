@@ -109,7 +109,8 @@ export async function onRequestGet({
     })
   } catch (err) {
     console.error('export error', err)
-    return new Response('Internal error', { status: 500 })
+    const message = err instanceof Error ? err.message : String(err)
+    return new Response(`Internal error: ${message}`, { status: 500 })
   }
 }
 
