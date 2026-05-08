@@ -1,0 +1,60 @@
+{
+  "lang": {
+    "vi": "Tiếng Việt",
+    "en": "English"
+  },
+  "intro": {
+    "tagline": "CAPI RESEARCH INSTITUTE · ESTABLISHED 20XX",
+    "title": "Touching the Future",
+    "title_highlight": "Touchpoint",
+    "title_prefix": "The",
+    "title_suffix": "Journey",
+    "subtitle": "CAPI CAREER PATH SIMULATOR",
+    "blurb": "Capi will scan your way of thinking through 15 quick questions, drop you into a 20-question simulation mission, and decode your <em>Capi-Gene</em> — your career signature.",
+    "auth_loading": "Checking sign-in...",
+    "auth_signed_in": "Signed in: {{name}}",
+    "btn_start": "START SCAN",
+    "btn_signin": "🔑 Sign in with Google & Start",
+    "btn_signin_pending": "Redirecting...",
+    "btn_play_guest": "Play without saving",
+    "feature_phase1": "15 Phase 1 questions",
+    "feature_mission": "20 questions / mission",
+    "feature_roles": "5 career roles",
+    "feature_cert": "Capi-Gene certificate"
+  },
+  "common": {
+    "next": "NEXT →",
+    "finish": "FINISH →",
+    "back": "← Back",
+    "restart": "START OVER",
+    "retry": "Try again",
+    "loading": "Loading...",
+    "back_to_themes": "← Change gate",
+    "audio_on": "Sound on",
+    "audio_off": "Sound off"
+  },
+  "save_status": {
+    "saving": "⏳ Saving your result...",
+    "success": "✓ Saved to your account. You can review this in \"History\".",
+    "skipped": "You're not signed in — this result won't be saved.",
+    "error_prefix": "Couldn't save your result"
+  },
+  "cert": {
+    "btn_history": "View history",
+    "btn_print": "Print / Save PDF"
+  },
+  "history": {
+    "section_label": "RUN HISTORY",
+    "title": "Your past runs",
+    "empty": "No saved runs yet.",
+    "load_error": "Couldn't load history: {{error}}",
+    "final_score": "Final Score",
+    "mission_prefix": "Mission #"
+  },
+  "error_boundary": {
+    "system_fault": "SYSTEM FAULT",
+    "title": "Capi crashed",
+    "body": "An unexpected error just occurred. You can restart to keep going — any results you saved earlier are still safe in your account.",
+    "btn_restart": "Restart"
+  }
+}

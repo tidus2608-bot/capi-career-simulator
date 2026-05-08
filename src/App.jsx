@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { createClient } from '@supabase/supabase-js'
 import { capiAudio } from './audio.js'
 import { topRole, PHASE1_QUESTIONS } from './data.js'
@@ -37,6 +38,7 @@ const TWEAK_DEFAULTS = { fullPlay: true }
 
 // ─── Main App ─────────────────────────────────────────────────────────────
 export default function App() {
+  const { t } = useTranslation()
   const [stage, setStage] = useState('intro')
   const [user, setUser] = useState(null)
   const [authLoading, setAuthLoading] = useState(true)
@@ -277,8 +279,8 @@ export default function App() {
       {/* Audio toggle */}
       <button
         className="audio-toggle"
-        title={muted ? 'Bật âm thanh' : 'Tắt âm thanh'}
-        aria-label={muted ? 'Bật âm thanh' : 'Tắt âm thanh'}
+        title={muted ? t('common.audio_on') : t('common.audio_off')}
+        aria-label={muted ? t('common.audio_on') : t('common.audio_off')}
         aria-pressed={muted}
         onClick={toggleMute}
       >
