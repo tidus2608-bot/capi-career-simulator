@@ -5,6 +5,7 @@ import { capiAudio } from './audio.js'
 import { topRole, PHASE1_QUESTIONS } from './data.js'
 import { calculateScore, buildCertificateCopy } from './lib/scoring.js'
 import ErrorBoundary from './components/ErrorBoundary.jsx'
+import LanguageSwitch from './components/LanguageSwitch.jsx'
 import {
   IntroScene,
   ScanningScene,
@@ -32,6 +33,11 @@ if (!SUPABASE_URL || !SUPABASE_ANON) {
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON)
 
 const SAVE_TIMEOUT_MS = 10_000
+
+// Stages where every user-facing string is wired through i18n. The language
+// switch is hidden on the un-translated scenes (scan, role-reveal, theme,
+// mission-pick, mission-play, reflect) so it doesn't dangle as a no-op.
+const TRANSLATED_STAGES = new Set(['intro', 'certificate', 'history'])
 
 // ─── Tweaks panel ─────────────────────────────────────────────────────────
 const TWEAK_DEFAULTS = { fullPlay: true }
@@ -275,6 +281,13 @@ export default function App() {
   return (
     <ErrorBoundary>
       <Transition k={stage + selectedMission + selectedTheme}>{content}</Transition>
+
+      {/* Language switch — only shown on stages with full translation coverage */}
+      {TRANSLATED_STAGES.has(stage) && (
+        <div style={{ position: 'fixed', top: 16, left: 16, zIndex: 100 }}>
+          <LanguageSwitch />
+        </div>
+      )}
 
       {/* Audio toggle */}
       <button

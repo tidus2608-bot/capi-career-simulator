@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import Capi from '../Capi.jsx'
-import LanguageSwitch from '../LanguageSwitch.jsx'
 import { capiAudio } from '../../audio.js'
 import SceneShell from './SceneShell.jsx'
 
@@ -23,9 +22,6 @@ export default function IntroScene({ onStart, user, authLoading, supabase }) {
 
   return (
     <SceneShell>
-      <div style={{ position: 'absolute', top: 16, right: 16, zIndex: 6 }}>
-        <LanguageSwitch />
-      </div>
       <div style={{ display: 'grid', placeItems: 'center', height: '100%', padding: 24 }}>
         <div style={{ textAlign: 'center', maxWidth: 780 }} className="fade-up">
           <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 18 }}>
