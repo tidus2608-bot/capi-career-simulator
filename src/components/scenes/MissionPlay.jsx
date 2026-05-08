@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Capi from '../Capi.jsx'
 import { Typed, SceneArt } from '../UI.jsx'
+import { QIllo } from '../illustrations/index.js'
 import { capiAudio } from '../../audio.js'
 import { CAPI_MISSIONS, MISSION_BG } from '../../data.js'
+import { buildChapterIlloMap, getMissionAccent } from '../../data/missionVisuals.js'
 import SceneShell from './SceneShell.jsx'
 
 const MISSION_PADS = {
@@ -19,6 +21,10 @@ export default function MissionPlayScene({ missionId, onComplete }) {
   const bg = MISSION_BG[missionId] || 'lab'
   const qs = m.questions
 
+  // Stable chapter→illo map per mission. Recomputed only when mission changes.
+  const chapterIllos = useMemo(() => buildChapterIlloMap(m), [m])
+  const accent = getMissionAccent(missionId)
+
   const [innerStage, setInnerStage] = useState('intro')
   const [idx, setIdx] = useState(0)
   const [answers, setAnswers] = useState({})
@@ -29,6 +35,7 @@ export default function MissionPlayScene({ missionId, onComplete }) {
   }, [missionId])
 
   const q = qs[idx]
+  const illoKey = chapterIllos[q?.chapter_vn]
 
   const pick = (opt) => {
     if (picked !== null) return
@@ -51,7 +58,10 @@ export default function MissionPlayScene({ missionId, onComplete }) {
       <SceneShell bg={bg}>
         <SceneArt variant={bg} />
         <div style={{ display: 'grid', placeItems: 'center', height: '100%', padding: 24 }}>
-          <div className="glass fade-up" style={{ maxWidth: 640, padding: 30, textAlign: 'center' }}>
+          <div
+            className="glass fade-up"
+            style={{ maxWidth: 640, padding: 30, textAlign: 'center' }}
+          >
             <div className="mono" style={{ color: 'var(--cyan)' }}>
               NHIỆM VỤ · 20 CÂU HỎI
             </div>
@@ -65,7 +75,9 @@ export default function MissionPlayScene({ missionId, onComplete }) {
               <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 6 }}>
                 CAPI
               </div>
-              <div style={{ fontSize: 15, lineHeight: 1.55 }}>&ldquo;{qs[0]?.context_vn}&rdquo;</div>
+              <div style={{ fontSize: 15, lineHeight: 1.55 }}>
+                &ldquo;{qs[0]?.context_vn}&rdquo;
+              </div>
             </div>
             <button
               className="btn btn-primary"
@@ -87,7 +99,10 @@ export default function MissionPlayScene({ missionId, onComplete }) {
       <SceneShell bg={bg}>
         <SceneArt variant={bg} />
         <div style={{ display: 'grid', placeItems: 'center', height: '100%', padding: 24 }}>
-          <div className="glass fade-up" style={{ maxWidth: 640, padding: 34, textAlign: 'center' }}>
+          <div
+            className="glass fade-up"
+            style={{ maxWidth: 640, padding: 34, textAlign: 'center' }}
+          >
             <div className="mono" style={{ color: 'var(--green)' }}>
               MISSION COMPLETE ✓
             </div>
@@ -121,10 +136,10 @@ export default function MissionPlayScene({ missionId, onComplete }) {
       <div
         style={{
           display: 'grid',
-          gridTemplateRows: 'auto auto 1fr auto',
+          gridTemplateRows: 'auto 1fr auto',
           height: '100%',
           padding: '24px 20px',
-          gap: 14,
+          gap: 16,
           maxWidth: 1100,
           margin: '0 auto',
         }}
@@ -134,7 +149,7 @@ export default function MissionPlayScene({ missionId, onComplete }) {
           className="fade-up"
           style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}
         >
-          <span className="pill" style={{ color: 'var(--cyan)', borderColor: 'var(--cyan)' }}>
+          <span className="pill" style={{ color: accent, borderColor: accent }}>
             {q.chapter_vn}
           </span>
           <div className="mono" style={{ marginLeft: 'auto' }}>
@@ -145,44 +160,70 @@ export default function MissionPlayScene({ missionId, onComplete }) {
           </div>
         </div>
 
-        {/* Context bar */}
-        {q.context_vn && (
-          <div
-            className="mono"
-            style={{
-              fontSize: 12,
-              color: 'var(--ink-mute)',
-              borderLeft: '2px solid var(--line)',
-              paddingLeft: 10,
-            }}
-          >
-            BỐI CẢNH · {q.context_vn}
-          </div>
-        )}
-
-        {/* Capi dialogue */}
+        {/* Middle: illustration + capi + prompt (two-column) */}
         <div
+          className="fade-up"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'auto 1fr',
-            gap: 18,
+            gridTemplateColumns: 'minmax(260px, 460px) 1fr',
+            gap: 24,
             alignItems: 'end',
             alignSelf: 'end',
           }}
-          className="fade-up"
         >
-          <div style={{ display: 'grid', placeItems: 'center' }}>
-            <Capi outfit="lab" pose="talk" size={120} />
+          <div key={`illo-${idx}`} style={{ position: 'relative' }}>
+            {illoKey ? (
+              <QIllo keyId={illoKey} accent={accent} />
+            ) : (
+              <div
+                style={{
+                  aspectRatio: '16/9',
+                  borderRadius: 12,
+                  border: '1px dashed var(--line)',
+                  display: 'grid',
+                  placeItems: 'center',
+                  color: 'var(--ink-dim)',
+                  fontFamily: 'var(--font-mono)',
+                }}
+              >
+                scene
+              </div>
+            )}
+            {q.context_vn && (
+              <div
+                className="mono"
+                style={{
+                  marginTop: 8,
+                  fontSize: 11,
+                  color: 'var(--ink-dim)',
+                  letterSpacing: 1,
+                }}
+              >
+                BỐI CẢNH · {q.context_vn}
+              </div>
+            )}
           </div>
-          <div className="dialogue">
-            <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 6 }}>
-              CAPI
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'auto 1fr',
+              gap: 14,
+              alignItems: 'end',
+            }}
+          >
+            <div style={{ display: 'grid', placeItems: 'center' }}>
+              <Capi outfit="lab" pose="talk" size={120} />
             </div>
-            <div
-              key={idx}
-              style={{ fontSize: 17, lineHeight: 1.5, fontFamily: 'var(--font-display)' }}
-            >
-              <Typed text={q.capi_dialogue_vn?.replace(/^[""]|[""]$/g, '')} speed={14} />
+            <div className="dialogue">
+              <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 6 }}>
+                CAPI
+              </div>
+              <div
+                key={idx}
+                style={{ fontSize: 17, lineHeight: 1.5, fontFamily: 'var(--font-display)' }}
+              >
+                <Typed text={q.capi_dialogue_vn?.replace(/^[""]|[""]$/g, '')} speed={14} />
+              </div>
             </div>
           </div>
         </div>
