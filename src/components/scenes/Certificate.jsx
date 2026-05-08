@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { DualRadar, SceneArt } from '../UI.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_ROLES } from '../../data.js'
@@ -17,6 +18,7 @@ const SECTION_STYLE = {
 }
 
 function SaveStatusBanner({ saveStatus, saveError, onRetrySave }) {
+  const { t } = useTranslation()
   if (!saveStatus || saveStatus === 'idle') return null
 
   const tone =
@@ -42,19 +44,16 @@ function SaveStatusBanner({ saveStatus, saveError, onRetrySave }) {
         color: tone.color,
       }}
     >
-      {saveStatus === 'saving' && <span>⏳ Đang lưu kết quả vào tài khoản...</span>}
-      {saveStatus === 'success' && (
-        <span>✓ Đã lưu kết quả vào tài khoản. Bạn có thể xem lại trong &ldquo;Lịch sử&rdquo;.</span>
-      )}
+      {saveStatus === 'saving' && <span>{t('save_status.saving')}</span>}
+      {saveStatus === 'success' && <span>{t('save_status.success')}</span>}
       {saveStatus === 'skipped' && (
-        <span style={{ color: 'var(--ink-dim)' }}>
-          Bạn chưa đăng nhập &mdash; kết quả này sẽ không được lưu lại.
-        </span>
+        <span style={{ color: 'var(--ink-dim)' }}>{t('save_status.skipped')}</span>
       )}
       {saveStatus === 'error' && (
         <>
           <span style={{ flex: 1 }}>
-            Không lưu được kết quả{saveError ? `: ${saveError}` : '.'}
+            {t('save_status.error_prefix')}
+            {saveError ? `: ${saveError}` : '.'}
           </span>
           {onRetrySave && (
             <button
@@ -67,7 +66,7 @@ function SaveStatusBanner({ saveStatus, saveError, onRetrySave }) {
               }}
               onClick={onRetrySave}
             >
-              Thử lại
+              {t('common.retry')}
             </button>
           )}
         </>
@@ -85,6 +84,7 @@ export default function CertificateScene({
   onRestart,
   onHistory,
 }) {
+  const { t } = useTranslation()
   const [flashed, setFlashed] = useState(true)
 
   // Stable cert ID so it doesn't change on every re-render (was Math.random in render).
@@ -233,7 +233,9 @@ export default function CertificateScene({
           </div>
 
           {/* ── S3 & S4 ── */}
-          <div style={{ ...SECTION_STYLE, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+          <div
+            style={{ ...SECTION_STYLE, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}
+          >
             <div className="glass" style={{ padding: 20, borderColor: primary.color + '55' }}>
               <div className="mono" style={{ color: primary.color, marginBottom: 6 }}>
                 3 · YOUR SUPERPOWER
@@ -543,15 +545,17 @@ export default function CertificateScene({
             </div>
             <p style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--ink-dim)', marginTop: 0 }}>
               Sự kết hợp của <b style={{ color: primary.color }}>{certCopy.superpowerVn.roleVn}</b>{' '}
-              và{' '}
-              <b style={{ color: secondary.color }}>{certCopy.secondaryPowerVn.roleVn}</b> tạo nên
-              một profil hiếm có: bạn vừa có thể đào sâu vào lĩnh vực kỹ thuật của mình, vừa có khả
-              năng hợp tác với các nhóm chức năng khác. Định hướng phù hợp với bạn là những vai trò
-              đòi hỏi cả tư duy chuyên sâu lẫn sự linh hoạt.
+              và <b style={{ color: secondary.color }}>{certCopy.secondaryPowerVn.roleVn}</b> tạo
+              nên một profil hiếm có: bạn vừa có thể đào sâu vào lĩnh vực kỹ thuật của mình, vừa có
+              khả năng hợp tác với các nhóm chức năng khác. Định hướng phù hợp với bạn là những vai
+              trò đòi hỏi cả tư duy chuyên sâu lẫn sự linh hoạt.
             </p>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
               <div>
-                <div className="mono" style={{ color: primary.color, fontSize: 11, marginBottom: 6 }}>
+                <div
+                  className="mono"
+                  style={{ color: primary.color, fontSize: 11, marginBottom: 6 }}
+                >
                   KỸ NĂNG CỐT LÕI
                 </div>
                 {certCopy.primaryQualifications.slice(0, 3).map((q) => (
@@ -650,14 +654,14 @@ export default function CertificateScene({
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
               {onHistory && (
                 <button className="btn btn-ghost" onClick={onHistory}>
-                  Xem lịch sử
+                  {t('cert.btn_history')}
                 </button>
               )}
               <button className="btn btn-ghost" onClick={() => window.print()}>
-                In / Lưu PDF
+                {t('cert.btn_print')}
               </button>
               <button className="btn btn-primary" onClick={onRestart}>
-                LÀM LẠI TỪ ĐẦU
+                {t('common.restart')}
               </button>
             </div>
           </div>

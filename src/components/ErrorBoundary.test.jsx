@@ -1,5 +1,6 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeAll } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import i18n from '../i18n/index.js'
 import ErrorBoundary from './ErrorBoundary.jsx'
 
 function Boom() {
@@ -7,6 +8,12 @@ function Boom() {
 }
 
 describe('ErrorBoundary', () => {
+  beforeAll(async () => {
+    // Pin to Vietnamese for assertion stability — jsdom's navigator.language
+    // is en-US by default, which would otherwise auto-detect EN.
+    await i18n.changeLanguage('vi')
+  })
+
   it('renders children when no error is thrown', () => {
     render(
       <ErrorBoundary>
@@ -17,7 +24,6 @@ describe('ErrorBoundary', () => {
   })
 
   it('renders the fallback UI when a child throws', () => {
-    // Silence the expected console.error from React's dev-mode error logging.
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
     render(
       <ErrorBoundary>

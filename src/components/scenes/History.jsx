@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { SceneArt } from '../UI.jsx'
 import { CAPI_ROLES, CAPI_THEMES } from '../../data.js'
 import SceneShell from './SceneShell.jsx'
@@ -10,6 +11,7 @@ const PROFILE_COLOR = {
 }
 
 export default function HistoryScene({ user, supabase, onBack }) {
+  const { t } = useTranslation()
   const [runs, setRuns] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -56,21 +58,24 @@ export default function HistoryScene({ user, supabase, onBack }) {
           }}
         >
           <button className="btn btn-ghost" onClick={onBack}>
-            ← Quay lại
+            {t('common.back')}
           </button>
           <div>
             <div className="mono" style={{ color: 'var(--cyan)' }}>
-              LỊCH SỬ CHẠY
+              {t('history.section_label')}
             </div>
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 28, margin: '4px 0 0' }}>
-              Các lần chơi trước
+              {t('history.title')}
             </h2>
           </div>
         </div>
 
         {loading ? (
-          <div className="mono" style={{ color: 'var(--ink-mute)', textAlign: 'center', marginTop: 60 }}>
-            Đang tải...
+          <div
+            className="mono"
+            style={{ color: 'var(--ink-mute)', textAlign: 'center', marginTop: 60 }}
+          >
+            {t('common.loading')}
           </div>
         ) : error ? (
           <div
@@ -83,7 +88,7 @@ export default function HistoryScene({ user, supabase, onBack }) {
             }}
           >
             <div style={{ fontSize: 40, marginBottom: 12 }}>⚠️</div>
-            Không tải được lịch sử: {error}
+            {t('history.load_error', { error })}
           </div>
         ) : runs.length === 0 ? (
           <div
@@ -91,7 +96,7 @@ export default function HistoryScene({ user, supabase, onBack }) {
             style={{ padding: 30, textAlign: 'center', color: 'var(--ink-dim)' }}
           >
             <div style={{ fontSize: 40, marginBottom: 12 }}>📋</div>
-            Chưa có lần chạy nào được lưu.
+            {t('history.empty')}
           </div>
         ) : (
           <div style={{ display: 'grid', gap: 12 }}>
@@ -133,7 +138,8 @@ export default function HistoryScene({ user, supabase, onBack }) {
                       )}
                     </div>
                     <div className="mono" style={{ color: 'var(--ink-mute)', fontSize: 11 }}>
-                      Mission #{r.mission_id} ·{' '}
+                      {t('history.mission_prefix')}
+                      {r.mission_id} ·{' '}
                       {new Date(r.created_at).toLocaleDateString('vi-VN', {
                         year: 'numeric',
                         month: 'long',
@@ -156,7 +162,7 @@ export default function HistoryScene({ user, supabase, onBack }) {
                         {Math.round(r.scores.final[r.primary_role])}
                       </div>
                       <div className="mono" style={{ fontSize: 10, color: 'var(--ink-mute)' }}>
-                        Final Score
+                        {t('history.final_score')}
                       </div>
                     </div>
                   )}

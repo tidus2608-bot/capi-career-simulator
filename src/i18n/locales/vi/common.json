@@ -1,0 +1,60 @@
+{
+  "lang": {
+    "vi": "Tiếng Việt",
+    "en": "English"
+  },
+  "intro": {
+    "tagline": "VIỆN NGHIÊN CỨU CAPI · ESTABLISHED 20XX",
+    "title": "Hành trình Điểm chạm Tương lai",
+    "title_highlight": "Điểm chạm",
+    "title_prefix": "Hành trình",
+    "title_suffix": "Tương lai",
+    "subtitle": "CAPI CAREER PATH SIMULATOR",
+    "blurb": "Capi sẽ quét hệ thống tư duy của bạn qua 15 câu hỏi, dẫn bạn vào một nhiệm vụ mô phỏng thực chiến 20 câu, và giải mã <em>Capi-Gene</em> — mật mã nghề nghiệp của bạn.",
+    "auth_loading": "Đang kiểm tra đăng nhập...",
+    "auth_signed_in": "Đã đăng nhập: {{name}}",
+    "btn_start": "BẮT ĐẦU QUÉT",
+    "btn_signin": "🔑 Đăng nhập Google & Bắt đầu",
+    "btn_signin_pending": "Đang chuyển hướng...",
+    "btn_play_guest": "Chơi không lưu kết quả",
+    "feature_phase1": "15 câu Phase 1",
+    "feature_mission": "20 câu/nhiệm vụ",
+    "feature_roles": "5 vai trò nghề nghiệp",
+    "feature_cert": "Chứng chỉ Capi-Gene"
+  },
+  "common": {
+    "next": "TIẾP THEO →",
+    "finish": "HOÀN THÀNH →",
+    "back": "← Quay lại",
+    "restart": "LÀM LẠI TỪ ĐẦU",
+    "retry": "Thử lại",
+    "loading": "Đang tải...",
+    "back_to_themes": "← Đổi cổng",
+    "audio_on": "Bật âm thanh",
+    "audio_off": "Tắt âm thanh"
+  },
+  "save_status": {
+    "saving": "⏳ Đang lưu kết quả vào tài khoản...",
+    "success": "✓ Đã lưu kết quả vào tài khoản. Bạn có thể xem lại trong \"Lịch sử\".",
+    "skipped": "Bạn chưa đăng nhập — kết quả này sẽ không được lưu lại.",
+    "error_prefix": "Không lưu được kết quả"
+  },
+  "cert": {
+    "btn_history": "Xem lịch sử",
+    "btn_print": "In / Lưu PDF"
+  },
+  "history": {
+    "section_label": "LỊCH SỬ CHẠY",
+    "title": "Các lần chơi trước",
+    "empty": "Chưa có lần chạy nào được lưu.",
+    "load_error": "Không tải được lịch sử: {{error}}",
+    "final_score": "Final Score",
+    "mission_prefix": "Mission #"
+  },
+  "error_boundary": {
+    "system_fault": "SYSTEM FAULT",
+    "title": "Capi gặp sự cố",
+    "body": "Một lỗi không mong muốn vừa xảy ra. Bạn có thể khởi động lại để tiếp tục — kết quả đã lưu trước đó vẫn an toàn trong tài khoản của bạn.",
+    "btn_restart": "Khởi động lại"
+  }
+}
