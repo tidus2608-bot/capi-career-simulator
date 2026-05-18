@@ -35,6 +35,7 @@ export default function ThemeScene({ onPick }) {
           </p>
         </div>
         <div
+          className="theme-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit,minmax(340px,1fr))',

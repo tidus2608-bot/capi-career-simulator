@@ -127,7 +127,7 @@ export default function CertificateScene({
         }}
       >
         <div
-          className="cert-bg fade-up"
+          className="cert-bg cert-content fade-up"
           style={{
             maxWidth: 900,
             width: '100%',
@@ -234,6 +234,7 @@ export default function CertificateScene({
 
           {/* ── S3 & S4 ── */}
           <div
+            className="cert-two-col"
             style={{ ...SECTION_STYLE, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}
           >
             <div className="glass" style={{ padding: 20, borderColor: primary.color + '55' }}>
@@ -550,7 +551,7 @@ export default function CertificateScene({
               khả năng hợp tác với các nhóm chức năng khác. Định hướng phù hợp với bạn là những vai
               trò đòi hỏi cả tư duy chuyên sâu lẫn sự linh hoạt.
             </p>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div className="cert-two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
               <div>
                 <div
                   className="mono"
