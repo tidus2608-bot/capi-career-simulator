@@ -36,6 +36,7 @@ html, body {
 
 body {
   height: 100vh;
+  height: 100dvh;
   width: 100vw;
 }
 
@@ -452,6 +453,16 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
 /* Responsive */
 @media (max-width: 720px) {
   .hud-frame { inset: 8px; }
+
+  /* Theme/MissionPick grids: force single column when cards can't fit */
+  .theme-grid { grid-template-columns: 1fr !important; }
+
+  /* MissionPlay: collapse illustration+Capi two-column into single stack */
+  .mission-mid-grid { grid-template-columns: 1fr !important; }
+
+  /* Certificate: tighter side padding and collapse two-column sections */
+  .cert-content { padding-left: 18px !important; padding-right: 18px !important; }
+  .cert-two-col { grid-template-columns: 1fr !important; }
 }
 
 /* Scrollbar (Webkit) */

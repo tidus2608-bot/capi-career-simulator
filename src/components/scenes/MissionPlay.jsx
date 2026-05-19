@@ -162,7 +162,7 @@ export default function MissionPlayScene({ missionId, onComplete }) {
 
         {/* Middle: illustration + capi + prompt (two-column) */}
         <div
-          className="fade-up"
+          className="fade-up mission-mid-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'minmax(260px, 460px) 1fr',
