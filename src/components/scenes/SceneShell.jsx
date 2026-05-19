@@ -24,7 +24,7 @@ export default function SceneShell({ children, className = '', bg = 'default' })
       </div>
       <div
         className={`fade-in ${className}`}
-        style={{ position: 'relative', zIndex: 5, height: '100%', width: '100%' }}
+        style={{ position: 'relative', zIndex: 5, height: '100%', width: '100%', overflowY: 'auto' }}
       >
         {children}
       </div>

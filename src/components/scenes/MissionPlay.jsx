@@ -134,6 +134,7 @@ export default function MissionPlayScene({ missionId, onComplete }) {
     <SceneShell bg={bg}>
       <SceneArt variant={bg} />
       <div
+        className="mission-play-grid"
         style={{
           display: 'grid',
           gridTemplateRows: 'auto 1fr auto',
