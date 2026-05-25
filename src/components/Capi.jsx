@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useId } from 'react'
 
 /* Capi mascot — chibi capybara with outfit variants */
 /* <Capi outfit="lab|astronaut|eco|medic|rescue|intern" pose="idle|talk|cheer|wave" size={180} /> */
@@ -6,7 +6,7 @@ import React, { useState, useEffect, useMemo } from 'react'
 const Capi = ({ outfit = "lab", pose = "idle", size = 180, style = {} }) => {
   const [blink, setBlink] = useState(false)
   const [bob, setBob] = useState(0)
-  const uid = useMemo(() => Math.random().toString(36).slice(2, 8), [])
+  const uid = useId().replace(/:/g, '')
 
   useEffect(() => {
     const blinkInt = setInterval(() => {

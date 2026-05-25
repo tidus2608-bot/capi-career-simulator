@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useId, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DualRadar, SceneArt } from '../UI.jsx'
 import { capiAudio } from '../../audio.js'
@@ -87,8 +87,12 @@ export default function CertificateScene({
   const { t } = useTranslation()
   const [flashed, setFlashed] = useState(true)
 
-  // Stable cert ID so it doesn't change on every re-render (was Math.random in render).
-  const certId = useMemo(() => Math.floor(Math.random() * 9000 + 1000), [])
+  const rawId = useId()
+  const certId = useMemo(() => {
+    let h = 0
+    for (const c of rawId) h = (h * 31 + c.charCodeAt(0)) | 0
+    return 1000 + Math.abs(h) % 9000
+  }, [rawId])
   const certDate = useMemo(() => new Date().toISOString().slice(0, 10), [])
 
   useEffect(() => {

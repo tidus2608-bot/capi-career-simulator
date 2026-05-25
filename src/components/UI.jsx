@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { CAPI_ROLES, ROLE_KEYS } from '../data.js'
 
 export const Particles = ({ count = 24, color = "#00e5ff" }) => {
@@ -32,24 +32,32 @@ export const Particles = ({ count = 24, color = "#00e5ff" }) => {
 }
 
 export const Typed = ({ text, speed = 22, onDone = () => {}, className = "" }) => {
-  const [out, setOut] = useState("")
-  const [done, setDone] = useState(false)
+  const [state, setState] = useState({ text, pos: 0, done: false })
+  const onDoneRef = useRef(onDone)
+  useEffect(() => { onDoneRef.current = onDone })
+
+  // Reset position when text prop changes (derived-state pattern, runs before paint)
+  if (state.text !== text) {
+    setState({ text, pos: 0, done: false })
+  }
+
   useEffect(() => {
-    setOut("")
-    setDone(false)
-    let i = 0
     const id = setInterval(() => {
-      i++
-      setOut(text.slice(0, i))
-      if (i >= text.length) {
-        clearInterval(id)
-        setDone(true)
-        onDone()
-      }
+      setState(s => {
+        if (s.text !== text) return s
+        const pos = s.pos + 1
+        if (pos >= text.length) {
+          clearInterval(id)
+          onDoneRef.current()
+          return { ...s, pos, done: true }
+        }
+        return { ...s, pos }
+      })
     }, speed)
     return () => clearInterval(id)
-  }, [text])
-  return <span className={`typed ${done ? "done" : ""} ${className}`}>{out}</span>
+  }, [text, speed])
+
+  return <span className={`typed ${state.done ? "done" : ""} ${className}`}>{text.slice(0, state.pos)}</span>
 }
 
 export const Radar = ({ scores, size = 280, color = "#00e5ff" }) => {

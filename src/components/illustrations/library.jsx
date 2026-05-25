@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 /**
  * Library of 30 mission-question scene illustrations.
  *
