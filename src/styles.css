@@ -460,6 +460,9 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
   /* MissionPlay: collapse illustration+Capi two-column into single stack */
   .mission-mid-grid { grid-template-columns: 1fr !important; }
 
+  /* MissionPlay: allow content to scroll when text is long */
+  .mission-play-grid { height: auto !important; min-height: 100%; grid-template-rows: auto auto auto !important; }
+
   /* Certificate: tighter side padding and collapse two-column sections */
   .cert-content { padding-left: 18px !important; padding-right: 18px !important; }
   .cert-two-col { grid-template-columns: 1fr !important; }
