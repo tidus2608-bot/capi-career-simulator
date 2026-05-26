@@ -37,6 +37,7 @@ export default function ReflectionScene({ onComplete }) {
     <SceneShell bg="lab">
       <SceneArt variant="lab" />
       <div
+        className="mission-play-grid"
         style={{
           display: 'grid',
           gridTemplateRows: 'auto 1fr auto',

@@ -14,10 +14,14 @@ export default function IntroScene({ onStart, user, authLoading, supabase }) {
 
   const signIn = async () => {
     setSigningIn(true)
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: window.location.origin },
-    })
+    try {
+      await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.origin },
+      })
+    } catch {
+      setSigningIn(false)
+    }
   }
 
   return (

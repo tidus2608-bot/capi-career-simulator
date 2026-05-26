@@ -10,6 +10,7 @@ export default function MissionPickScene({ themeId, onPick, onBack }) {
   return (
     <SceneShell>
       <div
+        className="mission-play-grid"
         style={{
           height: '100%',
           padding: '28px 28px',
@@ -41,6 +42,7 @@ export default function MissionPickScene({ themeId, onPick, onBack }) {
           </div>
         </div>
         <div
+          className="mission-pick-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))',

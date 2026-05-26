@@ -15,7 +15,6 @@ export default function ScanningScene({ onComplete }) {
   const [idx, setIdx] = useState(0)
   const [selfPerception, setSelfPerception] = useState({})
   const [confidence, setConfidence] = useState({})
-  const [pendingNext] = useState(false)
 
   const isConfidencePhase = idx >= PHASE1_QUESTIONS.length
   const currentQ = isConfidencePhase
@@ -33,7 +32,6 @@ export default function ScanningScene({ onComplete }) {
   }
 
   const next = () => {
-    if (pendingNext) return
     capiAudio.sfx('click')
     if (!isConfidencePhase && selfPerception[currentQ.id] === undefined) setCurrentValue(3)
     if (isConfidencePhase && confidence[currentQ.id] === undefined) setCurrentValue(3)
@@ -97,6 +95,7 @@ export default function ScanningScene({ onComplete }) {
     <SceneShell bg="lab">
       <SceneArt variant="lab" />
       <div
+        className="mission-play-grid"
         style={{
           display: 'grid',
           gridTemplateRows: 'auto 1fr auto',
