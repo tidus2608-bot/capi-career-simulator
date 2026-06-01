@@ -1,11 +1,9 @@
 import { useState, useEffect, useMemo } from 'react'
 import Capi from '../Capi.jsx'
-import { Typed, SceneArt } from '../UI.jsx'
 import { QIllo } from '../illustrations/index.js'
 import { capiAudio } from '../../audio.js'
-import { CAPI_MISSIONS, MISSION_BG } from '../../data.js'
+import { CAPI_MISSIONS } from '../../data.js'
 import { buildChapterIlloMap, getMissionAccent } from '../../data/missionVisuals.js'
-import SceneShell from './SceneShell.jsx'
 
 const MISSION_PADS = {
   1: [98, 146.8, 196, 293.7],
@@ -16,16 +14,13 @@ const MISSION_PADS = {
   5: [110, 174.6, 220, 329.6],
 }
 
-export default function MissionPlayScene({ missionId, onComplete }) {
+export default function MissionPlayScene({ missionId, onComplete, onBack }) {
   const m = CAPI_MISSIONS[missionId]
-  const bg = MISSION_BG[missionId] || 'lab'
   const qs = m.questions
-
-  // Stable chapter→illo map per mission. Recomputed only when mission changes.
   const chapterIllos = useMemo(() => buildChapterIlloMap(m), [m])
   const accent = getMissionAccent(missionId)
 
-  const [innerStage, setInnerStage] = useState('intro')
+  const [stage, setStage] = useState('q')
   const [idx, setIdx] = useState(0)
   const [answers, setAnswers] = useState({})
   const [picked, setPicked] = useState(null)
@@ -36,221 +31,167 @@ export default function MissionPlayScene({ missionId, onComplete }) {
 
   const q = qs[idx]
   const illoKey = chapterIllos[q?.chapter_vn]
+  const progress = Math.round((idx / qs.length) * 100)
 
-  const pick = (opt) => {
-    if (picked !== null) return
-    setPicked(opt.label)
+  const selectOption = (opt) => {
     capiAudio.sfx('click')
-    setTimeout(() => {
-      const newAnswers = { ...answers, [q.id]: opt.label }
-      setAnswers(newAnswers)
-      if (idx + 1 >= qs.length) {
-        setInnerStage('ending')
-      } else {
-        setIdx((i) => i + 1)
-        setPicked(null)
-      }
-    }, 480)
+    setPicked(opt.label)
   }
 
-  if (innerStage === 'intro') {
-    return (
-      <SceneShell bg={bg}>
-        <SceneArt variant={bg} />
-        <div style={{ display: 'grid', placeItems: 'center', height: '100%', padding: 24 }}>
-          <div
-            className="glass fade-up"
-            style={{ maxWidth: 640, padding: 30, textAlign: 'center' }}
-          >
-            <div className="mono" style={{ color: 'var(--cyan)' }}>
-              NHIỆM VỤ · 20 CÂU HỎI
-            </div>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 34, margin: '8px 0 4px' }}>
-              {m.name_vn}
-            </h2>
-            <div style={{ display: 'grid', placeItems: 'center', margin: '10px 0 18px' }}>
-              <Capi outfit="lab" pose="talk" size={140} />
-            </div>
-            <div className="dialogue" style={{ textAlign: 'left', marginBottom: 22 }}>
-              <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 6 }}>
-                CAPI
-              </div>
-              <div style={{ fontSize: 15, lineHeight: 1.55 }}>
-                &ldquo;{qs[0]?.context_vn}&rdquo;
-              </div>
-            </div>
-            <button
-              className="btn btn-primary"
-              onClick={() => {
-                capiAudio.sfx('whoosh')
-                setInnerStage('q')
-              }}
-            >
-              BẮT ĐẦU NHIỆM VỤ
-            </button>
-          </div>
-        </div>
-      </SceneShell>
-    )
+  const goNext = () => {
+    if (picked === null) return
+    const newAnswers = { ...answers, [q.id]: picked }
+    setAnswers(newAnswers)
+    capiAudio.sfx('confirm')
+    if (idx + 1 >= qs.length) {
+      setStage('ending')
+    } else {
+      setIdx((i) => i + 1)
+      setPicked(null)
+    }
   }
 
-  if (innerStage === 'ending') {
+  const goBack = () => {
+    if (idx === 0) {
+      onBack?.()
+      return
+    }
+    const prevQ = qs[idx - 1]
+    setIdx((i) => i - 1)
+    setPicked(answers[prevQ.id] ?? null)
+  }
+
+  if (stage === 'ending') {
     return (
-      <SceneShell bg={bg}>
-        <SceneArt variant={bg} />
-        <div style={{ display: 'grid', placeItems: 'center', height: '100%', padding: 24 }}>
+      <div className="p2-shell">
+        <div className="p2-ending">
+          <Capi outfit="lab" pose="cheer" size={130} />
           <div
-            className="glass fade-up"
-            style={{ maxWidth: 640, padding: 34, textAlign: 'center' }}
+            className="mono"
+            style={{ color: '#843497', fontSize: 12, letterSpacing: '0.15em' }}
           >
-            <div className="mono" style={{ color: 'var(--green)' }}>
-              MISSION COMPLETE ✓
-            </div>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 36, margin: '8px 0 4px' }}>
-              Nhiệm vụ hoàn thành!
-            </h2>
-            <div style={{ display: 'grid', placeItems: 'center', margin: '14px 0 22px' }}>
-              <Capi outfit="lab" pose="cheer" size={130} />
-            </div>
-            <p style={{ color: 'var(--ink-dim)', marginBottom: 26 }}>
-              Bạn đã trả lời {qs.length} câu hỏi. Capi-Gene đang tổng hợp dữ liệu hành vi của bạn...
-            </p>
-            <button
-              className="btn btn-primary"
-              onClick={() => {
-                capiAudio.sfx('success')
-                onComplete(answers)
-              }}
-            >
-              ĐI ĐẾN PHẢN CHIẾU →
-            </button>
+            NHIỆM VỤ HOÀN THÀNH ✓
           </div>
+          <h2>{m.name_vn}</h2>
+          <p style={{ color: '#6b7280', fontSize: 15, lineHeight: 1.6, maxWidth: 440, margin: 0 }}>
+            Bạn đã trả lời {qs.length} câu hỏi. Capi-Gene đang tổng hợp dữ liệu hành vi của bạn...
+          </p>
+          <button
+            className="p2-btn"
+            style={{ maxWidth: 300 }}
+            onClick={() => {
+              capiAudio.sfx('success')
+              onComplete(answers)
+            }}
+          >
+            Đi đến phản chiếu →
+          </button>
         </div>
-      </SceneShell>
+      </div>
     )
   }
 
   return (
-    <SceneShell bg={bg}>
-      <SceneArt variant={bg} />
-      <div
-        className="mission-play-grid"
-        style={{
-          display: 'grid',
-          gridTemplateRows: 'auto 1fr auto',
-          height: '100%',
-          padding: '24px 20px',
-          gap: 16,
-          maxWidth: 1100,
-          margin: '0 auto',
-        }}
-      >
-        {/* Header */}
-        <div
-          className="fade-up"
-          style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}
-        >
-          <span className="pill" style={{ color: accent, borderColor: accent }}>
-            {q.chapter_vn}
-          </span>
-          <div className="mono" style={{ marginLeft: 'auto' }}>
-            {String(idx + 1).padStart(2, '0')} / {String(qs.length).padStart(2, '0')}
+    <div className="p2-q-shell">
+      {/* Left panel: illustration + context */}
+      <div className="p2-q-left" key={`illo-${idx}`}>
+        {illoKey ? (
+          <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
+            <QIllo keyId={illoKey} accent={accent} />
           </div>
-          <div className="progress" style={{ flex: '0 0 180px' }}>
-            <i style={{ width: `${((idx + 1) / qs.length) * 100}%` }} />
-          </div>
-        </div>
-
-        {/* Middle: illustration + capi + prompt (two-column) */}
-        <div
-          className="fade-up mission-mid-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(260px, 460px) 1fr',
-            gap: 24,
-            alignItems: 'end',
-            alignSelf: 'end',
-          }}
-        >
-          <div key={`illo-${idx}`} style={{ position: 'relative' }}>
-            {illoKey ? (
-              <QIllo keyId={illoKey} accent={accent} />
-            ) : (
-              <div
-                style={{
-                  aspectRatio: '16/9',
-                  borderRadius: 12,
-                  border: '1px dashed var(--line)',
-                  display: 'grid',
-                  placeItems: 'center',
-                  color: 'var(--ink-dim)',
-                  fontFamily: 'var(--font-mono)',
-                }}
-              >
-                scene
-              </div>
-            )}
-            {q.context_vn && (
-              <div
-                className="mono"
-                style={{
-                  marginTop: 8,
-                  fontSize: 11,
-                  color: 'var(--ink-dim)',
-                  letterSpacing: 1,
-                }}
-              >
-                BỐI CẢNH · {q.context_vn}
-              </div>
-            )}
-          </div>
+        ) : (
           <div
             style={{
+              position: 'absolute',
+              inset: 0,
               display: 'grid',
-              gridTemplateColumns: 'auto 1fr',
-              gap: 14,
-              alignItems: 'end',
+              placeItems: 'center',
+              color: '#9ca3af',
+              fontFamily: 'var(--font-mono)',
+              fontSize: 12,
+              letterSpacing: '0.08em',
             }}
           >
-            <div style={{ display: 'grid', placeItems: 'center' }}>
-              <Capi outfit="lab" pose="talk" size={120} />
-            </div>
-            <div className="dialogue">
-              <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 6 }}>
-                CAPI
-              </div>
-              <div
-                key={idx}
-                style={{ fontSize: 17, lineHeight: 1.5, fontFamily: 'var(--font-display)' }}
-              >
-                <Typed text={q.capi_dialogue_vn?.replace(/^[""]|[""]$/g, '')} speed={14} />
-              </div>
-            </div>
+            SCENE
           </div>
+        )}
+        {q.chapter_vn && <div className="p2-chapter-pill">{q.chapter_vn}</div>}
+        {q.context_vn && (
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 16,
+              left: 16,
+              right: 16,
+              zIndex: 3,
+              background: 'rgba(0,0,0,0.45)',
+              color: 'rgba(255,255,255,0.9)',
+              fontSize: 11,
+              fontFamily: 'var(--font-mono)',
+              letterSpacing: '0.05em',
+              lineHeight: 1.5,
+              padding: '7px 12px',
+              borderRadius: 8,
+            }}
+          >
+            {q.context_vn}
+          </div>
+        )}
+      </div>
+
+      {/* Right panel: question + options + nav */}
+      <div className="p2-q-right">
+        <div className="p2-q-header">
+          <span className="p2-q-header-label">Câu hỏi {idx + 1} / {qs.length}</span>
+          <span className="p2-q-header-progress">{progress}% Hoàn thiện</span>
+        </div>
+        <div className="p2-q-progress-bar">
+          <div className="p2-q-progress-bar-fill" style={{ width: `${progress}%` }} />
         </div>
 
-        {/* Options */}
-        <div
-          key={idx}
-          style={{
-            display: 'grid',
-            gap: 10,
-            gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))',
-          }}
-        >
+        <div className="p2-q-text" key={`q-${idx}`}>
+          {q.capi_dialogue_vn?.replace(/^[""]|[""]$/g, '')}
+        </div>
+
+        <div className="p2-options">
           {q.options.map((opt) => (
             <button
               key={opt.label}
-              className={`option-card fade-up ${picked === opt.label ? 'picked' : ''}`}
-              style={{ animationDelay: `${0.04 + ['A', 'B', 'C'].indexOf(opt.label) * 0.06}s` }}
-              onClick={() => pick(opt)}
+              className={`p2-option${picked === opt.label ? ' p2-selected' : ''}`}
+              onClick={() => selectOption(opt)}
             >
-              <span className="key">{opt.label}</span>
-              <span>{opt.text_vn}</span>
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 22,
+                  height: 22,
+                  borderRadius: '50%',
+                  background: picked === opt.label ? '#843497' : '#f3f4f6',
+                  color: picked === opt.label ? '#fff' : '#6b7280',
+                  fontSize: 11,
+                  fontWeight: 700,
+                  marginRight: 10,
+                  flexShrink: 0,
+                }}
+              >
+                {opt.label}
+              </span>
+              {opt.text_vn}
             </button>
           ))}
         </div>
+
+        <div className="p2-q-nav">
+          <button className="p2-nav-back" onClick={goBack}>
+            ← Quay lại
+          </button>
+          <button className="p2-nav-next" disabled={picked === null} onClick={goNext}>
+            Tiếp tục →
+          </button>
+        </div>
       </div>
-    </SceneShell>
+    </div>
   )
 }

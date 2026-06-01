@@ -47,23 +47,42 @@ export const CAPI_THEMES = {
   'ark-capi': {
     id: 'ark-capi',
     name: 'Chiến dịch Ark-Capi',
+    displayName: 'CHIẾN DỊCH ARK-CAPI: MẬT MÃ HÀNH TINH MỚI',
     subtitle: 'Mật mã Hành tinh mới',
     blurb:
       'Năm 20xx. Trái Đất cạn tài nguyên. Bạn vận hành con tàu Ark-Capi khổng lồ để tìm "Hành tinh Vĩnh Cửu".',
     mood: 'Kịch tính • Trách nhiệm • Giải cứu thế giới',
+    moodTags: [
+      { label: 'Phiêu lưu', color: '#D7EFD4', textColor: '#2a6a1a' },
+      { label: 'Giải đố', color: '#D7EFD4', textColor: '#2a6a1a' },
+    ],
     accent: '#00e5ff',
     missionIds: [1, 2, 6],
   },
   techno: {
     id: 'techno',
-    name: 'Thực tập sinh TECHNO',
+    name: 'Thực tập sinh S4V',
+    displayName: 'THỰC TẬP SINH S4V',
     subtitle: 'Một ngày trong lĩnh vực STEAM',
     blurb:
-      'Bạn là thực tập sinh tại tập đoàn TECHNO, trực tiếp xử lý các dự án Smart Home, Kho vận tự hành và mạng lưới Drone.',
+      'Bạn là thực tập sinh tại tập đoàn S4V, trực tiếp xử lý các dự án Smart Home, Kho vận tự hành và mạng lưới Drone.',
     mood: 'Chuyên nghiệp • Thực tế • Áp lực thăng tiến',
+    moodTags: [
+      { label: 'Chuyên nghiệp', color: '#CED5F5', textColor: '#1a2a8a' },
+      { label: 'Thăng tiến', color: '#FCEFD2', textColor: '#8a5a00' },
+    ],
     accent: '#ff2d7a',
     missionIds: [3, 4, 5],
   },
+}
+
+export const MISSION_ICONS = {
+  1: { bg: '#D7EFD4', color: '#60C255', emoji: '♻️' },
+  2: { bg: '#F7D2D2', color: '#E14D4D', emoji: '🏥' },
+  6: { bg: '#CED5F5', color: '#0C33FA', emoji: '🤖' },
+  3: { bg: '#D7EFD4', color: '#60C255', emoji: '🏠' },
+  4: { bg: '#FCEFD2', color: '#F3C04B', emoji: '📦' },
+  5: { bg: '#CED5F5', color: '#0C33FA', emoji: '🚁' },
 }
 
 // Numeric ID → mission object from missions.json
