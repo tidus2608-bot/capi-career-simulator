@@ -1,6 +1,8 @@
 import { SceneArt } from '../UI.jsx'
+import { QIllo } from '../illustrations/index.js'
 import { capiAudio } from '../../audio.js'
 import { CAPI_THEMES, CAPI_MISSIONS, MISSION_ICONS } from '../../data.js'
+import { MISSION_VISUALS, getMissionAccent } from '../../data/missionVisuals.js'
 
 export default function MissionPickScene({ themeId, onPick, onBack }) {
   const theme = CAPI_THEMES[themeId]
@@ -24,21 +26,34 @@ export default function MissionPickScene({ themeId, onPick, onBack }) {
         <div className="p2-mission-grid">
           {missions.map((m, i) => {
             const icon = MISSION_ICONS[m.id] || { bg: '#e5e7eb', color: '#6b7280', emoji: '📋' }
+            const illoKey = MISSION_VISUALS[m.id]?.illos[0]
+            const accent = getMissionAccent(m.id)
             return (
               <div key={m.id} className="p2-card">
-                <div
-                  className="p2-icon-badge"
-                  style={{ background: icon.bg, color: icon.color }}
-                >
-                  {icon.emoji}
+                {illoKey && (
+                  <div className="p2-illo-preview">
+                    <QIllo keyId={illoKey} accent={accent} />
+                  </div>
+                )}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
+                  <div
+                    className="p2-icon-badge"
+                    style={{ background: icon.bg, color: icon.color, marginBottom: 0 }}
+                  >
+                    {icon.emoji}
+                  </div>
+                  <div>
+                    <div
+                      className="mono"
+                      style={{ fontSize: 11, color: '#9ca3af', letterSpacing: '0.1em' }}
+                    >
+                      NHIỆM VỤ {i + 1}
+                    </div>
+                    <div className="p2-card-title" style={{ margin: 0 }}>
+                      {m.name_vn}
+                    </div>
+                  </div>
                 </div>
-                <div
-                  className="mono"
-                  style={{ fontSize: 11, color: '#9ca3af', letterSpacing: '0.1em', marginBottom: 4 }}
-                >
-                  NHIỆM VỤ {i + 1}
-                </div>
-                <div className="p2-card-title">{m.name_vn}</div>
                 <p
                   style={{
                     fontSize: 13,

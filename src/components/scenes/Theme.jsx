@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import Capi from '../Capi.jsx'
 import { SceneArt } from '../UI.jsx'
+import { QIllo } from '../illustrations/index.js'
 import { capiAudio } from '../../audio.js'
 import { CAPI_THEMES } from '../../data.js'
+import { MISSION_VISUALS, getMissionAccent } from '../../data/missionVisuals.js'
 
 export default function ThemeScene({ onPick }) {
   const [innerStage, setInnerStage] = useState('intro')
@@ -55,40 +57,50 @@ export default function ThemeScene({ onPick }) {
       </div>
       <div className="p2-content">
         <div className="p2-theme-grid">
-          {themes.map((t) => (
-            <div key={t.id} className="p2-card">
-              <div
-                className="mono"
-                style={{ fontSize: 11, letterSpacing: '0.15em', color: '#9ca3af', marginBottom: 6 }}
-              >
-                {t.subtitle.toUpperCase()}
+          {themes.map((t) => {
+            const firstMissionId = t.missionIds[0]
+            const illoKey = MISSION_VISUALS[firstMissionId]?.illos[0]
+            const accent = getMissionAccent(firstMissionId)
+            return (
+              <div key={t.id} className="p2-card">
+                {illoKey && (
+                  <div className="p2-illo-preview">
+                    <QIllo keyId={illoKey} accent={accent} />
+                  </div>
+                )}
+                <div
+                  className="mono"
+                  style={{ fontSize: 11, letterSpacing: '0.15em', color: '#9ca3af', marginBottom: 6 }}
+                >
+                  {t.subtitle.toUpperCase()}
+                </div>
+                <div className="p2-card-title">{t.displayName}</div>
+                <p style={{ fontSize: 13, color: '#6b7280', lineHeight: 1.5, margin: '0 0 10px' }}>
+                  {t.blurb}
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: 4 }}>
+                  {t.moodTags.map((tag) => (
+                    <span
+                      key={tag.label}
+                      className="p2-mood-tag"
+                      style={{ background: tag.color, color: tag.textColor }}
+                    >
+                      {tag.label}
+                    </span>
+                  ))}
+                </div>
+                <button
+                  className="p2-btn"
+                  onClick={() => {
+                    capiAudio.sfx('whoosh')
+                    onPick(t.id)
+                  }}
+                >
+                  Bắt đầu →
+                </button>
               </div>
-              <div className="p2-card-title">{t.displayName}</div>
-              <p style={{ fontSize: 13, color: '#6b7280', lineHeight: 1.5, margin: '0 0 10px' }}>
-                {t.blurb}
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: 4 }}>
-                {t.moodTags.map((tag) => (
-                  <span
-                    key={tag.label}
-                    className="p2-mood-tag"
-                    style={{ background: tag.color, color: tag.textColor }}
-                  >
-                    {tag.label}
-                  </span>
-                ))}
-              </div>
-              <button
-                className="p2-btn"
-                onClick={() => {
-                  capiAudio.sfx('whoosh')
-                  onPick(t.id)
-                }}
-              >
-                Bắt đầu →
-              </button>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </div>
