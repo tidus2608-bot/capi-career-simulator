@@ -1,6 +1,10 @@
 import { capiAudio } from '../../audio.js'
 import { CAPI_THEMES, CAPI_MISSIONS, MISSION_ICONS } from '../../data.js'
 
+// First question illustration that exists for each mission (q01 unless missing)
+const MISSION_ILLO = { 6: '03' }
+const mIllo = (id) => `/illos/m${id}-q${MISSION_ILLO[id] || '01'}.webp`
+
 export default function MissionPickScene({ themeId, onPick, onBack }) {
   const theme = CAPI_THEMES[themeId]
   const missions = theme.missionIds.map((id) => CAPI_MISSIONS[id])
@@ -10,7 +14,7 @@ export default function MissionPickScene({ themeId, onPick, onBack }) {
     <div className="p2-shell">
       <div className="p2-hero">
         <img
-          src={`/illos/m${heroMissionId}-q01.webp`}
+          src={mIllo(heroMissionId)}
           alt=""
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
           onError={(e) => { e.currentTarget.style.display = 'none' }}
@@ -30,9 +34,8 @@ export default function MissionPickScene({ themeId, onPick, onBack }) {
               <div key={m.id} className="p2-card">
                 <div className="p2-illo-preview">
                   <img
-                    src={`/illos/m${m.id}-q01.webp`}
+                    src={mIllo(m.id)}
                     alt=""
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     onError={(e) => { e.currentTarget.style.display = 'none' }}
                   />
                 </div>

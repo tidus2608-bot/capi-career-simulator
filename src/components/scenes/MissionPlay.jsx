@@ -94,7 +94,7 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
         <img
           src={illoSrc}
           alt=""
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }}
           onError={(e) => { e.currentTarget.style.display = 'none' }}
         />
         {q.chapter_vn && <div className="p2-chapter-pill">{q.chapter_vn}</div>}
