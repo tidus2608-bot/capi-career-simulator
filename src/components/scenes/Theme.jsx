@@ -43,7 +43,7 @@ export default function ThemeScene({ onPick }) {
           onError={(e) => { e.currentTarget.style.display = 'none' }}
         />
         <div className="p2-hero-overlay">
-          <h2 className="p2-hero-title">CHỌN NHIỆM VỤ BẠN YÊU THÍCH</h2>
+          <h2 className="p2-hero-title">CHỌN CHỦ ĐỀ CỦA BẠN</h2>
         </div>
         <button
           className="p2-back-btn"
@@ -65,7 +65,6 @@ export default function ThemeScene({ onPick }) {
                   <img
                     src={`/illos/m${firstMissionId}-q01.webp`}
                     alt=""
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     onError={(e) => { e.currentTarget.style.display = 'none' }}
                   />
                 </div>
