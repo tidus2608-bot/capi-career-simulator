@@ -750,6 +750,26 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
   overflow: hidden;
 }
 .p2-q-left .scene { position: absolute; inset: 0; opacity: 0.9; }
+.p2-q-left svg.qillo {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.p2-illo-preview {
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  line-height: 0;
+}
+.p2-illo-preview svg.qillo {
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
 .p2-chapter-pill {
   position: absolute;
   top: 14px; left: 14px;

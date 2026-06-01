@@ -96,9 +96,7 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
       {/* Left panel: illustration + context */}
       <div className="p2-q-left" key={`illo-${idx}`}>
         {illoKey ? (
-          <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
-            <QIllo keyId={illoKey} accent={accent} />
-          </div>
+          <QIllo keyId={illoKey} accent={accent} />
         ) : (
           <div
             style={{
