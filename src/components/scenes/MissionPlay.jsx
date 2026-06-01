@@ -1,9 +1,7 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import Capi from '../Capi.jsx'
-import { QIllo } from '../illustrations/index.js'
 import { capiAudio } from '../../audio.js'
 import { CAPI_MISSIONS } from '../../data.js'
-import { buildChapterIlloMap, getMissionAccent } from '../../data/missionVisuals.js'
 
 const MISSION_PADS = {
   1: [98, 146.8, 196, 293.7],
@@ -17,8 +15,6 @@ const MISSION_PADS = {
 export default function MissionPlayScene({ missionId, onComplete, onBack }) {
   const m = CAPI_MISSIONS[missionId]
   const qs = m.questions
-  const chapterIllos = useMemo(() => buildChapterIlloMap(m), [m])
-  const accent = getMissionAccent(missionId)
 
   const [stage, setStage] = useState('q')
   const [idx, setIdx] = useState(0)
@@ -30,7 +26,7 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
   }, [missionId])
 
   const q = qs[idx]
-  const illoKey = chapterIllos[q?.chapter_vn]
+  const illoSrc = `/illos/m${missionId}-q${String(idx + 1).padStart(2, '0')}.webp`
   const progress = Math.round((idx / qs.length) * 100)
 
   const selectOption = (opt) => {
@@ -95,24 +91,12 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
     <div className="p2-q-shell">
       {/* Left panel: illustration + context */}
       <div className="p2-q-left" key={`illo-${idx}`}>
-        {illoKey ? (
-          <QIllo keyId={illoKey} accent={accent} />
-        ) : (
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              display: 'grid',
-              placeItems: 'center',
-              color: '#9ca3af',
-              fontFamily: 'var(--font-mono)',
-              fontSize: 12,
-              letterSpacing: '0.08em',
-            }}
-          >
-            SCENE
-          </div>
-        )}
+        <img
+          src={illoSrc}
+          alt=""
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          onError={(e) => { e.currentTarget.style.display = 'none' }}
+        />
         {q.chapter_vn && <div className="p2-chapter-pill">{q.chapter_vn}</div>}
         {q.context_vn && (
           <div
