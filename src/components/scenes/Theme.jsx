@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import Capi from '../Capi.jsx'
-import { QIllo } from '../illustrations/index.js'
 import { capiAudio } from '../../audio.js'
 import { CAPI_THEMES } from '../../data.js'
-import { MISSION_VISUALS, getMissionAccent } from '../../data/missionVisuals.js'
 
 export default function ThemeScene({ onPick }) {
   const [innerStage, setInnerStage] = useState('intro')
@@ -34,19 +32,16 @@ export default function ThemeScene({ onPick }) {
     )
   }
 
-  // For the hero, use the river-recon illustration (first from ark-capi theme)
-  const heroIlloKey = MISSION_VISUALS[1]?.illos[0] // 'river-recon'
-  const heroAccent = getMissionAccent(1)
-
   const themes = Object.values(CAPI_THEMES)
   return (
     <div className="p2-shell">
       <div className="p2-hero">
-        {heroIlloKey && (
-          <div style={{ position: 'absolute', inset: 0 }}>
-            <QIllo keyId={heroIlloKey} accent={heroAccent} />
-          </div>
-        )}
+        <img
+          src="/illos/m1-q01.webp"
+          alt=""
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          onError={(e) => { e.currentTarget.style.display = 'none' }}
+        />
         <div className="p2-hero-overlay">
           <h2 className="p2-hero-title">CHỌN NHIỆM VỤ BẠN YÊU THÍCH</h2>
         </div>
@@ -64,15 +59,16 @@ export default function ThemeScene({ onPick }) {
         <div className="p2-theme-grid">
           {themes.map((t) => {
             const firstMissionId = t.missionIds[0]
-            const illoKey = MISSION_VISUALS[firstMissionId]?.illos[0]
-            const accent = getMissionAccent(firstMissionId)
             return (
               <div key={t.id} className="p2-card">
-                {illoKey && (
-                  <div className="p2-illo-preview">
-                    <QIllo keyId={illoKey} accent={accent} />
-                  </div>
-                )}
+                <div className="p2-illo-preview">
+                  <img
+                    src={`/illos/m${firstMissionId}-q01.webp`}
+                    alt=""
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    onError={(e) => { e.currentTarget.style.display = 'none' }}
+                  />
+                </div>
                 <div
                   className="mono"
                   style={{ fontSize: 11, letterSpacing: '0.15em', color: '#9ca3af', marginBottom: 6 }}

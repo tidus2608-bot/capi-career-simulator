@@ -1,25 +1,20 @@
-import { QIllo } from '../illustrations/index.js'
 import { capiAudio } from '../../audio.js'
 import { CAPI_THEMES, CAPI_MISSIONS, MISSION_ICONS } from '../../data.js'
-import { MISSION_VISUALS, getMissionAccent } from '../../data/missionVisuals.js'
 
 export default function MissionPickScene({ themeId, onPick, onBack }) {
   const theme = CAPI_THEMES[themeId]
   const missions = theme.missionIds.map((id) => CAPI_MISSIONS[id])
-
-  // Hero uses the theme's first mission illustration
   const heroMissionId = theme.missionIds[0]
-  const heroIlloKey = MISSION_VISUALS[heroMissionId]?.illos[0]
-  const heroAccent = getMissionAccent(heroMissionId)
 
   return (
     <div className="p2-shell">
       <div className="p2-hero">
-        {heroIlloKey && (
-          <div style={{ position: 'absolute', inset: 0 }}>
-            <QIllo keyId={heroIlloKey} accent={heroAccent} />
-          </div>
-        )}
+        <img
+          src={`/illos/m${heroMissionId}-q01.webp`}
+          alt=""
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          onError={(e) => { e.currentTarget.style.display = 'none' }}
+        />
         <div className="p2-hero-overlay">
           <h2 className="p2-hero-title">CHỌN NHIỆM VỤ BẠN YÊU THÍCH</h2>
         </div>
@@ -31,15 +26,16 @@ export default function MissionPickScene({ themeId, onPick, onBack }) {
         <div className="p2-mission-grid">
           {missions.map((m, i) => {
             const icon = MISSION_ICONS[m.id] || { bg: '#e5e7eb', color: '#6b7280', emoji: '📋' }
-            const illoKey = MISSION_VISUALS[m.id]?.illos[0]
-            const accent = getMissionAccent(m.id)
             return (
               <div key={m.id} className="p2-card">
-                {illoKey && (
-                  <div className="p2-illo-preview">
-                    <QIllo keyId={illoKey} accent={accent} />
-                  </div>
-                )}
+                <div className="p2-illo-preview">
+                  <img
+                    src={`/illos/m${m.id}-q01.webp`}
+                    alt=""
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    onError={(e) => { e.currentTarget.style.display = 'none' }}
+                  />
+                </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
                   <div
                     className="p2-icon-badge"
