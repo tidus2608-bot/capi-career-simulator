@@ -257,7 +257,13 @@ export default function App() {
       />
     )
   } else if (stage === 'mission-play') {
-    content = <MissionPlayScene missionId={selectedMission} onComplete={onMissionComplete} />
+    content = (
+      <MissionPlayScene
+        missionId={selectedMission}
+        onComplete={onMissionComplete}
+        onBack={() => setStage('mission-pick')}
+      />
+    )
   } else if (stage === 'reflect') {
     content = <ReflectionScene onComplete={onReflectDone} />
   } else if (stage === 'certificate') {

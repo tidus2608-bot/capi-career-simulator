@@ -1,114 +1,50 @@
 import { SceneArt } from '../UI.jsx'
 import { capiAudio } from '../../audio.js'
-import { CAPI_THEMES, CAPI_MISSIONS, MISSION_BG } from '../../data.js'
-import SceneShell from './SceneShell.jsx'
+import { CAPI_THEMES, CAPI_MISSIONS, MISSION_ICONS } from '../../data.js'
 
 export default function MissionPickScene({ themeId, onPick, onBack }) {
   const theme = CAPI_THEMES[themeId]
   const missions = theme.missionIds.map((id) => CAPI_MISSIONS[id])
+  const heroVariant = themeId === 'ark-capi' ? 'river' : 'home'
 
   return (
-    <SceneShell>
-      <div
-        className="mission-play-grid"
-        style={{
-          height: '100%',
-          padding: '28px 28px',
-          display: 'grid',
-          gridTemplateRows: 'auto 1fr',
-          gap: 20,
-          maxWidth: 1240,
-          margin: '0 auto',
-        }}
-      >
-        <div
-          className="fade-up"
-          style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}
-        >
-          <button
-            className="btn btn-ghost"
-            onClick={onBack}
-            style={{ padding: '8px 14px', fontSize: 13 }}
-          >
-            ← Đổi cổng
-          </button>
-          <div>
-            <div className="mono" style={{ color: theme.accent }}>
-              {theme.name.toUpperCase()}
-            </div>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 28, margin: '2px 0 0' }}>
-              Chọn nhiệm vụ mô phỏng
-            </h2>
-          </div>
+    <div className="p2-shell">
+      <div className="p2-hero">
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.35 }}>
+          <SceneArt variant={heroVariant} />
         </div>
-        <div
-          className="mission-pick-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))',
-            gap: 16,
-            alignContent: 'start',
-          }}
-        >
-          {missions.map((m, i) => (
-            <button
-              key={m.id}
-              className="glass fade-up"
-              style={{
-                animationDelay: `${0.05 + i * 0.08}s`,
-                padding: 0,
-                textAlign: 'left',
-                cursor: 'pointer',
-                overflow: 'hidden',
-                display: 'grid',
-                gridTemplateRows: '140px auto',
-                transition: 'all 0.25s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)'
-                e.currentTarget.style.borderColor = theme.accent
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'none'
-                e.currentTarget.style.borderColor = 'var(--line)'
-              }}
-              onClick={() => {
-                capiAudio.sfx('whoosh')
-                onPick(m.id)
-              }}
-            >
-              <div style={{ position: 'relative', overflow: 'hidden', background: '#05081c' }}>
-                <SceneArt variant={MISSION_BG[m.id]} />
+        <div className="p2-hero-overlay">
+          <h2 className="p2-hero-title">CHỌN NHIỆM VỤ BẠN YÊU THÍCH</h2>
+        </div>
+        <button className="p2-back-btn" onClick={onBack}>
+          ← Quay về
+        </button>
+      </div>
+      <div className="p2-content">
+        <div className="p2-mission-grid">
+          {missions.map((m, i) => {
+            const icon = MISSION_ICONS[m.id] || { bg: '#e5e7eb', color: '#6b7280', emoji: '📋' }
+            return (
+              <div key={m.id} className="p2-card">
                 <div
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background:
-                      'linear-gradient(180deg,rgba(5,6,23,0) 0%,rgba(5,6,23,0.8) 100%)',
-                  }}
-                />
-                <div style={{ position: 'absolute', top: 12, left: 14, display: 'flex', gap: 6 }}>
-                  <span
-                    className="pill"
-                    style={{ color: theme.accent, borderColor: theme.accent + '66' }}
-                  >
-                    MISSION {i + 1}
-                  </span>
-                  <span className="pill" style={{ fontSize: 10 }}>
-                    20 câu
-                  </span>
+                  className="p2-icon-badge"
+                  style={{ background: icon.bg, color: icon.color }}
+                >
+                  {icon.emoji}
                 </div>
-              </div>
-              <div style={{ padding: 18 }}>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 20, margin: '0 0 4px' }}>
-                  {m.name_vn}
-                </h3>
+                <div
+                  className="mono"
+                  style={{ fontSize: 11, color: '#9ca3af', letterSpacing: '0.1em', marginBottom: 4 }}
+                >
+                  NHIỆM VỤ {i + 1}
+                </div>
+                <div className="p2-card-title">{m.name_vn}</div>
                 <p
                   style={{
                     fontSize: 13,
+                    color: '#6b7280',
                     lineHeight: 1.5,
-                    color: 'var(--ink-dim)',
-                    margin: 0,
+                    margin: '0 0 0',
                     display: '-webkit-box',
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical',
@@ -117,11 +53,20 @@ export default function MissionPickScene({ themeId, onPick, onBack }) {
                 >
                   {m.questions[0]?.context_vn || ''}
                 </p>
+                <button
+                  className="p2-btn"
+                  onClick={() => {
+                    capiAudio.sfx('whoosh')
+                    onPick(m.id)
+                  }}
+                >
+                  Bắt đầu →
+                </button>
               </div>
-            </button>
-          ))}
+            )
+          })}
         </div>
       </div>
-    </SceneShell>
+    </div>
   )
 }
