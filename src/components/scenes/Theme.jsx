@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import Capi from '../Capi.jsx'
-import { SceneArt } from '../UI.jsx'
 import { QIllo } from '../illustrations/index.js'
 import { capiAudio } from '../../audio.js'
 import { CAPI_THEMES } from '../../data.js'
@@ -35,13 +34,19 @@ export default function ThemeScene({ onPick }) {
     )
   }
 
+  // For the hero, use the river-recon illustration (first from ark-capi theme)
+  const heroIlloKey = MISSION_VISUALS[1]?.illos[0] // 'river-recon'
+  const heroAccent = getMissionAccent(1)
+
   const themes = Object.values(CAPI_THEMES)
   return (
     <div className="p2-shell">
       <div className="p2-hero">
-        <div style={{ position: 'absolute', inset: 0, opacity: 0.35 }}>
-          <SceneArt variant="river" />
-        </div>
+        {heroIlloKey && (
+          <div style={{ position: 'absolute', inset: 0 }}>
+            <QIllo keyId={heroIlloKey} accent={heroAccent} />
+          </div>
+        )}
         <div className="p2-hero-overlay">
           <h2 className="p2-hero-title">CHỌN NHIỆM VỤ BẠN YÊU THÍCH</h2>
         </div>

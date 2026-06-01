@@ -589,8 +589,8 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
 
 .p2-hero {
   position: relative;
-  flex: 0 0 58%;
-  background: #E5E5E5;
+  flex: 0 0 42%;
+  background: #1a2048;
   overflow: hidden;
 }
 .p2-hero .scene { position: absolute; inset: 0; z-index: 0; opacity: 0.6; }
@@ -750,7 +750,8 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
   overflow: hidden;
 }
 .p2-q-left .scene { position: absolute; inset: 0; opacity: 0.9; }
-.p2-q-left svg.qillo {
+.p2-q-left svg.qillo,
+.p2-hero svg.qillo {
   position: absolute !important;
   inset: 0 !important;
   width: 100% !important;
@@ -787,7 +788,7 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
   background: #fff;
   display: flex;
   flex-direction: column;
-  padding: 28px 28px 20px;
+  padding: 28px 68px 20px 28px;
   overflow-y: auto;
 }
 .p2-q-header {
@@ -837,7 +838,7 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
   display: flex;
   flex-direction: column;
   gap: 10px;
-  flex: 1;
+  margin-bottom: 4px;
 }
 .p2-option {
   width: 100%;
@@ -922,7 +923,7 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
   .p2-q-shell { grid-template-columns: 1fr !important; grid-template-rows: 45% 55%; }
   .p2-theme-grid { grid-template-columns: 1fr !important; }
   .p2-mission-grid { grid-template-columns: 1fr !important; }
-  .p2-hero { flex: 0 0 45%; }
+  .p2-hero { flex: 0 0 38%; }
 }
 
 /* ──────────────────────────────────────────────────────────────────────── */

@@ -1,4 +1,3 @@
-import { SceneArt } from '../UI.jsx'
 import { QIllo } from '../illustrations/index.js'
 import { capiAudio } from '../../audio.js'
 import { CAPI_THEMES, CAPI_MISSIONS, MISSION_ICONS } from '../../data.js'
@@ -7,14 +6,20 @@ import { MISSION_VISUALS, getMissionAccent } from '../../data/missionVisuals.js'
 export default function MissionPickScene({ themeId, onPick, onBack }) {
   const theme = CAPI_THEMES[themeId]
   const missions = theme.missionIds.map((id) => CAPI_MISSIONS[id])
-  const heroVariant = themeId === 'ark-capi' ? 'river' : 'home'
+
+  // Hero uses the theme's first mission illustration
+  const heroMissionId = theme.missionIds[0]
+  const heroIlloKey = MISSION_VISUALS[heroMissionId]?.illos[0]
+  const heroAccent = getMissionAccent(heroMissionId)
 
   return (
     <div className="p2-shell">
       <div className="p2-hero">
-        <div style={{ position: 'absolute', inset: 0, opacity: 0.35 }}>
-          <SceneArt variant={heroVariant} />
-        </div>
+        {heroIlloKey && (
+          <div style={{ position: 'absolute', inset: 0 }}>
+            <QIllo keyId={heroIlloKey} accent={heroAccent} />
+          </div>
+        )}
         <div className="p2-hero-overlay">
           <h2 className="p2-hero-title">CHỌN NHIỆM VỤ BẠN YÊU THÍCH</h2>
         </div>
