@@ -14,7 +14,7 @@ export default function MissionPickScene({ themeId, onPick, onBack }) {
     <div className="p2-shell">
       <div className="p2-hero">
         <img
-          src={mIllo(heroMissionId)}
+          src="/illos/sx4-mission-select.svg"
           alt=""
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
           onError={(e) => { e.currentTarget.style.display = 'none' }}
