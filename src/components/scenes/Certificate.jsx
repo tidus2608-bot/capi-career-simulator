@@ -170,14 +170,16 @@ export default function CertificateScene({
                 alignItems: 'center',
               }}
             >
-              <DualRadar
-                scores1={result.phase1}
-                scores2={result.phase2}
-                size={300}
-                color1="#5b9fff"
-                color2="#ff6b9d"
-              />
-              <div style={{ textAlign: 'left', minWidth: 200 }}>
+              <div className="dual-radar-wrap">
+                <DualRadar
+                  scores1={result.phase1}
+                  scores2={result.phase2}
+                  size={300}
+                  color1="#5b9fff"
+                  color2="#ff6b9d"
+                />
+              </div>
+              <div style={{ textAlign: 'left' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
                   <span
                     style={{

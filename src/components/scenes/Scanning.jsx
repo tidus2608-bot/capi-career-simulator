@@ -54,7 +54,7 @@ export default function ScanningScene({ onComplete }) {
             <div className="mono" style={{ color: '#843497', marginBottom: 20 }}>
               PHASE 1 · CAPI-SCAN
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 20, marginBottom: 24, alignItems: 'end' }}>
+            <div className="scan-capi-row" style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 20, marginBottom: 24, alignItems: 'end' }}>
               <Capi outfit="lab" pose="talk" size={110} />
               <div className="dialogue">
                 <div className="mono" style={{ color: '#843497', marginBottom: 8 }}>CAPI</div>
@@ -109,7 +109,7 @@ export default function ScanningScene({ onComplete }) {
         {/* Capi + question */}
         <div
           style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 20, alignItems: 'end', alignSelf: 'end' }}
-          className="fade-up"
+          className="fade-up scan-capi-row"
         >
           <Capi outfit="lab" pose="talk" size={120} />
           <div className="dialogue">

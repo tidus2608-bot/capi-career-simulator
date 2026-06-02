@@ -442,8 +442,12 @@ button:focus-visible { outline: 2px solid #843497; outline-offset: 2px; border-r
   .mission-play-grid { height: auto !important; min-height: 100%; grid-template-rows: auto auto auto !important; }
 
   /* Certificate: tighter side padding and collapse two-column sections */
-  .cert-content { padding-left: 18px !important; padding-right: 18px !important; }
+  .cert-content { padding-left: 18px !important; padding-right: 18px !important; padding-top: 28px !important; }
   .cert-two-col { grid-template-columns: 1fr !important; }
+
+  /* Scanning: stack Capi + question on narrow screens */
+  .scan-capi-row { grid-template-columns: 1fr !important; }
+  .scan-capi-row > *:first-child { display: none; }
 }
 
 /* Scrollbar (Webkit) */
@@ -913,6 +917,40 @@ button:focus-visible { outline: 2px solid #843497; outline-offset: 2px; border-r
   .p2-mission-grid { grid-template-columns: 1fr !important; }
   .p2-hero { flex: 0 0 38%; }
   .p2-content { padding: 12px 16px 20px; }
+
+  /* Radar charts: let viewBox scale them down inside flex containers */
+  .dual-radar-wrap { width: 100%; max-width: 300px; }
+  .dual-radar-wrap svg { width: 100% !important; height: auto !important; }
+
+  /* Illustration preview: shorter on mobile to leave room for question text */
+  .p2-illo-preview { height: 120px; }
+}
+
+/* Small mobile (≤ 480px) — critical layout fixes */
+@media (max-width: 480px) {
+  /* Scanning: stack Capi + question vertically */
+  .scan-capi-row {
+    grid-template-columns: 1fr !important;
+  }
+  .scan-capi-row > *:first-child {
+    display: none; /* hide Capi on tiny screens; text is primary */
+  }
+
+  /* Scanning intro glass: tighter padding */
+  .glass { padding: 20px 16px !important; }
+
+  /* Mission play split: shrink left panel further */
+  .p2-hero { flex: 0 0 32%; }
+  .p2-q-shell { grid-template-rows: 38% 62%; }
+
+  /* Illustration preview: shorter still on very small screens */
+  .p2-illo-preview { height: 90px; }
+
+  /* Certificate: minimal padding */
+  .cert-content { padding-left: 12px !important; padding-right: 12px !important; }
+
+  /* Phase 2 content panel: tighter */
+  .p2-content { padding: 10px 12px 16px; }
 }
 
 /* ──────────────────────────────────────────────────────────────────────── */
