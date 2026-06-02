@@ -1,20 +1,20 @@
 import { useState, useEffect, useId, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { DualRadar, SceneArt } from '../UI.jsx'
+import { DualRadar } from '../UI.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_ROLES } from '../../data.js'
 import SceneShell from './SceneShell.jsx'
 
 const PROFILE_COLOR = {
-  Hidden: 'var(--magenta)',
-  Aligned: 'var(--green)',
-  Emerging: 'var(--gold)',
+  Hidden: '#e11d48',
+  Aligned: '#16a34a',
+  Emerging: '#d97706',
 }
 
 const SECTION_STYLE = {
   marginBottom: 32,
   paddingBottom: 24,
-  borderBottom: '1px solid var(--line)',
+  borderBottom: '1px solid #e5e7eb',
 }
 
 function SaveStatusBanner({ saveStatus, saveError, onRetrySave }) {
@@ -23,10 +23,10 @@ function SaveStatusBanner({ saveStatus, saveError, onRetrySave }) {
 
   const tone =
     saveStatus === 'error'
-      ? { border: 'var(--magenta)', bg: 'rgba(255,45,122,0.08)', color: 'var(--magenta)' }
+      ? { border: '#e11d48', bg: 'rgba(225,29,72,0.06)', color: '#e11d48' }
       : saveStatus === 'success'
-        ? { border: 'var(--green)', bg: 'rgba(61,220,132,0.06)', color: 'var(--green)' }
-        : { border: 'var(--line)', bg: 'rgba(255,255,255,0.02)', color: 'var(--ink-dim)' }
+        ? { border: '#16a34a', bg: 'rgba(22,163,74,0.06)', color: '#16a34a' }
+        : { border: '#e5e7eb', bg: '#f9fafb', color: '#6b7280' }
 
   return (
     <div
@@ -47,7 +47,7 @@ function SaveStatusBanner({ saveStatus, saveError, onRetrySave }) {
       {saveStatus === 'saving' && <span>{t('save_status.saving')}</span>}
       {saveStatus === 'success' && <span>{t('save_status.success')}</span>}
       {saveStatus === 'skipped' && (
-        <span style={{ color: 'var(--ink-dim)' }}>{t('save_status.skipped')}</span>
+        <span style={{ color: '#6b7280' }}>{t('save_status.skipped')}</span>
       )}
       {saveStatus === 'error' && (
         <>
@@ -61,8 +61,8 @@ function SaveStatusBanner({ saveStatus, saveError, onRetrySave }) {
               style={{
                 padding: '6px 12px',
                 fontSize: 12,
-                color: 'var(--magenta)',
-                borderColor: 'var(--magenta)',
+                color: '#e11d48',
+                borderColor: '#e11d48',
               }}
               onClick={onRetrySave}
             >
@@ -104,32 +104,23 @@ export default function CertificateScene({
   if (!result || !certCopy) return null
 
   const primary = CAPI_ROLES[result.primaryRole] || {
-    color: 'var(--cyan)',
+    color: '#843497',
     name: 'Explorer',
     nameVn: 'Nhà Khám Phá',
   }
   const secondary = CAPI_ROLES[result.secondaryRole] || {
-    color: 'var(--magenta)',
+    color: '#6b7280',
     name: 'Builder',
     nameVn: 'Kỹ Sư Chế Tạo',
   }
 
-  const profileColor = PROFILE_COLOR[result.profileType] || 'var(--cyan)'
+  const profileColor = PROFILE_COLOR[result.profileType] || '#843497'
 
   return (
-    <SceneShell bg="lab">
-      <SceneArt variant="lab" />
+    <SceneShell light>
       {flashed && <div className="flash" />}
 
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 10,
-          height: '100%',
-          overflow: 'auto',
-          padding: '28px 16px',
-        }}
-      >
+      <div style={{ padding: '28px 16px' }}>
         <div
           className="cert-bg cert-content fade-up"
           style={{
@@ -142,7 +133,7 @@ export default function CertificateScene({
         >
           {/* Header badge */}
           <div style={{ position: 'absolute', top: 18, left: 24, opacity: 0.7 }}>
-            <span className="mono" style={{ color: 'var(--cyan)', letterSpacing: '4px' }}>
+            <span className="mono" style={{ color: '#843497', letterSpacing: '4px' }}>
               CAPI-GENE
             </span>
           </div>
@@ -152,7 +143,7 @@ export default function CertificateScene({
               position: 'absolute',
               top: 24,
               right: 28,
-              color: 'var(--ink-mute)',
+              color: '#9ca3af',
               fontSize: 11,
             }}
           >
@@ -167,7 +158,7 @@ export default function CertificateScene({
 
           {/* ── S1: Role Radar ── */}
           <div style={{ ...SECTION_STYLE, marginTop: 32, textAlign: 'center' }}>
-            <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 16 }}>
+            <div className="mono" style={{ color: '#843497', marginBottom: 16 }}>
               1 · ROLE RADAR
             </div>
             <div
@@ -221,7 +212,7 @@ export default function CertificateScene({
 
           {/* ── S2: Working Style ── */}
           <div style={SECTION_STYLE}>
-            <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 8 }}>
+            <div className="mono" style={{ color: '#843497', marginBottom: 8 }}>
               2 · YOUR WORKING STYLE
             </div>
             <div
@@ -229,7 +220,7 @@ export default function CertificateScene({
                 fontFamily: 'var(--font-display)',
                 fontSize: 18,
                 lineHeight: 1.5,
-                color: 'var(--ink)',
+                color: '#1a1a2e',
               }}
             >
               {certCopy.workingStyleHeadlineVn}
@@ -255,10 +246,10 @@ export default function CertificateScene({
               >
                 {certCopy.superpowerVn.roleVn}
               </h2>
-              <div className="mono" style={{ color: 'var(--ink-mute)', marginBottom: 8 }}>
+              <div className="mono" style={{ color: '#9ca3af', marginBottom: 8 }}>
                 {certCopy.superpowerVn.roleEn}
               </div>
-              <div style={{ fontSize: 14, color: 'var(--ink-dim)', marginBottom: 10 }}>
+              <div style={{ fontSize: 14, color: '#6b7280', marginBottom: 10 }}>
                 {certCopy.superpowerVn.tagline}
               </div>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -285,10 +276,10 @@ export default function CertificateScene({
               >
                 {certCopy.secondaryPowerVn.roleVn}
               </h2>
-              <div className="mono" style={{ color: 'var(--ink-mute)', marginBottom: 8 }}>
+              <div className="mono" style={{ color: '#9ca3af', marginBottom: 8 }}>
                 {certCopy.secondaryPowerVn.roleEn}
               </div>
-              <div style={{ fontSize: 14, color: 'var(--ink-dim)', marginBottom: 10 }}>
+              <div style={{ fontSize: 14, color: '#6b7280', marginBottom: 10 }}>
                 {certCopy.secondaryPowerVn.tagline}
               </div>
               <span className="pill">{certCopy.secondaryPowerVn.score} / 100</span>
@@ -297,7 +288,7 @@ export default function CertificateScene({
 
           {/* ── S5: Profile Type ── */}
           <div style={{ ...SECTION_STYLE, textAlign: 'center' }}>
-            <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 10 }}>
+            <div className="mono" style={{ color: '#843497', marginBottom: 10 }}>
               5 · PROFILE TYPE
             </div>
             <div
@@ -319,7 +310,6 @@ export default function CertificateScene({
                   fontSize: 'clamp(32px,4vw,52px)',
                   margin: 0,
                   color: profileColor,
-                  textShadow: `0 0 30px ${profileColor}55`,
                 }}
               >
                 {certCopy.profileTypeLabelVn}
@@ -329,7 +319,7 @@ export default function CertificateScene({
               style={{
                 fontSize: 15,
                 lineHeight: 1.7,
-                color: 'var(--ink-dim)',
+                color: '#6b7280',
                 maxWidth: 600,
                 margin: '0 auto',
               }}
@@ -340,11 +330,11 @@ export default function CertificateScene({
 
           {/* ── S6: Reality & Growth ── */}
           <div style={SECTION_STYLE}>
-            <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 10 }}>
+            <div className="mono" style={{ color: '#843497', marginBottom: 10 }}>
               6 · REALITY & GROWTH INSIGHT
             </div>
             <div className="dialogue" style={{ margin: 0 }}>
-              <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 6 }}>
+              <div className="mono" style={{ color: '#843497', marginBottom: 6 }}>
                 CAPI
               </div>
               <p style={{ fontSize: 15, lineHeight: 1.7, margin: 0 }}>
@@ -355,10 +345,10 @@ export default function CertificateScene({
               <span className="pill" style={{ color: '#5b9fff' }}>
                 Reality Gap (P2–P1): {Math.round(result.realityGap[result.primaryRole])} pt
               </span>
-              <span className="pill" style={{ color: 'var(--gold)' }}>
+              <span className="pill" style={{ color: '#d97706' }}>
                 Learning Gap (P3–P1): {Math.round(result.learningGap[result.primaryRole])} pt
               </span>
-              <span className="pill" style={{ color: 'var(--green)' }}>
+              <span className="pill" style={{ color: '#16a34a' }}>
                 Confidence: {(result.confidenceFactor * 100).toFixed(0)}%
               </span>
             </div>
@@ -366,7 +356,7 @@ export default function CertificateScene({
 
           {/* ── S7: Role Interpretation ── */}
           <div style={SECTION_STYLE}>
-            <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 10 }}>
+            <div className="mono" style={{ color: '#843497', marginBottom: 10 }}>
               7 · ROLE INTERPRETATION
             </div>
             <div style={{ display: 'grid', gap: 12 }}>
@@ -382,7 +372,7 @@ export default function CertificateScene({
                   style={{
                     fontSize: 13,
                     lineHeight: 1.6,
-                    color: 'var(--ink-dim)',
+                    color: '#6b7280',
                     whiteSpace: 'pre-line',
                   }}
                 >
@@ -401,7 +391,7 @@ export default function CertificateScene({
                   style={{
                     fontSize: 13,
                     lineHeight: 1.6,
-                    color: 'var(--ink-dim)',
+                    color: '#6b7280',
                     whiteSpace: 'pre-line',
                   }}
                 >
@@ -413,7 +403,7 @@ export default function CertificateScene({
 
           {/* ── S8: Score breakdown ── */}
           <div style={SECTION_STYLE}>
-            <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 12 }}>
+            <div className="mono" style={{ color: '#843497', marginBottom: 12 }}>
               8 · FULL SCORE BREAKDOWN
             </div>
             <div style={{ overflowX: 'auto' }}>
@@ -424,8 +414,8 @@ export default function CertificateScene({
                       style={{
                         textAlign: 'left',
                         padding: '8px 10px',
-                        borderBottom: '1px solid var(--line)',
-                        color: 'var(--ink-dim)',
+                        borderBottom: '1px solid #e5e7eb',
+                        color: '#6b7280',
                       }}
                     >
                       Vai trò
@@ -434,7 +424,7 @@ export default function CertificateScene({
                       style={{
                         textAlign: 'right',
                         padding: '8px 10px',
-                        borderBottom: '1px solid var(--line)',
+                        borderBottom: '1px solid #e5e7eb',
                         color: '#5b9fff',
                       }}
                     >
@@ -444,7 +434,7 @@ export default function CertificateScene({
                       style={{
                         textAlign: 'right',
                         padding: '8px 10px',
-                        borderBottom: '1px solid var(--line)',
+                        borderBottom: '1px solid #e5e7eb',
                         color: '#ff6b9d',
                       }}
                     >
@@ -454,8 +444,8 @@ export default function CertificateScene({
                       style={{
                         textAlign: 'right',
                         padding: '8px 10px',
-                        borderBottom: '1px solid var(--line)',
-                        color: 'var(--gold)',
+                        borderBottom: '1px solid #e5e7eb',
+                        color: '#d97706',
                       }}
                     >
                       P3 Phản chiếu
@@ -464,8 +454,8 @@ export default function CertificateScene({
                       style={{
                         textAlign: 'right',
                         padding: '8px 10px',
-                        borderBottom: '1px solid var(--line)',
-                        color: 'var(--cyan)',
+                        borderBottom: '1px solid #e5e7eb',
+                        color: '#843497',
                       }}
                     >
                       Tổng hợp
@@ -474,7 +464,7 @@ export default function CertificateScene({
                 </thead>
                 <tbody>
                   {certCopy.fullScoreBreakdown.map((row) => {
-                    const rc = CAPI_ROLES[row.role]?.color || 'var(--ink)'
+                    const rc = CAPI_ROLES[row.role]?.color || '#1a1a2e'
                     const isPrimary = row.role === result.primaryRole
                     return (
                       <tr
@@ -497,7 +487,7 @@ export default function CertificateScene({
                           {row.actualBehavior}
                         </td>
                         <td
-                          style={{ textAlign: 'right', padding: '8px 10px', color: 'var(--gold)' }}
+                          style={{ textAlign: 'right', padding: '8px 10px', color: '#d97706' }}
                         >
                           {row.reflection}
                         </td>
@@ -505,7 +495,7 @@ export default function CertificateScene({
                           style={{
                             textAlign: 'right',
                             padding: '8px 10px',
-                            color: 'var(--cyan)',
+                            color: '#843497',
                             fontWeight: 600,
                           }}
                         >
@@ -521,7 +511,7 @@ export default function CertificateScene({
 
           {/* ── S9: Growth ── */}
           <div style={SECTION_STYLE}>
-            <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 10 }}>
+            <div className="mono" style={{ color: '#843497', marginBottom: 10 }}>
               9 · SUGGESTED GROWTH AREAS
             </div>
             <div style={{ display: 'grid', gap: 8 }}>
@@ -530,11 +520,11 @@ export default function CertificateScene({
                   key={i}
                   style={{
                     padding: '10px 14px',
-                    background: 'rgba(255,176,32,0.07)',
-                    border: '1px solid rgba(255,176,32,0.2)',
+                    background: 'rgba(217,119,6,0.06)',
+                    border: '1px solid rgba(217,119,6,0.2)',
                     borderRadius: 8,
                     fontSize: 14,
-                    color: 'var(--ink-dim)',
+                    color: '#6b7280',
                   }}
                 >
                   💡 {g}
@@ -545,10 +535,10 @@ export default function CertificateScene({
 
           {/* ── S10: Pathways ── */}
           <div style={SECTION_STYLE}>
-            <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 10 }}>
+            <div className="mono" style={{ color: '#843497', marginBottom: 10 }}>
               10 · CAREER & LEARNING PATHWAYS
             </div>
-            <p style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--ink-dim)', marginTop: 0 }}>
+            <p style={{ fontSize: 14, lineHeight: 1.7, color: '#6b7280', marginTop: 0 }}>
               Sự kết hợp của <b style={{ color: primary.color }}>{certCopy.superpowerVn.roleVn}</b>{' '}
               và <b style={{ color: secondary.color }}>{certCopy.secondaryPowerVn.roleVn}</b> tạo
               nên một profil hiếm có: bạn vừa có thể đào sâu vào lĩnh vực kỹ thuật của mình, vừa có
@@ -572,6 +562,7 @@ export default function CertificateScene({
                       borderRadius: 6,
                       fontSize: 13,
                       marginBottom: 4,
+                      color: '#374151',
                     }}
                   >
                     → {q}
@@ -594,6 +585,7 @@ export default function CertificateScene({
                       borderRadius: 6,
                       fontSize: 13,
                       marginBottom: 4,
+                      color: '#374151',
                     }}
                   >
                     → {q}
@@ -605,7 +597,7 @@ export default function CertificateScene({
 
           {/* ── S11: Careers ── */}
           <div style={SECTION_STYLE}>
-            <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 10 }}>
+            <div className="mono" style={{ color: '#843497', marginBottom: 10 }}>
               11 · CAREERS
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -629,7 +621,7 @@ export default function CertificateScene({
 
           {/* ── S12: Majors ── */}
           <div style={{ ...SECTION_STYLE, borderBottom: 'none', marginBottom: 20 }}>
-            <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 10 }}>
+            <div className="mono" style={{ color: '#843497', marginBottom: 10 }}>
               12 · MAJORS
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -644,7 +636,7 @@ export default function CertificateScene({
           {/* Footer actions */}
           <div
             style={{
-              borderTop: '1px dashed var(--line)',
+              borderTop: '1px dashed #e5e7eb',
               paddingTop: 22,
               display: 'flex',
               justifyContent: 'space-between',
@@ -653,7 +645,7 @@ export default function CertificateScene({
               gap: 10,
             }}
           >
-            <div className="mono" style={{ color: 'var(--ink-dim)', fontSize: 11 }}>
+            <div className="mono" style={{ color: '#9ca3af', fontSize: 11 }}>
               VIỆN NGHIÊN CỨU CAPI · CAPI-GENE v2.0
             </div>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>

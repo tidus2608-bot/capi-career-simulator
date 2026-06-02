@@ -1,5 +1,5 @@
 export default function LikertSlider({ labels, value, onChange }) {
-  const keys = Object.keys(labels) // ['1','2','3','4','5']
+  const keys = Object.keys(labels)
   return (
     <div style={{ padding: '18px 0 6px' }}>
       <input
@@ -11,17 +11,18 @@ export default function LikertSlider({ labels, value, onChange }) {
         onChange={(e) => onChange(Number(e.target.value))}
         className="likert-range"
       />
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
         {keys.map((k) => (
           <span
             key={k}
-            className="mono"
             style={{
               fontSize: 10,
-              color: Number(k) === value ? 'var(--cyan)' : 'var(--ink-mute)',
+              color: Number(k) === value ? '#843497' : '#9ca3af',
+              fontFamily: 'var(--font-mono)',
               textAlign: 'center',
               flex: 1,
-              lineHeight: 1.2,
+              lineHeight: 1.3,
+              fontWeight: Number(k) === value ? 600 : 400,
             }}
           >
             {k}

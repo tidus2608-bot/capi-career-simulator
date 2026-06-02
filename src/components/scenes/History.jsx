@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SceneArt } from '../UI.jsx'
 import { CAPI_ROLES, CAPI_THEMES } from '../../data.js'
 import SceneShell from './SceneShell.jsx'
 
 const PROFILE_COLOR = {
-  Hidden: 'var(--magenta)',
-  Aligned: 'var(--green)',
-  Emerging: 'var(--gold)',
+  Hidden: '#e11d48',
+  Aligned: '#16a34a',
+  Emerging: '#d97706',
 }
 
 export default function HistoryScene({ user, supabase, onBack }) {
@@ -36,12 +35,9 @@ export default function HistoryScene({ user, supabase, onBack }) {
   }, [user, supabase])
 
   return (
-    <SceneShell bg="lab">
-      <SceneArt variant="lab" />
+    <SceneShell light>
       <div
         style={{
-          height: '100%',
-          overflow: 'auto',
           padding: '28px 24px',
           maxWidth: 900,
           margin: '0 auto',
@@ -61,10 +57,17 @@ export default function HistoryScene({ user, supabase, onBack }) {
             {t('common.back')}
           </button>
           <div>
-            <div className="mono" style={{ color: 'var(--cyan)' }}>
+            <div className="mono" style={{ color: '#843497' }}>
               {t('history.section_label')}
             </div>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 28, margin: '4px 0 0' }}>
+            <h2
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 28,
+                margin: '4px 0 0',
+                color: '#1a1a2e',
+              }}
+            >
               {t('history.title')}
             </h2>
           </div>
@@ -73,7 +76,7 @@ export default function HistoryScene({ user, supabase, onBack }) {
         {loading ? (
           <div
             className="mono"
-            style={{ color: 'var(--ink-mute)', textAlign: 'center', marginTop: 60 }}
+            style={{ color: '#9ca3af', textAlign: 'center', marginTop: 60 }}
           >
             {t('common.loading')}
           </div>
@@ -83,8 +86,8 @@ export default function HistoryScene({ user, supabase, onBack }) {
             style={{
               padding: 30,
               textAlign: 'center',
-              color: 'var(--magenta)',
-              borderColor: 'var(--magenta)',
+              color: '#e11d48',
+              borderColor: '#fecdd3',
             }}
           >
             <div style={{ fontSize: 40, marginBottom: 12 }}>⚠️</div>
@@ -93,7 +96,7 @@ export default function HistoryScene({ user, supabase, onBack }) {
         ) : runs.length === 0 ? (
           <div
             className="glass"
-            style={{ padding: 30, textAlign: 'center', color: 'var(--ink-dim)' }}
+            style={{ padding: 30, textAlign: 'center', color: '#6b7280' }}
           >
             <div style={{ fontSize: 40, marginBottom: 12 }}>📋</div>
             {t('history.empty')}
@@ -102,11 +105,11 @@ export default function HistoryScene({ user, supabase, onBack }) {
           <div style={{ display: 'grid', gap: 12 }}>
             {runs.map((r) => {
               const pr = CAPI_ROLES[r.primary_role] || {
-                color: 'var(--cyan)',
+                color: '#843497',
                 name: r.primary_role,
                 nameVn: r.primary_role,
               }
-              const profileColor = PROFILE_COLOR[r.profile_type] || 'var(--cyan)'
+              const profileColor = PROFILE_COLOR[r.profile_type] || '#843497'
               const theme = CAPI_THEMES[r.theme]
               return (
                 <div
@@ -137,7 +140,7 @@ export default function HistoryScene({ user, supabase, onBack }) {
                         </span>
                       )}
                     </div>
-                    <div className="mono" style={{ color: 'var(--ink-mute)', fontSize: 11 }}>
+                    <div className="mono" style={{ color: '#9ca3af', fontSize: 11 }}>
                       {t('history.mission_prefix')}
                       {r.mission_id} ·{' '}
                       {new Date(r.created_at).toLocaleDateString('vi-VN', {
@@ -161,7 +164,7 @@ export default function HistoryScene({ user, supabase, onBack }) {
                       >
                         {Math.round(r.scores.final[r.primary_role])}
                       </div>
-                      <div className="mono" style={{ fontSize: 10, color: 'var(--ink-mute)' }}>
+                      <div className="mono" style={{ fontSize: 10, color: '#9ca3af' }}>
                         {t('history.final_score')}
                       </div>
                     </div>

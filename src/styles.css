@@ -27,8 +27,8 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--bg-0);
-  color: var(--ink);
+  background: #F5F6FA;
+  color: #1a1a2e;
   font-family: var(--font-body);
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
@@ -43,7 +43,7 @@ body {
 #app { height: 100vh; width: 100vw; }
 
 button { font-family: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
-button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 8px; }
+button:focus-visible { outline: 2px solid #843497; outline-offset: 2px; border-radius: 8px; }
 
 /* Cosmic background */
 .cosmic-bg {
@@ -140,54 +140,43 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
 .hud-frame .hud-tr { top: 0; right: 0; border-left: 0; border-bottom: 0; }
 .hud-frame .hud-bl { bottom: 0; left: 0; border-right: 0; border-top: 0; }
 
-/* Glass card */
+/* Glass card — light theme */
 .glass {
-  background: var(--surface);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    0 30px 80px rgba(0, 0, 0, 0.5);
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 
-/* Buttons */
+/* Buttons — light theme */
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 22px;
-  font-family: var(--font-display);
+  gap: 8px;
+  padding: 11px 22px;
+  font-family: var(--font-body);
   font-weight: 600;
-  font-size: 15px;
-  letter-spacing: 0.02em;
-  border-radius: 999px;
-  border: 1px solid var(--line-strong);
-  background: linear-gradient(180deg, rgba(0, 229, 255, 0.12), rgba(0, 229, 255, 0.04));
-  color: var(--ink);
-  transition: all 0.2s ease;
-  position: relative;
-  overflow: hidden;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1.5px solid transparent;
+  color: #1a1a2e;
+  transition: all 0.18s ease;
+  cursor: pointer;
 }
-.btn:hover {
-  border-color: var(--cyan);
-  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.15), 0 8px 24px rgba(0, 229, 255, 0.2);
-  transform: translateY(-1px);
-}
+.btn:hover { transform: translateY(-1px); }
 .btn-primary {
-  background: linear-gradient(180deg, var(--cyan), #00b8cc);
-  color: #021820;
+  background: #843497;
+  color: #fff;
   border-color: transparent;
-  box-shadow: 0 0 30px rgba(0, 229, 255, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
-.btn-primary:hover {
-  box-shadow: 0 0 40px rgba(0, 229, 255, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-}
+.btn-primary:hover { background: #6b2a7a; }
+.btn-primary:active { transform: scale(0.98); }
 .btn-ghost {
   background: transparent;
-  border-color: var(--line);
+  border-color: #d1d5db;
+  color: #374151;
 }
+.btn-ghost:hover { border-color: #843497; color: #843497; }
 
 /* Labels */
 .mono {
@@ -195,30 +184,18 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
   text-transform: uppercase;
   letter-spacing: 0.14em;
   font-size: 11px;
-  color: var(--ink-dim);
+  color: #6b7280;
 }
 
-/* Dialogue bubble */
+/* Dialogue bubble — light theme */
 .dialogue {
   position: relative;
-  border: 1px solid var(--line-strong);
-  background: linear-gradient(180deg, rgba(10, 20, 60, 0.85), rgba(14, 26, 72, 0.8));
-  border-radius: 20px;
-  padding: 22px 26px;
-  box-shadow: 0 0 0 1px rgba(0, 229, 255, 0.12) inset, 0 10px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  border-radius: 16px;
+  padding: 20px 24px;
 }
-.dialogue::before {
-  content: "";
-  position: absolute;
-  left: 42px;
-  top: -10px;
-  width: 18px;
-  height: 18px;
-  background: linear-gradient(135deg, rgba(10, 20, 60, 0.85), rgba(14, 26, 72, 0.8));
-  border-top: 1px solid var(--line-strong);
-  border-left: 1px solid var(--line-strong);
-  transform: rotate(45deg);
-}
+.dialogue::before { display: none; }
 
 /* Role chip pill (for scoring preview) */
 .role-chip {
@@ -238,7 +215,7 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
 
 /* Scanning pulse ring */
 @keyframes pulse-ring {
-  0% { transform: scale(0.7); opacity: 0.9; }
+  0% { transform: scale(0.7); opacity: 0.7; }
   80% { opacity: 0; }
   100% { transform: scale(1.8); opacity: 0; }
 }
@@ -247,7 +224,7 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 2px solid var(--cyan);
+  border: 2px solid #843497;
   animation: pulse-ring 2.4s ease-out infinite;
 }
 .pulse-ring.d1 { animation-delay: 0.7s; }
@@ -309,15 +286,14 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
 .progress {
   height: 4px;
   width: 100%;
-  background: rgba(120, 170, 255, 0.12);
+  background: #e5e7eb;
   border-radius: 99px;
   overflow: hidden;
 }
 .progress > i {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, var(--cyan), var(--magenta));
-  box-shadow: 0 0 12px var(--cyan);
+  background: #843497;
   transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -371,11 +347,11 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
   color: var(--cyan);
 }
 
-/* Radar chart colors */
-.radar-grid { stroke: var(--line); stroke-width: 1; fill: none; }
-.radar-axis { stroke: var(--line); stroke-width: 1; }
-.radar-shape { fill: var(--cyan); fill-opacity: 0.25; stroke: var(--cyan); stroke-width: 2; filter: drop-shadow(0 0 8px var(--cyan)); }
-.radar-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; fill: var(--ink-dim); text-transform: uppercase; }
+/* Radar chart colors — light theme */
+.radar-grid { stroke: #e5e7eb; stroke-width: 1; fill: none; }
+.radar-axis { stroke: #e5e7eb; stroke-width: 1; }
+.radar-shape { fill: #843497; fill-opacity: 0.18; stroke: #843497; stroke-width: 2; }
+.radar-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; fill: #9ca3af; text-transform: uppercase; }
 
 /* Scene backdrop (mission) */
 .scene {
@@ -391,7 +367,7 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
 .typed::after {
   content: "▋";
   margin-left: 2px;
-  color: var(--cyan);
+  color: #843497;
   animation: blink 1s steps(1) infinite;
 }
 .typed.done::after { content: ""; }
@@ -432,7 +408,7 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
   100% { transform: translateY(-110vh) scale(0.3); opacity: 0; }
 }
 
-/* Audio mute toggle */
+/* Audio mute toggle — light theme */
 .audio-toggle {
   position: fixed;
   top: 18px;
@@ -441,14 +417,15 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(10, 20, 60, 0.8);
-  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.92);
+  border: 1px solid #e5e7eb;
   display: grid;
   place-items: center;
-  color: var(--ink-dim);
+  color: #6b7280;
   backdrop-filter: blur(8px);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
-.audio-toggle:hover { color: var(--cyan); border-color: var(--cyan); }
+.audio-toggle:hover { color: #843497; border-color: #843497; }
 
 /* Responsive */
 @media (max-width: 720px) {
@@ -534,20 +511,21 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
   padding: 4px 10px;
   font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   border-radius: 999px;
-  border: 1px solid var(--line);
-  color: var(--ink-dim);
+  border: 1px solid #e5e7eb;
+  color: #6b7280;
+  background: #fff;
 }
 
-/* ── Likert range slider ── */
+/* ── Likert range slider — light theme ── */
 .likert-range {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
   height: 4px;
-  background: linear-gradient(90deg, var(--cyan) 0%, var(--magenta) 100%);
+  background: #e5e7eb;
   border-radius: 2px;
   outline: none;
   cursor: pointer;
@@ -558,21 +536,21 @@ button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; bord
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: var(--cyan);
-  border: 3px solid var(--bg-0);
+  background: #843497;
+  border: 3px solid #fff;
   cursor: pointer;
-  box-shadow: 0 0 10px var(--cyan);
+  box-shadow: 0 0 0 2px rgba(132,52,151,0.25);
   transition: transform 0.15s ease;
 }
-.likert-range::-webkit-slider-thumb:hover { transform: scale(1.25); }
+.likert-range::-webkit-slider-thumb:hover { transform: scale(1.2); }
 .likert-range::-moz-range-thumb {
   width: 22px; height: 22px; border-radius: 50%;
-  background: var(--cyan); border: 3px solid var(--bg-0);
-  cursor: pointer; box-shadow: 0 0 10px var(--cyan);
+  background: #843497; border: 3px solid #fff;
+  cursor: pointer; box-shadow: 0 0 0 2px rgba(132,52,151,0.25);
 }
 
-/* ── Certificate scroll override ── */
-.cert-bg { background: var(--surface-2); border: 1px solid var(--line-strong); border-radius: 16px; }
+/* ── Certificate card — light ── */
+.cert-bg { background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; }
 
 
 /* ── Phase 2 Light Theme ─────────────────────────────────────────────── */

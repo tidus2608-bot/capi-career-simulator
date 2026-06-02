@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Capi from '../Capi.jsx'
-import { Typed, SceneArt } from '../UI.jsx'
+import { Typed } from '../UI.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_ROLES, PHASE3_QUESTIONS, LIKERT_FIT } from '../../data.js'
 import SceneShell from './SceneShell.jsx'
@@ -31,67 +31,55 @@ export default function ReflectionScene({ onComplete }) {
     }
   }
 
-  const roleData = CAPI_ROLES[q.role] || { color: 'var(--cyan)', nameVn: q.role }
+  const roleData = CAPI_ROLES[q.role] || { color: '#843497', nameVn: q.role }
 
   return (
-    <SceneShell bg="lab">
-      <SceneArt variant="lab" />
+    <SceneShell light>
       <div
-        className="mission-play-grid"
         style={{
           display: 'grid',
           gridTemplateRows: 'auto 1fr auto',
           height: '100%',
           padding: '28px 24px',
           gap: 20,
-          maxWidth: 1000,
+          maxWidth: 860,
           margin: '0 auto',
         }}
       >
-        <div className="fade-up" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <div className="mono" style={{ color: 'var(--gold)' }}>
-            PHASE 3 &middot;&nbsp; PHẢN CHIẾU
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+          <div className="mono" style={{ color: '#843497' }}>
+            PHASE 3 · PHẢN CHIẾU
           </div>
-          <div className="progress" style={{ flex: 1, maxWidth: 300 }}>
+          <div className="progress" style={{ flex: 1, maxWidth: 280 }}>
             <i style={{ width: `${((idx + 1) / PHASE3_QUESTIONS.length) * 100}%` }} />
           </div>
-          <div className="mono">
+          <div className="mono" style={{ color: '#9ca3af' }}>
             {idx + 1} / {PHASE3_QUESTIONS.length}
           </div>
         </div>
 
+        {/* Capi + question */}
         <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'auto 1fr',
-            gap: 22,
-            alignItems: 'end',
-            alignSelf: 'end',
-          }}
+          style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 20, alignItems: 'end', alignSelf: 'end' }}
           className="fade-up"
         >
-          <div style={{ display: 'grid', placeItems: 'center' }}>
-            <Capi outfit="lab" pose="talk" size={130} />
-          </div>
-          <div>
-            <div className="mono" style={{ color: roleData.color, marginBottom: 8 }}>
-              {roleData.name?.toUpperCase() || q.role.toUpperCase()} · {roleData.nameVn}
+          <Capi outfit="lab" pose="talk" size={120} />
+          <div className="dialogue">
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
+              <div className="mono" style={{ color: '#843497' }}>CAPI</div>
+              <span className="pill" style={{ color: roleData.color, borderColor: `${roleData.color}44` }}>
+                {roleData.nameVn}
+              </span>
             </div>
-            <div className="dialogue">
-              <div className="mono" style={{ color: 'var(--cyan)', marginBottom: 6 }}>
-                CAPI
-              </div>
-              <div
-                key={idx}
-                style={{ fontSize: 19, lineHeight: 1.5, fontFamily: 'var(--font-display)' }}
-              >
-                <Typed text={q.text_vn} speed={16} />
-              </div>
+            <div key={idx} style={{ fontSize: 18, lineHeight: 1.5, fontFamily: 'var(--font-display)', color: '#1a1a2e' }}>
+              <Typed text={q.text_vn} speed={16} />
             </div>
           </div>
         </div>
 
-        <div className="glass fade-up" style={{ padding: '20px 24px', animationDelay: '0.1s' }}>
+        {/* Likert + Next */}
+        <div className="glass fade-up" style={{ padding: '22px 28px', animationDelay: '0.1s' }}>
           <LikertSlider
             labels={LIKERT_FIT}
             value={current}
@@ -99,7 +87,7 @@ export default function ReflectionScene({ onComplete }) {
           />
           <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 16 }}>
             <button className="btn btn-primary" onClick={next}>
-              {idx + 1 >= PHASE3_QUESTIONS.length ? 'HOÀN THÀNH →' : 'TIẾP THEO →'}
+              {idx + 1 >= PHASE3_QUESTIONS.length ? 'Hoàn thành →' : 'Tiếp theo →'}
             </button>
           </div>
         </div>
