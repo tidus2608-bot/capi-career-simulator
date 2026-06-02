@@ -60,7 +60,7 @@ export default function IntroScene({ onStart, user, authLoading, supabase }) {
 
           {/* Capi avatar */}
           <div style={{ display: 'flex', justifyContent: 'center', margin: '4px 0 28px', position: 'relative' }}>
-            <div style={{ position: 'relative', width: 200, height: 200 }}>
+            <div style={{ position: 'relative', width: 'clamp(140px,30vw,200px)', height: 'clamp(140px,30vw,200px)' }}>
               <div className="pulse-ring" />
               <div className="pulse-ring d1" />
               <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center' }}>
