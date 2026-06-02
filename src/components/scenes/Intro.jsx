@@ -22,7 +22,13 @@ export default function IntroScene({ onStart, user, authLoading, supabase }) {
 
   return (
     <SceneShell light>
-      <div style={{ display: 'grid', placeItems: 'center', minHeight: '100%', padding: 24 }}>
+      <img
+        src="/illos/sx4-intro.svg"
+        alt=""
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }}
+        onError={(e) => { e.currentTarget.style.display = 'none' }}
+      />
+      <div style={{ position: 'relative', zIndex: 1, display: 'grid', placeItems: 'center', minHeight: '100%', padding: 24 }}>
         <div style={{ textAlign: 'center', maxWidth: 680 }} className="fade-up">
 
           <div className="mono" style={{ color: '#843497', marginBottom: 16 }}>

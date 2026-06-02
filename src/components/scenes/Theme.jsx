@@ -37,7 +37,7 @@ export default function ThemeScene({ onPick }) {
     <div className="p2-shell">
       <div className="p2-hero">
         <img
-          src="/illos/m1-q01.webp"
+          src="/illos/sx4-mission-select.svg"
           alt=""
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
           onError={(e) => { e.currentTarget.style.display = 'none' }}
@@ -63,7 +63,7 @@ export default function ThemeScene({ onPick }) {
               <div key={t.id} className="p2-card">
                 <div className="p2-illo-preview">
                   <img
-                    src={`/illos/m${firstMissionId}-q01.webp`}
+                    src={t.id === 'ark-capi' ? '/illos/sx4-theme-ark.svg' : '/illos/sx4-theme-intern.svg'}
                     alt=""
                     onError={(e) => { e.currentTarget.style.display = 'none' }}
                   />

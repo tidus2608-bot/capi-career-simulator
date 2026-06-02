@@ -3,6 +3,10 @@ import Capi from '../Capi.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_MISSIONS } from '../../data.js'
 
+const ILLO_EXT = {
+  'm1-q15': 'png', 'm1-q16': 'png', 'm1-q17': 'png', 'm1-q18': 'png', 'm1-q19': 'png',
+}
+
 const MISSION_PADS = {
   1: [98, 146.8, 196, 293.7],
   2: [110, 164.8, 220, 329.6],
@@ -26,7 +30,8 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
   }, [missionId])
 
   const q = qs[idx]
-  const illoSrc = `/illos/m${missionId}-q${String(idx + 1).padStart(2, '0')}.webp`
+  const illoKey = `m${missionId}-q${String(idx + 1).padStart(2, '0')}`
+  const illoSrc = `/illos/${illoKey}.${ILLO_EXT[illoKey] || 'webp'}`
   const progress = Math.round((idx / qs.length) * 100)
 
   const selectOption = (opt) => {
@@ -58,9 +63,18 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
   }
 
   if (stage === 'ending') {
+    const endingImg = [1, 2, 6].includes(missionId)
+      ? '/illos/ending-ark.webp'
+      : '/illos/ending-intern.webp'
     return (
-      <div className="p2-shell">
-        <div className="p2-ending">
+      <div className="p2-shell" style={{ position: 'relative' }}>
+        <img
+          src={endingImg}
+          alt=""
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }}
+          onError={(e) => { e.currentTarget.style.display = 'none' }}
+        />
+        <div className="p2-ending" style={{ position: 'relative', zIndex: 1 }}>
           <Capi outfit="lab" pose="cheer" size={130} />
           <div
             className="mono"
