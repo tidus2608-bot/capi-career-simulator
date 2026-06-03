@@ -243,6 +243,42 @@ button:focus-visible { outline: 2px solid #843497; outline-offset: 2px; border-r
 }
 .fade-in { animation: fadeIn 0.5s ease both; }
 
+/* ── Scene transition flash ──────────────────────────────────────────────── */
+@keyframes sceneFlash {
+  0%   { opacity: 1; }
+  45%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+.scene-flash {
+  position: absolute;
+  inset: 0;
+  background: #F5F6FA;
+  display: grid;
+  place-items: center;
+  animation: sceneFlash 0.5s cubic-bezier(0.4, 0, 0.6, 1) both;
+  pointer-events: none;
+  z-index: 50;
+}
+/* Crop to the graduation-pose Capi in the sprite sheet.
+   SVG canvas: 12837×7741. Target rect: x=4505 y=2786 w=2083 h=2156.
+   Rendered at img-width=1191px (scale≈0.0928): char lands at screen
+   x=418 y=258 w=193 h=200. Container 220×220 centres it with 13/10px pad. */
+.capi-sprite-clip {
+  width: 220px;
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+.capi-sprite-img {
+  width: 1191px;
+  height: auto;
+  position: absolute;
+  left: -405px;
+  top: -248px;
+  pointer-events: none;
+  user-select: none;
+}
+
 /* Option card */
 .option-card {
   position: relative;
@@ -982,7 +1018,8 @@ button:focus-visible { outline: 2px solid #843497; outline-offset: 2px; border-r
     opacity: 1 !important;
     transform: none !important;
   }
-  .flash {
+  .flash,
+  .scene-flash {
     display: none !important;
   }
 }
