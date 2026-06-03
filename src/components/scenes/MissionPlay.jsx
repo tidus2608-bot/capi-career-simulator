@@ -16,14 +16,26 @@ const MISSION_PADS = {
   5: [110, 174.6, 220, 329.6],
 }
 
-const MISSIONS_WITH_START = new Set([2, 3, 5, 6])
-const MISSIONS_WITH_END = new Set([2, 3, 4, 6])
+const MISSION_STARTS = {
+  2: '/illos/mission-2-start.svg',
+  3: '/illos/mission-3-start.svg',
+  5: '/illos/mission-5-start.svg',
+  6: '/illos/mission-6-start.svg',
+}
+
+const MISSION_ENDS = {
+  2: '/illos/mission-2-end.svg',
+  3: '/illos/mission-3-end.svg',
+  4: '/illos/mission-4-end.svg',
+  5: '/illos/mission-5-end.webp',
+  6: '/illos/mission-6-end.svg',
+}
 
 export default function MissionPlayScene({ missionId, onComplete, onBack }) {
   const m = CAPI_MISSIONS[missionId]
   const qs = m.questions
 
-  const [stage, setStage] = useState(MISSIONS_WITH_START.has(missionId) ? 'intro' : 'q')
+  const [stage, setStage] = useState(MISSION_STARTS[missionId] ? 'intro' : 'q')
   const [idx, setIdx] = useState(0)
   const [answers, setAnswers] = useState({})
   const [picked, setPicked] = useState(null)
@@ -69,7 +81,7 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
     return (
       <div className="p2-shell" style={{ position: 'relative' }}>
         <img
-          src={`/illos/mission-${missionId}-start.svg`}
+          src={MISSION_STARTS[missionId]}
           alt=""
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }}
           onError={(e) => { e.currentTarget.style.display = 'none' }}
@@ -98,11 +110,8 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
   }
 
   if (stage === 'ending') {
-    const endingImg = MISSIONS_WITH_END.has(missionId)
-      ? `/illos/mission-${missionId}-end.svg`
-      : [1, 2, 6].includes(missionId)
-        ? '/illos/ending-ark.webp'
-        : '/illos/ending-intern.webp'
+    const endingImg = MISSION_ENDS[missionId]
+      ?? ([1, 2, 6].includes(missionId) ? '/illos/ending-ark.webp' : '/illos/ending-intern.webp')
     return (
       <div className="p2-shell" style={{ position: 'relative' }}>
         <img
