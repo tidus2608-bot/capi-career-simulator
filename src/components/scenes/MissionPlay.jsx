@@ -16,11 +16,14 @@ const MISSION_PADS = {
   5: [110, 174.6, 220, 329.6],
 }
 
+const MISSIONS_WITH_START = new Set([2, 3, 5, 6])
+const MISSIONS_WITH_END = new Set([2, 3, 4, 6])
+
 export default function MissionPlayScene({ missionId, onComplete, onBack }) {
   const m = CAPI_MISSIONS[missionId]
   const qs = m.questions
 
-  const [stage, setStage] = useState('q')
+  const [stage, setStage] = useState(MISSIONS_WITH_START.has(missionId) ? 'intro' : 'q')
   const [idx, setIdx] = useState(0)
   const [answers, setAnswers] = useState({})
   const [picked, setPicked] = useState(null)
@@ -62,10 +65,44 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
     setPicked(answers[prevQ.id] ?? null)
   }
 
+  if (stage === 'intro') {
+    return (
+      <div className="p2-shell" style={{ position: 'relative' }}>
+        <img
+          src={`/illos/mission-${missionId}-start.svg`}
+          alt=""
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }}
+          onError={(e) => { e.currentTarget.style.display = 'none' }}
+        />
+        <div style={{ position: 'absolute', inset: 0, zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', paddingBottom: 60, gap: 16 }}>
+          <button
+            className="p2-btn"
+            style={{ maxWidth: 320 }}
+            onClick={() => {
+              capiAudio.sfx('click')
+              setStage('q')
+            }}
+          >
+            BẮT ĐẦU NHIỆM VỤ →
+          </button>
+          <button
+            className="p2-nav-back"
+            style={{ background: 'rgba(0,0,0,0.3)', color: '#fff', border: 'none' }}
+            onClick={() => onBack?.()}
+          >
+            ← Quay lại
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   if (stage === 'ending') {
-    const endingImg = [1, 2, 6].includes(missionId)
-      ? '/illos/ending-ark.webp'
-      : '/illos/ending-intern.webp'
+    const endingImg = MISSIONS_WITH_END.has(missionId)
+      ? `/illos/mission-${missionId}-end.svg`
+      : [1, 2, 6].includes(missionId)
+        ? '/illos/ending-ark.webp'
+        : '/illos/ending-intern.webp'
     return (
       <div className="p2-shell" style={{ position: 'relative' }}>
         <img
