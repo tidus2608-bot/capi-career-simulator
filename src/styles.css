@@ -580,7 +580,7 @@ button:focus-visible { outline: 2px solid #843497; outline-offset: 2px; border-r
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 130px;
-  background: linear-gradient(to bottom, transparent, rgba(10,5,25,0.82));
+  background: linear-gradient(to bottom, rgba(10,5,25,0.35), rgba(10,5,25,0.88));
   display: flex;
   align-items: flex-end;
   padding: 20px 28px;
@@ -860,6 +860,8 @@ button:focus-visible { outline: 2px solid #843497; outline-offset: 2px; border-r
   margin-top: 20px;
   gap: 12px;
   flex-shrink: 0;
+  position: relative;
+  z-index: 1;
 }
 .p2-nav-back {
   background: transparent;
