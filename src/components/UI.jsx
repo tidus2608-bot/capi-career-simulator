@@ -81,7 +81,7 @@ export const Radar = ({ scores, size = 280, color = "#00e5ff" }) => {
   const shapePts = axes.map((a, i) => pt(i, scores[a] || 0).join(",")).join(" ")
 
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ display: "block", maxWidth: '100%', height: 'auto' }}>
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} overflow="visible" style={{ display: "block", maxWidth: '100%', height: 'auto' }}>
       <defs>
         <radialGradient id="radar-fill" cx="50%" cy="50%">
           <stop offset="0%" stopColor={color} stopOpacity="0.4" />
@@ -143,7 +143,7 @@ export const DualRadar = ({ scores1, scores2, size = 300, color1 = '#5b9fff', co
   const shapeStr = (scores) => axes.map((a, i) => pt(i, scores?.[a] || 0).join(',')).join(' ')
 
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ display:'block', maxWidth: '100%', height: 'auto' }}>
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} overflow="visible" style={{ display:'block', maxWidth: '100%', height: 'auto' }}>
       <defs>
         <radialGradient id="df1" cx="50%" cy="50%">
           <stop offset="0%" stopColor={color1} stopOpacity="0.3" />
