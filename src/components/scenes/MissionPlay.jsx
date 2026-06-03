@@ -17,13 +17,16 @@ const MISSION_PADS = {
 }
 
 const MISSION_STARTS = {
+  1: '/illos/mission-1-start.webp',
   2: '/illos/mission-2-start.svg',
   3: '/illos/mission-3-start.svg',
+  4: '/illos/mission-4-start.webp',
   5: '/illos/mission-5-start.svg',
   6: '/illos/mission-6-start.svg',
 }
 
 const MISSION_ENDS = {
+  1: '/illos/mission-1-end.webp',
   2: '/illos/mission-2-end.svg',
   3: '/illos/mission-3-end.svg',
   4: '/illos/mission-4-end.svg',
