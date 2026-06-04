@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import Capi from '../Capi.jsx'
 import { capiAudio } from '../../audio.js'
 import SceneShell from './SceneShell.jsx'
 
@@ -56,17 +55,6 @@ export default function IntroScene({ onStart, user, authLoading, supabase }) {
             style={{ color: '#9ca3af', letterSpacing: '0.18em', fontSize: 12, marginBottom: 36 }}
           >
             {t('intro.subtitle')}
-          </div>
-
-          {/* Capi avatar */}
-          <div style={{ display: 'flex', justifyContent: 'center', margin: '4px 0 28px', position: 'relative' }}>
-            <div style={{ position: 'relative', width: 'clamp(140px,30vw,200px)', height: 'clamp(140px,30vw,200px)' }}>
-              <div className="pulse-ring" />
-              <div className="pulse-ring d1" />
-              <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center' }}>
-                <Capi outfit="lab" pose="idle" size={170} />
-              </div>
-            </div>
           </div>
 
           <p style={{ fontSize: 16, lineHeight: 1.65, color: '#6b7280', maxWidth: 580, margin: '0 auto 28px' }}>
