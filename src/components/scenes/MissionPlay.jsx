@@ -82,7 +82,7 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
 
   if (stage === 'intro') {
     return (
-      <div className="p2-shell" style={{ position: 'relative' }}>
+      <div className="p2-shell">
         <img
           src={MISSION_STARTS[missionId]}
           alt=""
@@ -116,7 +116,7 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
     const endingImg = MISSION_ENDS[missionId]
       ?? ([1, 2, 6].includes(missionId) ? '/illos/ending-ark.webp' : '/illos/ending-intern.webp')
     return (
-      <div className="p2-shell" style={{ position: 'relative' }}>
+      <div className="p2-shell">
         <img
           src={endingImg}
           alt=""
