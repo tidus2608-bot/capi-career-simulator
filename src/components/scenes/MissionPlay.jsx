@@ -120,7 +120,7 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
         <img
           src={endingImg}
           alt=""
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', zIndex: 0 }}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top center', zIndex: 0 }}
           onError={(e) => { e.currentTarget.style.display = 'none' }}
         />
         <div className="p2-ending" style={{ position: 'relative', zIndex: 1 }}>
