@@ -24,7 +24,7 @@ export default function IntroScene({ onStart, user, authLoading, supabase }) {
       <img
         src="/illos/sx4-intro.svg"
         alt=""
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }}
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', zIndex: 0 }}
         onError={(e) => { e.currentTarget.style.display = 'none' }}
       />
       <div style={{ position: 'relative', zIndex: 1, display: 'grid', placeItems: 'center', minHeight: '100%', padding: 24 }}>

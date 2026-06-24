@@ -86,7 +86,7 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
         <img
           src={MISSION_STARTS[missionId]}
           alt=""
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', zIndex: 0 }}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top center', zIndex: 0 }}
           onError={(e) => { e.currentTarget.style.display = 'none' }}
         />
         <div style={{ position: 'absolute', inset: 0, zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', paddingBottom: 60, gap: 16 }}>
@@ -157,7 +157,7 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
         <img
           src={illoSrc}
           alt=""
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top center' }}
           onError={(e) => { e.currentTarget.style.display = 'none' }}
         />
         {q.chapter_vn && <div className="p2-chapter-pill">{q.chapter_vn}</div>}

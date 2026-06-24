@@ -39,7 +39,7 @@ export default function ThemeScene({ onPick }) {
         <img
           src="/illos/sx4-mission-select.svg"
           alt=""
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top center' }}
           onError={(e) => { e.currentTarget.style.display = 'none' }}
         />
         <div className="p2-hero-overlay">
