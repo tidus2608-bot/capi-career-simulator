@@ -20,7 +20,13 @@
     "feature_phase1": "17 câu Phase 1",
     "feature_mission": "20 câu/nhiệm vụ",
     "feature_roles": "5 vai trò nghề nghiệp",
-    "feature_cert": "Chứng chỉ Capi-Gene"
+    "feature_cert": "Chứng chỉ Capi-Gene",
+    "new_badge": "CAPI RESEARCH INSTITUTE",
+    "new_title": "Bạn đã được triệu tập đến Viện Nghiên cứu Capi",
+    "new_blurb": "Chào mừng bạn đến với Viện Nghiên cứu Capi! Mình là Capi, cộng sự của bạn. Trước khi bước vào các cổng mô phỏng thực tế ảo, hãy để mình quét sơ bộ hệ thống tư duy của bạn nhé. Sẵn sàng chưa?",
+    "btn_scan_gene": "Quét Capi-Gene",
+    "btn_what_is_gene": "Capi-Gene là gì?",
+    "footer_hint": "Hoàn thành bài quét đầu tiên để mở khóa các cổng mô phỏng thực tế ảo."
   },
   "common": {
     "next": "TIẾP THEO →",
