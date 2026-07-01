@@ -20,7 +20,13 @@
     "feature_phase1": "17 Phase 1 questions",
     "feature_mission": "20 questions / mission",
     "feature_roles": "5 career roles",
-    "feature_cert": "Capi-Gene certificate"
+    "feature_cert": "Capi-Gene certificate",
+    "new_badge": "CAPI RESEARCH INSTITUTE",
+    "new_title": "You have been summoned to the Capi Research Institute",
+    "new_blurb": "Welcome to the Capi Research Institute! I am Capi, your assistant. Before stepping into the virtual reality simulation gates, let me run a preliminary scan on your thinking system. Ready?",
+    "btn_scan_gene": "Scan Capi-Gene",
+    "btn_what_is_gene": "What is Capi-Gene?",
+    "footer_hint": "Complete the first scan to unlock virtual reality simulation gates."
   },
   "common": {
     "next": "NEXT →",
