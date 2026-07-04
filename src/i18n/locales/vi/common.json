@@ -37,7 +37,10 @@
     "loading": "Đang tải...",
     "back_to_themes": "← Đổi cổng",
     "audio_on": "Bật âm thanh",
-    "audio_off": "Tắt âm thanh"
+    "audio_off": "Tắt âm thanh",
+    "select_challenge": "Hãy chọn thử thách bạn muốn bắt đầu.",
+    "back_btn": "← Quay về",
+    "start_btn": "Bắt đầu →"
   },
   "save_status": {
     "saving": "⏳ Đang lưu kết quả vào tài khoản...",

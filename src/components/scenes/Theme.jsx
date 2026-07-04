@@ -1,10 +1,13 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Capi from '../Capi.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_THEMES } from '../../data.js'
 
 export default function ThemeScene({ onPick }) {
   const [innerStage, setInnerStage] = useState('intro')
+  const [selectedId, setSelectedId] = useState(null)
+  const { t } = useTranslation()
 
   if (innerStage === 'intro') {
     return (
@@ -33,74 +36,69 @@ export default function ThemeScene({ onPick }) {
   }
 
   const themes = Object.values(CAPI_THEMES)
+
   return (
     <div className="p2-shell">
-      <div className="p2-hero">
-        <img
-          src="/illos/sx4-mission-select.svg"
-          alt=""
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top center' }}
-          onError={(e) => { e.currentTarget.style.display = 'none' }}
-        />
-        <div className="p2-hero-overlay">
-          <h2 className="p2-hero-title">CHỌN CHỦ ĐỀ CỦA BẠN</h2>
-        </div>
-        <button
-          className="p2-back-btn"
-          onClick={() => {
-            capiAudio.sfx('click')
-            setInnerStage('intro')
-          }}
-        >
-          ← Quay về
-        </button>
-      </div>
-      <div className="p2-content">
-        <div className="p2-theme-grid">
-          {themes.map((t) => {
-            const firstMissionId = t.missionIds[0]
-            return (
-              <div key={t.id} className="p2-card">
-                <div className="p2-illo-preview">
-                  <img
-                    src={t.id === 'ark-capi' ? '/illos/sx4-theme-ark.svg' : '/illos/sx4-theme-intern.svg'}
-                    alt=""
-                    onError={(e) => { e.currentTarget.style.display = 'none' }}
-                  />
-                </div>
-                <div
-                  className="mono"
-                  style={{ fontSize: 11, letterSpacing: '0.15em', color: '#9ca3af', marginBottom: 6 }}
-                >
-                  {t.subtitle.toUpperCase()}
-                </div>
-                <div className="p2-card-title">{t.displayName}</div>
-                <p style={{ fontSize: 13, color: '#6b7280', lineHeight: 1.5, margin: '0 0 10px' }}>
-                  {t.blurb}
-                </p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: 4 }}>
-                  {t.moodTags.map((tag) => (
-                    <span
-                      key={tag.label}
-                      className="p2-mood-tag"
-                      style={{ background: tag.color, color: tag.textColor }}
-                    >
-                      {tag.label}
-                    </span>
-                  ))}
-                </div>
-                <button
-                  className="p2-btn"
-                  onClick={() => {
-                    capiAudio.sfx('whoosh')
-                    onPick(t.id)
-                  }}
-                >
-                  Bắt đầu →
-                </button>
+      <div className="p2-new-layout">
+        <h2 className="p2-new-header">{t('common.select_challenge')}</h2>
+        
+        <div className="p2-new-grid">
+          {themes.map((tData) => (
+            <div 
+              key={tData.id} 
+              className={`p2-new-card ${selectedId === tData.id ? 'selected' : ''}`}
+              role="button"
+              tabIndex={0}
+              onClick={() => {
+                capiAudio.sfx('click')
+                setSelectedId(tData.id)
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  capiAudio.sfx('click')
+                  setSelectedId(tData.id)
+                }
+              }}
+            >
+              <img 
+                className="bg"
+                src={tData.id === 'ark-capi' ? '/illos/sx4-theme-ark.jpg' : '/illos/sx4-theme-intern.jpg'} 
+                alt="" 
+                onError={(e) => { e.currentTarget.style.display = 'none' }}
+              />
+              <div className="p2-new-card-gradient" />
+              <div className="p2-new-card-content">
+                <div className="p2-new-card-subtitle">{tData.displayName}</div>
+                <div className="p2-new-card-title">{tData.subtitle}</div>
+                <div className="p2-new-card-desc">{tData.blurb}</div>
               </div>
-            )
-          })}
+            </div>
+          ))}
+        </div>
+
+        <div className="p2-new-actions">
+          <button 
+            className="p2-btn-outline" 
+            onClick={() => { 
+              capiAudio.sfx('click')
+              setInnerStage('intro') 
+            }}
+          >
+            {t('common.back_btn')}
+          </button>
+          <button 
+            className={`p2-btn-solid ${selectedId ? 'active' : ''}`} 
+            disabled={!selectedId}
+            onClick={() => {
+               if (selectedId) {
+                 capiAudio.sfx('whoosh')
+                 onPick(selectedId)
+               }
+            }}
+          >
+            {t('common.start_btn')}
+          </button>
         </div>
       </div>
     </div>
