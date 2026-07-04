@@ -4,10 +4,10 @@ import { useEffect, useRef } from 'react'
 /* <Capi outfit="lab|astronaut|eco|medic|rescue|intern" pose="idle|talk|cheer|wave" size={180} /> */
 
 const POSE_IMAGE = {
-  idle:  '/capi/capi-8.png',
-  talk:  '/capi/capi-7.png',
+  idle: '/capi/capi-8.png',
+  talk: '/capi/capi-7.png',
   cheer: '/capi/capi-11.png',
-  wave:  '/capi/capi-0.png',
+  wave: '/capi/capi-0.png',
 }
 
 const Capi = ({ outfit = 'lab', pose = 'idle', size = 180, style = {} }) => {

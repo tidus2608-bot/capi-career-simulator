@@ -61,18 +61,37 @@ export default function ReflectionScene({ onComplete }) {
 
         {/* Capi + question */}
         <div
-          style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 20, alignItems: 'end', alignSelf: 'end' }}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'auto 1fr',
+            gap: 20,
+            alignItems: 'end',
+            alignSelf: 'end',
+          }}
           className="fade-up"
         >
           <Capi outfit="lab" pose="talk" size={120} />
           <div className="dialogue">
             <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
-              <div className="mono" style={{ color: '#843497' }}>CAPI</div>
-              <span className="pill" style={{ color: roleData.color, borderColor: `${roleData.color}44` }}>
+              <div className="mono" style={{ color: '#843497' }}>
+                CAPI
+              </div>
+              <span
+                className="pill"
+                style={{ color: roleData.color, borderColor: `${roleData.color}44` }}
+              >
                 {roleData.nameVn}
               </span>
             </div>
-            <div key={idx} style={{ fontSize: 18, lineHeight: 1.5, fontFamily: 'var(--font-display)', color: '#1a1a2e' }}>
+            <div
+              key={idx}
+              style={{
+                fontSize: 18,
+                lineHeight: 1.5,
+                fontFamily: 'var(--font-display)',
+                color: '#1a1a2e',
+              }}
+            >
               <Typed text={q.text_vn} speed={16} />
             </div>
           </div>

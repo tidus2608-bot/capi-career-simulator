@@ -74,10 +74,7 @@ export default function HistoryScene({ user, supabase, onBack }) {
         </div>
 
         {loading ? (
-          <div
-            className="mono"
-            style={{ color: '#9ca3af', textAlign: 'center', marginTop: 60 }}
-          >
+          <div className="mono" style={{ color: '#9ca3af', textAlign: 'center', marginTop: 60 }}>
             {t('common.loading')}
           </div>
         ) : error ? (
@@ -94,10 +91,7 @@ export default function HistoryScene({ user, supabase, onBack }) {
             {t('history.load_error', { error })}
           </div>
         ) : runs.length === 0 ? (
-          <div
-            className="glass"
-            style={{ padding: 30, textAlign: 'center', color: '#6b7280' }}
-          >
+          <div className="glass" style={{ padding: 30, textAlign: 'center', color: '#6b7280' }}>
             <div style={{ fontSize: 40, marginBottom: 12 }}>📋</div>
             {t('history.empty')}
           </div>

@@ -54,21 +54,32 @@ export default function ScanningScene({ onComplete }) {
             <div className="mono" style={{ color: '#843497', marginBottom: 20 }}>
               PHASE 1 · CAPI-SCAN
             </div>
-            <div className="scan-capi-row" style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 20, marginBottom: 24, alignItems: 'end' }}>
+            <div
+              className="scan-capi-row"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'auto 1fr',
+                gap: 20,
+                marginBottom: 24,
+                alignItems: 'end',
+              }}
+            >
               <Capi outfit="lab" pose="talk" size={110} />
               <div className="dialogue">
-                <div className="mono" style={{ color: '#843497', marginBottom: 8 }}>CAPI</div>
+                <div className="mono" style={{ color: '#843497', marginBottom: 8 }}>
+                  CAPI
+                </div>
                 <div style={{ fontSize: 15, lineHeight: 1.65, color: '#1a1a2e' }}>
-                  "Chào mừng bạn đến với Viện Nghiên cứu Capi! Trước khi bước vào các cổng mô
-                  phỏng thực tế ảo, hãy để mình quét sơ bộ hệ thống tư duy của bạn nhé."
+                  "Chào mừng bạn đến với Viện Nghiên cứu Capi! Trước khi bước vào các cổng mô phỏng
+                  thực tế ảo, hãy để mình quét sơ bộ hệ thống tư duy của bạn nhé."
                 </div>
               </div>
             </div>
             <p style={{ color: '#6b7280', fontSize: 14, marginBottom: 24, lineHeight: 1.65 }}>
-              Bạn sẽ trả lời{' '}
-              <strong style={{ color: '#1a1a2e' }}>15 câu hỏi</strong> trên thang điểm 1–5. Hãy
-              chọn theo những gì bạn <em style={{ fontStyle: 'normal', color: '#843497', fontWeight: 600 }}>thực sự</em> thường
-              làm, không phải những gì bạn nghĩ là "nên chọn".
+              Bạn sẽ trả lời <strong style={{ color: '#1a1a2e' }}>15 câu hỏi</strong> trên thang
+              điểm 1–5. Hãy chọn theo những gì bạn{' '}
+              <em style={{ fontStyle: 'normal', color: '#843497', fontWeight: 600 }}>thực sự</em>{' '}
+              thường làm, không phải những gì bạn nghĩ là "nên chọn".
             </p>
             <button className="btn btn-primary" onClick={() => setShowIntro(false)}>
               Bắt đầu quét →
@@ -108,13 +119,29 @@ export default function ScanningScene({ onComplete }) {
 
         {/* Capi + question */}
         <div
-          style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 20, alignItems: 'end', alignSelf: 'end' }}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'auto 1fr',
+            gap: 20,
+            alignItems: 'end',
+            alignSelf: 'end',
+          }}
           className="fade-up scan-capi-row"
         >
           <Capi outfit="lab" pose="talk" size={120} />
           <div className="dialogue">
-            <div className="mono" style={{ color: '#843497', marginBottom: 8 }}>CAPI</div>
-            <div key={idx} style={{ fontSize: 18, lineHeight: 1.5, fontFamily: 'var(--font-display)', color: '#1a1a2e' }}>
+            <div className="mono" style={{ color: '#843497', marginBottom: 8 }}>
+              CAPI
+            </div>
+            <div
+              key={idx}
+              style={{
+                fontSize: 18,
+                lineHeight: 1.5,
+                fontFamily: 'var(--font-display)',
+                color: '#1a1a2e',
+              }}
+            >
               <Typed text={currentQ.text_vn} speed={15} />
             </div>
           </div>
