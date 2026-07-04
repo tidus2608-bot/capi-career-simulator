@@ -37,7 +37,10 @@
     "loading": "Loading...",
     "back_to_themes": "← Change gate",
     "audio_on": "Sound on",
-    "audio_off": "Sound off"
+    "audio_off": "Sound off",
+    "select_challenge": "Choose the challenge you want to start.",
+    "back_btn": "← Go back",
+    "start_btn": "Start →"
   },
   "save_status": {
     "saving": "⏳ Saving your result...",
