@@ -4,7 +4,11 @@ import { capiAudio } from '../../audio.js'
 import { CAPI_MISSIONS } from '../../data.js'
 
 const ILLO_EXT = {
-  'm1-q15': 'png', 'm1-q16': 'png', 'm1-q17': 'png', 'm1-q18': 'png', 'm1-q19': 'png',
+  'm1-q15': 'png',
+  'm1-q16': 'png',
+  'm1-q17': 'png',
+  'm1-q18': 'png',
+  'm1-q19': 'png',
 }
 
 const MISSION_PADS = {
@@ -86,10 +90,32 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
         <img
           src={MISSION_STARTS[missionId]}
           alt=""
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top center', zIndex: 0 }}
-          onError={(e) => { e.currentTarget.style.display = 'none' }}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            objectPosition: 'top center',
+            zIndex: 0,
+          }}
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
         />
-        <div style={{ position: 'absolute', inset: 0, zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', paddingBottom: 60, gap: 16 }}>
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            paddingBottom: 60,
+            gap: 16,
+          }}
+        >
           <button
             className="p2-btn"
             style={{ maxWidth: 320 }}
@@ -113,22 +139,30 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
   }
 
   if (stage === 'ending') {
-    const endingImg = MISSION_ENDS[missionId]
-      ?? ([1, 2, 6].includes(missionId) ? '/illos/ending-ark.webp' : '/illos/ending-intern.webp')
+    const endingImg =
+      MISSION_ENDS[missionId] ??
+      ([1, 2, 6].includes(missionId) ? '/illos/ending-ark.webp' : '/illos/ending-intern.webp')
     return (
       <div className="p2-shell">
         <img
           src={endingImg}
           alt=""
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top center', zIndex: 0 }}
-          onError={(e) => { e.currentTarget.style.display = 'none' }}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            objectPosition: 'top center',
+            zIndex: 0,
+          }}
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
         />
         <div className="p2-ending" style={{ position: 'relative', zIndex: 1 }}>
           <Capi outfit="lab" pose="cheer" size={130} />
-          <div
-            className="mono"
-            style={{ color: '#843497', fontSize: 12, letterSpacing: '0.15em' }}
-          >
+          <div className="mono" style={{ color: '#843497', fontSize: 12, letterSpacing: '0.15em' }}>
             NHIỆM VỤ HOÀN THÀNH ✓
           </div>
           <h2>{m.name_vn}</h2>
@@ -157,8 +191,17 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
         <img
           src={illoSrc}
           alt=""
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top center' }}
-          onError={(e) => { e.currentTarget.style.display = 'none' }}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            objectPosition: 'top center',
+          }}
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
         />
         {q.chapter_vn && <div className="p2-chapter-pill">{q.chapter_vn}</div>}
         {q.context_vn && (
@@ -187,7 +230,9 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
       {/* Right panel: question + options + nav */}
       <div className="p2-q-right">
         <div className="p2-q-header">
-          <span className="p2-q-header-label">Câu hỏi {idx + 1} / {qs.length}</span>
+          <span className="p2-q-header-label">
+            Câu hỏi {idx + 1} / {qs.length}
+          </span>
           <span className="p2-q-header-progress">{progress}% Hoàn thiện</span>
         </div>
         <div className="p2-q-progress-bar">

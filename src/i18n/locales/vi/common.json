@@ -40,7 +40,40 @@
     "audio_off": "Tắt âm thanh",
     "select_challenge": "Hãy chọn thử thách bạn muốn bắt đầu.",
     "back_btn": "← Quay về",
-    "start_btn": "Bắt đầu →"
+    "start_btn": "Bắt đầu →",
+    "role_modal_title": "CHỌN VAI BẠN MUỐN TRỞ THÀNH NHẤT",
+    "role_description": "Mô tả",
+    "role_characteristics": "Đặc điểm chính",
+    "mission_title_prefix": "NHIỆM VỤ",
+    "themes": {
+      "ark_capi": {
+        "displayName": "CHIẾN DỊCH ARK-CAPI",
+        "subtitle": "Mật mã hành tinh mới",
+        "blurb": "Năm 20xx. Trái Đất cạn tài nguyên. Bạn vận hành con tàu Ark-Capi khổng lồ để tìm \"Hành tinh Vĩnh Cửu\"."
+      },
+      "techno": {
+        "displayName": "THỰC TẬP SINH S4V",
+        "subtitle": "Một ngày trong lĩnh vực STEAM",
+        "blurb": "Bạn là thực tập sinh tại tập đoàn S4V, trực tiếp xử lý các dự án Smart Home, Kho vận tự hành và mạng lưới Drone."
+      }
+    },
+    "roles": {
+      "explorer": {
+        "tagline": "Hỏi đúng câu hỏi để tìm đúng câu trả lời."
+      },
+      "builder": {
+        "tagline": "Biến ý tưởng thành sản phẩm chạy được."
+      },
+      "operator": {
+        "tagline": "Đảm bảo mọi thứ vận hành ổn định và đúng quy trình."
+      },
+      "connector": {
+        "tagline": "Gắn kết mọi người, dẫn dắt nhóm về cùng một hướng."
+      },
+      "communicator": {
+        "tagline": "Kể câu chuyện làm cho ý tưởng phức tạp trở nên dễ hiểu."
+      }
+    }
   },
   "save_status": {
     "saving": "⏳ Đang lưu kết quả vào tài khoản...",
