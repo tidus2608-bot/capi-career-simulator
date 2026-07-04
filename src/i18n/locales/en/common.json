@@ -40,7 +40,40 @@
     "audio_off": "Sound off",
     "select_challenge": "Choose the challenge you want to start.",
     "back_btn": "← Go back",
-    "start_btn": "Start →"
+    "start_btn": "Start →",
+    "role_modal_title": "CHOOSE THE ROLE YOU WANT TO BECOME MOST",
+    "role_description": "Description",
+    "role_characteristics": "Key Characteristics",
+    "mission_title_prefix": "MISSION",
+    "themes": {
+      "ark_capi": {
+        "displayName": "ARK-CAPI CAMPAIGN",
+        "subtitle": "New Planet Signature",
+        "blurb": "Year 20xx. Earth is depleted of resources. You operate the giant Ark-Capi spaceship to find the 'Eternal Planet'."
+      },
+      "techno": {
+        "displayName": "S4V INTERNSHIP",
+        "subtitle": "A Day in STEAM",
+        "blurb": "You are an intern at S4V Group, directly handling Smart Home, Autonomous Logistics, and Drone network projects."
+      }
+    },
+    "roles": {
+      "explorer": {
+        "tagline": "Discover the truth and find the core issue."
+      },
+      "builder": {
+        "tagline": "Build solutions and bring ideas to life."
+      },
+      "operator": {
+        "tagline": "Run, deploy, and keep systems operating smoothly."
+      },
+      "connector": {
+        "tagline": "Unite teams and bridge opportunities together."
+      },
+      "communicator": {
+        "tagline": "Tell stories that make tech accessible to everyone."
+      }
+    }
   },
   "save_status": {
     "saving": "⏳ Saving your result...",

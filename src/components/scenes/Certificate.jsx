@@ -91,7 +91,7 @@ export default function CertificateScene({
   const certId = useMemo(() => {
     let h = 0
     for (const c of rawId) h = (h * 31 + c.charCodeAt(0)) | 0
-    return 1000 + Math.abs(h) % 9000
+    return 1000 + (Math.abs(h) % 9000)
   }, [rawId])
   const certDate = useMemo(() => new Date().toISOString().slice(0, 10), [])
 
@@ -488,9 +488,7 @@ export default function CertificateScene({
                         <td style={{ textAlign: 'right', padding: '8px 10px', color: '#ff6b9d' }}>
                           {row.actualBehavior}
                         </td>
-                        <td
-                          style={{ textAlign: 'right', padding: '8px 10px', color: '#d97706' }}
-                        >
+                        <td style={{ textAlign: 'right', padding: '8px 10px', color: '#d97706' }}>
                           {row.reflection}
                         </td>
                         <td
@@ -547,7 +545,10 @@ export default function CertificateScene({
               khả năng hợp tác với các nhóm chức năng khác. Định hướng phù hợp với bạn là những vai
               trò đòi hỏi cả tư duy chuyên sâu lẫn sự linh hoạt.
             </p>
-            <div className="cert-two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div
+              className="cert-two-col"
+              style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}
+            >
               <div>
                 <div
                   className="mono"

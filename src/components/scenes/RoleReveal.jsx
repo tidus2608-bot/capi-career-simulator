@@ -15,8 +15,10 @@ export default function RoleRevealScene({ role, onContinue }) {
   return (
     <SceneShell light>
       <div style={{ display: 'grid', placeItems: 'center', minHeight: '100%', padding: 24 }}>
-        <div className="glass fade-up" style={{ padding: '36px 40px', maxWidth: 580, textAlign: 'center', width: '100%' }}>
-
+        <div
+          className="glass fade-up"
+          style={{ padding: '36px 40px', maxWidth: 580, textAlign: 'center', width: '100%' }}
+        >
           <div className="mono" style={{ color: '#9ca3af', marginBottom: 20 }}>
             SƠ BỘ · PHASE 1 COMPLETE
           </div>
@@ -35,13 +37,20 @@ export default function RoleRevealScene({ role, onContinue }) {
           >
             {r.name}
           </h2>
-          <div className="mono" style={{ color: '#6b7280', marginBottom: 20 }}>{r.nameVn}</div>
+          <div className="mono" style={{ color: '#6b7280', marginBottom: 20 }}>
+            {r.nameVn}
+          </div>
 
-          <div className="dialogue" style={{ textAlign: 'left', margin: '0 auto 20px', maxWidth: 480 }}>
+          <div
+            className="dialogue"
+            style={{ textAlign: 'left', margin: '0 auto 20px', maxWidth: 480 }}
+          >
             <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
               <Capi outfit="lab" pose="talk" size={56} style={{ flexShrink: 0 }} />
               <div>
-                <div className="mono" style={{ color: '#843497', marginBottom: 6 }}>CAPI</div>
+                <div className="mono" style={{ color: '#843497', marginBottom: 6 }}>
+                  CAPI
+                </div>
                 <div style={{ fontSize: 14, lineHeight: 1.65, color: '#374151' }}>
                   Ồ, một <b style={{ color: r.color }}>{r.name}</b> đầy triển vọng! Hãy chọn một
                   cổng mô phỏng để mình xem bạn tỏa sáng thế nào trong thực tế nhé!
@@ -51,7 +60,8 @@ export default function RoleRevealScene({ role, onContinue }) {
           </div>
 
           <p style={{ fontSize: 12, color: '#9ca3af', marginBottom: 24, lineHeight: 1.5 }}>
-            * Đây chỉ là kết quả sơ bộ. Kết quả chính thức sẽ được tính sau khi bạn hoàn thành nhiệm vụ.
+            * Đây chỉ là kết quả sơ bộ. Kết quả chính thức sẽ được tính sau khi bạn hoàn thành nhiệm
+            vụ.
           </p>
 
           <button className="btn btn-primary" onClick={onContinue} style={{ width: '100%' }}>

@@ -49,7 +49,7 @@ export default function MissionPickScene({ themeId, onPick, onBack }) {
                 <div className="p2-new-card-gradient" />
                 <div className="p2-new-card-content">
                   <div className="p2-new-card-subtitle">
-                    {isEn ? `MISSION ${i + 1}` : `NHIỆM VỤ ${i + 1}`}
+                    {t('common.mission_title_prefix')} {i + 1}
                   </div>
                   <div className="p2-new-card-title">
                     {isEn ? m.name_en || m.name_vn : m.name_vn}

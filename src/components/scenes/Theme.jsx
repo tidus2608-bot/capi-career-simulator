@@ -41,11 +41,11 @@ export default function ThemeScene({ onPick }) {
     <div className="p2-shell">
       <div className="p2-new-layout">
         <h2 className="p2-new-header">{t('common.select_challenge')}</h2>
-        
+
         <div className="p2-new-grid">
           {themes.map((tData) => (
-            <div 
-              key={tData.id} 
+            <div
+              key={tData.id}
               className={`p2-new-card ${selectedId === tData.id ? 'selected' : ''}`}
               role="button"
               tabIndex={0}
@@ -61,40 +61,52 @@ export default function ThemeScene({ onPick }) {
                 }
               }}
             >
-              <img 
+              <img
                 className="bg"
-                src={tData.id === 'ark-capi' ? '/illos/sx4-theme-ark.jpg' : '/illos/sx4-theme-intern.jpg'} 
-                alt="" 
-                onError={(e) => { e.currentTarget.style.display = 'none' }}
+                src={
+                  tData.id === 'ark-capi'
+                    ? '/illos/sx4-theme-ark.jpg'
+                    : '/illos/sx4-theme-intern.jpg'
+                }
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none'
+                }}
               />
               <div className="p2-new-card-gradient" />
               <div className="p2-new-card-content">
-                <div className="p2-new-card-subtitle">{tData.displayName}</div>
-                <div className="p2-new-card-title">{tData.subtitle}</div>
-                <div className="p2-new-card-desc">{tData.blurb}</div>
+                <div className="p2-new-card-subtitle">
+                  {t(`common.themes.${tData.id.replace('-', '_')}.displayName`)}
+                </div>
+                <div className="p2-new-card-title">
+                  {t(`common.themes.${tData.id.replace('-', '_')}.subtitle`)}
+                </div>
+                <div className="p2-new-card-desc">
+                  {t(`common.themes.${tData.id.replace('-', '_')}.blurb`)}
+                </div>
               </div>
             </div>
           ))}
         </div>
 
         <div className="p2-new-actions">
-          <button 
-            className="p2-btn-outline" 
-            onClick={() => { 
+          <button
+            className="p2-btn-outline"
+            onClick={() => {
               capiAudio.sfx('click')
-              setInnerStage('intro') 
+              setInnerStage('intro')
             }}
           >
             {t('common.back_btn')}
           </button>
-          <button 
-            className={`p2-btn-solid ${selectedId ? 'active' : ''}`} 
+          <button
+            className={`p2-btn-solid ${selectedId ? 'active' : ''}`}
             disabled={!selectedId}
             onClick={() => {
-               if (selectedId) {
-                 capiAudio.sfx('whoosh')
-                 onPick(selectedId)
-               }
+              if (selectedId) {
+                capiAudio.sfx('whoosh')
+                onPick(selectedId)
+              }
             }}
           >
             {t('common.start_btn')}
