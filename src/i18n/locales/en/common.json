@@ -26,7 +26,10 @@
     "new_blurb": "Welcome to the Capi Research Institute! I am Capi, your assistant. Before stepping into the virtual reality simulation gates, let me run a preliminary scan on your thinking system. Ready?",
     "btn_scan_gene": "Scan Capi-Gene",
     "btn_what_is_gene": "What is Capi-Gene?",
-    "footer_hint": "Complete the first scan to unlock virtual reality simulation gates."
+    "footer_hint": "Complete the first scan to unlock virtual reality simulation gates.",
+    "scan_intro_title": "PHASE 1 · CAPI-SCAN",
+    "scan_intro_blurb": "You will answer <strong style=\"color: #1a1a2e\">15 questions</strong> on a 1-5 scale. Please choose based on what you <em style=\"font-style: normal; color: #843497; font-weight: 600\">actually</em> do, not what you think is the \"correct choice\".",
+    "scan_intro_btn": "Start scanning →"
   },
   "common": {
     "next": "NEXT →",
@@ -42,9 +45,15 @@
     "back_btn": "← Go back",
     "start_btn": "Start →",
     "role_modal_title": "CHOOSE THE ROLE YOU WANT TO BECOME MOST",
+    "capi_gene_info_title": "What is Capi-gene?",
     "role_description": "Description",
     "role_characteristics": "Key Characteristics",
     "mission_title_prefix": "MISSION",
+    "question_progress": "Question {{num}} of {{total}}",
+    "percent_completed": "{{percent}}% Completed",
+    "phase1_completed": "Completed phase 1",
+    "continue_btn": "Continue →",
+    "finish_btn": "Finish →",
     "themes": {
       "ark_capi": {
         "displayName": "ARK-CAPI CAMPAIGN",
@@ -98,5 +107,68 @@
     "title": "Capi crashed",
     "body": "An unexpected error just occurred. You can restart to keep going — any results you saved earlier are still safe in your account.",
     "btn_restart": "Restart"
+  },
+  "questions": {
+    "Q1": "When a robot has an issue, I want to directly inspect and repair it.",
+    "Q2": "I patiently test repeatedly and adjust each part to make the robot work better.",
+    "Q3": "I am interested in technical components such as sensors, motors, and control circuits.",
+    "Q10": "I like to learn how a new technology works.",
+    "Q11": "I often try multiple different approaches when solving a problem.",
+    "Q12": "When facing a problem, I like to investigate various possibilities before deciding on the root cause or solution.",
+    "Q19": "During robot development, I usually prioritize ensuring system stability and control over quickly testing new ideas.",
+    "Q20": "I often pay attention to the system's operational workflow and how components link to avoid confusion or errors.",
+    "Q21": "I like to optimize the system to reduce latency, minimize errors, and improve operational efficiency.",
+    "Q28": "I often help team members understand each other and coordinate better.",
+    "Q29": "I like to discuss with many people to find the most suitable solution for the whole team.",
+    "Q30": "I often take the initiative to connect members so everyone can work more productively.",
+    "Q37": "I like to present my ideas to others clearly and persuasively.",
+    "Q38": "I can explain a complex issue in a simple, easy-to-understand way.",
+    "Q39": "I like to prepare content to share ideas with others clearly and coherently.",
+    "C1": "I answer based on what I actually do, not what I think I \"should select\".",
+    "C2": "I am confident in my choices."
+  },
+  "likert": {
+    "1": "Strongly disagree",
+    "2": "Disagree",
+    "3": "Neutral",
+    "4": "Agree",
+    "5": "Strongly agree"
+  },
+  "missions": {
+    "1": {
+      "name": "Blue River Campaign",
+      "desc": "Capi stands by the riverbank, looking at a river flooded with plastic waste, bottles, and bags."
+    },
+    "2": {
+      "name": "Happy Clinic Campaign",
+      "desc": "Doctors and nurses are running around frantically, while patients wait wearily."
+    },
+    "3": {
+      "name": "Smart Apartment Project",
+      "desc": "Capi stands in front of a model apartment with tangled wires and scattered devices failing to connect."
+    },
+    "4": {
+      "name": "Automated Warehouse Project",
+      "desc": "The warehouse is chaotic, packages scattered, robots inactive, and the control panel constantly flashing errors."
+    },
+    "5": {
+      "name": "Drone Delivery Network",
+      "desc": "Under a cloudy sky, the city map shows complex tall buildings and obstacles."
+    },
+    "6": {
+      "name": "Rescue Robot Campaign",
+      "desc": "Amid ruins after a disaster, dust fills the air. Capi wears firefighter gear, holding a life detection device."
+    }
+  },
+  "reveal": {
+    "phase1_complete": "PRELIMINARY · PHASE 1 COMPLETE",
+    "capi_dialogue_prefix": "Oh, a very promising ",
+    "capi_dialogue_suffix": "! Choose a simulation gate to let me see how you shine in practice!",
+    "disclaimer": "* This is only a preliminary result. The official result will be calculated after you complete the mission.",
+    "btn_select_gate": "Select simulation gate →"
+  },
+  "theme": {
+    "welcome_title": "Welcome to the second stage of the game!",
+    "welcome_subtitle": "Select a mission theme and start exploring!"
   }
 }

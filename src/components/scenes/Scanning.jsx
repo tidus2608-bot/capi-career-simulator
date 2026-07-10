@@ -1,48 +1,71 @@
 import { useState, useEffect } from 'react'
-import Capi from '../Capi.jsx'
-import { Typed } from '../UI.jsx'
+import { useTranslation } from 'react-i18next'
 import { capiAudio } from '../../audio.js'
-import { CAPI_ROLES, PHASE1_QUESTIONS, CONFIDENCE_CHECKS, LIKERT_AGREE } from '../../data.js'
+import { PHASE1_QUESTIONS, CONFIDENCE_CHECKS } from '../../data.js'
 import SceneShell from './SceneShell.jsx'
-import LikertSlider from './LikertSlider.jsx'
 
 export default function ScanningScene({ onComplete }) {
+  const { t } = useTranslation()
+
   useEffect(() => {
     capiAudio.pad([130.8, 196, 261.6, 392], 'cold')
   }, [])
 
-  const total = PHASE1_QUESTIONS.length + CONFIDENCE_CHECKS.length
+  // Pick exactly 3 random questions for each role
+  const [selectedQuestions] = useState(() => {
+    const roles = ['explorer', 'builder', 'operator', 'connector', 'communicator']
+    const chosen = []
+    for (const r of roles) {
+      const qForRole = PHASE1_QUESTIONS.filter((q) => q.role === r)
+      const shuffled = [...qForRole].sort(() => Math.random() - 0.5)
+      chosen.push(...shuffled.slice(0, 3))
+    }
+    // Shuffle the final 15 questions so they appear in a random order
+    return chosen.sort(() => Math.random() - 0.5)
+  })
+
+  const total = selectedQuestions.length + CONFIDENCE_CHECKS.length
   const [idx, setIdx] = useState(0)
   const [selfPerception, setSelfPerception] = useState({})
   const [confidence, setConfidence] = useState({})
   const [showIntro, setShowIntro] = useState(true)
+  const [isFinished, setIsFinished] = useState(false)
+  const [finalAnswers, setFinalAnswers] = useState(null)
 
-  const isConfidencePhase = idx >= PHASE1_QUESTIONS.length
+  const isConfidencePhase = idx >= selectedQuestions.length
   const currentQ = isConfidencePhase
-    ? CONFIDENCE_CHECKS[idx - PHASE1_QUESTIONS.length]
-    : PHASE1_QUESTIONS[idx]
-  const currentValue = isConfidencePhase
-    ? (confidence[currentQ.id] ?? 3)
-    : (selfPerception[currentQ.id] ?? 3)
+    ? CONFIDENCE_CHECKS[idx - selectedQuestions.length]
+    : selectedQuestions[idx]
 
-  const setCurrentValue = (v) => {
+  const currentValue = isConfidencePhase ? confidence[currentQ.id] : selfPerception[currentQ.id]
+
+  const handleSelectOption = (v) => {
+    capiAudio.sfx('click')
     if (isConfidencePhase) setConfidence((prev) => ({ ...prev, [currentQ.id]: v }))
     else setSelfPerception((prev) => ({ ...prev, [currentQ.id]: v }))
   }
 
   const next = () => {
     capiAudio.sfx('click')
-    if (!isConfidencePhase && selfPerception[currentQ.id] === undefined) setCurrentValue(3)
-    if (isConfidencePhase && confidence[currentQ.id] === undefined) setCurrentValue(3)
     if (idx + 1 >= total) {
       capiAudio.sfx('scan')
       const spFull = {}
-      for (const q of PHASE1_QUESTIONS) spFull[q.id] = selfPerception[q.id] ?? 3
+      for (const q of selectedQuestions) spFull[q.id] = selfPerception[q.id] ?? 3
       const cfFull = {}
       for (const c of CONFIDENCE_CHECKS) cfFull[c.id] = confidence[c.id] ?? 3
-      onComplete({ selfPerception: spFull, confidence: cfFull })
+      setFinalAnswers({ selfPerception: spFull, confidence: cfFull })
+      setIsFinished(true)
     } else {
       setIdx((i) => i + 1)
+    }
+  }
+
+  const back = () => {
+    capiAudio.sfx('click')
+    if (idx > 0) {
+      setIdx((i) => i - 1)
+    } else {
+      setShowIntro(true)
     }
   }
 
@@ -52,37 +75,14 @@ export default function ScanningScene({ onComplete }) {
         <div style={{ display: 'grid', placeItems: 'center', minHeight: '100%', padding: 24 }}>
           <div className="glass fade-up" style={{ maxWidth: 600, padding: '32px 36px' }}>
             <div className="mono" style={{ color: '#843497', marginBottom: 20 }}>
-              PHASE 1 · CAPI-SCAN
+              {t('intro.scan_intro_title')}
             </div>
-            <div
-              className="scan-capi-row"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'auto 1fr',
-                gap: 20,
-                marginBottom: 24,
-                alignItems: 'end',
-              }}
-            >
-              <Capi outfit="lab" pose="talk" size={110} />
-              <div className="dialogue">
-                <div className="mono" style={{ color: '#843497', marginBottom: 8 }}>
-                  CAPI
-                </div>
-                <div style={{ fontSize: 15, lineHeight: 1.65, color: '#1a1a2e' }}>
-                  "Chào mừng bạn đến với Viện Nghiên cứu Capi! Trước khi bước vào các cổng mô phỏng
-                  thực tế ảo, hãy để mình quét sơ bộ hệ thống tư duy của bạn nhé."
-                </div>
-              </div>
-            </div>
-            <p style={{ color: '#6b7280', fontSize: 14, marginBottom: 24, lineHeight: 1.65 }}>
-              Bạn sẽ trả lời <strong style={{ color: '#1a1a2e' }}>15 câu hỏi</strong> trên thang
-              điểm 1–5. Hãy chọn theo những gì bạn{' '}
-              <em style={{ fontStyle: 'normal', color: '#843497', fontWeight: 600 }}>thực sự</em>{' '}
-              thường làm, không phải những gì bạn nghĩ là "nên chọn".
-            </p>
+            <p
+              style={{ color: '#6b7280', fontSize: 14, marginBottom: 24, lineHeight: 1.65 }}
+              dangerouslySetInnerHTML={{ __html: t('intro.scan_intro_blurb') }}
+            />
             <button className="btn btn-primary" onClick={() => setShowIntro(false)}>
-              Bắt đầu quét →
+              {t('intro.scan_intro_btn')}
             </button>
           </div>
         </div>
@@ -90,70 +90,144 @@ export default function ScanningScene({ onComplete }) {
     )
   }
 
-  return (
-    <SceneShell light>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateRows: 'auto 1fr auto',
-          height: '100%',
-          padding: '28px 24px',
-          gap: 20,
-          maxWidth: 860,
-          margin: '0 auto',
-        }}
-      >
-        {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
-          <div className="mono" style={{ color: isConfidencePhase ? '#f59e0b' : '#843497' }}>
-            {isConfidencePhase ? 'Kiểm tra độ tin cậy' : 'Capi-Scan'}
-            &nbsp;·&nbsp;{String(idx + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-          </div>
-          <div className="progress" style={{ flex: 1, maxWidth: 280 }}>
-            <i style={{ width: `${((idx + 1) / total) * 100}%` }} />
-          </div>
-          {!isConfidencePhase && (
-            <span className="pill">{CAPI_ROLES[currentQ.role]?.nameVn || currentQ.role}</span>
-          )}
-        </div>
-
-        {/* Capi + question */}
+  if (isFinished) {
+    return (
+      <SceneShell light className="no-scroll-shell">
+        <img
+          src="/illos/capi-transition.svg"
+          alt=""
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0,
+          }}
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
+        />
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'auto 1fr',
-            gap: 20,
-            alignItems: 'end',
-            alignSelf: 'end',
+            placeItems: 'center',
+            minHeight: '100%',
+            padding: 24,
+            position: 'relative',
+            zIndex: 5,
           }}
-          className="fade-up scan-capi-row"
         >
-          <Capi outfit="lab" pose="talk" size={120} />
-          <div className="dialogue">
-            <div className="mono" style={{ color: '#843497', marginBottom: 8 }}>
-              CAPI
+          <div className="p1-transition-card fade-up">
+            <div className="p1-transition-checkmark">
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
             </div>
-            <div
-              key={idx}
-              style={{
-                fontSize: 18,
-                lineHeight: 1.5,
-                fontFamily: 'var(--font-display)',
-                color: '#1a1a2e',
-              }}
-            >
-              <Typed text={currentQ.text_vn} speed={15} />
-            </div>
+            <h2 className="p1-transition-title">{t('common.phase1_completed')}</h2>
+            <button className="p1-transition-btn" onClick={() => onComplete(finalAnswers)}>
+              {t('common.continue_btn')}
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </SceneShell>
+    )
+  }
+
+  const imgPath =
+    !isConfidencePhase && currentQ.role
+      ? `/illos/capi-gen-${currentQ.role}.jpg`
+      : '/illos/capi-gen-explorer.jpg'
+
+  return (
+    <SceneShell light className="no-scroll-shell">
+      <div
+        className="p2-new-layout"
+        style={{
+          height: '100%',
+          padding: 'clamp(20px, 3.5vh, 40px) 48px clamp(16px, 2.5vh, 32px)',
+          boxSizing: 'border-box',
+          justifyContent: 'space-between',
+          maxWidth: '1000px',
+        }}
+      >
+        {/* Progress Bar Container */}
+        <div className="p1-progress-bar-container">
+          <div className="p1-progress-labels">
+            <span>
+              {t('common.question_progress', {
+                num: String(idx + 1).padStart(2, '0'),
+                total: String(total).padStart(2, '0'),
+              })}
+            </span>
+            <span>
+              {t('common.percent_completed', { percent: Math.round((idx / total) * 100) })}
+            </span>
+          </div>
+          <div className="p1-progress-outer">
+            <div className="p1-progress-inner" style={{ width: `${(idx / total) * 100}%` }} />
           </div>
         </div>
 
-        {/* Likert + Next */}
-        <div className="glass fade-up" style={{ padding: '22px 28px', animationDelay: '0.1s' }}>
-          <LikertSlider labels={LIKERT_AGREE} value={currentValue} onChange={setCurrentValue} />
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 16 }}>
-            <button className="btn btn-primary" onClick={next}>
-              {idx + 1 >= total ? 'Hoàn thành →' : 'Tiếp theo →'}
-            </button>
+        {/* Dynamic Split Layout */}
+        <div className="p1-split-layout">
+          <div className="p1-left-illustration">
+            <img src={imgPath} alt="" />
+          </div>
+
+          <div className="p1-right-content">
+            <h3 className="p1-question-text">{t(`questions.${currentQ.id}`)}</h3>
+
+            <div className="p1-likert-options">
+              {[1, 2, 3, 4, 5].map((val) => {
+                const isSelected = currentValue === val
+                return (
+                  <button
+                    key={val}
+                    className={`p1-likert-btn ${isSelected ? 'selected' : ''}`}
+                    onClick={() => handleSelectOption(val)}
+                  >
+                    {t(`likert.${val}`)}
+                  </button>
+                )
+              })}
+            </div>
+
+            <div className="p2-new-actions" style={{ width: '100%' }}>
+              <button className="p2-btn-outline" onClick={back}>
+                {t('common.back_btn')}
+              </button>
+              <button
+                className={`p2-btn-solid ${currentValue !== undefined && currentValue !== null ? 'active' : ''}`}
+                disabled={currentValue === undefined || currentValue === null}
+                onClick={next}
+              >
+                {idx + 1 >= total
+                  ? t('common.finish_btn') || 'Hoàn thành →'
+                  : t('common.continue_btn') || 'Tiếp tục →'}
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { RoleIcon } from '../UI.jsx'
 import Capi from '../Capi.jsx'
 import { capiAudio } from '../../audio.js'
@@ -6,6 +7,8 @@ import { CAPI_ROLES } from '../../data.js'
 import SceneShell from './SceneShell.jsx'
 
 export default function RoleRevealScene({ role, onContinue }) {
+  const { t, i18n } = useTranslation()
+  const isEn = i18n.language === 'en'
   const r = role ? CAPI_ROLES[role] || CAPI_ROLES.explorer : CAPI_ROLES.explorer
 
   useEffect(() => {
@@ -20,7 +23,7 @@ export default function RoleRevealScene({ role, onContinue }) {
           style={{ padding: '36px 40px', maxWidth: 580, textAlign: 'center', width: '100%' }}
         >
           <div className="mono" style={{ color: '#9ca3af', marginBottom: 20 }}>
-            SƠ BỘ · PHASE 1 COMPLETE
+            {t('reveal.phase1_complete')}
           </div>
 
           <div style={{ margin: '0 auto 18px', display: 'grid', placeItems: 'center' }}>
@@ -35,15 +38,22 @@ export default function RoleRevealScene({ role, onContinue }) {
               color: r.color,
             }}
           >
-            {r.name}
+            {isEn ? r.name : r.name}
           </h2>
-          <div className="mono" style={{ color: '#6b7280', marginBottom: 20 }}>
-            {r.nameVn}
-          </div>
+          {!isEn && (
+            <div className="mono" style={{ color: '#6b7280', marginBottom: 20 }}>
+              {r.nameVn}
+            </div>
+          )}
 
           <div
             className="dialogue"
-            style={{ textAlign: 'left', margin: '0 auto 20px', maxWidth: 480 }}
+            style={{
+              textAlign: 'left',
+              margin: '0 auto 20px',
+              maxWidth: 480,
+              marginTop: isEn ? 20 : 0,
+            }}
           >
             <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
               <Capi outfit="lab" pose="talk" size={56} style={{ flexShrink: 0 }} />
@@ -52,20 +62,20 @@ export default function RoleRevealScene({ role, onContinue }) {
                   CAPI
                 </div>
                 <div style={{ fontSize: 14, lineHeight: 1.65, color: '#374151' }}>
-                  Ồ, một <b style={{ color: r.color }}>{r.name}</b> đầy triển vọng! Hãy chọn một
-                  cổng mô phỏng để mình xem bạn tỏa sáng thế nào trong thực tế nhé!
+                  {t('reveal.capi_dialogue_prefix')}
+                  <b style={{ color: r.color }}>{isEn ? r.name : r.nameVn}</b>
+                  {t('reveal.capi_dialogue_suffix')}
                 </div>
               </div>
             </div>
           </div>
 
           <p style={{ fontSize: 12, color: '#9ca3af', marginBottom: 24, lineHeight: 1.5 }}>
-            * Đây chỉ là kết quả sơ bộ. Kết quả chính thức sẽ được tính sau khi bạn hoàn thành nhiệm
-            vụ.
+            {t('reveal.disclaimer')}
           </p>
 
           <button className="btn btn-primary" onClick={onContinue} style={{ width: '100%' }}>
-            Chọn cổng mô phỏng →
+            {t('reveal.btn_select_gate')}
           </button>
         </div>
       </div>

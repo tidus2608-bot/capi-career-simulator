@@ -16,9 +16,9 @@ export default function ThemeScene({ onPick }) {
           <div>
             <Capi outfit="lab" pose="idle" size={160} />
           </div>
-          <h2>Chào mừng bạn đến với cửa ải thứ 2 của trò chơi nhé</h2>
+          <h2>{t('theme.welcome_title')}</h2>
           <p style={{ color: '#6b7280', fontSize: 15, lineHeight: 1.6, maxWidth: 480, margin: 0 }}>
-            Hãy chọn một chủ đề nhiệm vụ và bắt đầu khám phá nhé!
+            {t('theme.welcome_subtitle')}
           </p>
           <button
             className="p2-btn"
@@ -28,7 +28,7 @@ export default function ThemeScene({ onPick }) {
               setInnerStage('select')
             }}
           >
-            Bắt đầu →
+            {t('common.start_btn')}
           </button>
         </div>
       </div>
@@ -38,7 +38,7 @@ export default function ThemeScene({ onPick }) {
   const themes = Object.values(CAPI_THEMES)
 
   return (
-    <div className="p2-shell">
+    <div className="p2-shell" style={{ overflowY: 'auto' }}>
       <div className="p2-new-layout">
         <h2 className="p2-new-header">{t('common.select_challenge')}</h2>
 

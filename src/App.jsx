@@ -17,6 +17,7 @@ import {
   CertificateScene,
   HistoryScene,
   Transition,
+  CapiGeneInfoScene,
 } from './components/scenes/index.js'
 
 // ─── Supabase ──────────────────────────────────────────────────────────────
@@ -37,7 +38,16 @@ const SAVE_TIMEOUT_MS = 10_000
 // Stages where every user-facing string is wired through i18n. The language
 // switch is hidden on the un-translated scenes (scan, role-reveal, theme,
 // mission-pick, mission-play, reflect) so it doesn't dangle as a no-op.
-const TRANSLATED_STAGES = new Set(['intro', 'certificate', 'history'])
+const TRANSLATED_STAGES = new Set([
+  'intro',
+  'capi-gene-info',
+  'scan',
+  'role-reveal',
+  'theme',
+  'mission-pick',
+  'certificate',
+  'history',
+])
 
 // ─── Tweaks panel ─────────────────────────────────────────────────────────
 const TWEAK_DEFAULTS = { fullPlay: true }
@@ -240,8 +250,16 @@ export default function App() {
   let content
   if (stage === 'intro') {
     content = (
-      <IntroScene onStart={startScan} user={user} authLoading={authLoading} supabase={supabase} />
+      <IntroScene
+        onStart={startScan}
+        onInfo={() => setStage('capi-gene-info')}
+        user={user}
+        authLoading={authLoading}
+        supabase={supabase}
+      />
     )
+  } else if (stage === 'capi-gene-info') {
+    content = <CapiGeneInfoScene onBack={() => setStage('intro')} onStart={startScan} />
   } else if (stage === 'scan') {
     content = <ScanningScene onComplete={onScanDone} />
   } else if (stage === 'role-reveal') {
