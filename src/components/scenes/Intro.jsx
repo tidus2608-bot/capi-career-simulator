@@ -1,27 +1,9 @@
-import { useState } from 'react'
-import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import { capiAudio } from '../../audio.js'
 import SceneShell from './SceneShell.jsx'
-import missionsData from '../../data/missions.json'
 
-export default function IntroScene({ onStart }) {
-  const { t, i18n } = useTranslation()
-  const isEn = i18n.language === 'en'
-  const [showModal, setShowModal] = useState(false)
-  const [activeIdx, setActiveIdx] = useState(0)
-
-  const roles = missionsData.roles
-
-  const handlePrev = () => {
-    capiAudio.sfx('click')
-    setActiveIdx((prev) => (prev === 0 ? roles.length - 1 : prev - 1))
-  }
-
-  const handleNext = () => {
-    capiAudio.sfx('click')
-    setActiveIdx((prev) => (prev === roles.length - 1 ? 0 : prev + 1))
-  }
+export default function IntroScene({ onStart, onInfo }) {
+  const { t } = useTranslation()
 
   return (
     <SceneShell>
@@ -138,7 +120,7 @@ export default function IntroScene({ onStart }) {
               }}
               onClick={() => {
                 capiAudio.sfx('click')
-                setShowModal(true)
+                onInfo()
               }}
             >
               {t('intro.btn_what_is_gene')}
@@ -182,152 +164,6 @@ export default function IntroScene({ onStart }) {
           {t('intro.footer_hint')}
         </div>
       </div>
-
-      {showModal &&
-        createPortal(
-          <div className="role-modal-overlay">
-            <h2 className="role-modal-title">{t('common.role_modal_title')}</h2>
-
-            <div className="role-carousel-wrapper">
-              <button className="role-carousel-btn" onClick={handlePrev}>
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
-              </button>
-
-              <div className="role-carousel-container">
-                {roles.map((r, idx) => {
-                  let cardClass = 'hidden'
-                  if (idx === activeIdx) cardClass = 'active'
-                  else if (idx === (activeIdx - 1 + roles.length) % roles.length) cardClass = 'prev'
-                  else if (idx === (activeIdx + 1) % roles.length) cardClass = 'next'
-
-                  return (
-                    <div
-                      key={r.key}
-                      className={`role-carousel-card ${cardClass}`}
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => {
-                        if (cardClass === 'prev') handlePrev()
-                        if (cardClass === 'next') handleNext()
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault()
-                          if (cardClass === 'prev') handlePrev()
-                          if (cardClass === 'next') handleNext()
-                        }
-                      }}
-                    >
-                      <img className="bg" src={`/illos/capi-gen-${r.key}.jpg`} alt="" />
-                      <div className="role-carousel-card-gradient" />
-
-                      <div className="role-carousel-card-info">
-                        <div className="role-carousel-card-title">
-                          {isEn ? r.name_en : r.name_vn}
-                        </div>
-                        <div className="role-carousel-card-tagline">
-                          {t(`common.roles.${r.key}.tagline`)}
-                        </div>
-                      </div>
-
-                      <div className="role-carousel-card-hover">
-                        <div className="role-carousel-hover-title">
-                          {isEn ? r.name_en : r.name_vn}
-                        </div>
-                        <div className="role-carousel-hover-tagline">
-                          {t(`common.roles.${r.key}.tagline`)}
-                        </div>
-                        <div className="role-carousel-hover-body">
-                          <div className="role-carousel-hover-col">
-                            <h4>{t('common.role_description')}</h4>
-                            <p>{isEn ? r.short_description_en : r.short_description_vn}</p>
-                          </div>
-                          <div className="role-carousel-hover-col">
-                            <h4>{t('common.role_characteristics')}</h4>
-                            <ul>
-                              {(isEn ? r.qualifications_en : r.qualifications_vn)
-                                .slice(0, 3)
-                                .map((q, qidx) => (
-                                  <li key={qidx}>{q}</li>
-                                ))}
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-
-              <button className="role-carousel-btn" onClick={handleNext}>
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
-              </button>
-            </div>
-
-            <div className="role-carousel-dots">
-              {roles.map((_, idx) => (
-                <div
-                  key={idx}
-                  className={`role-carousel-dot ${idx === activeIdx ? 'active' : ''}`}
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => {
-                    capiAudio.sfx('click')
-                    setActiveIdx(idx)
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault()
-                      capiAudio.sfx('click')
-                      setActiveIdx(idx)
-                    }
-                  }}
-                />
-              ))}
-            </div>
-
-            <div className="role-modal-actions">
-              <button
-                className="p2-btn-outline"
-                onClick={() => {
-                  capiAudio.sfx('click')
-                  setShowModal(false)
-                }}
-              >
-                {t('common.back_btn')}
-              </button>
-              <button
-                className="p2-btn-solid active"
-                onClick={() => {
-                  capiAudio.sfx('confirm')
-                  setShowModal(false)
-                  onStart()
-                }}
-              >
-                {t('intro.btn_scan_gene')}
-              </button>
-            </div>
-          </div>,
-          document.body,
-        )}
     </SceneShell>
   )
 }

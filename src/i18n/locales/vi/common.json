@@ -26,7 +26,10 @@
     "new_blurb": "Chào mừng bạn đến với Viện Nghiên cứu Capi! Mình là Capi, cộng sự của bạn. Trước khi bước vào các cổng mô phỏng thực tế ảo, hãy để mình quét sơ bộ hệ thống tư duy của bạn nhé. Sẵn sàng chưa?",
     "btn_scan_gene": "Quét Capi-Gene",
     "btn_what_is_gene": "Capi-Gene là gì?",
-    "footer_hint": "Hoàn thành bài quét đầu tiên để mở khóa các cổng mô phỏng thực tế ảo."
+    "footer_hint": "Hoàn thành bài quét đầu tiên để mở khóa các cổng mô phỏng thực tế ảo.",
+    "scan_intro_title": "PHASE 1 · CAPI-SCAN",
+    "scan_intro_blurb": "Bạn sẽ trả lời <strong style=\"color: #1a1a2e\">15 câu hỏi</strong> trên thang điểm 1–5. Hãy chọn theo những gì bạn <em style=\"font-style: normal; color: #843497; font-weight: 600\">thực sự</em> thường làm, không phải những gì bạn nghĩ là \"nên chọn\".",
+    "scan_intro_btn": "Bắt đầu quét →"
   },
   "common": {
     "next": "TIẾP THEO →",
@@ -42,9 +45,15 @@
     "back_btn": "← Quay về",
     "start_btn": "Bắt đầu →",
     "role_modal_title": "CHỌN VAI BẠN MUỐN TRỞ THÀNH NHẤT",
+    "capi_gene_info_title": "Capi-Gene là gì?",
     "role_description": "Mô tả",
     "role_characteristics": "Đặc điểm chính",
     "mission_title_prefix": "NHIỆM VỤ",
+    "question_progress": "Câu hỏi {{num}} / {{total}}",
+    "percent_completed": "{{percent}}% Hoàn thiện",
+    "phase1_completed": "Đã hoàn thành phase 1",
+    "continue_btn": "Tiếp tục →",
+    "finish_btn": "Hoàn thành →",
     "themes": {
       "ark_capi": {
         "displayName": "CHIẾN DỊCH ARK-CAPI",
@@ -98,5 +107,68 @@
     "title": "Capi gặp sự cố",
     "body": "Một lỗi không mong muốn vừa xảy ra. Bạn có thể khởi động lại để tiếp tục — kết quả đã lưu trước đó vẫn an toàn trong tài khoản của bạn.",
     "btn_restart": "Khởi động lại"
+  },
+  "questions": {
+    "Q1": "Khi robot gặp sự cố, tôi muốn trực tiếp kiểm tra và sửa chữa.",
+    "Q2": "Tôi kiên nhẫn thử đi thử lại và chỉnh từng phần để robot hoạt động tốt hơn.",
+    "Q3": "Tôi hứng thú với các bộ phận kỹ thuật như cảm biến, động cơ và mạch điều khiển.",
+    "Q10": "Tôi thích tìm hiểu cách một công nghệ mới hoạt động như thế nào.",
+    "Q11": "Tôi thường thử nhiều cách tiếp cận khác nhau khi giải quyết một vấn đề.",
+    "Q12": "Khi gặp một vấn đề, tôi thích tìm hiểu nhiều khả năng khác nhau trước khi chốt nguyên nhân hoặc cách xử lý.",
+    "Q19": "Trong quá trình phát triển robot, tôi thường ưu tiên đảm bảo hệ thống hoạt động ổn định và dễ kiểm soát hơn là thử nghiệm nhanh các ý tưởng mới.",
+    "Q20": "Tôi thường để ý hệ thống vận hành theo quy trình nào và các phần liên kết với nhau ra sao để tránh bị rối hoặc lỗi.",
+    "Q21": "Tôi thích tối ưu hệ thống để giảm thời gian chờ, giảm lỗi và tăng hiệu suất vận hành.",
+    "Q28": "Tôi thường giúp các thành viên trong nhóm hiểu nhau và phối hợp tốt hơn.",
+    "Q29": "Tôi thích trao đổi với nhiều người để cùng tìm ra giải pháp phù hợp cho cả nhóm.",
+    "Q30": "Tôi thường chủ động kết nối các thành viên để mọi người làm việc hiệu quả hơn.",
+    "Q37": "Tôi thích trình bày ý tưởng của mình trước người khác một cách rõ ràng và thuyết phục.",
+    "Q38": "Tôi có thể giải thích một vấn đề phức tạp theo cách đơn giản và dễ hiểu.",
+    "Q39": "Tôi thích chuẩn bị nội dung để chia sẻ ý tưởng với người khác một cách rõ ràng và mạch lạc.",
+    "C1": "Tôi trả lời dựa trên những gì mình thực sự thường làm, không phải những gì mình nghĩ là \"nên chọn\".",
+    "C2": "Tôi chắc chắn về các lựa chọn của mình."
+  },
+  "likert": {
+    "1": "Hoàn toàn không đồng ý",
+    "2": "Không đồng ý",
+    "3": "Trung lập",
+    "4": "Đồng ý",
+    "5": "Hoàn toàn đồng ý"
+  },
+  "missions": {
+    "1": {
+      "name": "Chiến dịch \"Dòng sông Xanh\"",
+      "desc": "Capi đứng trước bờ sông, nhìn dòng sông ngập rác nhựa, chai lọ, túi nilon."
+    },
+    "2": {
+      "name": "Chiến dịch \"Trạm y tế hạnh phúc\"",
+      "desc": "Bác sĩ, y tá chạy sấp mặt, bệnh nhân thì chờ đợi mệt mỏi."
+    },
+    "3": {
+      "name": "Nhiệm vụ Căn hộ Thông minh",
+      "desc": "Capi đứng trước một căn hộ mẫu với hệ thống dây điện lằng nhằng, các thiết bị rời rạc không kết nối được với nhau."
+    },
+    "4": {
+      "name": "Dự án \"Kho tự vận hành\"",
+      "desc": "Kho hàng hỗn loạn, kiện hàng rơi vãi, robot nằm im không phản ứng, màn hình điều khiển báo lỗi liên tục."
+    },
+    "5": {
+      "name": "Mạng lưới Giao hàng Drone",
+      "desc": "Bầu trời u ám, bản đồ thành phố hiển thị chi tiết các tòa nhà cao tầng và chướng ngại vật phức tạp."
+    },
+    "6": {
+      "name": "Chiến dịch \"Robot Cứu hộ\"",
+      "desc": "Hiện trường đổ nát sau thảm họa, khói bụi mịt mù, Capi khoác bộ đồ cứu hỏa, tay cầm thiết bị dò tìm sự sống."
+    }
+  },
+  "reveal": {
+    "phase1_complete": "SƠ BỘ · PHASE 1 COMPLETE",
+    "capi_dialogue_prefix": "Ồ, một ",
+    "capi_dialogue_suffix": " đầy triển vọng! Hãy chọn một cổng mô phỏng để mình xem bạn tỏa sáng thế nào trong thực tế nhé!",
+    "disclaimer": "* Đây chỉ là kết quả sơ bộ. Kết quả chính thức sẽ được tính sau khi bạn hoàn thành nhiệm vụ.",
+    "btn_select_gate": "Chọn cổng mô phỏng →"
+  },
+  "theme": {
+    "welcome_title": "Chào mừng bạn đến với cửa ải thứ 2 của trò chơi nhé",
+    "welcome_subtitle": "Hãy chọn một chủ đề nhiệm vụ và bắt đầu khám phá nhé!"
   }
 }
