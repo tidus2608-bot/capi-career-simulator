@@ -1,15 +1,13 @@
 /**
- * Shared session helpers for Google OAuth admin auth.
- * Uses HMAC-SHA256 signed cookies — no external JWT library needed.
+ * Shared session helpers for admin auth.
+ * Uses HMAC-SHA256 signed cookies, with Supabase validating browser tokens.
  *
  * Required Cloudflare Pages secrets:
- *   GOOGLE_CLIENT_ID     – OAuth 2.0 client ID
- *   GOOGLE_CLIENT_SECRET – OAuth 2.0 client secret
- *   SESSION_SECRET       – random string ≥ 32 chars for signing cookies
+ *   SESSION_SECRET       - random string >= 32 chars for signing cookies
  *
  * At least one of the following must be set:
- *   ALLOWED_EMAIL  – comma-separated list of allowed email addresses
- *   ALLOWED_DOMAIN – domain suffix; any *@<domain> is granted access
+ *   ALLOWED_EMAIL  - comma-separated list of allowed email addresses
+ *   ALLOWED_DOMAIN - domain suffix; any *@<domain> is granted access
  */
 
 interface AuthEnv {
@@ -52,12 +50,11 @@ export async function createSession(email: string, secret: string): Promise<stri
 }
 
 export async function verifySession(request: Request, env: AuthEnv): Promise<string | null> {
-  const cookie = request.headers.get('Cookie') || ''
-  const match = cookie.match(/admin_session=([^;]+)/)
-  if (!match || !match[1]) return null
+  const token = getCookie(request, 'admin_session')
+  if (!token) return null
 
   try {
-    const parts = match[1].split('.')
+    const parts = token.split('.')
     if (parts.length !== 2) return null
     const [payload, sig] = parts
     if (!payload || !sig) return null
@@ -76,4 +73,19 @@ export async function verifySession(request: Request, env: AuthEnv): Promise<str
 
 export function sessionCookie(token: string, maxAge = 86400): string {
   return `admin_session=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${maxAge}`
+}
+
+export function getCookie(request: Request, name: string): string | null {
+  const cookie = request.headers.get('Cookie') || ''
+  const prefix = `${name}=`
+  const value = cookie
+    .split(';')
+    .map((part) => part.trim())
+    .find((part) => part.startsWith(prefix))
+
+  return value ? value.slice(prefix.length) : null
+}
+
+export function clearCookie(name: string): string {
+  return `${name}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0`
 }

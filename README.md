@@ -23,7 +23,24 @@ Apply the database schema and RLS to your Supabase project (one-off):
 supabase db push
 ```
 
-Configure Google OAuth in Supabase: **Authentication → Providers → Google**, set the client ID/secret and add `https://<your-domain>` to the Redirect URLs.
+### OAuth Setup
+
+Admin and player authentication use Supabase Google OAuth. You must configure this in your Supabase project under **Authentication → Providers → Google**.
+
+1. Enable the Google provider in Supabase.
+2. Enter your Google Client ID and Client Secret.
+3. Add the redirect URLs to your Supabase configuration.
+
+In the Supabase dashboard, set the Site URL to your production domain, such as `https://capi-career-simulator.pages.dev`.
+
+Add the following Redirect URLs for local development and preview deployments:
+
+- `https://capi-career-simulator.pages.dev/**` (exact production host, preferred)
+- `http://localhost:8788/**`
+- `http://localhost:5173/**`
+- `https://**.capi-career-simulator.pages.dev/**` (preview wildcard)
+
+The same Supabase login flow creates player sessions. When an admin logs in, the frontend sends the token to the server. After validation, the server checks the email against the allowlist and issues an admin session cookie.
 
 ## Develop
 
@@ -75,14 +92,14 @@ src/
     missions.json      # Source of truth for question/mission/role data
 
 functions/             # Cloudflare Pages Functions (admin only)
-  _auth.ts             # HMAC-signed session cookies + Google OAuth allow-list
+  _auth.ts             # HMAC-signed session cookies + admin allowlist
   _supabase.ts         # Service-role REST helper
   api/
     results.ts         # GET /api/results  (admin: aggregates + paginated rows)
     export.ts          # GET /api/export   (admin: CSV dump)
     auth/
-      login.ts         # GET /api/auth/login    (Google OAuth redirect)
-      callback.ts      # GET /api/auth/callback (exchange + cookie)
+      session.ts       # POST /api/auth/session (validate token + set session cookie)
+      status.ts        # GET /api/auth/status   (check session status)
       logout.ts        # GET /api/auth/logout   (clear cookie)
 
 supabase/
@@ -112,12 +129,21 @@ any step blocks the deploy.
 | `VITE_SUPABASE_URL`         | plaintext | frontend build |
 | `VITE_SUPABASE_ANON_KEY`    | plaintext | frontend build |
 | `SUPABASE_URL`              | plaintext | `/api/*`       |
+| `SUPABASE_ANON_KEY`         | plaintext | `/api/*`       |
 | `SUPABASE_SERVICE_ROLE_KEY` | encrypted | `/api/*`       |
-| `GOOGLE_CLIENT_ID`          | plaintext | `/api/auth`    |
-| `GOOGLE_CLIENT_SECRET`      | encrypted | `/api/auth`    |
 | `SESSION_SECRET`            | encrypted | `/api/auth`    |
 | `ALLOWED_DOMAIN`            | plaintext | `/api/auth`    |
 | `ALLOWED_EMAIL`             | plaintext | `/api/auth`    |
+
+For local development, frontend variables starting with `VITE_` remain in `.env`.
+Server-side environment variables for Cloudflare Functions (such as `SUPABASE_URL`,
+`SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `SESSION_SECRET`,
+and the allowlist variables `ALLOWED_EMAIL` or `ALLOWED_DOMAIN`) must be placed in a
+`.dev.vars` file in the project root. This file is gitignored.
+
+In production, these server variables belong in the Cloudflare Pages dashboard under
+**Settings → Environment Variables**. You need to redeploy the project after changing
+Pages variables for them to take effect.
 
 ### Branch protection
 

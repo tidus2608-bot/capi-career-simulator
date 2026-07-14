@@ -32,6 +32,17 @@
     "scan_intro_btn": "Start scanning →"
   },
   "common": {
+    "admin_login": "Login with Google",
+    "admin_login_short": "Google",
+    "admin_console": "Admin Console",
+    "admin_console_short": "Admin",
+    "signed_in_as": "Signed in as {{name}}",
+    "signed_in_prefix": "Signed in as",
+    "sign_out": "Sign out",
+    "sign_out_short": "Out",
+    "account_menu": "Account menu",
+    "account_menu_for": "Account menu for {{name}}",
+    "history": "History",
     "next": "NEXT →",
     "finish": "FINISH →",
     "back": "← Back",

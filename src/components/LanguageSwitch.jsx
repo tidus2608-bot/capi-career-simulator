@@ -44,7 +44,7 @@ export default function LanguageSwitch({ style = {} }) {
               letterSpacing: '0.1em',
               fontWeight: 600,
               background: active ? 'var(--cyan)' : 'transparent',
-              color: active ? '#021820' : 'var(--ink-dim)',
+              color: active ? '#021820' : '#c8d2ff',
               border: 'none',
               cursor: active ? 'default' : 'pointer',
               transition: 'all 0.15s ease',

@@ -28,6 +28,7 @@ interface RunRow {
 }
 
 const ROLES = ['explorer', 'builder', 'operator', 'connector', 'communicator'] as const
+const CSV_FORMULA_PREFIX = /^[=+\-@\t\r\n]/
 
 export async function onRequestGet({
   request,
@@ -120,8 +121,11 @@ export async function onRequestOptions(): Promise<Response> {
 
 function csvEsc(val: string | number | null | undefined): string {
   if (val == null) return ''
-  const s = String(val)
-  return s.includes(',') || s.includes('"') || s.includes('\n') ? `"${s.replace(/"/g, '""')}"` : s
+  let s = String(val)
+  if (CSV_FORMULA_PREFIX.test(s)) s = `'${s}`
+  return s.includes(',') || s.includes('"') || s.includes('\n') || s.includes('\r')
+    ? `"${s.replace(/"/g, '""')}"`
+    : s
 }
 
 function round1(n: number | undefined | null): string {

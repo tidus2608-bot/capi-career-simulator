@@ -6,6 +6,7 @@ import { topRole, PHASE1_QUESTIONS } from './data.js'
 import { calculateScore, buildCertificateCopy } from './lib/scoring.js'
 import ErrorBoundary from './components/ErrorBoundary.jsx'
 import LanguageSwitch from './components/LanguageSwitch.jsx'
+import AdminAuthNav from './components/AdminAuthNav.jsx'
 import {
   IntroScene,
   ScanningScene,
@@ -57,6 +58,7 @@ export default function App() {
   const { t } = useTranslation()
   const [stage, setStage] = useState('intro')
   const [user, setUser] = useState(null)
+  const [session, setSession] = useState(null)
   const [authLoading, setAuthLoading] = useState(true)
 
   // Phase answers
@@ -85,12 +87,14 @@ export default function App() {
   // ── Auth ──
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
       setUser(session?.user ?? null)
       setAuthLoading(false)
     })
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
       setUser(session?.user ?? null)
       setAuthLoading(false)
     })
@@ -298,7 +302,11 @@ export default function App() {
     )
   } else if (stage === 'history') {
     content = (
-      <HistoryScene user={user} supabase={supabase} onBack={() => setStage('certificate')} />
+      <HistoryScene
+        user={user}
+        supabase={supabase}
+        onBack={() => setStage(scoringResult && certCopy ? 'certificate' : 'intro')}
+      />
     )
   }
 
@@ -308,36 +316,17 @@ export default function App() {
 
       {/* Header logic */}
       {stage === 'intro' ? (
-        <div
-          style={{
-            position: 'fixed',
-            top: 24,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: 'calc(100% - 48px)',
-            maxWidth: 1200,
-            height: 72,
-            background: '#fff',
-            borderRadius: 36,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '0 16px 0 32px',
-            zIndex: 100,
-            boxShadow: '0 4px 24px rgba(0,0,0,0.1)',
-          }}
-        >
-          <div
-            style={{
-              fontSize: 22,
-              fontFamily: 'var(--font-display)',
-              fontWeight: 600,
-              color: '#1a1a2e',
-            }}
-          >
-            Capi Career Path Simulator
+        <div className="intro-navbar">
+          <div className="intro-navbar-title">
+            <span className="intro-navbar-brand--full">Capi Career Path Simulator</span>
+            <span className="intro-navbar-brand--short">Capi Simulator</span>
           </div>
-          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <div className="intro-navbar-controls">
+            <AdminAuthNav
+              supabase={supabase}
+              session={session}
+              onHistory={user ? () => setStage('history') : null}
+            />
             <LanguageSwitch />
             <button
               className="audio-toggle"
