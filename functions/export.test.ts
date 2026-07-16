@@ -16,7 +16,17 @@ afterEach(() => {
 describe('GET /api/export', () => {
   it('neutralizes spreadsheet formulas in exported text fields', async () => {
     const token = await createSession('admin@example.com', env.SESSION_SECRET)
-    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
+    vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify([{ email: 'admin@example.com' }]), {
+          status: 200,
+          headers: { 'Content-Range': '0-0/1' },
+        }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify([{ email: 'admin@example.com' }]), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
       new Response(
         JSON.stringify([
           {

@@ -72,6 +72,15 @@ main{padding:28px;max-width:1400px;margin:0 auto}
 .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 select{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:13px;outline:none;cursor:pointer;}
 select:focus{border-color:var(--cyan)}
+input{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;min-width:240px;}
+input:focus{border-color:var(--cyan)}
+.admin-management{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:28px;}
+.admin-management h3{font-size:14px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
+.admin-form{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.admin-list{display:flex;flex-direction:column;gap:8px}
+.admin-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid rgba(255,255,255,.06);border-radius:10px;background:rgba(255,255,255,.03)}
+.admin-email{font-weight:700;color:var(--text)}
+.admin-meta{font-size:12px;color:var(--muted);margin-top:4px}
 .table-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:13px}
 thead tr{background:rgba(255,255,255,.03)}
@@ -172,6 +181,17 @@ tr:hover td{background:rgba(255,255,255,.02)}
       </div>
     </div>
 
+    <div class="admin-management">
+      <h3>Admin accounts</h3>
+      <form class="admin-form" id="admin-add-form">
+        <input id="admin-email-input" type="email" autocomplete="email" placeholder="new-admin@example.com" required />
+        <button type="submit" id="admin-add-button">Add admin</button>
+        <button type="button" onclick="loadAdmins()">Refresh admins</button>
+      </form>
+      <div class="loader hidden" id="admins-loader">Đang tải admin</div>
+      <div class="admin-list" id="admins-list"></div>
+    </div>
+
     <!-- Table -->
     <div class="table-card">
       <div class="table-toolbar">
@@ -236,7 +256,7 @@ const MISSION_NAMES = {
   5:'M5 — Mạng Drone', 6:'M6 — Cứu hộ',
 };
 
-let currentOffset = 0, totalRows = 0;
+let currentOffset = 0, totalRows = 0, currentAdminEmail = '';
 
 function logout(){ window.location.href = '/api/auth/logout'; }
 
@@ -257,6 +277,117 @@ async function loadData(){
   }catch(err){
     console.error(err);
     toast('Lỗi tải dữ liệu: ' + err.message);
+  }
+}
+
+async function loadStatus(){
+  const res = await fetch('/api/auth/status');
+  const data = await res.json();
+  if(!data.authenticated || data.role !== 'admin'){
+    window.location.href = '/?returnTo=/admin.html';
+    return false;
+  }
+  currentAdminEmail = String(data.email || '').toLowerCase();
+  document.getElementById('user-email').textContent = currentAdminEmail;
+  return true;
+}
+
+async function loadAdmins(){
+  const loader = document.getElementById('admins-loader');
+  const list = document.getElementById('admins-list');
+  loader.classList.remove('hidden');
+  list.textContent = '';
+  try{
+    const res = await fetch('/api/admins');
+    if(res.status === 401){ window.location.href = '/?returnTo=/admin.html'; return; }
+    const data = await res.json();
+    if(!data.ok) throw new Error(data.error || 'Failed to load admins');
+    renderAdmins(data.admins || []);
+  }catch(err){
+    console.error(err);
+    toast('Lỗi tải admin: ' + err.message);
+    renderAdmins([]);
+  }finally{
+    loader.classList.add('hidden');
+  }
+}
+
+function renderAdmins(admins){
+  const list = document.getElementById('admins-list');
+  list.textContent = '';
+  if(!admins.length){
+    const empty = document.createElement('div');
+    empty.className = 'empty';
+    empty.textContent = 'Chưa có admin trong database. Bootstrap allowlist vẫn đang được dùng.';
+    list.appendChild(empty);
+    return;
+  }
+  for (const admin of admins) {
+    const row = document.createElement('div');
+    row.className = 'admin-row';
+
+    const info = document.createElement('div');
+    const email = document.createElement('div');
+    email.className = 'admin-email';
+    email.textContent = admin.email || '—';
+    const meta = document.createElement('div');
+    meta.className = 'admin-meta';
+    const created = admin.created_at ? new Date(admin.created_at) : null;
+    const createdText = created && !isNaN(created.getTime()) ? created.toLocaleString('vi-VN') : String(admin.created_at || 'unknown time');
+    meta.textContent = `Added ${createdText}${admin.created_by ? ' by ' + admin.created_by : ''}`;
+    info.appendChild(email);
+    info.appendChild(meta);
+
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'danger';
+    remove.textContent = 'Delete';
+    remove.disabled = String(admin.email || '').toLowerCase() === currentAdminEmail || admins.length <= 1;
+    remove.addEventListener('click', () => deleteAdminAccount(admin.email));
+
+    row.appendChild(info);
+    row.appendChild(remove);
+    list.appendChild(row);
+  }
+}
+
+async function addAdminAccount(event){
+  event.preventDefault();
+  const input = document.getElementById('admin-email-input');
+  const button = document.getElementById('admin-add-button');
+  const email = input.value.trim();
+  if(!email) return;
+  button.disabled = true;
+  try{
+    const res = await fetch('/api/admins', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({email}),
+    });
+    const data = await res.json();
+    if(!data.ok) throw new Error(data.error || 'Failed to add admin');
+    input.value = '';
+    toast('Admin added');
+    await loadAdmins();
+  }catch(err){
+    console.error(err);
+    toast('Lỗi thêm admin: ' + err.message);
+  }finally{
+    button.disabled = false;
+  }
+}
+
+async function deleteAdminAccount(email){
+  if(!email) return;
+  try{
+    const res = await fetch('/api/admins?email=' + encodeURIComponent(email), {method:'DELETE'});
+    const data = await res.json();
+    if(!data.ok) throw new Error(data.error || 'Failed to delete admin');
+    toast('Admin deleted');
+    await loadAdmins();
+  }catch(err){
+    console.error(err);
+    toast('Lỗi xoá admin: ' + err.message);
   }
 }
 
@@ -454,13 +585,20 @@ function exportCSV(){
   toast('Đang tải file CSV…');
 }
 
+async function initDashboard(){
+  document.getElementById('admin-add-form').addEventListener('submit', addAdminAccount);
+  if(await loadStatus()){
+    await Promise.all([loadData(), loadAdmins()]);
+  }
+}
+
 function toast(msg,duration=3000){
   const el=document.getElementById('toast');
   el.textContent=msg; el.classList.add('show');
   setTimeout(()=>el.classList.remove('show'),duration);
 }
 
-loadData();
+initDashboard();
 </script>
 </body>
 </html>

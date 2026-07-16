@@ -4,6 +4,8 @@ interface Env {
   SESSION_SECRET: string
   ALLOWED_EMAIL?: string
   ALLOWED_DOMAIN?: string
+  SUPABASE_URL?: string
+  SUPABASE_SERVICE_ROLE_KEY?: string
 }
 
 export async function onRequestGet({

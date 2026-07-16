@@ -16,11 +16,13 @@ vi.mock('@supabase/supabase-js', () => ({
 const authEnv = {
   SUPABASE_URL: 'https://supabase.test',
   SUPABASE_ANON_KEY: 'anon-key',
+  SUPABASE_SERVICE_ROLE_KEY: 'sr-key-test',
   SESSION_SECRET: 'a-very-long-test-secret-32+chars',
   ALLOWED_EMAIL: 'admin@example.com',
 }
 
 beforeEach(() => {
+  vi.restoreAllMocks()
   vi.clearAllMocks()
   createClientMock.mockReturnValue({ auth: { getUser: getUserMock } })
 })
@@ -59,7 +61,10 @@ describe('session round-trip', () => {
     const env = {
       SESSION_SECRET: 'a-very-long-test-secret-32+chars',
       ALLOWED_DOMAIN: 'example.com',
+      SUPABASE_URL: 'https://supabase.test',
+      SUPABASE_SERVICE_ROLE_KEY: 'sr-key-test',
     }
+    mockEmptyAdmins()
     const token = await createSession('user@example.com', env.SESSION_SECRET)
     const req = new Request('https://x.test/', { headers: { Cookie: `admin_session=${token}` } })
     expect(await verifySession(req, env)).toBe('user@example.com')
@@ -69,6 +74,8 @@ describe('session round-trip', () => {
     const env = {
       SESSION_SECRET: 'a-very-long-test-secret-32+chars',
       ALLOWED_DOMAIN: 'example.com',
+      SUPABASE_URL: 'https://supabase.test',
+      SUPABASE_SERVICE_ROLE_KEY: 'sr-key-test',
     }
     const token = await createSession('user@example.com', env.SESSION_SECRET)
     const tampered = token.slice(0, -2) + 'XX'
@@ -84,10 +91,46 @@ describe('session round-trip', () => {
     const envVerify = {
       SESSION_SECRET: 's3cret-test-32-chars-or-more----',
       ALLOWED_DOMAIN: 'new.com',
+      SUPABASE_URL: 'https://supabase.test',
+      SUPABASE_SERVICE_ROLE_KEY: 'sr-key-test',
     }
+    mockEmptyAdmins()
     const token = await createSession('user@old.com', envSign.SESSION_SECRET)
     const req = new Request('https://x.test/', { headers: { Cookie: `admin_session=${token}` } })
     expect(await verifySession(req, envVerify)).toBeNull()
+  })
+
+  it('authorizes a signed cookie from database membership', async () => {
+    const token = await createSession('db-admin@example.com', authEnv.SESSION_SECRET)
+    mockAdminMembership('db-admin@example.com')
+
+    const req = new Request('https://x.test/', { headers: { Cookie: `admin_session=${token}` } })
+    expect(await verifySession(req, authEnv)).toBe('db-admin@example.com')
+  })
+
+  it('rejects a signed cookie when the admin was removed from the table', async () => {
+    const token = await createSession('removed@example.com', authEnv.SESSION_SECRET)
+    vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(adminRows([{ email: 'other@example.com' }], 1))
+      .mockResolvedValueOnce(adminRows([], 0))
+
+    const req = new Request('https://x.test/', { headers: { Cookie: `admin_session=${token}` } })
+    expect(await verifySession(req, authEnv)).toBeNull()
+  })
+
+  it('fails closed when the admin lookup errors', async () => {
+    const token = await createSession('admin@example.com', authEnv.SESSION_SECRET)
+    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(new Response('boom', { status: 500 }))
+
+    const req = new Request('https://x.test/', { headers: { Cookie: `admin_session=${token}` } })
+    expect(await verifySession(req, authEnv)).toBeNull()
+  })
+
+  it('fails closed when database config is missing', async () => {
+    const token = await createSession('admin@example.com', authEnv.SESSION_SECRET)
+    const req = new Request('https://x.test/', { headers: { Cookie: `admin_session=${token}` } })
+
+    await expect(verifySession(req, { SESSION_SECRET: authEnv.SESSION_SECRET, ALLOWED_EMAIL: authEnv.ALLOWED_EMAIL })).resolves.toBeNull()
   })
 })
 
@@ -205,6 +248,9 @@ describe('admin session bridge routes', () => {
 
   it('rejects a valid Supabase user outside the admin allowlist', async () => {
     getUserMock.mockResolvedValue({ data: { user: { email: 'person@example.com' } }, error: null })
+    vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(adminRows([{ email: 'admin@example.com' }], 1))
+      .mockResolvedValueOnce(adminRows([], 0))
 
     const response = await createAdminSession({
       request: bearerRequest('browser-token'),
@@ -218,6 +264,7 @@ describe('admin session bridge routes', () => {
 
   it('issues an admin session cookie for an allowed Supabase user', async () => {
     getUserMock.mockResolvedValue({ data: { user: { email: 'admin@example.com' } }, error: null })
+    mockAdminMembership('admin@example.com', 2)
 
     const response = await createAdminSession({
       request: bearerRequest('browser-token'),
@@ -248,6 +295,9 @@ describe('admin session bridge routes', () => {
   it('clears stale admin cookies on failed account switches', async () => {
     const staleToken = await createSession('admin@example.com', authEnv.SESSION_SECRET)
     getUserMock.mockResolvedValue({ data: { user: { email: 'person@example.com' } }, error: null })
+    vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(adminRows([{ email: 'admin@example.com' }], 1))
+      .mockResolvedValueOnce(adminRows([], 0))
 
     const response = await createAdminSession({
       request: bearerRequest('browser-token', `admin_session=${staleToken}`),
@@ -277,6 +327,7 @@ describe('admin session bridge routes', () => {
 
   it('returns an authorized admin status response with a valid session', async () => {
     const token = await createSession('admin@example.com', authEnv.SESSION_SECRET)
+    mockAdminMembership('admin@example.com')
     const response = await status({
       request: new Request('https://site.test/api/auth/status', {
         headers: { Cookie: `admin_session=${token}` },
@@ -320,6 +371,51 @@ describe('admin session bridge routes', () => {
     expect(homeResponse.headers.get('Location')).toBe('/?logout=1&returnTo=%2F')
     expect(unsafeResponse.headers.get('Location')).toBe('/?logout=1&returnTo=%2Fadmin.html')
   })
+
+  it('uses the env allowlist only while the admins table is empty during session creation', async () => {
+    getUserMock.mockResolvedValue({ data: { user: { email: 'admin@example.com' } }, error: null })
+    mockEmptyAdmins()
+
+    const response = await createAdminSession({
+      request: bearerRequest('browser-token'),
+      env: authEnv,
+    })
+
+    expect(response.status).toBe(200)
+    await expect(response.json()).resolves.toMatchObject({
+      authenticated: true,
+      role: 'admin',
+      email: 'admin@example.com',
+    })
+  })
+
+  it('stops using the env allowlist after any admin row exists', async () => {
+    getUserMock.mockResolvedValue({ data: { user: { email: 'admin@example.com' } }, error: null })
+    vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(adminRows([{ email: 'other@example.com' }], 1))
+      .mockResolvedValueOnce(adminRows([], 0))
+
+    const response = await createAdminSession({
+      request: bearerRequest('browser-token'),
+      env: authEnv,
+    })
+
+    expect(response.status).toBe(403)
+    expectAuthFailure(response)
+  })
+
+  it('fails closed when session bridge admin lookup fails', async () => {
+    getUserMock.mockResolvedValue({ data: { user: { email: 'admin@example.com' } }, error: null })
+    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(new Response('boom', { status: 500 }))
+
+    const response = await createAdminSession({
+      request: bearerRequest('browser-token'),
+      env: authEnv,
+    })
+
+    expect(response.status).toBe(403)
+    expectAuthFailure(response)
+  })
 })
 
 function bearerRequest(token: string, cookie?: string): Request {
@@ -338,4 +434,24 @@ function expectAuthFailure(response: Response): void {
 function readSetCookieValue(setCookie: string, name: string): string | null {
   const match = setCookie.match(new RegExp(`${name}=([^;,]+)`))
   return match?.[1] ?? null
+}
+
+function adminRows(rows: Array<{ email: string }>, total: number): Response {
+  return new Response(JSON.stringify(rows), {
+    status: 200,
+    headers: { 'Content-Range': `0-${Math.max(rows.length - 1, 0)}/${total}` },
+  })
+}
+
+function mockEmptyAdmins(): void {
+  vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(adminRows([], 0))
+}
+
+function mockAdminMembership(email: string, times = 1): void {
+  const fetchMock = vi.spyOn(globalThis, 'fetch')
+  for (let i = 0; i < times; i += 1) {
+    fetchMock
+      .mockResolvedValueOnce(adminRows([{ email }], 1))
+      .mockResolvedValueOnce(new Response(JSON.stringify([{ email }]), { status: 200 }))
+  }
 }

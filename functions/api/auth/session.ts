@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
+import { authorizeAdminEmail } from '../../_admins.js'
 import { clearCookie, createSession, isAllowed, sessionCookie } from '../../_auth.js'
 
 interface Env {
@@ -7,6 +8,7 @@ interface Env {
   SESSION_SECRET: string
   ALLOWED_EMAIL?: string
   ALLOWED_DOMAIN?: string
+  SUPABASE_SERVICE_ROLE_KEY?: string
 }
 
 const adminSessionCookieName = 'admin_session'
@@ -36,7 +38,7 @@ export async function onRequestPost({
   }
 
   const email = data.user.email
-  if (!isAllowed(email, env)) {
+  if (!(await authorizeAdminEmail(email, env, (candidate) => isAllowed(candidate, env)))) {
     return authFailure(403)
   }
 

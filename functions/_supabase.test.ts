@@ -57,4 +57,46 @@ describe('supabaseRest', () => {
     const [url] = fetchMock.mock.calls[0]!
     expect(String(url)).toContain('&primary_role=eq.builder')
   })
+
+  it('inserts a row and requests the created representation', async () => {
+    const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
+      new Response(JSON.stringify([{ email: 'admin@example.com' }]), { status: 201 }),
+    )
+    const sb = supabaseRest(env)
+    const { rows } = await sb.insert('admins', { email: 'admin@example.com' })
+
+    expect(rows).toEqual([{ email: 'admin@example.com' }])
+    const [url, init] = fetchMock.mock.calls[0]!
+    expect(String(url)).toBe('https://example.supabase.co/rest/v1/admins?select=*')
+    expect((init as RequestInit).method).toBe('POST')
+    const headers = (init as RequestInit).headers as Record<string, string>
+    expect(headers.Prefer).toBe('return=representation')
+    expect((init as RequestInit).body).toBe(JSON.stringify({ email: 'admin@example.com' }))
+  })
+
+  it('deletes rows by a caller-provided filter', async () => {
+    const fetchMock = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(new Response(null, { status: 204 }))
+    const sb = supabaseRest(env)
+    await sb.delete('admins', 'email=eq.admin%40example.com')
+
+    const [url, init] = fetchMock.mock.calls[0]!
+    expect(String(url)).toBe(
+      'https://example.supabase.co/rest/v1/admins?email=eq.admin%40example.com',
+    )
+    expect((init as RequestInit).method).toBe('DELETE')
+  })
+
+  it('calls a protected RPC with JSON arguments', async () => {
+    const fetchMock = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(new Response(JSON.stringify({ ok: true }), { status: 200 }))
+    const sb = supabaseRest(env)
+    await expect(sb.rpc('delete_admin', { target_email: 'x@example.com' })).resolves.toEqual({ ok: true })
+    const [url, init] = fetchMock.mock.calls[0]!
+    expect(String(url)).toBe('https://example.supabase.co/rest/v1/rpc/delete_admin')
+    expect((init as RequestInit).method).toBe('POST')
+    expect((init as RequestInit).body).toBe(JSON.stringify({ target_email: 'x@example.com' }))
+  })
 })

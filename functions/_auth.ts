@@ -5,15 +5,19 @@
  * Required Cloudflare Pages secrets:
  *   SESSION_SECRET       - random string >= 32 chars for signing cookies
  *
- * At least one of the following must be set:
+ * Bootstrap-only admin allowlist, used only while public.admins is empty:
  *   ALLOWED_EMAIL  - comma-separated list of allowed email addresses
  *   ALLOWED_DOMAIN - domain suffix; any *@<domain> is granted access
  */
+
+import { authorizeAdminEmail } from './_admins.js'
 
 interface AuthEnv {
   SESSION_SECRET: string
   ALLOWED_EMAIL?: string
   ALLOWED_DOMAIN?: string
+  SUPABASE_URL?: string
+  SUPABASE_SERVICE_ROLE_KEY?: string
 }
 
 /** Returns true if `email` is authorised for admin access. */
@@ -64,7 +68,7 @@ export async function verifySession(request: Request, env: AuthEnv): Promise<str
     const { email, ts } = JSON.parse(atob(payload)) as { email?: string; ts?: number }
     if (!email || !ts) return null
     if (Date.now() - ts > 86_400_000) return null // 24h expiry
-    if (!isAllowed(email, env)) return null
+    if (!(await authorizeAdminEmail(email, env, (candidate) => isAllowed(candidate, env)))) return null
     return email
   } catch {
     return null
