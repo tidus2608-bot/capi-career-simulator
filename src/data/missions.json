@@ -496,17 +496,17 @@
     },
     "confidence_factor_rules": [
       {
-        "avg_min": 4.0,
-        "avg_max": 5.0,
-        "factor": 1.0
+        "avg_min": 4,
+        "avg_max": 5,
+        "factor": 1
       },
       {
-        "avg_min": 3.0,
+        "avg_min": 3,
         "avg_max": 3.999,
         "factor": 0.9
       },
       {
-        "avg_min": 1.0,
+        "avg_min": 1,
         "avg_max": 2.999,
         "factor": 0.7
       }
@@ -763,57 +763,29 @@
           ]
         },
         {
-          "id": 3,
-          "chapter_vn": "Chương 3: Thử thách",
-          "layer": "challenge",
-          "weight": 2,
-          "context_vn": "Robot bắt đầu được đưa vào hoạt động trên sông, nhưng gặp các thách thức đầu tiên",
-          "capi_dialogue_vn": "“Nước chảy xiết quá, robot bị đẩy lệch hướng rồi! Chúng ta nên ưu tiên làm gì đây?”",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Khoanh vùng đoạn có dòng chảy phức tạp để hiểu nguyên nhân",
-              "primary_role": "explorer",
-              "secondary_role": null
-            },
-            {
-              "label": "B",
-              "text_vn": "Điều chỉnh cấu hình hoặc cơ chế di chuyển để robot giữ hướng tốt hơn",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Điều chỉnh cách vận hành ở các đoạn rủi ro để giảm sai lệch",
-              "primary_role": "operator",
-              "secondary_role": null
-            }
-          ]
-        },
-        {
-          "id": 4,
+          "id": 7,
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
-          "capi_dialogue_vn": "\"Mọi người ở đây vẫn chưa tin robot lắm. Bạn sẽ làm như thế nào?\"",
+          "context_vn": "Capy và các bạn đứng quanh bàn lắp ráp, với các giấy tờ mẫu vẽ, cánh tay chưa lắp ráp. Mọi người đang trao đổi",
+          "capi_dialogue_vn": "\"Để làm robot thì chúng ta chia công việc để tiến độ nhanh hơn nhé, bạn muốn làm phần nào?\"",
           "options": [
             {
               "label": "A",
-              "text_vn": "Tìm hiểu xem người dân đang lo lắng điều gì",
+              "text_vn": "Nghiên cứu về bài toán môi trường và dòng chảy",
               "primary_role": "explorer",
-              "secondary_role": "communicator"
+              "secondary_role": null
             },
             {
               "label": "B",
-              "text_vn": "Điều chỉnh robot để kết quả xử lý rác ổn định và rõ ràng hơn",
+              "text_vn": "Xây dựng hoặc cải tiến phần cốt lõi của robot",
               "primary_role": "builder",
               "secondary_role": null
             },
             {
               "label": "C",
-              "text_vn": "Giải thích rõ cách robot hoạt động và lợi ích mang lại cho khu vực",
-              "primary_role": "communicator",
+              "text_vn": "Lên kế hoạch để robot có thể chạy tốt ngoài thực tế",
+              "primary_role": "operator",
               "secondary_role": "connector"
             }
           ]
@@ -875,34 +847,6 @@
           ]
         },
         {
-          "id": 7,
-          "chapter_vn": "Chương 2: Chế tạo",
-          "layer": "team_work",
-          "weight": 1,
-          "context_vn": "Capy và các bạn đứng quanh bàn lắp ráp, với các giấy tờ mẫu vẽ, cánh tay chưa lắp ráp. Mọi người đang trao đổi",
-          "capi_dialogue_vn": "\"Để làm robot thì chúng ta chia công việc để tiến độ nhanh hơn nhé, bạn muốn làm phần nào?\"",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Nghiên cứu về bài toán môi trường và dòng chảy",
-              "primary_role": "explorer",
-              "secondary_role": null
-            },
-            {
-              "label": "B",
-              "text_vn": "Xây dựng hoặc cải tiến phần cốt lõi của robot",
-              "primary_role": "builder",
-              "secondary_role": null
-            },
-            {
-              "label": "C",
-              "text_vn": "Lên kế hoạch để robot có thể chạy tốt ngoài thực tế",
-              "primary_role": "operator",
-              "secondary_role": "connector"
-            }
-          ]
-        },
-        {
           "id": 8,
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
@@ -926,34 +870,6 @@
               "label": "C",
               "text_vn": "Trình bày rõ ràng cách robot hoạt động và lợi ích mang lại",
               "primary_role": "communicator",
-              "secondary_role": null
-            }
-          ]
-        },
-        {
-          "id": 9,
-          "chapter_vn": "Chương 3: Thử thách",
-          "layer": "challenge",
-          "weight": 2,
-          "context_vn": "",
-          "capi_dialogue_vn": "“Robot bị kẹt rác ở một số khu vực rồi! Bạn sẽ ưu tiên xử lý theo hướng nào?”",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Xác định điều kiện cụ thể khiến robot bị kẹt để hiểu rõ nguyên nhân",
-              "primary_role": "explorer",
-              "secondary_role": null
-            },
-            {
-              "label": "B",
-              "text_vn": "Điều chỉnh thiết kế robot để hạn chế tình trạng kẹt trong các lần chạy tiếp theo",
-              "primary_role": "builder",
-              "secondary_role": null
-            },
-            {
-              "label": "C",
-              "text_vn": "Điều chỉnh cách vận hành để tránh những tình huống dễ gây kẹt trong thực tế",
-              "primary_role": "operator",
               "secondary_role": null
             }
           ]
@@ -1015,30 +931,114 @@
           ]
         },
         {
-          "id": 12,
-          "chapter_vn": "Chương 4: Nhân rộng",
-          "layer": "impact",
-          "weight": 2,
+          "id": 20,
+          "chapter_vn": "Chương 2: Chế tạo",
+          "layer": "team_work",
+          "weight": 1,
           "context_vn": "",
-          "capi_dialogue_vn": "\"Dự án đang được cân nhắc mở rộng sang nhiều khu vực khác nhau. Bạn sẽ muốn bắt đầu từ đâu?\"",
+          "capi_dialogue_vn": "\"Một bạn nhỏ hỏi: 'Robot này có liên quan gì đến tụi em?'. Trả lời sao đây?\"",
           "options": [
             {
               "label": "A",
-              "text_vn": "Xem dữ liệu hiện tại để biết giải pháp có thể áp dụng ở nơi khác không",
+              "text_vn": "Liên hệ với một vấn đề gần gũi trong cuộc sống của bạn ấy và cách robot có thể giúp",
               "primary_role": "explorer",
-              "secondary_role": "operator"
+              "secondary_role": "communicator"
             },
             {
               "label": "B",
-              "text_vn": "Tối ưu các thành phần kỹ thuật để robot dễ triển khai ở nhiều khu vực hơn",
+              "text_vn": "Mời bạn ấy trải nghiệm trực tiếp robot để tự cảm nhận",
+              "primary_role": "builder",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Kể một câu chuyện gần gũi để bạn ấy dễ hình dung giá trị của robot",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "chapter_vn": "Chương 2: Chế tạo",
+          "layer": "team_work",
+          "weight": 1,
+          "context_vn": "",
+          "capi_dialogue_vn": "\"Mọi người ở đây vẫn chưa tin robot lắm. Bạn sẽ làm như thế nào?\"",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Tìm hiểu xem người dân đang lo lắng điều gì",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "text_vn": "Điều chỉnh robot để kết quả xử lý rác ổn định và rõ ràng hơn",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "text_vn": "Giải thích rõ cách robot hoạt động và lợi ích mang lại cho khu vực",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "chapter_vn": "Chương 3: Thử thách",
+          "layer": "challenge",
+          "weight": 2,
+          "context_vn": "Robot bắt đầu được đưa vào hoạt động trên sông, nhưng gặp các thách thức đầu tiên",
+          "capi_dialogue_vn": "“Nước chảy xiết quá, robot bị đẩy lệch hướng rồi! Chúng ta nên ưu tiên làm gì đây?”",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Khoanh vùng đoạn có dòng chảy phức tạp để hiểu nguyên nhân",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "text_vn": "Điều chỉnh cấu hình hoặc cơ chế di chuyển để robot giữ hướng tốt hơn",
               "primary_role": "builder",
               "secondary_role": "operator"
             },
             {
               "label": "C",
-              "text_vn": "Xây dựng quy trình triển khai rõ ràng để áp dụng ở nhiều nơi",
+              "text_vn": "Điều chỉnh cách vận hành ở các đoạn rủi ro để giảm sai lệch",
               "primary_role": "operator",
-              "secondary_role": "connector"
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "chapter_vn": "Chương 3: Thử thách",
+          "layer": "challenge",
+          "weight": 2,
+          "context_vn": "",
+          "capi_dialogue_vn": "“Robot bị kẹt rác ở một số khu vực rồi! Bạn sẽ ưu tiên xử lý theo hướng nào?”",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Xác định điều kiện cụ thể khiến robot bị kẹt để hiểu rõ nguyên nhân",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "text_vn": "Điều chỉnh thiết kế robot để hạn chế tình trạng kẹt trong các lần chạy tiếp theo",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "text_vn": "Điều chỉnh cách vận hành để tránh những tình huống dễ gây kẹt trong thực tế",
+              "primary_role": "operator",
+              "secondary_role": null
             }
           ]
         },
@@ -1071,6 +1071,34 @@
           ]
         },
         {
+          "id": 12,
+          "chapter_vn": "Chương 4: Nhân rộng",
+          "layer": "impact",
+          "weight": 2,
+          "context_vn": "",
+          "capi_dialogue_vn": "\"Dự án đang được cân nhắc mở rộng sang nhiều khu vực khác nhau. Bạn sẽ muốn bắt đầu từ đâu?\"",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Xem dữ liệu hiện tại để biết giải pháp có thể áp dụng ở nơi khác không",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "text_vn": "Tối ưu các thành phần kỹ thuật để robot dễ triển khai ở nhiều khu vực hơn",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Xây dựng quy trình triển khai rõ ràng để áp dụng ở nhiều nơi",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
           "id": 14,
           "chapter_vn": "Chương 4: Nhân rộng",
           "layer": "impact",
@@ -1095,34 +1123,6 @@
               "text_vn": "Làm việc với các bên tại địa phương để thống nhất cách phối hợp và kế hoạch triển khai",
               "primary_role": "connector",
               "secondary_role": "communicator"
-            }
-          ]
-        },
-        {
-          "id": 15,
-          "chapter_vn": "Chương 5: Thử thách cuối",
-          "layer": "unexpected",
-          "weight": 2,
-          "context_vn": "",
-          "capi_dialogue_vn": "“Dự án bắt đầu được nhiều người chú ý hơn rồi! Bạn muốn tận dụng cơ hội này theo cách nào?”",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Dùng dữ liệu và kết quả thực tế để làm rõ tác động của dự án",
-              "primary_role": "operator",
-              "secondary_role": "explorer"
-            },
-            {
-              "label": "B",
-              "text_vn": "Hoàn thiện thêm phiên bản robot hoặc tính năng nổi bật để thể hiện năng lực công nghệ",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Kể câu chuyện dự án theo cách truyền cảm hứng và dễ lan tỏa hơn",
-              "primary_role": "communicator",
-              "secondary_role": "connector"
             }
           ]
         },
@@ -1239,28 +1239,28 @@
           ]
         },
         {
-          "id": 20,
-          "chapter_vn": "Chương 2: Chế tạo",
-          "layer": "team_work",
-          "weight": 1,
+          "id": 15,
+          "chapter_vn": "Chương 5: Thử thách cuối",
+          "layer": "unexpected",
+          "weight": 2,
           "context_vn": "",
-          "capi_dialogue_vn": "\"Một bạn nhỏ hỏi: 'Robot này có liên quan gì đến tụi em?'. Trả lời sao đây?\"",
+          "capi_dialogue_vn": "“Dự án bắt đầu được nhiều người chú ý hơn rồi! Bạn muốn tận dụng cơ hội này theo cách nào?”",
           "options": [
             {
               "label": "A",
-              "text_vn": "Liên hệ với một vấn đề gần gũi trong cuộc sống của bạn ấy và cách robot có thể giúp",
-              "primary_role": "explorer",
-              "secondary_role": "communicator"
+              "text_vn": "Dùng dữ liệu và kết quả thực tế để làm rõ tác động của dự án",
+              "primary_role": "operator",
+              "secondary_role": "explorer"
             },
             {
               "label": "B",
-              "text_vn": "Mời bạn ấy trải nghiệm trực tiếp robot để tự cảm nhận",
+              "text_vn": "Hoàn thiện thêm phiên bản robot hoặc tính năng nổi bật để thể hiện năng lực công nghệ",
               "primary_role": "builder",
-              "secondary_role": "communicator"
+              "secondary_role": "operator"
             },
             {
               "label": "C",
-              "text_vn": "Kể một câu chuyện gần gũi để bạn ấy dễ hình dung giá trị của robot",
+              "text_vn": "Kể câu chuyện dự án theo cách truyền cảm hứng và dễ lan tỏa hơn",
               "primary_role": "communicator",
               "secondary_role": "connector"
             }
@@ -1415,34 +1415,6 @@
           ]
         },
         {
-          "id": 6,
-          "chapter_vn": "Chương 2: Chế tạo",
-          "layer": "team_work",
-          "weight": 1,
-          "context_vn": "",
-          "capi_dialogue_vn": "Mọi người có vẻ đang có nhiều ý kiến khác nhau về cách làm AI. Bạn sẽ ra quyết định thế nào",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "So sánh rõ ưu và nhược điểm của từng phương án trước khi chọn.",
-              "primary_role": "explorer",
-              "secondary_role": null
-            },
-            {
-              "label": "B",
-              "text_vn": "Tạo một phiên bản thử đơn giản để kiểm tra nhanh hướng nào phù hợp hơn.",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Dẫn dắt thảo luận để mọi người hiểu lý do của từng hướng và cùng chốt một lựa chọn chung",
-              "primary_role": "connector",
-              "secondary_role": "communicator"
-            }
-          ]
-        },
-        {
           "id": 7,
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
@@ -1467,6 +1439,34 @@
               "text_vn": "Tổ chức và triển khai hệ thống vào quy trình thực tế để nó có thể được sử dụng trơn tru",
               "primary_role": "operator",
               "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "chapter_vn": "Chương 2: Chế tạo",
+          "layer": "team_work",
+          "weight": 1,
+          "context_vn": "",
+          "capi_dialogue_vn": "Mọi người có vẻ đang có nhiều ý kiến khác nhau về cách làm AI. Bạn sẽ ra quyết định thế nào",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "So sánh rõ ưu và nhược điểm của từng phương án trước khi chọn.",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "text_vn": "Tạo một phiên bản thử đơn giản để kiểm tra nhanh hướng nào phù hợp hơn.",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Dẫn dắt thảo luận để mọi người hiểu lý do của từng hướng và cùng chốt một lựa chọn chung",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
             }
           ]
         },
@@ -1583,29 +1583,29 @@
           ]
         },
         {
-          "id": 12,
-          "chapter_vn": "Chương 3: Vận hành",
-          "layer": "challenge",
-          "weight": 2,
+          "id": 20,
+          "chapter_vn": "Chương 2: Chế tạo",
+          "layer": "team_work",
+          "weight": 1,
           "context_vn": "",
-          "capi_dialogue_vn": "AI sắp được dùng ở nhiều phòng khác nữa để nạp thêm năng lượng. Bạn bắt đầu từ đâu?",
+          "capi_dialogue_vn": "Một bệnh nhân hỏi: “AI này thật ra giúp gì cho tôi?” Bạn sẽ trả lời theo hướng nào?",
           "options": [
             {
               "label": "A",
-              "text_vn": "Đánh giá dữ liệu và điều kiện hiện tại để xem hệ thống có thể mở rộng tốt đến mức nào",
-              "primary_role": "explorer",
-              "secondary_role": "operator"
+              "text_vn": "Nói rõ AI đang giúp bác sĩ và bệnh viện làm phần nào nhanh hơn hoặc chính xác hơn, để người bệnh được chăm sóc tốt hơn",
+              "primary_role": "communicator",
+              "secondary_role": "explorer"
             },
             {
               "label": "B",
-              "text_vn": "Tối ưu các thành phần kỹ thuật để hệ thống hoạt động ổn định hơn khi phạm vi sử dụng tăng lên",
+              "text_vn": "Cho bạn ấy xem ngay ví dụ thực tế AI đã giúp việc khám bệnh nhanh gọn và dễ dàng thế nào.",
               "primary_role": "builder",
-              "secondary_role": "operator"
+              "secondary_role": "communicator"
             },
             {
               "label": "C",
-              "text_vn": "Xây cách vận hành rõ ràng để nhiều khoa có thể cùng sử dụng mà không bị rối quy trình",
-              "primary_role": "operator",
+              "text_vn": "Kể một tình huống gần gũi để họ tưởng tượng nếu bệnh viện có công cụ này thì trải nghiệm khám chữa bệnh sẽ khác đi thế nào",
+              "primary_role": "communicator",
               "secondary_role": "connector"
             }
           ]
@@ -1633,6 +1633,34 @@
             {
               "label": "C",
               "text_vn": "Chuẩn bị các điều kiện cần thiết để mở rộng triển khai sang nhiều nơi hơn",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "chapter_vn": "Chương 3: Vận hành",
+          "layer": "challenge",
+          "weight": 2,
+          "context_vn": "",
+          "capi_dialogue_vn": "AI sắp được dùng ở nhiều phòng khác nữa để nạp thêm năng lượng. Bạn bắt đầu từ đâu?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Đánh giá dữ liệu và điều kiện hiện tại để xem hệ thống có thể mở rộng tốt đến mức nào",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "text_vn": "Tối ưu các thành phần kỹ thuật để hệ thống hoạt động ổn định hơn khi phạm vi sử dụng tăng lên",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Xây cách vận hành rõ ràng để nhiều khoa có thể cùng sử dụng mà không bị rối quy trình",
               "primary_role": "operator",
               "secondary_role": "connector"
             }
@@ -1805,30 +1833,570 @@
               "secondary_role": "explorer"
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "slug": "rescue-robot",
+      "theme": "ark-capi",
+      "name_vn": "Chiến dịch \"Robot Cứu hộ\"",
+      "questions": [
+        {
+          "id": 1,
+          "chapter_vn": "Chương 1: Trinh sát",
+          "layer": "problem_discovery",
+          "weight": 1,
+          "context_vn": "Hiện trường đổ nát sau thảm họa, khói bụi mịt mù, Capi khoác bộ đồ cứu hỏa, tay cầm thiết bị dò tìm sự sống.",
+          "capi_dialogue_vn": "Khi vừa đến hiện trường sau một trận động đất, nhóm cần chọn một hướng tiếp cận đầu tiên để hiểu bối cảnh. Bạn sẽ ưu tiên gì trước?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Quan sát hiện trường để nắm mức độ nguy hiểm, đặc điểm địa hình và những khu vực cần ưu tiên tiếp cận",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "text_vn": "Hình dung những nhiệm vụ robot có thể hỗ trợ ngay để giảm áp lực cho đội cứu hộ trong giai đoạn đầu",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "text_vn": "Trao đổi với đội cứu hộ để hiểu nhu cầu cấp bách nhất và những khó khăn họ đang đối mặt",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
         },
         {
-          "id": 20,
+          "id": 2,
+          "chapter_vn": "Chương 1: Trinh sát",
+          "layer": "problem_discovery",
+          "weight": 1,
+          "context_vn": "",
+          "capi_dialogue_vn": "Đội cứu hộ đang mất khá nhiều thời gian để tìm kiếm trong một khu vực rộng và nguy hiểm. Bạn sẽ đề xuất bước tiếp theo nào?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Xác định những nguyên nhân chính đang khiến việc tìm kiếm chậm và kém hiệu quả hơn dự kiến",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "text_vn": "Đề xuất cách dùng robot để quét khu vực và hỗ trợ phát hiện dấu hiệu sống nhanh hơn",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Sắp xếp lại phạm vi và thứ tự tìm kiếm để thời gian triển khai được sử dụng hiệu quả hơn",
+              "primary_role": "operator",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "chapter_vn": "Chương 1: Trinh sát",
+          "layer": "problem_discovery",
+          "weight": 1,
+          "context_vn": "",
+          "capi_dialogue_vn": "Một số robot vẫn gặp khó khăn khi di chuyển qua đống đổ nát tại hiện trường. Bạn sẽ ưu tiên hướng xử lý nào trước?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Theo dõi địa hình và cách robot di chuyển để xem chúng đang bị kẹt hoặc mất ổn định ở đâu",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "text_vn": "Điều chỉnh thiết kế hoặc khả năng di chuyển của robot để phù hợp hơn với địa hình phức tạp",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Sắp xếp lại cách vận hành để robot tránh những khu vực quá rủi ro trong giai đoạn hiện tạ",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "chapter_vn": "Chương 1: Trinh sát",
+          "layer": "problem_discovery",
+          "weight": 1,
+          "context_vn": "",
+          "capi_dialogue_vn": "Một số thành viên cứu hộ vẫn chưa thực sự tin tưởng robot trong nhiệm vụ thực địa. Trong tình huống này, bạn sẽ ưu tiên gì?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Tìm hiểu cụ thể điều gì khiến họ còn dè dặt hoặc chưa yên tâm khi phối hợp với robot",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "text_vn": "Nâng độ ổn định và hiệu quả của robot để kết quả đủ thuyết phục trong thực tế",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "text_vn": "Giải thích rõ robot sẽ hỗ trợ họ ở bước nào và giới hạn của hệ thống nằm ở đâu",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "chapter_vn": "Chương 2: Chế tạo",
+          "layer": "team_work",
+          "weight": 1,
+          "context_vn": "Capi hướng dẫn robot quét dữ liệu hiện trường để tìm ra lối vào an toàn nhất cho đội cứu hộ",
+          "capi_dialogue_vn": "Trong buổi họp nhanh giữa đội cứu hộ và team kỹ thuật, bạn thường đóng vai trò nào nhất?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Đặt những câu hỏi then chốt để làm rõ nhu cầu thực tế và các ràng buộc tại hiện trường",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "text_vn": "Đưa ra sớm một hướng giải pháp robot hoặc cảm biến phù hợp với tình huống hiện tại",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "text_vn": "Kết nối các ý kiến khác nhau thành một bản kế hoạch chung để triển khai cùng nhau",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 6,
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
           "context_vn": "",
-          "capi_dialogue_vn": "Một bệnh nhân hỏi: “AI này thật ra giúp gì cho tôi?” Bạn sẽ trả lời theo hướng nào?",
+          "capi_dialogue_vn": "Team đang tranh luận giữa hai cách triển khai robot khác nhau cho nhiệm vụ cứu hộ. Bạn sẽ nghiêng về cách nào?",
           "options": [
             {
               "label": "A",
-              "text_vn": "Nói rõ AI đang giúp bác sĩ và bệnh viện làm phần nào nhanh hơn hoặc chính xác hơn, để người bệnh được chăm sóc tốt hơn",
-              "primary_role": "communicator",
-              "secondary_role": "explorer"
+              "text_vn": "So sánh rõ ưu điểm, hạn chế và điều kiện áp dụng của từng phương án trước khi quyết định",
+              "primary_role": "explorer",
+              "secondary_role": null
             },
             {
               "label": "B",
-              "text_vn": "Cho bạn ấy xem ngay ví dụ thực tế AI đã giúp việc khám bệnh nhanh gọn và dễ dàng thế nào.",
+              "text_vn": "Tạo nhanh một bài test nhỏ để xem phương án nào cho tín hiệu tốt hơn trong thực tế",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Dẫn dắt trao đổi để cả nhóm hiểu nhau hơn và đi đến một lựa chọn thống nhất",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "chapter_vn": "Chương 2: Chế tạo",
+          "layer": "team_work",
+          "weight": 1,
+          "context_vn": "",
+          "capi_dialogue_vn": "Bạn được giao một nhiệm vụ quan trọng trong chiến dịch cứu hộ. Bạn muốn nhận phần nào nhất?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Phân tích dữ liệu hiện trường, bản đồ và các tín hiệu có thể liên quan đến người sống sót để giúp nhóm ra quyết định chắc hơn",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "text_vn": "Phụ trách điều khiển, sửa hoặc cải tiến robot ngay tại hiện trường để hệ thống hoạt động tốt hơn",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "text_vn": "Tổ chức cách robot phối hợp với đội cứu hộ để quá trình triển khai diễn ra trơn tru",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "chapter_vn": "Chương 2: Chế tạo",
+          "layer": "team_work",
+          "weight": 1,
+          "context_vn": "",
+          "capi_dialogue_vn": "Trước buổi demo nhanh cho đội cứu hộ, bạn muốn tập trung vào phần nào nhất?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Tìm hiểu trước họ đang kỳ vọng robot làm được điều gì trong điều kiện thực tế",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "text_vn": "Rà soát toàn bộ robot để phần trình diễn diễn ra ổn định nhất có thể",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Chuẩn bị cách giải thích rõ ràng về cách robot hỗ trợ và giới hạn của hệ thống",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "chapter_vn": "Chương 3: Vận hành",
+          "layer": "challenge",
+          "weight": 2,
+          "context_vn": "Robot bắt đầu đào bới và dọn dẹp các mảnh vỡ, Capi chăm chú theo dõi màn hình hiển thị tình trạng robot.",
+          "capi_dialogue_vn": "Trong quá trình test, robot không phát hiện được một số nạn nhân ở khu vực khó tiếp cận. Bạn sẽ ưu tiên xử lý theo hướng nào?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Khoanh vùng nguyên nhân chính để biết robot đang bỏ sót tín hiệu hoặc dữ liệu ở bước nào",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "text_vn": "Điều chỉnh cảm biến, thuật toán hoặc phần cứng để tăng khả năng phát hiện trong các lần thử tiếp theo",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Xem lại cách triển khai và phạm vi tìm kiếm để giảm khả năng bỏ sót trong thực tế",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "chapter_vn": "Chương 3: Vận hành",
+          "layer": "challenge",
+          "weight": 2,
+          "context_vn": "",
+          "capi_dialogue_vn": "Team đang thiếu một số thiết bị quan trọng nên chưa thể tiếp tục triển khai như kế hoạch. Bạn sẽ xử lý thế nào trước?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Tìm một phương án thay thế khả thi để vẫn có thể tiếp tục thử nghiệm và hỗ trợ nhiệm vụ cứu hộ",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "text_vn": "Tận dụng và chỉnh sửa những gì đang có để tạo ra giải pháp làm việc tạm thời",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "text_vn": "Kết nối với các đơn vị khác để xin hỗ trợ nhanh những nguồn lực còn thiếu",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "chapter_vn": "Chương 3: Vận hành",
+          "layer": "challenge",
+          "weight": 2,
+          "context_vn": "",
+          "capi_dialogue_vn": "Một số nạn nhân hoặc người dân cảm thấy hoảng sợ khi thấy robot xuất hiện ở hiện trường. Bạn sẽ ưu tiên gì?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Tìm hiểu cụ thể điều gì đang khiến họ lo lắng hoặc không cảm thấy thoải mái",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "text_vn": "Điều chỉnh hình thức, âm thanh hoặc cách tiếp cận của robot để giảm cảm giác căng thẳng",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Giải thích và trấn an để họ hiểu robot đang hỗ trợ gì trong tình huống hiện tại",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "chapter_vn": "Chương 3: Vận hành",
+          "layer": "challenge",
+          "weight": 2,
+          "context_vn": "",
+          "capi_dialogue_vn": "Dự án đang được đề xuất mở rộng sang nhiều khu vực cứu hộ khác nhau. Bạn sẽ muốn bắt đầu từ đâu?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Đánh giá khả năng mở rộng của hệ thống và những rủi ro quan trọng có thể phát sinh khi tăng quy mô",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "text_vn": "Tối ưu robot và hệ thống để giải pháp có thể được nhân rộng dễ hơn",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Xây cách triển khai và phối hợp thực địa đủ rõ để nhiều đội có thể áp dụng hiệu quả",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "chapter_vn": "Chương 3: Vận hành",
+          "layer": "challenge",
+          "weight": 2,
+          "context_vn": "Robot tiếp tục đào bới và hỗ trợ cứu hộ, mọi người cảm thấy an tâm hơn và có những dấu hiệu tốt từ dự án",
+          "capi_dialogue_vn": "Robot đã giúp đội cứu hộ làm việc hiệu quả hơn ở khu vực thử nghiệm đầu tiên. Bạn muốn nhóm tập trung vào việc gì tiếp theo?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Thu thập thêm dữ liệu để đo mức hiệu quả thực sự của hệ thống trong nhiệm vụ cứu hộ",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "text_vn": "Phân tích lại điểm mạnh/yếu của robot để xác định hướng cải tiến tiếp theo",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Chuẩn bị điều kiện để mở rộng triển khai sang nhiều khu vực cứu hộ khác",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "chapter_vn": "Chương 3: Vận hành",
+          "layer": "challenge",
+          "weight": 2,
+          "context_vn": "",
+          "capi_dialogue_vn": "Nhiều tổ chức cứu hộ khác bắt đầu quan tâm đến hệ thống này. Trong giai đoạn mở rộng, bạn muốn đảm nhận vai trò nào nhất?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Chia sẻ kinh nghiệm triển khai và kết nối các đội để hình thành mạng lưới phối hợp rộng hơn",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "text_vn": "Điều chỉnh robot và hệ thống để phù hợp với điều kiện của từng khu vực mới",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Xây dựng cách phối hợp cụ thể giữa các bên để triển khai hiệu quả ngoài thực tế",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "chapter_vn": "Chương 3: Vận hành",
+          "layer": "challenge",
+          "weight": 2,
+          "context_vn": "",
+          "capi_dialogue_vn": "Dự án bắt đầu được chú ý rộng rãi hơn. Bạn muốn tận dụng cơ hội này theo cách nào?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Dùng dữ liệu và kết quả thực tế để làm rõ tác động của hệ thống trong nhiệm vụ cứu hộ",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "text_vn": "Tập trung hoàn thiện và nâng cấp robot để hệ thống hoạt động tốt hơn trong các tình huống thực tế",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Chia sẻ câu chuyện thực tế từ hiện trường để nhiều người hiểu và ủng hộ dự án hơn",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "chapter_vn": "Chương 3: Vận hành",
+          "layer": "challenge",
+          "weight": 2,
+          "context_vn": "",
+          "capi_dialogue_vn": "Nếu muốn hệ thống phát triển bền vững trong nhiều năm, theo bạn điều gì cần được ưu tiên nhất?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Xây dựng cơ chế liên tục thu thập phản hồi và kết nối các bên để cải thiện hệ thống theo thời gian",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "text_vn": "Duy trì việc cải tiến robot, cảm biến và độ tin cậy để hệ thống luôn phù hợp với thực tế",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Xây dựng hệ sinh thái hợp tác mạnh giữa công nghệ và lực lượng cứu hộ để hỗ trợ lâu dài",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "chapter_vn": "Chương 4: Đối mặt thử thách",
+          "layer": "impact",
+          "weight": 2,
+          "context_vn": "Tuy nhiên, kết cấu công trình có dấu hiệu sập lần hai, Capi phải ra lệnh cho robot tạm dừng hoặc thay đổi hướng cứu hộ để đảm bảo an toàn.",
+          "capi_dialogue_vn": "Trong một ca cứu hộ quan trọng, robot bất ngờ dừng hoạt động giữa chừng. Phản ứng đầu tiên của bạn sẽ là gì?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Kết nối với các đơn vị khác để xin hỗ trợ hoặc chuyển sang phương án dự phòng để nhiệm vụ không bị gián đoạn quá lâu",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "text_vn": "Khắc phục nhanh sự cố hoặc chuyển sang phương án dự phòng để nhiệm vụ không bị gián đoạn quá lâu",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Giữ sự ổn định cho đội cứu hộ bằng cách trấn an và giải thích ngắn gọn tình huống",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "chapter_vn": "Chương 4: Đối mặt thử thách",
+          "layer": "impact",
+          "weight": 2,
+          "context_vn": "",
+          "capi_dialogue_vn": "Chiến lược cứu hộ thay đổi đột ngột vì tình hình hiện trường xấu đi nhanh hơn dự kiến. Bạn sẽ xử lý ra sao?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Xác định nhanh rủi ro mới phát sinh để hiểu tình hình thay đổi như thế nào",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "text_vn": "Xem robot hoặc phương án triển khai cần được điều chỉnh ở phần nào để phù hợp với tình hình mới",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Làm việc nhanh với team và đội cứu hộ để thống nhất lại hướng xử lý phù hợp",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "chapter_vn": "Chương 4: Đối mặt thử thách",
+          "layer": "impact",
+          "weight": 2,
+          "context_vn": "",
+          "capi_dialogue_vn": "Hệ thống bắt đầu quá tải khi nhiều robot hoạt động cùng lúc và rất nhiều tín hiệu đổ về liên tục. Bạn sẽ ưu tiên hướng nào?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Phân tích dữ liệu để xác định điểm nghẽn chính đang làm hệ thống chậm lại",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "text_vn": "Nhanh chóng liên hệ với đơn vị hoặc đối tác lân cận để \"chia lửa\", tìm giải pháp phù hợp",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "text_vn": "Điều chỉnh cách vận hành và phân bổ robot ngoài hiện trường để giảm áp lực trong giai đoạn cao tải",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "chapter_vn": "Chương 4: Đối mặt thử thách",
+          "layer": "impact",
+          "weight": 2,
+          "context_vn": "",
+          "capi_dialogue_vn": "Một người dân hỏi: “Robot này thực sự giúp gì cho chúng tôi?” Bạn sẽ trả lời theo hướng nào?",
+          "options": [
+            {
+              "label": "A",
+              "text_vn": "Giải thích rõ robot giúp việc tìm kiếm diễn ra nhanh hơn và giảm bớt nguy hiểm cho con người trong những khu vực rủi ro cao",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "text_vn": "Diễn giải về cách robot được xây dựng và triển khai trong tình huống nguy hiểm",
               "primary_role": "builder",
               "secondary_role": "communicator"
             },
             {
               "label": "C",
-              "text_vn": "Kể một tình huống gần gũi để họ tưởng tượng nếu bệnh viện có công cụ này thì trải nghiệm khám chữa bệnh sẽ khác đi thế nào",
+              "text_vn": "Kể một câu chuyện thực tế về cách robot đã hỗ trợ con người trong một tình huống cứu hộ",
               "primary_role": "communicator",
               "secondary_role": "connector"
             }
@@ -1837,7 +2405,7 @@
       ]
     },
     {
-      "id": 3,
+      "id": 4,
       "slug": "smart-home",
       "theme": "techno",
       "name_vn": "Nhiệm vụ Căn hộ Thông minh",
@@ -2405,7 +2973,7 @@
       ]
     },
     {
-      "id": 4,
+      "id": 5,
       "slug": "auto-warehouse",
       "theme": "techno",
       "name_vn": "Dự án \"Kho tự vận hành\"",
@@ -2973,7 +3541,7 @@
       ]
     },
     {
-      "id": 5,
+      "id": 6,
       "slug": "drone-delivery",
       "theme": "techno",
       "name_vn": "Mạng lưới Giao hàng Drone",
@@ -3533,574 +4101,6 @@
             {
               "label": "C",
               "text_vn": "Kể một câu chuyện thực tế về cách drone giúp việc giao hàng hiệu quả hơn trong đời sống hằng ngày",
-              "primary_role": "communicator",
-              "secondary_role": "connector"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "slug": "rescue-robot",
-      "theme": "ark-capi",
-      "name_vn": "Chiến dịch \"Robot Cứu hộ\"",
-      "questions": [
-        {
-          "id": 1,
-          "chapter_vn": "Chương 1: Trinh sát",
-          "layer": "problem_discovery",
-          "weight": 1,
-          "context_vn": "Hiện trường đổ nát sau thảm họa, khói bụi mịt mù, Capi khoác bộ đồ cứu hỏa, tay cầm thiết bị dò tìm sự sống.",
-          "capi_dialogue_vn": "Khi vừa đến hiện trường sau một trận động đất, nhóm cần chọn một hướng tiếp cận đầu tiên để hiểu bối cảnh. Bạn sẽ ưu tiên gì trước?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Quan sát hiện trường để nắm mức độ nguy hiểm, đặc điểm địa hình và những khu vực cần ưu tiên tiếp cận",
-              "primary_role": "explorer",
-              "secondary_role": null
-            },
-            {
-              "label": "B",
-              "text_vn": "Hình dung những nhiệm vụ robot có thể hỗ trợ ngay để giảm áp lực cho đội cứu hộ trong giai đoạn đầu",
-              "primary_role": "builder",
-              "secondary_role": null
-            },
-            {
-              "label": "C",
-              "text_vn": "Trao đổi với đội cứu hộ để hiểu nhu cầu cấp bách nhất và những khó khăn họ đang đối mặt",
-              "primary_role": "connector",
-              "secondary_role": "communicator"
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "chapter_vn": "Chương 1: Trinh sát",
-          "layer": "problem_discovery",
-          "weight": 1,
-          "context_vn": "",
-          "capi_dialogue_vn": "Đội cứu hộ đang mất khá nhiều thời gian để tìm kiếm trong một khu vực rộng và nguy hiểm. Bạn sẽ đề xuất bước tiếp theo nào?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Xác định những nguyên nhân chính đang khiến việc tìm kiếm chậm và kém hiệu quả hơn dự kiến",
-              "primary_role": "explorer",
-              "secondary_role": null
-            },
-            {
-              "label": "B",
-              "text_vn": "Đề xuất cách dùng robot để quét khu vực và hỗ trợ phát hiện dấu hiệu sống nhanh hơn",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Sắp xếp lại phạm vi và thứ tự tìm kiếm để thời gian triển khai được sử dụng hiệu quả hơn",
-              "primary_role": "operator",
-              "secondary_role": "communicator"
-            }
-          ]
-        },
-        {
-          "id": 3,
-          "chapter_vn": "Chương 1: Trinh sát",
-          "layer": "problem_discovery",
-          "weight": 1,
-          "context_vn": "",
-          "capi_dialogue_vn": "Một số robot vẫn gặp khó khăn khi di chuyển qua đống đổ nát tại hiện trường. Bạn sẽ ưu tiên hướng xử lý nào trước?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Theo dõi địa hình và cách robot di chuyển để xem chúng đang bị kẹt hoặc mất ổn định ở đâu",
-              "primary_role": "explorer",
-              "secondary_role": null
-            },
-            {
-              "label": "B",
-              "text_vn": "Điều chỉnh thiết kế hoặc khả năng di chuyển của robot để phù hợp hơn với địa hình phức tạp",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Sắp xếp lại cách vận hành để robot tránh những khu vực quá rủi ro trong giai đoạn hiện tạ",
-              "primary_role": "operator",
-              "secondary_role": null
-            }
-          ]
-        },
-        {
-          "id": 4,
-          "chapter_vn": "Chương 1: Trinh sát",
-          "layer": "problem_discovery",
-          "weight": 1,
-          "context_vn": "",
-          "capi_dialogue_vn": "Một số thành viên cứu hộ vẫn chưa thực sự tin tưởng robot trong nhiệm vụ thực địa. Trong tình huống này, bạn sẽ ưu tiên gì?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Tìm hiểu cụ thể điều gì khiến họ còn dè dặt hoặc chưa yên tâm khi phối hợp với robot",
-              "primary_role": "explorer",
-              "secondary_role": "communicator"
-            },
-            {
-              "label": "B",
-              "text_vn": "Nâng độ ổn định và hiệu quả của robot để kết quả đủ thuyết phục trong thực tế",
-              "primary_role": "builder",
-              "secondary_role": null
-            },
-            {
-              "label": "C",
-              "text_vn": "Giải thích rõ robot sẽ hỗ trợ họ ở bước nào và giới hạn của hệ thống nằm ở đâu",
-              "primary_role": "communicator",
-              "secondary_role": "connector"
-            }
-          ]
-        },
-        {
-          "id": 5,
-          "chapter_vn": "Chương 2: Chế tạo",
-          "layer": "team_work",
-          "weight": 1,
-          "context_vn": "Capi hướng dẫn robot quét dữ liệu hiện trường để tìm ra lối vào an toàn nhất cho đội cứu hộ",
-          "capi_dialogue_vn": "Trong buổi họp nhanh giữa đội cứu hộ và team kỹ thuật, bạn thường đóng vai trò nào nhất?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Đặt những câu hỏi then chốt để làm rõ nhu cầu thực tế và các ràng buộc tại hiện trường",
-              "primary_role": "explorer",
-              "secondary_role": "communicator"
-            },
-            {
-              "label": "B",
-              "text_vn": "Đưa ra sớm một hướng giải pháp robot hoặc cảm biến phù hợp với tình huống hiện tại",
-              "primary_role": "builder",
-              "secondary_role": null
-            },
-            {
-              "label": "C",
-              "text_vn": "Kết nối các ý kiến khác nhau thành một bản kế hoạch chung để triển khai cùng nhau",
-              "primary_role": "connector",
-              "secondary_role": "communicator"
-            }
-          ]
-        },
-        {
-          "id": 6,
-          "chapter_vn": "Chương 2: Chế tạo",
-          "layer": "team_work",
-          "weight": 1,
-          "context_vn": "",
-          "capi_dialogue_vn": "Team đang tranh luận giữa hai cách triển khai robot khác nhau cho nhiệm vụ cứu hộ. Bạn sẽ nghiêng về cách nào?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "So sánh rõ ưu điểm, hạn chế và điều kiện áp dụng của từng phương án trước khi quyết định",
-              "primary_role": "explorer",
-              "secondary_role": null
-            },
-            {
-              "label": "B",
-              "text_vn": "Tạo nhanh một bài test nhỏ để xem phương án nào cho tín hiệu tốt hơn trong thực tế",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Dẫn dắt trao đổi để cả nhóm hiểu nhau hơn và đi đến một lựa chọn thống nhất",
-              "primary_role": "connector",
-              "secondary_role": "communicator"
-            }
-          ]
-        },
-        {
-          "id": 7,
-          "chapter_vn": "Chương 2: Chế tạo",
-          "layer": "team_work",
-          "weight": 1,
-          "context_vn": "",
-          "capi_dialogue_vn": "Bạn được giao một nhiệm vụ quan trọng trong chiến dịch cứu hộ. Bạn muốn nhận phần nào nhất?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Phân tích dữ liệu hiện trường, bản đồ và các tín hiệu có thể liên quan đến người sống sót để giúp nhóm ra quyết định chắc hơn",
-              "primary_role": "explorer",
-              "secondary_role": "connector"
-            },
-            {
-              "label": "B",
-              "text_vn": "Phụ trách điều khiển, sửa hoặc cải tiến robot ngay tại hiện trường để hệ thống hoạt động tốt hơn",
-              "primary_role": "builder",
-              "secondary_role": null
-            },
-            {
-              "label": "C",
-              "text_vn": "Tổ chức cách robot phối hợp với đội cứu hộ để quá trình triển khai diễn ra trơn tru",
-              "primary_role": "operator",
-              "secondary_role": "connector"
-            }
-          ]
-        },
-        {
-          "id": 8,
-          "chapter_vn": "Chương 2: Chế tạo",
-          "layer": "team_work",
-          "weight": 1,
-          "context_vn": "",
-          "capi_dialogue_vn": "Trước buổi demo nhanh cho đội cứu hộ, bạn muốn tập trung vào phần nào nhất?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Tìm hiểu trước họ đang kỳ vọng robot làm được điều gì trong điều kiện thực tế",
-              "primary_role": "explorer",
-              "secondary_role": "communicator"
-            },
-            {
-              "label": "B",
-              "text_vn": "Rà soát toàn bộ robot để phần trình diễn diễn ra ổn định nhất có thể",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Chuẩn bị cách giải thích rõ ràng về cách robot hỗ trợ và giới hạn của hệ thống",
-              "primary_role": "communicator",
-              "secondary_role": "connector"
-            }
-          ]
-        },
-        {
-          "id": 9,
-          "chapter_vn": "Chương 3: Vận hành",
-          "layer": "challenge",
-          "weight": 2,
-          "context_vn": "Robot bắt đầu đào bới và dọn dẹp các mảnh vỡ, Capi chăm chú theo dõi màn hình hiển thị tình trạng robot.",
-          "capi_dialogue_vn": "Trong quá trình test, robot không phát hiện được một số nạn nhân ở khu vực khó tiếp cận. Bạn sẽ ưu tiên xử lý theo hướng nào?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Khoanh vùng nguyên nhân chính để biết robot đang bỏ sót tín hiệu hoặc dữ liệu ở bước nào",
-              "primary_role": "explorer",
-              "secondary_role": null
-            },
-            {
-              "label": "B",
-              "text_vn": "Điều chỉnh cảm biến, thuật toán hoặc phần cứng để tăng khả năng phát hiện trong các lần thử tiếp theo",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Xem lại cách triển khai và phạm vi tìm kiếm để giảm khả năng bỏ sót trong thực tế",
-              "primary_role": "operator",
-              "secondary_role": null
-            }
-          ]
-        },
-        {
-          "id": 10,
-          "chapter_vn": "Chương 3: Vận hành",
-          "layer": "challenge",
-          "weight": 2,
-          "context_vn": "",
-          "capi_dialogue_vn": "Team đang thiếu một số thiết bị quan trọng nên chưa thể tiếp tục triển khai như kế hoạch. Bạn sẽ xử lý thế nào trước?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Tìm một phương án thay thế khả thi để vẫn có thể tiếp tục thử nghiệm và hỗ trợ nhiệm vụ cứu hộ",
-              "primary_role": "explorer",
-              "secondary_role": null
-            },
-            {
-              "label": "B",
-              "text_vn": "Tận dụng và chỉnh sửa những gì đang có để tạo ra giải pháp làm việc tạm thời",
-              "primary_role": "builder",
-              "secondary_role": null
-            },
-            {
-              "label": "C",
-              "text_vn": "Kết nối với các đơn vị khác để xin hỗ trợ nhanh những nguồn lực còn thiếu",
-              "primary_role": "connector",
-              "secondary_role": "communicator"
-            }
-          ]
-        },
-        {
-          "id": 11,
-          "chapter_vn": "Chương 3: Vận hành",
-          "layer": "challenge",
-          "weight": 2,
-          "context_vn": "",
-          "capi_dialogue_vn": "Một số nạn nhân hoặc người dân cảm thấy hoảng sợ khi thấy robot xuất hiện ở hiện trường. Bạn sẽ ưu tiên gì?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Tìm hiểu cụ thể điều gì đang khiến họ lo lắng hoặc không cảm thấy thoải mái",
-              "primary_role": "explorer",
-              "secondary_role": "communicator"
-            },
-            {
-              "label": "B",
-              "text_vn": "Điều chỉnh hình thức, âm thanh hoặc cách tiếp cận của robot để giảm cảm giác căng thẳng",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Giải thích và trấn an để họ hiểu robot đang hỗ trợ gì trong tình huống hiện tại",
-              "primary_role": "communicator",
-              "secondary_role": "connector"
-            }
-          ]
-        },
-        {
-          "id": 12,
-          "chapter_vn": "Chương 3: Vận hành",
-          "layer": "challenge",
-          "weight": 2,
-          "context_vn": "",
-          "capi_dialogue_vn": "Dự án đang được đề xuất mở rộng sang nhiều khu vực cứu hộ khác nhau. Bạn sẽ muốn bắt đầu từ đâu?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Đánh giá khả năng mở rộng của hệ thống và những rủi ro quan trọng có thể phát sinh khi tăng quy mô",
-              "primary_role": "explorer",
-              "secondary_role": null
-            },
-            {
-              "label": "B",
-              "text_vn": "Tối ưu robot và hệ thống để giải pháp có thể được nhân rộng dễ hơn",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Xây cách triển khai và phối hợp thực địa đủ rõ để nhiều đội có thể áp dụng hiệu quả",
-              "primary_role": "operator",
-              "secondary_role": "connector"
-            }
-          ]
-        },
-        {
-          "id": 13,
-          "chapter_vn": "Chương 3: Vận hành",
-          "layer": "challenge",
-          "weight": 2,
-          "context_vn": "Robot tiếp tục đào bới và hỗ trợ cứu hộ, mọi người cảm thấy an tâm hơn và có những dấu hiệu tốt từ dự án",
-          "capi_dialogue_vn": "Robot đã giúp đội cứu hộ làm việc hiệu quả hơn ở khu vực thử nghiệm đầu tiên. Bạn muốn nhóm tập trung vào việc gì tiếp theo?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Thu thập thêm dữ liệu để đo mức hiệu quả thực sự của hệ thống trong nhiệm vụ cứu hộ",
-              "primary_role": "explorer",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "B",
-              "text_vn": "Phân tích lại điểm mạnh/yếu của robot để xác định hướng cải tiến tiếp theo",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Chuẩn bị điều kiện để mở rộng triển khai sang nhiều khu vực cứu hộ khác",
-              "primary_role": "operator",
-              "secondary_role": "connector"
-            }
-          ]
-        },
-        {
-          "id": 14,
-          "chapter_vn": "Chương 3: Vận hành",
-          "layer": "challenge",
-          "weight": 2,
-          "context_vn": "",
-          "capi_dialogue_vn": "Nhiều tổ chức cứu hộ khác bắt đầu quan tâm đến hệ thống này. Trong giai đoạn mở rộng, bạn muốn đảm nhận vai trò nào nhất?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Chia sẻ kinh nghiệm triển khai và kết nối các đội để hình thành mạng lưới phối hợp rộng hơn",
-              "primary_role": "explorer",
-              "secondary_role": "connector"
-            },
-            {
-              "label": "B",
-              "text_vn": "Điều chỉnh robot và hệ thống để phù hợp với điều kiện của từng khu vực mới",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Xây dựng cách phối hợp cụ thể giữa các bên để triển khai hiệu quả ngoài thực tế",
-              "primary_role": "connector",
-              "secondary_role": "communicator"
-            }
-          ]
-        },
-        {
-          "id": 15,
-          "chapter_vn": "Chương 3: Vận hành",
-          "layer": "challenge",
-          "weight": 2,
-          "context_vn": "",
-          "capi_dialogue_vn": "Dự án bắt đầu được chú ý rộng rãi hơn. Bạn muốn tận dụng cơ hội này theo cách nào?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Dùng dữ liệu và kết quả thực tế để làm rõ tác động của hệ thống trong nhiệm vụ cứu hộ",
-              "primary_role": "explorer",
-              "secondary_role": "communicator"
-            },
-            {
-              "label": "B",
-              "text_vn": "Tập trung hoàn thiện và nâng cấp robot để hệ thống hoạt động tốt hơn trong các tình huống thực tế",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Chia sẻ câu chuyện thực tế từ hiện trường để nhiều người hiểu và ủng hộ dự án hơn",
-              "primary_role": "communicator",
-              "secondary_role": "connector"
-            }
-          ]
-        },
-        {
-          "id": 16,
-          "chapter_vn": "Chương 3: Vận hành",
-          "layer": "challenge",
-          "weight": 2,
-          "context_vn": "",
-          "capi_dialogue_vn": "Nếu muốn hệ thống phát triển bền vững trong nhiều năm, theo bạn điều gì cần được ưu tiên nhất?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Xây dựng cơ chế liên tục thu thập phản hồi và kết nối các bên để cải thiện hệ thống theo thời gian",
-              "primary_role": "explorer",
-              "secondary_role": "connector"
-            },
-            {
-              "label": "B",
-              "text_vn": "Duy trì việc cải tiến robot, cảm biến và độ tin cậy để hệ thống luôn phù hợp với thực tế",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Xây dựng hệ sinh thái hợp tác mạnh giữa công nghệ và lực lượng cứu hộ để hỗ trợ lâu dài",
-              "primary_role": "connector",
-              "secondary_role": "communicator"
-            }
-          ]
-        },
-        {
-          "id": 17,
-          "chapter_vn": "Chương 4: Đối mặt thử thách",
-          "layer": "impact",
-          "weight": 2,
-          "context_vn": "Tuy nhiên, kết cấu công trình có dấu hiệu sập lần hai, Capi phải ra lệnh cho robot tạm dừng hoặc thay đổi hướng cứu hộ để đảm bảo an toàn.",
-          "capi_dialogue_vn": "Trong một ca cứu hộ quan trọng, robot bất ngờ dừng hoạt động giữa chừng. Phản ứng đầu tiên của bạn sẽ là gì?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Kết nối với các đơn vị khác để xin hỗ trợ hoặc chuyển sang phương án dự phòng để nhiệm vụ không bị gián đoạn quá lâu",
-              "primary_role": "explorer",
-              "secondary_role": null
-            },
-            {
-              "label": "B",
-              "text_vn": "Khắc phục nhanh sự cố hoặc chuyển sang phương án dự phòng để nhiệm vụ không bị gián đoạn quá lâu",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Giữ sự ổn định cho đội cứu hộ bằng cách trấn an và giải thích ngắn gọn tình huống",
-              "primary_role": "communicator",
-              "secondary_role": "connector"
-            }
-          ]
-        },
-        {
-          "id": 18,
-          "chapter_vn": "Chương 4: Đối mặt thử thách",
-          "layer": "impact",
-          "weight": 2,
-          "context_vn": "",
-          "capi_dialogue_vn": "Chiến lược cứu hộ thay đổi đột ngột vì tình hình hiện trường xấu đi nhanh hơn dự kiến. Bạn sẽ xử lý ra sao?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Xác định nhanh rủi ro mới phát sinh để hiểu tình hình thay đổi như thế nào",
-              "primary_role": "explorer",
-              "secondary_role": null
-            },
-            {
-              "label": "B",
-              "text_vn": "Xem robot hoặc phương án triển khai cần được điều chỉnh ở phần nào để phù hợp với tình hình mới",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Làm việc nhanh với team và đội cứu hộ để thống nhất lại hướng xử lý phù hợp",
-              "primary_role": "connector",
-              "secondary_role": "communicator"
-            }
-          ]
-        },
-        {
-          "id": 19,
-          "chapter_vn": "Chương 4: Đối mặt thử thách",
-          "layer": "impact",
-          "weight": 2,
-          "context_vn": "",
-          "capi_dialogue_vn": "Hệ thống bắt đầu quá tải khi nhiều robot hoạt động cùng lúc và rất nhiều tín hiệu đổ về liên tục. Bạn sẽ ưu tiên hướng nào?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Phân tích dữ liệu để xác định điểm nghẽn chính đang làm hệ thống chậm lại",
-              "primary_role": "explorer",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "B",
-              "text_vn": "Nhanh chóng liên hệ với đơn vị hoặc đối tác lân cận để \"chia lửa\", tìm giải pháp phù hợp",
-              "primary_role": "builder",
-              "secondary_role": "operator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Điều chỉnh cách vận hành và phân bổ robot ngoài hiện trường để giảm áp lực trong giai đoạn cao tải",
-              "primary_role": "operator",
-              "secondary_role": null
-            }
-          ]
-        },
-        {
-          "id": 20,
-          "chapter_vn": "Chương 4: Đối mặt thử thách",
-          "layer": "impact",
-          "weight": 2,
-          "context_vn": "",
-          "capi_dialogue_vn": "Một người dân hỏi: “Robot này thực sự giúp gì cho chúng tôi?” Bạn sẽ trả lời theo hướng nào?",
-          "options": [
-            {
-              "label": "A",
-              "text_vn": "Giải thích rõ robot giúp việc tìm kiếm diễn ra nhanh hơn và giảm bớt nguy hiểm cho con người trong những khu vực rủi ro cao",
-              "primary_role": "explorer",
-              "secondary_role": "communicator"
-            },
-            {
-              "label": "B",
-              "text_vn": "Diễn giải về cách robot được xây dựng và triển khai trong tình huống nguy hiểm",
-              "primary_role": "builder",
-              "secondary_role": "communicator"
-            },
-            {
-              "label": "C",
-              "text_vn": "Kể một câu chuyện thực tế về cách robot đã hỗ trợ con người trong một tình huống cứu hộ",
               "primary_role": "communicator",
               "secondary_role": "connector"
             }

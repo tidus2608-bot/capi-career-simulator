@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Capi from '../Capi.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_MISSIONS } from '../../data.js'
+import { useWizard } from '../../contexts/WizardContext.jsx'
+import QASection from '../QASection.jsx'
 
 const ILLO_EXT = {
   'm1-q15': 'png',
@@ -38,14 +41,26 @@ const MISSION_ENDS = {
   6: '/illos/mission-6-end.svg',
 }
 
-export default function MissionPlayScene({ missionId, onComplete, onBack }) {
+export default function MissionPlayScene() {
+  const {
+    selectedMission: missionId,
+    phase2Answers: answers,
+    setPhase2Answers: setAnswers,
+    missionPlayIndex: idx,
+    setMissionPlayIndex: setIdx,
+  } = useWizard()
+  const navigate = useNavigate()
   const m = CAPI_MISSIONS[missionId]
-  const qs = m.questions
+  const qs = m ? m.questions : []
 
-  const [stage, setStage] = useState(MISSION_STARTS[missionId] ? 'intro' : 'q')
-  const [idx, setIdx] = useState(0)
-  const [answers, setAnswers] = useState({})
-  const [picked, setPicked] = useState(null)
+  const [stage, setStage] = useState(() => {
+    if (idx > 0) return 'q'
+    return MISSION_STARTS[missionId] ? 'intro' : 'q'
+  })
+  const [picked, setPicked] = useState(() => {
+    const currentQ = qs[idx]
+    return currentQ ? (answers[currentQ.id] ?? null) : null
+  })
 
   useEffect(() => {
     capiAudio.pad(MISSION_PADS[missionId] || [110, 164.8, 220])
@@ -69,18 +84,19 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
     if (idx + 1 >= qs.length) {
       setStage('ending')
     } else {
-      setIdx((i) => i + 1)
-      setPicked(null)
+      setIdx(idx + 1)
+      const nextQ = qs[idx + 1]
+      setPicked(newAnswers[nextQ?.id] ?? null)
     }
   }
 
   const goBack = () => {
     if (idx === 0) {
-      onBack?.()
+      navigate('/mission-pick')
       return
     }
     const prevQ = qs[idx - 1]
-    setIdx((i) => i - 1)
+    setIdx(idx - 1)
     setPicked(answers[prevQ.id] ?? null)
   }
 
@@ -129,7 +145,7 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
           <button
             className="p2-nav-back"
             style={{ background: 'rgba(0,0,0,0.3)', color: '#fff', border: 'none' }}
-            onClick={() => onBack?.()}
+            onClick={() => navigate('/mission-pick')}
           >
             ← Quay lại
           </button>
@@ -173,8 +189,9 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
             className="p2-btn"
             style={{ maxWidth: 300 }}
             onClick={() => {
-              capiAudio.sfx('success')
-              onComplete(answers)
+              capiAudio.sfx('confirm')
+              setAnswers(answers)
+              navigate('/reflect')
             }}
           >
             Đi đến phản chiếu →
@@ -239,39 +256,17 @@ export default function MissionPlayScene({ missionId, onComplete, onBack }) {
           <div className="p2-q-progress-bar-fill" style={{ width: `${progress}%` }} />
         </div>
 
-        <div className="p2-q-text" key={`q-${idx}`}>
-          {q.capi_dialogue_vn?.replace(/^[""]|[""]$/g, '')}
-        </div>
-
-        <div className="p2-options">
-          {q.options.map((opt) => (
-            <button
-              key={opt.label}
-              className={`p2-option${picked === opt.label ? ' p2-selected' : ''}`}
-              onClick={() => selectOption(opt)}
-            >
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 22,
-                  height: 22,
-                  borderRadius: '50%',
-                  background: picked === opt.label ? '#843497' : '#f3f4f6',
-                  color: picked === opt.label ? '#fff' : '#6b7280',
-                  fontSize: 11,
-                  fontWeight: 700,
-                  marginRight: 10,
-                  flexShrink: 0,
-                }}
-              >
-                {opt.label}
-              </span>
-              {opt.text_vn}
-            </button>
-          ))}
-        </div>
+        <QASection
+          key={idx}
+          questionText={q.capi_dialogue_vn?.replace(/^[""]|[""]$/g, '')}
+          options={q.options.map((opt) => ({
+            label: opt.label,
+            text: opt.text_vn,
+            ...opt,
+          }))}
+          selectedValue={picked}
+          onSelect={selectOption}
+        />
 
         <div className="p2-q-nav">
           <button className="p2-nav-back" onClick={goBack}>

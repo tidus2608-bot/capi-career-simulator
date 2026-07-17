@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { CAPI_ROLES, CAPI_THEMES } from '../../data.js'
+import { useWizard } from '../../contexts/WizardContext.jsx'
+import { supabase } from '../../lib/supabase.js'
 import SceneShell from './SceneShell.jsx'
 
 const PROFILE_COLOR = {
@@ -9,8 +12,10 @@ const PROFILE_COLOR = {
   Emerging: '#d97706',
 }
 
-export default function HistoryScene({ user, supabase, onBack }) {
+export default function HistoryScene() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const { user } = useWizard()
   const [runs, setRuns] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -32,7 +37,7 @@ export default function HistoryScene({ user, supabase, onBack }) {
     return () => {
       cancelled = true
     }
-  }, [user, supabase])
+  }, [user])
 
   return (
     <SceneShell light>
@@ -53,7 +58,7 @@ export default function HistoryScene({ user, supabase, onBack }) {
             flexWrap: 'wrap',
           }}
         >
-          <button className="btn btn-ghost" onClick={onBack}>
+          <button className="btn btn-ghost" onClick={() => navigate('/certificate')}>
             {t('common.back')}
           </button>
           <div>

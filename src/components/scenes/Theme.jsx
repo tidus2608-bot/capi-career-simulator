@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import Capi from '../Capi.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_THEMES } from '../../data.js'
+import { useWizard } from '../../contexts/WizardContext.jsx'
 
-export default function ThemeScene({ onPick }) {
+export default function ThemeScene() {
   const [innerStage, setInnerStage] = useState('intro')
   const [selectedId, setSelectedId] = useState(null)
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const { setSelectedTheme } = useWizard()
 
   if (innerStage === 'intro') {
     return (
@@ -100,16 +104,17 @@ export default function ThemeScene({ onPick }) {
             {t('common.back_btn')}
           </button>
           <button
-            className={`p2-btn-solid ${selectedId ? 'active' : ''}`}
+            className="p2-btn-solid active"
             disabled={!selectedId}
             onClick={() => {
               if (selectedId) {
-                capiAudio.sfx('whoosh')
-                onPick(selectedId)
+                capiAudio.sfx('confirm')
+                setSelectedTheme(selectedId)
+                navigate('/mission-pick')
               }
             }}
           >
-            {t('common.start_btn')}
+            {t('common.continue_btn')}
           </button>
         </div>
       </div>

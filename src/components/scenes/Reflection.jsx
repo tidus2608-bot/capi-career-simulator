@@ -1,18 +1,25 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Capi from '../Capi.jsx'
 import { Typed } from '../UI.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_ROLES, PHASE3_QUESTIONS, LIKERT_FIT } from '../../data.js'
+import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
 import LikertSlider from './LikertSlider.jsx'
 
-export default function ReflectionScene({ onComplete }) {
+export default function ReflectionScene() {
+  const navigate = useNavigate()
+  const {
+    onReflectDone,
+    phase3Answers: answers,
+    setPhase3Answers: setAnswers,
+    reflectIndex: idx,
+    setReflectIndex: setIdx,
+  } = useWizard()
   useEffect(() => {
     capiAudio.pad([130.8, 196, 261.6, 392])
   }, [])
-
-  const [idx, setIdx] = useState(0)
-  const [answers, setAnswers] = useState({})
 
   const q = PHASE3_QUESTIONS[idx]
   const current = answers[q.role] ?? 3
@@ -24,10 +31,11 @@ export default function ReflectionScene({ onComplete }) {
       capiAudio.sfx('success')
       const full = {}
       for (const pq of PHASE3_QUESTIONS) full[pq.role] = newAnswers[pq.role] ?? 3
-      onComplete(full)
+      onReflectDone(full)
+      navigate('/certificate')
     } else {
       setAnswers(newAnswers)
-      setIdx((i) => i + 1)
+      setIdx(idx + 1)
     }
   }
 
