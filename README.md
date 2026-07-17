@@ -10,7 +10,7 @@ A React + Vite career-discovery game for Vietnamese students. Three-phase flow (
 ## Setup
 
 ```bash
-npm install
+bun install
 cp .env.example .env
 # Edit .env with your Supabase URL + anon key
 ```
@@ -28,14 +28,14 @@ Configure Google OAuth in Supabase: **Authentication → Providers → Google**,
 ## Develop
 
 ```bash
-npm run dev          # Vite dev server (frontend only)
-npm run test:watch   # Vitest watch mode
+bun run dev          # Vite dev server (frontend only)
+bun run test:watch   # Vitest watch mode
 ```
 
 For end-to-end including Cloudflare Functions (admin endpoints):
 
 ```bash
-npm run build && npx wrangler pages dev dist
+bun run build && bunx wrangler pages dev dist
 ```
 
 ## Verify
@@ -43,16 +43,16 @@ npm run build && npx wrangler pages dev dist
 A single command runs everything CI runs:
 
 ```bash
-npm run verify   # = lint + typecheck + test + build
+bun run verify   # = lint + typecheck + test + build
 ```
 
 Individual checks:
 
-- `npm run lint` — ESLint with React, hooks, jsx-a11y plugins
-- `npm run typecheck` — TypeScript over `src/` and `functions/`
-- `npm run test` — Vitest (jsdom for components, node for Functions)
-- `npm run format` — Prettier write
-- `npm run format:check` — Prettier check (no write)
+- `bun run lint` — ESLint with React, hooks, jsx-a11y plugins
+- `bun run typecheck` — TypeScript over `src/` and `functions/`
+- `bun run test` — Vitest (jsdom for components, node for Functions)
+- `bun run format` — Prettier write
+- `bun run format:check` — Prettier check (no write)
 
 ## Project layout
 
