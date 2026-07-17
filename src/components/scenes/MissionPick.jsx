@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { capiAudio } from '../../audio.js'
-import { CAPI_THEMES, CAPI_MISSIONS } from '../../data.js'
+import { CAPI_THEMES, CAPI_MISSIONS, MISSION_ICONS } from '../../data.js'
+import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
 
-const MISSION_ILLO = { 6: '03' }
-const mIllo = (id) => `/illos/m${id}-q${MISSION_ILLO[id] || '01'}.webp`
-
-export default function MissionPickScene({ themeId, onPick, onBack }) {
-  const theme = CAPI_THEMES[themeId]
-  const missions = theme.missionIds.map((id) => CAPI_MISSIONS[id])
+export default function MissionPickScene() {
+  const { selectedTheme, setSelectedMission } = useWizard()
+  const theme = CAPI_THEMES[selectedTheme]
+  const missions = theme ? theme.missionIds.map((id) => CAPI_MISSIONS[id]) : []
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [selectedId, setSelectedId] = useState(null)
 
   return (
@@ -29,7 +30,8 @@ export default function MissionPickScene({ themeId, onPick, onBack }) {
         </h2>
 
         <div className="p2-mission-grid">
-          {missions.map((m, i) => {
+          {missions.map((m) => {
+            const hasEnglishName = !!t(`missions.${m.id}.english_name`)
             return (
               <div
                 key={m.id}
@@ -48,36 +50,83 @@ export default function MissionPickScene({ themeId, onPick, onBack }) {
                   }
                 }}
               >
+                {/* Background preview image */}
                 <img
                   className="bg"
-                  src={mIllo(m.id)}
+                  src={`/illos/m${m.id}-preview.jpg`}
                   alt=""
                   onError={(e) => {
                     e.currentTarget.style.display = 'none'
                   }}
                 />
-                <div className="p2-mission-card-gradient" />
-                <div className="p2-mission-card-info">
-                  <div className="p2-mission-card-subtitle">
-                    {t('common.mission_title_prefix')} {i + 1}
+
+                {/* Base View (Visible when not hovered/selected) */}
+                <div className="p2-mission-card-base-view">
+                  <div
+                    className="p2-mission-badge"
+                    style={{
+                      backgroundColor: MISSION_ICONS[m.id]?.bg,
+                      color: MISSION_ICONS[m.id]?.color,
+                    }}
+                  >
+                    {MISSION_ICONS[m.id]?.emoji}
                   </div>
-                  <div className="p2-mission-card-title">{t(`missions.${m.id}.name`)}</div>
-                  <div className="p2-mission-card-desc">{t(`missions.${m.id}.desc`)}</div>
+                  <div className="p2-mission-title">{t(`missions.${m.id}.name`)}</div>
+                  {hasEnglishName && (
+                    <div className="p2-mission-english-name">
+                      {t(`missions.${m.id}.english_name`)}
+                    </div>
+                  )}
+                </div>
+
+                {/* Hover/Selected Detail View */}
+                <div className="p2-mission-card-details-view">
+                  <div className="p2-mission-card-details-top">
+                    <div
+                      className="p2-mission-badge"
+                      style={{
+                        backgroundColor: MISSION_ICONS[m.id]?.bg,
+                        color: MISSION_ICONS[m.id]?.color,
+                      }}
+                    >
+                      {MISSION_ICONS[m.id]?.emoji}
+                    </div>
+                    <div className="p2-mission-title">{t(`missions.${m.id}.name`)}</div>
+                    {hasEnglishName && (
+                      <div className="p2-mission-english-name">
+                        {t(`missions.${m.id}.english_name`)}
+                      </div>
+                    )}
+                    <p className="p2-mission-detail-desc">{t(`missions.${m.id}.desc`)}</p>
+                  </div>
+
+                  <div className="p2-mission-card-details-bottom">
+                    <div className="p2-mission-goals-title">{t('common.goals_title')}</div>
+                    <div className="p2-mission-goals-list">
+                      {(t(`missions.${m.id}.goals`, { returnObjects: true }) || []).map(
+                        (goal, idx) => (
+                          <div key={idx} className="p2-mission-goal-item">
+                            {goal}
+                          </div>
+                        ),
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             )
           })}
         </div>
 
-        <div className="p2-new-actions" style={{ width: '100%', maxWidth: 1000, flexShrink: 0 }}>
+        <div className="p2-new-actions" style={{ width: '100%', maxWidth: 1200, flexShrink: 0 }}>
           <button
             className="p2-btn-outline"
             onClick={() => {
               capiAudio.sfx('click')
-              onBack()
+              navigate('/theme')
             }}
           >
-            {t('common.back_btn')}
+            ← {t('common.back_btn')}
           </button>
           <button
             className={`p2-btn-solid ${selectedId ? 'active' : ''}`}
@@ -85,11 +134,12 @@ export default function MissionPickScene({ themeId, onPick, onBack }) {
             onClick={() => {
               if (selectedId) {
                 capiAudio.sfx('whoosh')
-                onPick(selectedId)
+                setSelectedMission(selectedId)
+                navigate('/mission-play')
               }
             }}
           >
-            {t('common.start_btn')}
+            {t('common.start_btn')} →
           </button>
         </div>
       </div>

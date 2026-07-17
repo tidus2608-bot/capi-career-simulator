@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { capiAudio } from '../../audio.js'
+import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
 import missionsData from '../../data/missions.json'
 
-export default function CapiGeneInfoScene({ onBack, onStart }) {
+export default function CapiGeneInfoScene() {
   const { t, i18n } = useTranslation()
+  const navigate = useNavigate()
+  const { setStartedAt, setScanIntroActive } = useWizard()
   const isEn = i18n.language === 'en'
   const [activeIdx, setActiveIdx] = useState(0)
 
@@ -184,7 +188,7 @@ export default function CapiGeneInfoScene({ onBack, onStart }) {
             className="p2-btn-outline"
             onClick={() => {
               capiAudio.sfx('click')
-              onBack()
+              navigate('/')
             }}
           >
             {t('common.back_btn')}
@@ -193,7 +197,9 @@ export default function CapiGeneInfoScene({ onBack, onStart }) {
             className="p2-btn-solid active"
             onClick={() => {
               capiAudio.sfx('confirm')
-              onStart()
+              setStartedAt(new Date().toISOString())
+              setScanIntroActive(true)
+              navigate('/scan')
             }}
           >
             {t('intro.btn_scan_gene')}

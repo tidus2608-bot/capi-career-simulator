@@ -1,9 +1,25 @@
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { capiAudio } from '../../audio.js'
+import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
 
-export default function IntroScene({ onStart, onInfo }) {
+export default function IntroScene() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const { setStartedAt, setScanIntroActive } = useWizard()
+
+  const handleStart = () => {
+    capiAudio.sfx('confirm')
+    setStartedAt(new Date().toISOString())
+    setScanIntroActive(true)
+    navigate('/scan')
+  }
+
+  const handleInfo = () => {
+    capiAudio.sfx('click')
+    navigate('/capi-gene-info')
+  }
 
   return (
     <SceneShell>
@@ -87,10 +103,7 @@ export default function IntroScene({ onStart, onInfo }) {
             <button
               className="btn btn-primary"
               style={{ padding: '14px 24px', fontSize: 16, borderRadius: 12 }}
-              onClick={() => {
-                capiAudio.sfx('confirm')
-                onStart()
-              }}
+              onClick={handleStart}
             >
               {t('intro.btn_scan_gene')}
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 8 }}>
@@ -118,10 +131,7 @@ export default function IntroScene({ onStart, onInfo }) {
                 cursor: 'pointer',
                 opacity: 0.9,
               }}
-              onClick={() => {
-                capiAudio.sfx('click')
-                onInfo()
-              }}
+              onClick={handleInfo}
             >
               {t('intro.btn_what_is_gene')}
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 8 }}>

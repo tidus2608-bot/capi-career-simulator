@@ -79,10 +79,10 @@ export const CAPI_THEMES = {
 export const MISSION_ICONS = {
   1: { bg: '#D7EFD4', color: '#60C255', emoji: '♻️' },
   2: { bg: '#F7D2D2', color: '#E14D4D', emoji: '🏥' },
-  6: { bg: '#CED5F5', color: '#0C33FA', emoji: '🤖' },
   3: { bg: '#D7EFD4', color: '#60C255', emoji: '🏠' },
   4: { bg: '#FCEFD2', color: '#F3C04B', emoji: '📦' },
   5: { bg: '#CED5F5', color: '#0C33FA', emoji: '🚁' },
+  6: { bg: '#CED5F5', color: '#0C33FA', emoji: '🤖' },
 }
 
 // Numeric ID → mission object from missions.json
@@ -92,10 +92,10 @@ export const CAPI_MISSIONS = Object.fromEntries(missionsData.missions.map((m) =>
 export const MISSION_BG = {
   1: 'river',
   2: 'hospital',
-  6: 'rescue',
   3: 'home',
   4: 'warehouse',
   5: 'drone',
+  6: 'rescue',
 }
 
 // Phase 1 Likert questions (15) + confidence checks (2)

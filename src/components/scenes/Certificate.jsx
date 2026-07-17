@@ -1,8 +1,10 @@
 import { useState, useEffect, useId, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { DualRadar } from '../UI.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_ROLES } from '../../data.js'
+import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
 
 const PROFILE_COLOR = {
@@ -75,16 +77,25 @@ function SaveStatusBanner({ saveStatus, saveError, onRetrySave }) {
   )
 }
 
-export default function CertificateScene({
-  result,
-  certCopy,
-  saveStatus,
-  saveError,
-  onRetrySave,
-  onRestart,
-  onHistory,
-}) {
+export default function CertificateScene() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const {
+    user,
+    scoringResult: result,
+    certCopy,
+    saveStatus,
+    saveError,
+    retrySave: onRetrySave,
+    onRestart,
+  } = useWizard()
+
+  const onHistory = user ? () => navigate('/history') : null
+  const handleRestart = () => {
+    onRestart()
+    navigate('/')
+  }
+
   const [flashed, setFlashed] = useState(true)
 
   const rawId = useId()
@@ -660,7 +671,7 @@ export default function CertificateScene({
               <button className="btn btn-ghost" onClick={() => window.print()}>
                 {t('cert.btn_print')}
               </button>
-              <button className="btn btn-primary" onClick={onRestart}>
+              <button className="btn btn-primary" onClick={handleRestart}>
                 {t('common.restart')}
               </button>
             </div>

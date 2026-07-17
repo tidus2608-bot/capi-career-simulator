@@ -1,15 +1,19 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { RoleIcon } from '../UI.jsx'
 import Capi from '../Capi.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_ROLES } from '../../data.js'
+import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
 
-export default function RoleRevealScene({ role, onContinue }) {
+export default function RoleRevealScene() {
   const { t, i18n } = useTranslation()
+  const navigate = useNavigate()
+  const { phase1TopRole } = useWizard()
   const isEn = i18n.language === 'en'
-  const r = role ? CAPI_ROLES[role] || CAPI_ROLES.explorer : CAPI_ROLES.explorer
+  const r = phase1TopRole ? CAPI_ROLES[phase1TopRole] || CAPI_ROLES.explorer : CAPI_ROLES.explorer
 
   useEffect(() => {
     capiAudio.sfx('success')
@@ -74,7 +78,11 @@ export default function RoleRevealScene({ role, onContinue }) {
             {t('reveal.disclaimer')}
           </p>
 
-          <button className="btn btn-primary" onClick={onContinue} style={{ width: '100%' }}>
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate('/theme')}
+            style={{ width: '100%' }}
+          >
             {t('reveal.btn_select_gate')}
           </button>
         </div>

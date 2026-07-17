@@ -29,31 +29,33 @@
     "footer_hint": "Hoàn thành bài quét đầu tiên để mở khóa các cổng mô phỏng thực tế ảo.",
     "scan_intro_title": "PHASE 1 · CAPI-SCAN",
     "scan_intro_blurb": "Bạn sẽ trả lời <strong style=\"color: #1a1a2e\">15 câu hỏi</strong> trên thang điểm 1–5. Hãy chọn theo những gì bạn <em style=\"font-style: normal; color: #843497; font-weight: 600\">thực sự</em> thường làm, không phải những gì bạn nghĩ là \"nên chọn\".",
-    "scan_intro_btn": "Bắt đầu quét →"
+    "scan_intro_btn": "Bắt đầu quét"
   },
   "common": {
-    "next": "TIẾP THEO →",
-    "finish": "HOÀN THÀNH →",
-    "back": "← Quay lại",
+    "next": "TIẾP THEO",
+    "finish": "HOÀN THÀNH",
+    "back": "Quay lại",
     "restart": "LÀM LẠI TỪ ĐẦU",
     "retry": "Thử lại",
     "loading": "Đang tải...",
-    "back_to_themes": "← Đổi cổng",
+    "back_to_themes": "Đổi cổng",
     "audio_on": "Bật âm thanh",
     "audio_off": "Tắt âm thanh",
     "select_challenge": "Hãy chọn thử thách bạn muốn bắt đầu.",
-    "back_btn": "← Quay về",
-    "start_btn": "Bắt đầu →",
+    "back_btn": "Quay về",
+    "back_to_home": "Trang chủ",
+    "start_btn": "Bắt đầu",
     "role_modal_title": "CHỌN VAI BẠN MUỐN TRỞ THÀNH NHẤT",
     "capi_gene_info_title": "Capi-Gene là gì?",
     "role_description": "Mô tả",
     "role_characteristics": "Đặc điểm chính",
+    "goals_title": "Mục tiêu",
     "mission_title_prefix": "NHIỆM VỤ",
     "question_progress": "Câu hỏi {{num}} / {{total}}",
     "percent_completed": "{{percent}}% Hoàn thiện",
     "phase1_completed": "Đã hoàn thành phase 1",
-    "continue_btn": "Tiếp tục →",
-    "finish_btn": "Hoàn thành →",
+    "continue_btn": "Tiếp tục",
+    "finish_btn": "Hoàn thành",
     "themes": {
       "ark_capi": {
         "displayName": "CHIẾN DỊCH ARK-CAPI",
@@ -136,28 +138,64 @@
   },
   "missions": {
     "1": {
-      "name": "Chiến dịch \"Dòng sông Xanh\"",
-      "desc": "Capi đứng trước bờ sông, nhìn dòng sông ngập rác nhựa, chai lọ, túi nilon."
+      "name": "Hệ thống Tái chế",
+      "english_name": "(Smart Waste & Recycling)",
+      "desc": "Bệ phóng tàu đang bị kẹt trong đống rác thải sau trận lũ. Tàu Ark-Capi cần một nguồn năng lượng cực lớn nhưng phải là năng lượng sạch (Green Energy).",
+      "goals": [
+        "Thiết kế robot thu gom rác trên sông",
+        "Phân loại rác",
+        "Chuyển hóa thành tinh thể năng lượng nạp vào lõi tàu."
+      ]
     },
     "2": {
-      "name": "Chiến dịch \"Trạm y tế hạnh phúc\"",
-      "desc": "Bác sĩ, y tá chạy sấp mặt, bệnh nhân thì chờ đợi mệt mỏi."
+      "name": "Trạm Y tế AI",
+      "english_name": "(AI Healthcare Assistant)",
+      "desc": "Hệ thống y tế trên tàu đang bị quá tải khi nhiều thành viên gặp vấn đề sức khỏe. Cần thiết kế một Trạm y tế thông minh tự động hóa phân loại bệnh nhân và theo dõi sức khỏe.",
+      "goals": [
+        "Phân loại bệnh nhân bằng AI",
+        "Hỗ trợ bác sĩ chẩn đoán tự động",
+        "Theo dõi tình trạng sức khỏe từ xa."
+      ]
     },
     "3": {
-      "name": "Nhiệm vụ Căn hộ Thông minh",
-      "desc": "Capi đứng trước một căn hộ mẫu với hệ thống dây điện lằng nhằng, các thiết bị rời rạc không kết nối được với nhau."
+      "name": "Căn hộ Thông minh",
+      "english_name": "(Smart Home Project)",
+      "desc": "Thiết lập hệ sinh thái Smart Home kết nối các thiết bị gia dụng tự động. Giải quyết tình trạng lãng phí điện năng và tối ưu hóa trải nghiệm sống tiện nghi.",
+      "goals": [
+        "Lập trình kịch bản tự động hóa thiết bị",
+        "Tối ưu hóa mức tiêu thụ năng lượng",
+        "Xây dựng hệ thống cảnh báo an ninh thông minh."
+      ]
     },
     "4": {
-      "name": "Dự án \"Kho tự vận hành\"",
-      "desc": "Kho hàng hỗn loạn, kiện hàng rơi vãi, robot nằm im không phản ứng, màn hình điều khiển báo lỗi liên tục."
+      "name": "Kho Tự Vận Hành",
+      "english_name": "(Automated Warehouse Project)",
+      "desc": "Quản lý dòng chảy hàng hóa tự động bằng robot trong kho vận. Giảm thiểu sai sót phân loại và tăng tốc độ xử lý đơn hàng xuất nhập khẩu.",
+      "goals": [
+        "Định tuyến đường đi tối ưu cho robot",
+        "Phát hiện lỗi băng chuyền tự động",
+        "Đồng bộ hóa kho dữ liệu thời gian thực."
+      ]
     },
     "5": {
-      "name": "Mạng lưới Giao hàng Drone",
-      "desc": "Bầu trời u ám, bản đồ thành phố hiển thị chi tiết các tòa nhà cao tầng và chướng ngại vật phức tạp."
+      "name": "Giao Hàng Drone",
+      "english_name": "(Drone Delivery Network)",
+      "desc": "Thiết lập mạng lưới thiết bị bay không người lái giao hàng tốc độ cao trong đô thị. Tránh các chướng ngại vật phức tạp và tối ưu lộ trình bay an toàn.",
+      "goals": [
+        "Lập bản đồ đường bay an toàn",
+        "Tối ưu hóa tải trọng và pin của drone",
+        "Xử lý sự cố hạ cánh khẩn cấp tự động."
+      ]
     },
     "6": {
-      "name": "Chiến dịch \"Robot Cứu hộ\"",
-      "desc": "Hiện trường đổ nát sau thảm họa, khói bụi mịt mù, Capi khoác bộ đồ cứu hỏa, tay cầm thiết bị dò tìm sự sống."
+      "name": "Robot Cứu hộ",
+      "english_name": "(Disaster Response Robot)",
+      "desc": "Điều khiển robot cứu hộ tiến vào vùng nguy hiểm sau thảm họa. Tìm kiếm sự sống dưới đống đổ nát và mở đường cứu hộ an toàn cho đội ứng cứu.",
+      "goals": [
+        "Dò tìm tín hiệu sự sống",
+        "Dọn dẹp vật cản mở đường cứu nạn",
+        "Truyền thông tin hình ảnh thời gian thực."
+      ]
     }
   },
   "reveal": {
@@ -165,7 +203,7 @@
     "capi_dialogue_prefix": "Ồ, một ",
     "capi_dialogue_suffix": " đầy triển vọng! Hãy chọn một cổng mô phỏng để mình xem bạn tỏa sáng thế nào trong thực tế nhé!",
     "disclaimer": "* Đây chỉ là kết quả sơ bộ. Kết quả chính thức sẽ được tính sau khi bạn hoàn thành nhiệm vụ.",
-    "btn_select_gate": "Chọn cổng mô phỏng →"
+    "btn_select_gate": "Chọn cổng mô phỏng"
   },
   "theme": {
     "welcome_title": "Chào mừng bạn đến với cửa ải thứ 2 của trò chơi nhé",
