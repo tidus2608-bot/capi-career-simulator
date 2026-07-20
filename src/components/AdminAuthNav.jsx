@@ -14,6 +14,18 @@ export function isValidReturn(path) {
   return true
 }
 
+function getSafeReturnPath(path) {
+  if (!isValidReturn(path)) return '/'
+  try {
+    const url = new URL(path, window.location.origin)
+    if (url.origin !== window.location.origin) return '/'
+    if (!url.pathname.startsWith('/')) return '/'
+    return `${url.pathname}${url.search}${url.hash}`
+  } catch {
+    return '/'
+  }
+}
+
 export default function AdminAuthNav({ supabase, session, onHistory }) {
   const { t } = useTranslation()
   const [status, setStatus] = useState({ loading: true, authenticated: false, role: null })
@@ -34,7 +46,8 @@ export default function AdminAuthNav({ supabase, session, onHistory }) {
           if (supabase) {
             await supabase.auth.signOut({ scope: 'local' })
           }
-          window.location.href = isValidReturn(returnTo) ? returnTo : '/'
+          const safeReturnTo = getSafeReturnPath(returnTo)
+          window.location.href = safeReturnTo
           return
         }
 
@@ -58,8 +71,9 @@ export default function AdminAuthNav({ supabase, session, onHistory }) {
           const data = await res.json()
           setStatus({ loading: false, ...data })
 
-          if (data.authenticated && isValidReturn(returnTo)) {
-            window.location.href = returnTo
+          const safeReturnTo = getSafeReturnPath(returnTo)
+          if (data.authenticated && safeReturnTo !== '/') {
+            window.location.href = safeReturnTo
             return
           }
         } else {
