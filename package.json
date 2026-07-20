@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.functions.json",
     "test": "vitest run",
     "test:watch": "vitest",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run build"
+    "verify": "bun run lint && bun run typecheck && bun run test && bun run build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",
@@ -21,7 +21,8 @@
     "i18next-browser-languagedetector": "^8.2.1",
     "react": "^19",
     "react-dom": "^19",
-    "react-i18next": "^17.0.8"
+    "react-i18next": "^17.0.8",
+    "react-router-dom": "^7.18.1"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260525.1",

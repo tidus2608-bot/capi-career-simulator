@@ -1,48 +1,86 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { capiAudio } from '../../audio.js'
 import { PHASE1_QUESTIONS, CONFIDENCE_CHECKS } from '../../data.js'
+import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
+import QASection from '../QASection.jsx'
 
-export default function ScanningScene({ onComplete }) {
+export default function ScanningScene() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const {
+    onScanDone,
+    scanIntroActive,
+    setScanIntroActive,
+    scanIndex: idx,
+    setScanIndex: setIdx,
+    scanQuestions,
+    setScanQuestions,
+    phase1Answers,
+    setPhase1Answers,
+  } = useWizard()
 
   useEffect(() => {
     capiAudio.pad([130.8, 196, 261.6, 392], 'cold')
   }, [])
 
-  // Pick exactly 3 random questions for each role
-  const [selectedQuestions] = useState(() => {
-    const roles = ['explorer', 'builder', 'operator', 'connector', 'communicator']
-    const chosen = []
-    for (const r of roles) {
-      const qForRole = PHASE1_QUESTIONS.filter((q) => q.role === r)
-      const shuffled = [...qForRole].sort(() => Math.random() - 0.5)
-      chosen.push(...shuffled.slice(0, 3))
+  // Generate questions if not present
+  useEffect(() => {
+    if (!scanQuestions) {
+      const roles = ['explorer', 'builder', 'operator', 'connector', 'communicator']
+      const chosen = []
+      for (const r of roles) {
+        const qForRole = PHASE1_QUESTIONS.filter((q) => q.role === r)
+        const shuffled = [...qForRole].sort(() => Math.random() - 0.5)
+        chosen.push(...shuffled.slice(0, 3))
+      }
+      const finalShuffled = chosen.sort(() => Math.random() - 0.5)
+      setScanQuestions(finalShuffled)
     }
-    // Shuffle the final 15 questions so they appear in a random order
-    return chosen.sort(() => Math.random() - 0.5)
-  })
+  }, [scanQuestions, setScanQuestions])
 
-  const total = selectedQuestions.length + CONFIDENCE_CHECKS.length
-  const [idx, setIdx] = useState(0)
-  const [selfPerception, setSelfPerception] = useState({})
-  const [confidence, setConfidence] = useState({})
-  const [showIntro, setShowIntro] = useState(true)
-  const [isFinished, setIsFinished] = useState(false)
-  const [finalAnswers, setFinalAnswers] = useState(null)
+  const selectedQuestions = scanQuestions || []
+  const total = selectedQuestions.length ? selectedQuestions.length + CONFIDENCE_CHECKS.length : 0
+
+  const showIntro = scanIntroActive
+  const setShowIntro = setScanIntroActive
+
+  if (!selectedQuestions.length) {
+    return (
+      <SceneShell light>
+        <div style={{ display: 'grid', placeItems: 'center', minHeight: '100%' }}>
+          <div className="mono" style={{ color: '#9ca3af' }}>
+            {t('common.loading')}
+          </div>
+        </div>
+      </SceneShell>
+    )
+  }
 
   const isConfidencePhase = idx >= selectedQuestions.length
   const currentQ = isConfidencePhase
     ? CONFIDENCE_CHECKS[idx - selectedQuestions.length]
     : selectedQuestions[idx]
 
-  const currentValue = isConfidencePhase ? confidence[currentQ.id] : selfPerception[currentQ.id]
+  const currentValue = isConfidencePhase
+    ? phase1Answers.confidence?.[currentQ?.id]
+    : phase1Answers.selfPerception?.[currentQ?.id]
 
   const handleSelectOption = (v) => {
     capiAudio.sfx('click')
-    if (isConfidencePhase) setConfidence((prev) => ({ ...prev, [currentQ.id]: v }))
-    else setSelfPerception((prev) => ({ ...prev, [currentQ.id]: v }))
+    if (isConfidencePhase) {
+      setPhase1Answers((prev) => ({
+        ...prev,
+        confidence: { ...prev.confidence, [currentQ.id]: v },
+      }))
+    } else {
+      setPhase1Answers((prev) => ({
+        ...prev,
+        selfPerception: { ...prev.selfPerception, [currentQ.id]: v },
+      }))
+    }
   }
 
   const next = () => {
@@ -50,20 +88,20 @@ export default function ScanningScene({ onComplete }) {
     if (idx + 1 >= total) {
       capiAudio.sfx('scan')
       const spFull = {}
-      for (const q of selectedQuestions) spFull[q.id] = selfPerception[q.id] ?? 3
+      for (const q of selectedQuestions) spFull[q.id] = phase1Answers.selfPerception[q.id] ?? 3
       const cfFull = {}
-      for (const c of CONFIDENCE_CHECKS) cfFull[c.id] = confidence[c.id] ?? 3
-      setFinalAnswers({ selfPerception: spFull, confidence: cfFull })
-      setIsFinished(true)
+      for (const c of CONFIDENCE_CHECKS) cfFull[c.id] = phase1Answers.confidence[c.id] ?? 3
+      onScanDone({ selfPerception: spFull, confidence: cfFull })
+      navigate('/role-reveal')
     } else {
-      setIdx((i) => i + 1)
+      setIdx(idx + 1)
     }
   }
 
   const back = () => {
     capiAudio.sfx('click')
     if (idx > 0) {
-      setIdx((i) => i - 1)
+      setIdx(idx - 1)
     } else {
       setShowIntro(true)
     }
@@ -73,7 +111,10 @@ export default function ScanningScene({ onComplete }) {
     return (
       <SceneShell light>
         <div style={{ display: 'grid', placeItems: 'center', minHeight: '100%', padding: 24 }}>
-          <div className="glass fade-up" style={{ maxWidth: 600, padding: '32px 36px' }}>
+          <div
+            className="glass fade-up"
+            style={{ maxWidth: 600, padding: '32px 36px', textAlign: 'center' }}
+          >
             <div className="mono" style={{ color: '#843497', marginBottom: 20 }}>
               {t('intro.scan_intro_title')}
             </div>
@@ -81,84 +122,34 @@ export default function ScanningScene({ onComplete }) {
               style={{ color: '#6b7280', fontSize: 14, marginBottom: 24, lineHeight: 1.65 }}
               dangerouslySetInnerHTML={{ __html: t('intro.scan_intro_blurb') }}
             />
-            <button className="btn btn-primary" onClick={() => setShowIntro(false)}>
-              {t('intro.scan_intro_btn')}
-            </button>
-          </div>
-        </div>
-      </SceneShell>
-    )
-  }
-
-  if (isFinished) {
-    return (
-      <SceneShell light className="no-scroll-shell">
-        <img
-          src="/illos/capi-transition.svg"
-          alt=""
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            zIndex: 0,
-          }}
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
-        />
-        <div
-          style={{
-            display: 'grid',
-            placeItems: 'center',
-            minHeight: '100%',
-            padding: 24,
-            position: 'relative',
-            zIndex: 5,
-          }}
-        >
-          <div className="p1-transition-card fade-up">
-            <div className="p1-transition-checkmark">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            <div style={{ display: 'flex', gap: 16, width: '100%' }}>
+              <button
+                className="p2-btn-outline"
+                onClick={() => {
+                  capiAudio.sfx('click')
+                  navigate('/')
+                }}
               >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
+                {t('common.back_btn')}
+              </button>
+              <button
+                className="p2-btn-solid active"
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  capiAudio.sfx('click')
+                  setShowIntro(false)
+                }}
+              >
+                {t('intro.scan_intro_btn')}
+              </button>
             </div>
-            <h2 className="p1-transition-title">{t('common.phase1_completed')}</h2>
-            <button className="p1-transition-btn" onClick={() => onComplete(finalAnswers)}>
-              {t('common.continue_btn')}
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M5 12h14M13 5l7 7-7 7" />
-              </svg>
-            </button>
           </div>
         </div>
       </SceneShell>
     )
   }
 
-  const imgPath =
-    !isConfidencePhase && currentQ.role
-      ? `/illos/capi-gen-${currentQ.role}.jpg`
-      : '/illos/capi-gen-explorer.jpg'
+  const imgPath = '/illos/capi-phase1.png'
 
   return (
     <SceneShell light className="no-scroll-shell">
@@ -197,22 +188,16 @@ export default function ScanningScene({ onComplete }) {
           </div>
 
           <div className="p1-right-content">
-            <h3 className="p1-question-text">{t(`questions.${currentQ.id}`)}</h3>
-
-            <div className="p1-likert-options">
-              {[1, 2, 3, 4, 5].map((val) => {
-                const isSelected = currentValue === val
-                return (
-                  <button
-                    key={val}
-                    className={`p1-likert-btn ${isSelected ? 'selected' : ''}`}
-                    onClick={() => handleSelectOption(val)}
-                  >
-                    {t(`likert.${val}`)}
-                  </button>
-                )
-              })}
-            </div>
+            <QASection
+              key={idx}
+              questionText={t(`questions.${currentQ.id}`)}
+              options={[1, 2, 3, 4, 5].map((val) => ({
+                value: val,
+                text: t(`likert.${val}`),
+              }))}
+              selectedValue={currentValue}
+              onSelect={handleSelectOption}
+            />
 
             <div className="p2-new-actions" style={{ width: '100%' }}>
               <button className="p2-btn-outline" onClick={back}>

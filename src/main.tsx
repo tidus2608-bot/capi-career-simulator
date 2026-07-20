@@ -1,14 +1,52 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './i18n/index.js'
 import './styles.css'
+
+import { WizardProvider } from './contexts/WizardContext.jsx'
+import AppLayout from './App.jsx'
+import {
+  IntroScene,
+  ScanningScene,
+  RoleRevealScene,
+  ThemeScene,
+  MissionPickScene,
+  MissionPlayScene,
+  ReflectionScene,
+  CertificateScene,
+  HistoryScene,
+  CapiGeneInfoScene,
+} from './components/scenes/index.js'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: (
+      <WizardProvider>
+        <AppLayout />
+      </WizardProvider>
+    ),
+    children: [
+      { path: '/', element: <IntroScene /> },
+      { path: 'capi-gene-info', element: <CapiGeneInfoScene /> },
+      { path: 'scan', element: <ScanningScene /> },
+      { path: 'role-reveal', element: <RoleRevealScene /> },
+      { path: 'theme', element: <ThemeScene /> },
+      { path: 'mission-pick', element: <MissionPickScene /> },
+      { path: 'mission-play', element: <MissionPlayScene /> },
+      { path: 'reflect', element: <ReflectionScene /> },
+      { path: 'certificate', element: <CertificateScene /> },
+      { path: 'history', element: <HistoryScene /> },
+    ],
+  },
+])
 
 const rootEl = document.getElementById('root')
 if (!rootEl) throw new Error('Missing #root in index.html')
 
 ReactDOM.createRoot(rootEl).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )

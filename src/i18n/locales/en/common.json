@@ -49,22 +49,24 @@
     "restart": "START OVER",
     "retry": "Try again",
     "loading": "Loading...",
-    "back_to_themes": "← Change gate",
+    "back_to_themes": "Change gate",
     "audio_on": "Sound on",
     "audio_off": "Sound off",
     "select_challenge": "Choose the challenge you want to start.",
-    "back_btn": "← Go back",
-    "start_btn": "Start →",
+    "back_btn": "Go back",
+    "back_to_home": "Home",
+    "start_btn": "Start",
     "role_modal_title": "CHOOSE THE ROLE YOU WANT TO BECOME MOST",
     "capi_gene_info_title": "What is Capi-gene?",
     "role_description": "Description",
     "role_characteristics": "Key Characteristics",
+    "goals_title": "Objectives",
     "mission_title_prefix": "MISSION",
     "question_progress": "Question {{num}} of {{total}}",
     "percent_completed": "{{percent}}% Completed",
     "phase1_completed": "Completed phase 1",
-    "continue_btn": "Continue →",
-    "finish_btn": "Finish →",
+    "continue_btn": "Continue",
+    "finish_btn": "Finish",
     "themes": {
       "ark_capi": {
         "displayName": "ARK-CAPI CAMPAIGN",
@@ -147,28 +149,64 @@
   },
   "missions": {
     "1": {
-      "name": "Blue River Campaign",
-      "desc": "Capi stands by the riverbank, looking at a river flooded with plastic waste, bottles, and bags."
+      "name": "Smart Waste & Recycling",
+      "english_name": "",
+      "desc": "The launchpad is stuck in storm debris. The Ark-Capi ship needs a massive clean energy source to power up.",
+      "goals": [
+        "Design a river waste collection robot",
+        "Classify waste types",
+        "Convert waste into energy crystals for the ship core."
+      ]
     },
     "2": {
-      "name": "Happy Clinic Campaign",
-      "desc": "Doctors and nurses are running around frantically, while patients wait wearily."
+      "name": "AI Healthcare Assistant",
+      "english_name": "",
+      "desc": "The medical system is overloaded as crew members fall ill. Design a smart clinic to automate triage and health monitoring.",
+      "goals": [
+        "AI-powered patient triage",
+        "Support doctors with automatic diagnosis",
+        "Monitor health status remotely."
+      ]
     },
     "3": {
-      "name": "Smart Apartment Project",
-      "desc": "Capi stands in front of a model apartment with tangled wires and scattered devices failing to connect."
+      "name": "Smart Home Project",
+      "english_name": "",
+      "desc": "Set up a Smart Home ecosystem connecting home appliances. Tackle energy waste and optimize convenience.",
+      "goals": [
+        "Program automated device scenarios",
+        "Optimize energy consumption levels",
+        "Build a smart security warning system."
+      ]
     },
     "4": {
       "name": "Automated Warehouse Project",
-      "desc": "The warehouse is chaotic, packages scattered, robots inactive, and the control panel constantly flashing errors."
+      "english_name": "",
+      "desc": "Manage automated goods flow using robots in the warehouse. Minimize sorting errors and speed up order processing.",
+      "goals": [
+        "Route optimal paths for robots",
+        "Detect conveyor belt errors automatically",
+        "Synchronize real-time warehouse inventory."
+      ]
     },
     "5": {
       "name": "Drone Delivery Network",
-      "desc": "Under a cloudy sky, the city map shows complex tall buildings and obstacles."
+      "english_name": "",
+      "desc": "Establish a high-speed drone delivery network in urban areas. Avoid complex obstacles and optimize safe flight routes.",
+      "goals": [
+        "Map safe flight paths",
+        "Optimize drone payload and battery life",
+        "Handle automated emergency landings safely."
+      ]
     },
     "6": {
-      "name": "Rescue Robot Campaign",
-      "desc": "Amid ruins after a disaster, dust fills the air. Capi wears firefighter gear, holding a life detection device."
+      "name": "Disaster Response Robot",
+      "english_name": "",
+      "desc": "Deploy rescue robots into hazardous post-disaster zones. Search for signs of life and clear paths for the rescue team.",
+      "goals": [
+        "Detect life signals under ruins",
+        "Clear obstacles to open rescue paths",
+        "Transmit real-time camera feeds to the base."
+      ]
     }
   },
   "reveal": {

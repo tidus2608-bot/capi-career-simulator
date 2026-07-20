@@ -10,7 +10,7 @@ const POSE_IMAGE = {
   wave: '/capi/capi-0.png',
 }
 
-const Capi = ({ outfit = 'lab', pose = 'idle', size = 180, style = {} }) => {
+const Capi = ({ pose = 'idle', size = 180, style = {} }) => {
   const imgRef = useRef(null)
 
   useEffect(() => {
