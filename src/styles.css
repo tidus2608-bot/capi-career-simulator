@@ -2360,3 +2360,235 @@ button:focus-visible {
     height: 100%;
   }
 }
+
+/* Intro Navbar */
+.intro-navbar {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  height: 72px;
+  background: #fff;
+  border-radius: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px 0 32px;
+  z-index: 100;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+}
+
+.intro-navbar-title {
+  font-size: 22px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: #1a1a2e;
+  white-space: nowrap;
+}
+
+.intro-navbar-brand--short,
+.admin-auth-label--short {
+  display: none;
+}
+
+.intro-navbar-brand--full,
+.intro-navbar-brand--short,
+.admin-auth-label--full,
+.admin-auth-label--short {
+  white-space: nowrap;
+}
+
+.intro-navbar-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.admin-auth-nav {
+  position: relative;
+  min-width: 0;
+}
+
+.admin-auth-menu-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  max-width: 220px;
+  padding: 8px 13px;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  background: #f9fafb;
+  color: #1a1a2e;
+  font-family: var(--font-body);
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.admin-auth-user-name {
+  min-width: 0;
+  overflow: hidden;
+  font-weight: 700;
+  text-overflow: ellipsis;
+}
+
+.admin-auth-menu-caret {
+  flex-shrink: 0;
+  transition: transform 160ms ease;
+}
+
+.admin-auth-menu-trigger[aria-expanded='true'] .admin-auth-menu-caret {
+  transform: rotate(180deg);
+}
+
+.admin-auth-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 120;
+  display: grid;
+  width: max-content;
+  min-width: 190px;
+  padding: 6px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 16px 40px rgba(26, 26, 46, 0.16);
+}
+
+.admin-auth-menu-item {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #1a1a2e;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.admin-auth-menu-item:hover,
+.admin-auth-menu-item:focus-visible {
+  background: #f3f4f6;
+  outline: 2px solid #843497;
+  outline-offset: 1px;
+}
+
+.admin-auth-menu-item--danger {
+  color: #9f1239;
+}
+
+.admin-auth-menu-item--danger:hover,
+.admin-auth-menu-item--danger:focus-visible {
+  background: #fff1f2;
+}
+
+.admin-auth-link {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+
+button.admin-auth-link {
+  border: none;
+  cursor: pointer;
+}
+
+.admin-auth-link--admin {
+  background: #1a1a2e;
+  color: #fff;
+}
+
+.admin-auth-link--login {
+  background: #f3f4f6;
+  color: #1a1a2e;
+}
+
+.admin-auth-link--logout {
+  background: #fff1f2;
+  color: #9f1239;
+}
+
+.admin-auth-link:focus-visible,
+.admin-auth-menu-trigger:focus-visible {
+  outline: 2px solid #843497;
+  outline-offset: 2px;
+}
+
+@media (max-width: 720px) {
+  .intro-navbar {
+    padding: 0 12px 0 20px;
+    height: 64px;
+  }
+  .intro-navbar-title {
+    font-size: 18px;
+  }
+  .intro-navbar-controls {
+    gap: 8px;
+  }
+  .admin-auth-menu-trigger {
+    max-width: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-navbar {
+    align-content: center;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    height: auto;
+    min-height: 56px;
+    padding: 8px 10px;
+    top: 16px;
+  }
+  .intro-navbar-title {
+    font-size: 16px;
+  }
+  .intro-navbar-brand--full,
+  .admin-auth-label--full {
+    display: none;
+  }
+  .intro-navbar-brand--short,
+  .admin-auth-label--short {
+    display: inline;
+  }
+  .intro-navbar-controls {
+    width: 100%;
+    gap: 6px;
+    justify-content: flex-end;
+  }
+  .admin-auth-nav {
+    flex: 1;
+    min-width: 0;
+  }
+  .admin-auth-menu-trigger {
+    max-width: 130px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  .admin-auth-menu {
+    right: auto;
+    left: 0;
+    max-width: calc(100vw - 32px);
+  }
+  .admin-auth-link {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}

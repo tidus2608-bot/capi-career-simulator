@@ -3,11 +3,15 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { capiAudio } from '../audio.js'
 import LanguageSwitch from './LanguageSwitch.jsx'
+import AdminAuthNav from './AdminAuthNav.jsx'
+import { useWizard } from '../contexts/WizardContext.jsx'
+import { supabase } from '../lib/supabase.js'
 
 export default function HeaderControls({ muted, toggleMute }) {
   const { t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
+  const { user, session } = useWizard()
   const path = location.pathname
 
   const isHome = path === '/'
@@ -91,6 +95,11 @@ export default function HeaderControls({ muted, toggleMute }) {
           Capi Career Path Simulator
         </div>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <AdminAuthNav
+            supabase={supabase}
+            session={session}
+            onHistory={user ? () => navigate('/history') : null}
+          />
           <LanguageSwitch />
           <button
             className="audio-toggle"

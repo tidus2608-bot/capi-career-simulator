@@ -19,9 +19,12 @@ export default function HistoryScene() {
   const [runs, setRuns] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const visibleRuns = user ? runs : []
+  const visibleError = user ? error : null
+  const visibleLoading = user ? loading : false
 
   useEffect(() => {
-    if (!user) return
+    if (!user) return undefined
     let cancelled = false
     supabase
       .from('runs')
@@ -78,11 +81,11 @@ export default function HistoryScene() {
           </div>
         </div>
 
-        {loading ? (
+        {visibleLoading ? (
           <div className="mono" style={{ color: '#9ca3af', textAlign: 'center', marginTop: 60 }}>
             {t('common.loading')}
           </div>
-        ) : error ? (
+        ) : visibleError ? (
           <div
             className="glass"
             style={{
@@ -93,16 +96,16 @@ export default function HistoryScene() {
             }}
           >
             <div style={{ fontSize: 40, marginBottom: 12 }}>⚠️</div>
-            {t('history.load_error', { error })}
+            {t('history.load_error', { error: visibleError })}
           </div>
-        ) : runs.length === 0 ? (
+        ) : visibleRuns.length === 0 ? (
           <div className="glass" style={{ padding: 30, textAlign: 'center', color: '#6b7280' }}>
             <div style={{ fontSize: 40, marginBottom: 12 }}>📋</div>
             {t('history.empty')}
           </div>
         ) : (
           <div style={{ display: 'grid', gap: 12 }}>
-            {runs.map((r) => {
+            {visibleRuns.map((r) => {
               const pr = CAPI_ROLES[r.primary_role] || {
                 color: '#843497',
                 name: r.primary_role,
