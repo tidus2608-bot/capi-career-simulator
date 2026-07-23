@@ -4,7 +4,7 @@ import Button from './Button.jsx'
 export default function QASection({ questionText, options, selectedValue, onSelect }) {
   return (
     <>
-      <h3 className="p1-question-text" style={{ marginBottom: 20 }}>
+      <h3 className="p1-question-text">
         {questionText}
       </h3>
       <div className="p2-options">

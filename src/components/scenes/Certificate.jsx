@@ -15,7 +15,6 @@ const PROFILE_COLOR = {
 }
 
 const SECTION_STYLE = {
-  marginBottom: 32,
   paddingBottom: 24,
   borderBottom: '1px solid #e5e7eb',
 }
@@ -141,6 +140,9 @@ export default function CertificateScene() {
             margin: '0 auto',
             padding: '40px 36px 28px',
             position: 'relative',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 32,
           }}
         >
           {/* Header badge */}
@@ -169,8 +171,8 @@ export default function CertificateScene() {
           />
 
           {/* ── S1: Role Radar ── */}
-          <div style={{ ...SECTION_STYLE, marginTop: 32, textAlign: 'center' }}>
-            <div className="mono" style={{ color: '#843497', marginBottom: 16 }}>
+          <div style={{ ...SECTION_STYLE, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, textAlign: 'center' }}>
+            <div className="mono" style={{ color: '#843497' }}>
               1 · ROLE RADAR
             </div>
             <div
@@ -191,8 +193,8 @@ export default function CertificateScene() {
                   color2="#ff6b9d"
                 />
               </div>
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, textAlign: 'left' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <span
                     style={{
                       width: 12,
@@ -225,8 +227,8 @@ export default function CertificateScene() {
           </div>
 
           {/* ── S2: Working Style ── */}
-          <div style={SECTION_STYLE}>
-            <div className="mono" style={{ color: '#843497', marginBottom: 8 }}>
+          <div style={{ ...SECTION_STYLE, display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div className="mono" style={{ color: '#843497' }}>
               2 · YOUR WORKING STYLE
             </div>
             <div
@@ -246,24 +248,24 @@ export default function CertificateScene() {
             className="cert-two-col"
             style={{ ...SECTION_STYLE, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}
           >
-            <div className="glass" style={{ padding: 20, borderColor: primary.color + '55' }}>
-              <div className="mono" style={{ color: primary.color, marginBottom: 6 }}>
+            <div className="glass" style={{ padding: 20, borderColor: primary.color + '55', display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div className="mono" style={{ color: primary.color }}>
                 3 · YOUR SUPERPOWER
               </div>
               <h2
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontSize: 28,
-                  margin: '4px 0 2px',
+                  margin: 0,
                   color: primary.color,
                 }}
               >
                 {certCopy.superpowerVn.roleVn}
               </h2>
-              <div className="mono" style={{ color: '#9ca3af', marginBottom: 8 }}>
+              <div className="mono" style={{ color: '#9ca3af' }}>
                 {certCopy.superpowerVn.roleEn}
               </div>
-              <div style={{ fontSize: 14, color: '#6b7280', marginBottom: 10 }}>
+              <div style={{ fontSize: 14, color: '#6b7280' }}>
                 {certCopy.superpowerVn.tagline}
               </div>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -276,24 +278,24 @@ export default function CertificateScene() {
                 <span className="pill">{certCopy.superpowerVn.score} / 100</span>
               </div>
             </div>
-            <div className="glass" style={{ padding: 20, borderColor: secondary.color + '55' }}>
-              <div className="mono" style={{ color: secondary.color, marginBottom: 6 }}>
+            <div className="glass" style={{ padding: 20, borderColor: secondary.color + '55', display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div className="mono" style={{ color: secondary.color }}>
                 4 · SECONDARY POWER
               </div>
               <h2
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontSize: 28,
-                  margin: '4px 0 2px',
+                  margin: 0,
                   color: secondary.color,
                 }}
               >
                 {certCopy.secondaryPowerVn.roleVn}
               </h2>
-              <div className="mono" style={{ color: '#9ca3af', marginBottom: 8 }}>
+              <div className="mono" style={{ color: '#9ca3af' }}>
                 {certCopy.secondaryPowerVn.roleEn}
               </div>
-              <div style={{ fontSize: 14, color: '#6b7280', marginBottom: 10 }}>
+              <div style={{ fontSize: 14, color: '#6b7280' }}>
                 {certCopy.secondaryPowerVn.tagline}
               </div>
               <span className="pill">{certCopy.secondaryPowerVn.score} / 100</span>
@@ -301,21 +303,23 @@ export default function CertificateScene() {
           </div>
 
           {/* ── S5: Profile Type ── */}
-          <div style={{ ...SECTION_STYLE, textAlign: 'center' }}>
-            <div className="mono" style={{ color: '#843497', marginBottom: 10 }}>
+          <div style={{ ...SECTION_STYLE, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, textAlign: 'center' }}>
+            <div className="mono" style={{ color: '#843497' }}>
               5 · PROFILE TYPE
             </div>
             <div
               style={{
-                display: 'inline-block',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 4,
                 padding: '16px 40px',
                 borderRadius: 12,
                 border: `2px solid ${profileColor}`,
                 background: `${profileColor}15`,
-                marginBottom: 16,
               }}
             >
-              <div className="mono" style={{ color: profileColor, fontSize: 13, marginBottom: 4 }}>
+              <div className="mono" style={{ color: profileColor, fontSize: 13 }}>
                 {result.profileType.toUpperCase()}
               </div>
               <h2
@@ -335,7 +339,7 @@ export default function CertificateScene() {
                 lineHeight: 1.7,
                 color: '#6b7280',
                 maxWidth: 600,
-                margin: '0 auto',
+                margin: 0,
               }}
             >
               {certCopy.profileTypeNarrativeVn}
@@ -343,19 +347,19 @@ export default function CertificateScene() {
           </div>
 
           {/* ── S6: Reality & Growth ── */}
-          <div style={SECTION_STYLE}>
-            <div className="mono" style={{ color: '#843497', marginBottom: 10 }}>
+          <div style={{ ...SECTION_STYLE, display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div className="mono" style={{ color: '#843497' }}>
               6 · REALITY & GROWTH INSIGHT
             </div>
-            <div className="dialogue" style={{ margin: 0 }}>
-              <div className="mono" style={{ color: '#843497', marginBottom: 6 }}>
+            <div className="dialogue" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div className="mono" style={{ color: '#843497' }}>
                 CAPI
               </div>
               <p style={{ fontSize: 15, lineHeight: 1.7, margin: 0 }}>
                 {certCopy.realityGrowthInsightVn}
               </p>
             </div>
-            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 14 }}>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
               <span className="pill" style={{ color: '#5b9fff' }}>
                 Reality Gap (P2–P1): {Math.round(result.realityGap[result.primaryRole])} pt
               </span>
@@ -369,8 +373,8 @@ export default function CertificateScene() {
           </div>
 
           {/* ── S7: Role Interpretation ── */}
-          <div style={SECTION_STYLE}>
-            <div className="mono" style={{ color: '#843497', marginBottom: 10 }}>
+          <div style={{ ...SECTION_STYLE, display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div className="mono" style={{ color: '#843497' }}>
               7 · ROLE INTERPRETATION
             </div>
             <div style={{ display: 'grid', gap: 12 }}>
@@ -416,8 +420,8 @@ export default function CertificateScene() {
           </div>
 
           {/* ── S8: Score breakdown ── */}
-          <div style={SECTION_STYLE}>
-            <div className="mono" style={{ color: '#843497', marginBottom: 12 }}>
+          <div style={{ ...SECTION_STYLE, display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div className="mono" style={{ color: '#843497' }}>
               8 · FULL SCORE BREAKDOWN
             </div>
             <div style={{ overflowX: 'auto' }}>
@@ -522,8 +526,8 @@ export default function CertificateScene() {
           </div>
 
           {/* ── S9: Growth ── */}
-          <div style={SECTION_STYLE}>
-            <div className="mono" style={{ color: '#843497', marginBottom: 10 }}>
+          <div style={{ ...SECTION_STYLE, display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div className="mono" style={{ color: '#843497' }}>
               9 · SUGGESTED GROWTH AREAS
             </div>
             <div style={{ display: 'grid', gap: 8 }}>
@@ -546,11 +550,11 @@ export default function CertificateScene() {
           </div>
 
           {/* ── S10: Pathways ── */}
-          <div style={SECTION_STYLE}>
-            <div className="mono" style={{ color: '#843497', marginBottom: 10 }}>
+          <div style={{ ...SECTION_STYLE, display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div className="mono" style={{ color: '#843497' }}>
               10 · CAREER & LEARNING PATHWAYS
             </div>
-            <p style={{ fontSize: 14, lineHeight: 1.7, color: '#6b7280', marginTop: 0 }}>
+            <p style={{ fontSize: 14, lineHeight: 1.7, color: '#6b7280', margin: 0 }}>
               Sự kết hợp của <b style={{ color: primary.color }}>{certCopy.superpowerVn.roleVn}</b>{' '}
               và <b style={{ color: secondary.color }}>{certCopy.secondaryPowerVn.roleVn}</b> tạo
               nên một profil hiếm có: bạn vừa có thể đào sâu vào lĩnh vực kỹ thuật của mình, vừa có
@@ -561,10 +565,10 @@ export default function CertificateScene() {
               className="cert-two-col"
               style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}
             >
-              <div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 <div
                   className="mono"
-                  style={{ color: primary.color, fontSize: 11, marginBottom: 6 }}
+                  style={{ color: primary.color, fontSize: 11 }}
                 >
                   KỸ NĂNG CỐT LÕI
                 </div>
@@ -576,7 +580,6 @@ export default function CertificateScene() {
                       background: `${primary.color}0a`,
                       borderRadius: 6,
                       fontSize: 13,
-                      marginBottom: 4,
                       color: '#374151',
                     }}
                   >
@@ -584,10 +587,10 @@ export default function CertificateScene() {
                   </div>
                 ))}
               </div>
-              <div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 <div
                   className="mono"
-                  style={{ color: secondary.color, fontSize: 11, marginBottom: 6 }}
+                  style={{ color: secondary.color, fontSize: 11 }}
                 >
                   KỸ NĂNG BỔ SUNG
                 </div>
@@ -599,7 +602,6 @@ export default function CertificateScene() {
                       background: `${secondary.color}0a`,
                       borderRadius: 6,
                       fontSize: 13,
-                      marginBottom: 4,
                       color: '#374151',
                     }}
                   >
@@ -611,8 +613,8 @@ export default function CertificateScene() {
           </div>
 
           {/* ── S11: Careers ── */}
-          <div style={SECTION_STYLE}>
-            <div className="mono" style={{ color: '#843497', marginBottom: 10 }}>
+          <div style={{ ...SECTION_STYLE, display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div className="mono" style={{ color: '#843497' }}>
               11 · CAREERS
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -635,8 +637,8 @@ export default function CertificateScene() {
           </div>
 
           {/* ── S12: Majors ── */}
-          <div style={{ ...SECTION_STYLE, borderBottom: 'none', marginBottom: 20 }}>
-            <div className="mono" style={{ color: '#843497', marginBottom: 10 }}>
+          <div style={{ ...SECTION_STYLE, borderBottom: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div className="mono" style={{ color: '#843497' }}>
               12 · MAJORS
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>

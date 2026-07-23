@@ -38,11 +38,11 @@ export default function CapiGeneInfoScene() {
           justifyContent: 'space-between',
         }}
       >
-        <h2 className="p2-new-header" style={{ marginBottom: 12 }}>
+        <h2 className="p2-new-header">
           {t('common.capi_gene_info_title')}
         </h2>
 
-        <div className="role-carousel-wrapper" style={{ marginBottom: 12 }}>
+        <div className="role-carousel-wrapper">
           <button
             className="role-carousel-btn"
             onClick={handlePrev}

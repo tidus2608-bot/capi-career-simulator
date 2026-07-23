@@ -72,6 +72,10 @@ export default function RoleRevealScene() {
             textAlign: 'center',
             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.04)',
             boxSizing: 'border-box',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 24,
           }}
         >
           {/* Header */}
@@ -80,7 +84,6 @@ export default function RoleRevealScene() {
               color: '#77767f',
               fontSize: 16,
               fontWeight: 500,
-              marginBottom: 24,
               fontFamily: 'var(--font-body)',
             }}
           >
@@ -96,35 +99,33 @@ export default function RoleRevealScene() {
               backgroundColor: badgeStyle.bg,
               display: 'grid',
               placeItems: 'center',
-              margin: '0 auto 20px',
             }}
           >
             <RoleIcon role={r.key} size={44} color={badgeStyle.color} />
           </div>
 
-          {/* Role Name */}
-          <h2
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(32px, 5vw, 40px)',
-              fontWeight: 600,
-              margin: '0 0 6px',
-              color: '#1c1c24',
-            }}
-          >
-            {r.name}
-          </h2>
-
-          {/* Tagline */}
-          <div
-            style={{
-              fontSize: 17,
-              fontWeight: 600,
-              color: '#23232c',
-              marginBottom: 24,
-            }}
-          >
-            {t(`common.roles.${r.key}.tagline`)}
+          {/* Role Name + Tagline */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <h2
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(32px, 5vw, 40px)',
+                fontWeight: 600,
+                margin: 0,
+                color: '#1c1c24',
+              }}
+            >
+              {r.name}
+            </h2>
+            <div
+              style={{
+                fontSize: 17,
+                fontWeight: 600,
+                color: '#23232c',
+              }}
+            >
+              {t(`common.roles.${r.key}.tagline`)}
+            </div>
           </div>
 
           {/* Capi Dialogue */}
@@ -134,7 +135,6 @@ export default function RoleRevealScene() {
               gap: 12,
               alignItems: 'center',
               textAlign: 'left',
-              margin: '0 auto 24px',
             }}
           >
             <Capi outfit="lab" pose="cheer" size={52} style={{ flexShrink: 0 }} />
@@ -159,7 +159,7 @@ export default function RoleRevealScene() {
               color: '#8c8b94',
               lineHeight: 1.4,
               textAlign: 'left',
-              margin: '0 0 20px',
+              margin: 0,
             }}
           >
             {t('reveal.disclaimer')}

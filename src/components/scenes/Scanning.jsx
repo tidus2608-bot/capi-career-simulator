@@ -6,7 +6,7 @@ import { PHASE1_QUESTIONS, CONFIDENCE_CHECKS } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
 import Button from '../Button.jsx'
-import QASection from '../QASection.jsx'
+import QAPageLayout from './QAPageLayout.jsx'
 
 export default function ScanningScene() {
   const { t } = useTranslation()
@@ -114,13 +114,13 @@ export default function ScanningScene() {
         <div style={{ display: 'grid', placeItems: 'center', minHeight: '100%', padding: 24 }}>
           <div
             className="glass fade-up"
-            style={{ maxWidth: 600, padding: '32px 36px', textAlign: 'center' }}
+            style={{ maxWidth: 600, padding: '32px 36px', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'center' }}
           >
-            <div className="mono" style={{ color: '#843497', marginBottom: 20 }}>
+            <div className="mono" style={{ color: '#843497' }}>
               {t('intro.scan_intro_title')}
             </div>
             <p
-              style={{ color: '#6b7280', fontSize: 14, marginBottom: 24, lineHeight: 1.65 }}
+              style={{ color: '#6b7280', fontSize: 14, lineHeight: 1.65, margin: 0 }}
               dangerouslySetInnerHTML={{ __html: t('intro.scan_intro_blurb') }}
             />
             <div style={{ display: 'flex', gap: 16, width: '100%' }}>
@@ -153,71 +153,21 @@ export default function ScanningScene() {
   const imgPath = '/illos/capi-phase1.png'
 
   return (
-    <SceneShell light className="no-scroll-shell">
-      <div
-        className="p2-new-layout"
-        style={{
-          height: '100%',
-          padding: 'clamp(20px, 3.5vh, 40px) 48px clamp(16px, 2.5vh, 32px)',
-          boxSizing: 'border-box',
-          justifyContent: 'space-between',
-          maxWidth: '1200px',
-        }}
-      >
-        {/* Dynamic Split Layout */}
-        <div className="p1-split-layout">
-          <div className="p1-left-illustration">
-            <img src={imgPath} alt="" />
-          </div>
-
-          <div className="p1-right-content">
-            {/* Progress Bar Container */}
-            <div className="p1-progress-bar-container">
-              <div className="p1-progress-labels">
-                <span>
-                  {t('common.question_progress', {
-                    num: String(idx + 1).padStart(2, '0'),
-                    total: String(total).padStart(2, '0'),
-                  })}
-                </span>
-                <span>
-                  {t('common.percent_completed', { percent: Math.round((idx / total) * 100) })}
-                </span>
-              </div>
-              <div className="p1-progress-outer">
-                <div className="p1-progress-inner" style={{ width: `${(idx / total) * 100}%` }} />
-              </div>
-            </div>
-
-            <QASection
-              key={idx}
-              questionText={t(`questions.${currentQ.id}`)}
-              options={[1, 2, 3, 4, 5].map((val) => ({
-                value: val,
-                text: t(`likert.${val}`),
-              }))}
-              selectedValue={currentValue}
-              onSelect={handleSelectOption}
-            />
-
-            <div className="p2-new-actions" style={{ width: '100%' }}>
-              <Button variant="outline" onClick={back}>
-                {t('common.back_btn')}
-              </Button>
-              <Button
-                variant="solid"
-                active={currentValue !== undefined && currentValue !== null}
-                disabled={currentValue === undefined || currentValue === null}
-                onClick={next}
-              >
-                {idx + 1 >= total
-                  ? t('common.finish_btn') || 'Hoàn thành →'
-                  : t('common.continue_btn') || 'Tiếp tục →'}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </SceneShell>
+    <QAPageLayout
+      imageSrc={imgPath}
+      idx={idx}
+      total={total}
+      questionText={t(`questions.${currentQ.id}`)}
+      options={[1, 2, 3, 4, 5].map((val) => ({
+        value: val,
+        text: t(`likert.${val}`),
+      }))}
+      selectedValue={currentValue}
+      onSelect={handleSelectOption}
+      onBack={back}
+      onNext={next}
+      nextDisabled={currentValue === undefined || currentValue === null}
+      isFinished={idx + 1 >= total}
+    />
   )
 }

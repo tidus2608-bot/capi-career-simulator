@@ -56,7 +56,7 @@ export function WizardProvider({ children }) {
 
   // Exact question indexes
   const [scanIndex, setScanIndex] = useLocalStorageState('scanIndex', 0)
-  const [missionPlayIndex, setMissionPlayIndex] = useLocalStorageState('missionPlayIndex', 0)
+  const [missionPlayIndices, setMissionPlayIndices] = useLocalStorageState('missionPlayIndices', {})
   const [reflectIndex, setReflectIndex] = useLocalStorageState('reflectIndex', 0)
   const [scanQuestions, setScanQuestions] = useLocalStorageState('scanQuestions', null)
 
@@ -174,7 +174,7 @@ export function WizardProvider({ children }) {
     setStartedAt(null)
     setSavedRunId(null)
     setScanIndex(0)
-    setMissionPlayIndex(0)
+    setMissionPlayIndices({})
     setReflectIndex(0)
     setScanQuestions(null)
     setSaveStatus('idle')
@@ -206,8 +206,8 @@ export function WizardProvider({ children }) {
         setStartedAt,
         scanIndex,
         setScanIndex,
-        missionPlayIndex,
-        setMissionPlayIndex,
+        missionPlayIndices,
+        setMissionPlayIndices,
         reflectIndex,
         setReflectIndex,
         scanQuestions,

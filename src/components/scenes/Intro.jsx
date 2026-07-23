@@ -63,7 +63,7 @@ export default function IntroScene() {
         }}
       >
         <div
-          style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+          style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 24 }}
           className="fade-up"
         >
           <div
@@ -76,7 +76,6 @@ export default function IntroScene() {
               fontSize: 12,
               fontWeight: 600,
               alignSelf: 'flex-start',
-              marginBottom: 24,
               letterSpacing: '0.05em',
               opacity: 0.9,
             }}
@@ -90,14 +89,14 @@ export default function IntroScene() {
               fontSize: 'clamp(28px, 4vw, 42px)',
               fontWeight: 700,
               lineHeight: 1.2,
-              margin: '0 0 24px',
+              margin: 0,
               color: '#fff',
             }}
           >
             {t('intro.new_title')}
           </h1>
 
-          <p style={{ fontSize: 16, lineHeight: 1.6, color: '#e2e8f0', marginBottom: 32 }}>
+          <p style={{ fontSize: 16, lineHeight: 1.6, color: '#e2e8f0' }}>
             {t('intro.new_blurb')}
           </p>
 

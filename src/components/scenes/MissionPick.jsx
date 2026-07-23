@@ -26,7 +26,7 @@ export default function MissionPickScene() {
           justifyContent: 'space-between',
         }}
       >
-        <h2 className="p2-new-header" style={{ margin: '0 0 16px', flexShrink: 0 }}>
+        <h2 className="p2-new-header" style={{ margin: 0, flexShrink: 0 }}>
           {t('common.select_challenge')}
         </h2>
 
