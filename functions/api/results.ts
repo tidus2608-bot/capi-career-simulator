@@ -30,7 +30,7 @@ interface RunRow {
 /**
  * GET /api/results
  *
- * Auth: signed admin session cookie (Google OAuth via /api/auth/login).
+ * Auth: signed admin session cookie issued by /api/auth/session.
  * Reads from the Supabase `runs` table via service-role key (bypasses RLS).
  */
 export async function onRequestGet({

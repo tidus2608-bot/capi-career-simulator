@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.functions.json",
     "test": "vitest run",
     "test:watch": "vitest",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run build"
+    "verify": "bun run lint && bun run typecheck && bun run test && bun run build"
   },
   "dependencies": {
     "@iconify/react": "^6.0.2",

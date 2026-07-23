@@ -33,6 +33,7 @@ function useLocalStorageState(key, defaultValue) {
 
 export function WizardProvider({ children }) {
   const [user, setUser] = useState(null)
+  const [session, setSession] = useState(null)
   const [authLoading, setAuthLoading] = useState(true)
 
   // Persistent States
@@ -66,12 +67,14 @@ export function WizardProvider({ children }) {
   // ── Auth ──
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
       setUser(session?.user ?? null)
       setAuthLoading(false)
     })
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
       setUser(session?.user ?? null)
       setAuthLoading(false)
     })
@@ -182,6 +185,7 @@ export function WizardProvider({ children }) {
     <WizardContext.Provider
       value={{
         user,
+        session,
         authLoading,
         scanIntroActive,
         setScanIntroActive,
