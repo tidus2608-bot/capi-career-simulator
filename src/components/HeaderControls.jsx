@@ -17,6 +17,21 @@ export default function HeaderControls({ muted, toggleMute }) {
   const path = location.pathname
 
   const isHome = path === '/'
+  const isSummary = path === '/certificate/summary'
+
+  if (path === '/certificate/details') {
+    return (
+      <Button
+        variant="icon"
+        title={muted ? t('common.audio_on') : t('common.audio_off')}
+        aria-label={muted ? t('common.audio_on') : t('common.audio_off')}
+        aria-pressed={muted}
+        onClick={toggleMute}
+      >
+        {audioIcon}
+      </Button>
+    )
+  }
 
   const TRANSLATED_PATHS = new Set([
     '/',
@@ -25,16 +40,27 @@ export default function HeaderControls({ muted, toggleMute }) {
     '/role-reveal',
     '/theme',
     '/mission-pick',
+    '/mission-play',
+    '/reflect',
     '/certificate',
+    '/certificate/loading',
+    '/certificate/summary',
     '/history',
   ])
 
   const showLanguage = TRANSLATED_PATHS.has(path)
-  const showHome = !isHome
+  const showHome = !isHome && path !== '/certificate/loading'
 
   const handleHomeClick = () => {
     capiAudio.sfx('click')
     navigate('/')
+  }
+
+  const handleShare = () => {
+    capiAudio.sfx('click')
+    if (navigator.share) {
+      navigator.share({ title: 'Mật mã Capi-Gene', url: window.location.href })
+    }
   }
 
   const audioIcon = (
@@ -45,7 +71,22 @@ export default function HeaderControls({ muted, toggleMute }) {
     />
   )
 
-  if (isHome) {
+  const circleButtonStyle = {
+    width: 38,
+    height: 38,
+    borderRadius: '50%',
+    padding: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+    border: '1px solid #e5e7eb',
+    background: '#fff',
+    flexShrink: 0,
+  }
+
+  if (isHome || isSummary) {
     return (
       <div
         style={{
@@ -77,29 +118,77 @@ export default function HeaderControls({ muted, toggleMute }) {
           Capi Career Path Simulator
         </div>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-          <AdminAuthNav
-            supabase={supabase}
-            session={session}
-            onHistory={user ? () => navigate('/history') : null}
-          />
-          <LanguageSwitch />
-          <Button
-            variant="icon"
-            style={{
-              position: 'static',
-              width: 44,
-              height: 44,
-              border: 'none',
-              background: '#f3f4f6',
-              color: '#1a1a2e',
-            }}
-            title={muted ? t('common.audio_on') : t('common.audio_off')}
-            aria-label={muted ? t('common.audio_on') : t('common.audio_off')}
-            aria-pressed={muted}
-            onClick={toggleMute}
-          >
-            {audioIcon}
-          </Button>
+          {isSummary ? (
+            <>
+              <LanguageSwitch />
+              <Button
+                variant="icon"
+                style={{
+                  position: 'static',
+                  width: 44,
+                  height: 44,
+                  border: 'none',
+                  background: '#f3f4f6',
+                  color: '#1a1a2e',
+                }}
+                title={muted ? t('common.audio_on') : t('common.audio_off')}
+                aria-label={muted ? t('common.audio_on') : t('common.audio_off')}
+                aria-pressed={muted}
+                onClick={toggleMute}
+              >
+                {audioIcon}
+              </Button>
+              <Button
+                variant="outline"
+                style={circleButtonStyle}
+                onClick={handleHomeClick}
+                title={t('common.back_to_home') || 'Về trang chủ'}
+              >
+                <Icon icon="mdi:home-outline" width={20} height={20} />
+              </Button>
+              <Button
+                variant="outline"
+                style={circleButtonStyle}
+                onClick={handleShare}
+                title={t('common.share') || 'Chia sẻ'}
+              >
+                <Icon icon="mdi:share-variant-outline" width={20} height={20} />
+              </Button>
+              <Button
+                variant="outline"
+                style={circleButtonStyle}
+                title={t('common.save') || 'Lưu'}
+              >
+                <Icon icon="mdi:bookmark-outline" width={20} height={20} />
+              </Button>
+            </>
+          ) : (
+            <>
+              <AdminAuthNav
+                supabase={supabase}
+                session={session}
+                onHistory={user ? () => navigate('/history') : null}
+              />
+              <LanguageSwitch />
+              <Button
+                variant="icon"
+                style={{
+                  position: 'static',
+                  width: 44,
+                  height: 44,
+                  border: 'none',
+                  background: '#f3f4f6',
+                  color: '#1a1a2e',
+                }}
+                title={muted ? t('common.audio_on') : t('common.audio_off')}
+                aria-label={muted ? t('common.audio_on') : t('common.audio_off')}
+                aria-pressed={muted}
+                onClick={toggleMute}
+              >
+                {audioIcon}
+              </Button>
+            </>
+          )}
         </div>
       </div>
     )
@@ -122,20 +211,7 @@ export default function HeaderControls({ muted, toggleMute }) {
         {showHome && (
           <Button
             variant="outline"
-            style={{
-              width: 38,
-              height: 38,
-              borderRadius: '50%',
-              padding: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-              border: '1px solid #e5e7eb',
-              background: '#fff',
-              flexShrink: 0,
-            }}
+            style={circleButtonStyle}
             onClick={handleHomeClick}
             title={t('common.back_to_home') || 'Về trang chủ'}
           >

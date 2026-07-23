@@ -76,7 +76,7 @@ export default function AppLayout() {
     if (path !== '/') return
 
     if (scoringResult) {
-      navigate('/certificate', { replace: true })
+      navigate('/certificate/loading', { replace: true })
     } else if (selectedMission) {
       const m = CAPI_MISSIONS[selectedMission]
       const totalQs = m ? m.questions.length : 0
@@ -119,7 +119,7 @@ export default function AppLayout() {
       return
     }
 
-    if (path === '/certificate' || path === '/history') {
+    if (path.startsWith('/certificate') || path === '/history') {
       if (!scoringResult) navigate('/', { replace: true })
       return
     }

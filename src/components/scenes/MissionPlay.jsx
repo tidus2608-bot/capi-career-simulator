@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Button from '../Button.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_MISSIONS } from '../../data.js'
@@ -28,6 +29,7 @@ const MISSION_PADS = {
 // Transition images are located under public/illos/
 
 export default function MissionPlayScene() {
+  const { t } = useTranslation()
   const {
     selectedMission: missionId,
     phase2Answers: answers,
@@ -151,9 +153,9 @@ export default function MissionPlayScene() {
             <div className="p1-progress-bar-container">
               <div className="p1-progress-labels">
                 <span>
-                  Question {String(idx + 1).padStart(2, '0')} of {String(qs.length).padStart(2, '0')}
+                  {t('common_extra.question_of', { num: String(idx + 1).padStart(2, '0'), total: String(qs.length).padStart(2, '0') })}
                 </span>
-                <span>{progress}% Hoàn thiện</span>
+                <span>{t('common_extra.completed_pct', { percent: progress })}</span>
               </div>
               <div className="p1-progress-outer">
                 <div className="p1-progress-inner" style={{ width: `${progress}%` }} />
@@ -174,7 +176,7 @@ export default function MissionPlayScene() {
 
             <div className="p2-new-actions" style={{ width: '100%' }}>
               <Button variant="outline" onClick={goBack}>
-                ← Quay lại
+                {t('common.back')}
               </Button>
               <Button
                 variant="solid"
@@ -182,7 +184,7 @@ export default function MissionPlayScene() {
                 disabled={picked === null}
                 onClick={goNext}
               >
-                Tiếp tục →
+                {t('common.continue_btn')} →
               </Button>
             </div>
           </div>

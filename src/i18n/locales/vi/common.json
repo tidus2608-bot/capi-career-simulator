@@ -219,5 +219,35 @@
   "theme": {
     "welcome_title": "Chào mừng bạn đến với cửa ải thứ 2 của trò chơi nhé",
     "welcome_subtitle": "Hãy chọn một chủ đề nhiệm vụ và bắt đầu khám phá nhé!"
+  },
+  "report": {
+    "loading_title": "Đang tổng hợp dữ liệu...",
+    "loading_subtitle": "Đang phân tích và giải mã Capi-Gene...",
+    "mascot_title": "Xong rồi! Đây là Mật mã nghề nghiệp của bạn.",
+    "mascot_desc": "Mình đã tổng hợp tín hiệu từ bài quét, nhiệm vụ mô phỏng và phần phản chiếu của bạn.",
+    "card_strength": "Điểm mạnh nổi trội",
+    "card_style": "Phong cách làm việc",
+    "card_growth": "Điểm cần lưu ý",
+    "btn_restart": "Thử nhiệm vụ khác",
+    "btn_back_to_home": "Trở về Trang chủ",
+    "cert_title": "Chứng nhận CAPI-GENE",
+    "cert_subtitle": "Được giải mã bởi Viện Nghiên cứu Capi",
+    "btn_details": "Xem chi tiết báo cáo",
+    "btn_pdf": "Tải báo cáo PDF",
+    "scanning_behavior_data": "Đang quét dữ liệu hành vi...",
+    "details_title": "Chi Tiết Mật Mã",
+    "details_back": "Quay lại tổng quan",
+    "details_strength": "ĐIỂM MẠNH",
+    "details_growth": "ĐIỂM CẦN LƯU Ý",
+    "details_compatibility": "ĐỘ TƯƠNG THÍCH",
+    "details_career": "CƠ HỘI NGHỀ NGHIỆP",
+    "details_nuance": "GÓC NHÌN SÂU HƠN"
+  },
+  "common_extra": {
+    "click_anywhere_to_continue": "Nhấp vào bất kỳ đâu để tiếp tục",
+    "question_of": "Câu hỏi {{num}} trên {{total}}",
+    "completed_pct": "{{percent}}% Hoàn thiện",
+    "back_vn": "Quay lại",
+    "continue_vn": "Tiếp tục"
   }
 }

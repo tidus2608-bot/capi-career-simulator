@@ -219,5 +219,35 @@
   "theme": {
     "welcome_title": "Welcome to the second stage of the game!",
     "welcome_subtitle": "Select a mission theme and start exploring!"
+  },
+  "report": {
+    "loading_title": "Synthesizing data...",
+    "loading_subtitle": "Analyzing and decoding Capi-Gene...",
+    "mascot_title": "Done! Here is your Career Code.",
+    "mascot_desc": "I have synthesized signals from your scan, simulation mission, and reflection.",
+    "card_strength": "Key Strengths",
+    "card_style": "Working Style",
+    "card_growth": "Points to Note",
+    "btn_restart": "Try another mission",
+    "btn_back_to_home": "Back to Home",
+    "cert_title": "CAPI-GENE Certificate",
+    "cert_subtitle": "Decoded by Capi Research Institute",
+    "btn_details": "View detailed report",
+    "btn_pdf": "Download PDF Report",
+    "scanning_behavior_data": "Scanning behavior data...",
+    "details_title": "Decoder Details",
+    "details_back": "Back to summary",
+    "details_strength": "STRENGTHS",
+    "details_growth": "POINTS TO NOTE",
+    "details_compatibility": "COMPATIBILITY",
+    "details_career": "CAREER OPPORTUNITIES",
+    "details_nuance": "DEEPER NUANCE"
+  },
+  "common_extra": {
+    "click_anywhere_to_continue": "Click anywhere to continue",
+    "question_of": "Question {{num}} of {{total}}",
+    "completed_pct": "{{percent}}% Completed",
+    "back_vn": "Back",
+    "continue_vn": "Continue"
   }
 }

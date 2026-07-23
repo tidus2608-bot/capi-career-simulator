@@ -543,11 +543,11 @@
       }
     ],
     "likert_labels_vn": {
-      "1": "Rất không phù hợp",
-      "2": "Không phù hợp",
-      "3": "Bình thường",
-      "4": "Phù hợp",
-      "5": "Rất phù hợp"
+      "0": "Rất không phù hợp",
+      "1": "Không phù hợp",
+      "2": "Bình thường",
+      "3": "Phù hợp",
+      "4": "Rất phù hợp"
     },
     "scoring_formula": "Per role: (answer-1)/4 × 100."
   },

@@ -189,6 +189,14 @@ function realityGrowthNarrative(result, primary) {
   return `Bạn nghĩ mình là một ${topSelf.name_vn}, nhưng thực chất bạn lại phù hợp hơn với vai trò ${primary.name_vn}. Đây không phải là sự mâu thuẫn — đây là cơ hội để hiểu rõ hơn về bản thân.`
 }
 
+const PHRASE_BANK_EN = {
+  explorer: ["curious", "empathetic", "questioning", "deeply analytical"],
+  builder: ["hands-on", "creative", "solution-oriented", "turning ideas into working products"],
+  operator: ["meticulous", "reliable", "execution-focused", "ensuring stable system operations"],
+  connector: ["collaborative", "people-oriented", "connecting stakeholders", "leading consensus"],
+  communicator: ["clear", "persuasive", "storytelling", "making complex ideas simple"]
+}
+
 export function buildCertificateCopy(result) {
   const primary = getRoleData(result.primaryRole)
   const secondary = getRoleData(result.secondaryRole)
@@ -196,6 +204,10 @@ export function buildCertificateCopy(result) {
   const lowestRoles = [...ROLES].sort((a, b) => result.final[a] - result.final[b]).slice(0, 2)
 
   const workingStyleHeadlineVn = `Bạn có xu hướng ${primary.phrase_bank_vn[0]} và ${primary.phrase_bank_vn[1]}, kết hợp với khả năng ${secondary.phrase_bank_vn[0]}.`
+
+  const phraseEn = PHRASE_BANK_EN[result.primaryRole] || ["curious", "empathetic"]
+  const secPhraseEn = PHRASE_BANK_EN[result.secondaryRole] || ["hands-on"]
+  const workingStyleHeadlineEn = `You tend to be ${phraseEn[0]} and ${phraseEn[1]}, combined with a capability for ${secPhraseEn[0]} work.`
 
   const profileTypeLabelVn = `${result.profileType} ${primary.name_vn}`
   const profileTypeNarrativeVn = profileNarrative(result.profileType, primary)
@@ -217,15 +229,20 @@ export function buildCertificateCopy(result) {
   })
 
   const growthAreasVn = []
+  const growthAreasEn = []
   for (const lowRoleKey of lowestRoles) {
     const lowRole = getRoleData(lowRoleKey)
     if (lowRole.qualifications_vn.length > 0) {
       growthAreasVn.push(`Phát triển kỹ năng ${lowRole.name_vn}: ${lowRole.qualifications_vn[0]}.`)
     }
+    if (lowRole.qualifications_en.length > 0) {
+      growthAreasEn.push(`Develop ${lowRole.name_en} skills: ${lowRole.qualifications_en[0]}.`)
+    }
   }
 
   return {
     workingStyleHeadlineVn,
+    workingStyleHeadlineEn,
     superpowerVn: {
       roleVn: primary.name_vn,
       roleEn: primary.name_en,
@@ -246,11 +263,16 @@ export function buildCertificateCopy(result) {
     secondaryInterpretationVn,
     fullScoreBreakdown,
     growthAreasVn,
+    growthAreasEn,
     primaryQualifications: primary.qualifications_vn,
+    primaryQualificationsEn: primary.qualifications_en,
     primaryCareers: primary.careers_vn,
+    primaryCareersEn: primary.careers_en,
     primaryMajors: primary.majors_vn,
     secondaryQualifications: secondary.qualifications_vn,
+    secondaryQualificationsEn: secondary.qualifications_en,
     secondaryCareers: secondary.careers_vn,
+    secondaryCareersEn: secondary.careers_en,
     secondaryMajors: secondary.majors_vn,
   }
 }

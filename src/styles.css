@@ -2632,5 +2632,14 @@ button.admin-auth-link {
     transform: scale(1.2);
     box-shadow: 0 0 8px #ff6b9d;
   }
+
+.pulse-hover {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s;
+}
+.pulse-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(132, 52, 151, 0.2);
+}
+
 }
 

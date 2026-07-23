@@ -1,8 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { capiAudio } from '../../audio.js'
 
 export default function TransitionScreen({ imageSrc, onNext }) {
+  const { t } = useTranslation()
+  const [isReady, setIsReady] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsReady(true)
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [])
+
   const handleClick = () => {
+    if (!isReady) return
     capiAudio.sfx('click')
     if (onNext) onNext()
   }
@@ -12,7 +24,7 @@ export default function TransitionScreen({ imageSrc, onNext }) {
     <div
       className="p2-shell"
       onClick={handleClick}
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: isReady ? 'pointer' : 'default' }}
     >
       <img
         src={imageSrc}
@@ -52,7 +64,9 @@ export default function TransitionScreen({ imageSrc, onNext }) {
           display: 'flex',
           alignItems: 'center',
           gap: 10,
-          animation: 'pulseGlow 2s infinite ease-in-out',
+          animation: isReady ? 'pulseGlow 2s infinite ease-in-out' : 'none',
+          opacity: isReady ? 1 : 0,
+          transition: 'opacity 0.4s ease-in-out',
           whiteSpace: 'nowrap',
         }}
       >
@@ -66,7 +80,7 @@ export default function TransitionScreen({ imageSrc, onNext }) {
             animation: 'blinkIndicator 1s infinite alternate',
           }}
         />
-        Nhấp vào bất kỳ đâu để tiếp tục
+        {t('common_extra.click_anywhere_to_continue')}
       </div>
     </div>
   )
