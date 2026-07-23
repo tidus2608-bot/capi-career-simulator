@@ -164,24 +164,6 @@ export default function ScanningScene() {
           maxWidth: '1200px',
         }}
       >
-        {/* Progress Bar Container */}
-        <div className="p1-progress-bar-container">
-          <div className="p1-progress-labels">
-            <span>
-              {t('common.question_progress', {
-                num: String(idx + 1).padStart(2, '0'),
-                total: String(total).padStart(2, '0'),
-              })}
-            </span>
-            <span>
-              {t('common.percent_completed', { percent: Math.round((idx / total) * 100) })}
-            </span>
-          </div>
-          <div className="p1-progress-outer">
-            <div className="p1-progress-inner" style={{ width: `${(idx / total) * 100}%` }} />
-          </div>
-        </div>
-
         {/* Dynamic Split Layout */}
         <div className="p1-split-layout">
           <div className="p1-left-illustration">
@@ -189,6 +171,24 @@ export default function ScanningScene() {
           </div>
 
           <div className="p1-right-content">
+            {/* Progress Bar Container */}
+            <div className="p1-progress-bar-container">
+              <div className="p1-progress-labels">
+                <span>
+                  {t('common.question_progress', {
+                    num: String(idx + 1).padStart(2, '0'),
+                    total: String(total).padStart(2, '0'),
+                  })}
+                </span>
+                <span>
+                  {t('common.percent_completed', { percent: Math.round((idx / total) * 100) })}
+                </span>
+              </div>
+              <div className="p1-progress-outer">
+                <div className="p1-progress-inner" style={{ width: `${(idx / total) * 100}%` }} />
+              </div>
+            </div>
+
             <QASection
               key={idx}
               questionText={t(`questions.${currentQ.id}`)}
