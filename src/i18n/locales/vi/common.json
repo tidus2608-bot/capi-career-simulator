@@ -53,7 +53,7 @@
     "mission_title_prefix": "NHIỆM VỤ",
     "question_progress": "Câu hỏi {{num}} / {{total}}",
     "percent_completed": "{{percent}}% Hoàn thiện",
-    "phase1_completed": "Đã hoàn thành phase 1",
+    "phase1_completed": "Phase 1 Completed!",
     "continue_btn": "Tiếp tục",
     "finish_btn": "Hoàn thành",
     "themes": {

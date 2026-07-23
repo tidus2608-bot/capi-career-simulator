@@ -6,6 +6,7 @@ import { capiAudio } from '../../audio.js'
 import { CAPI_ROLES, PHASE3_QUESTIONS, LIKERT_FIT } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
+import Button from '../Button.jsx'
 import LikertSlider from './LikertSlider.jsx'
 
 export default function ReflectionScene() {
@@ -113,9 +114,9 @@ export default function ReflectionScene() {
             onChange={(v) => setAnswers((a) => ({ ...a, [q.role]: v }))}
           />
           <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 16 }}>
-            <button className="btn btn-primary" onClick={next}>
+            <Button variant="solid" active onClick={next}>
               {idx + 1 >= PHASE3_QUESTIONS.length ? 'Hoàn thành →' : 'Tiếp theo →'}
-            </button>
+            </Button>
           </div>
         </div>
       </div>

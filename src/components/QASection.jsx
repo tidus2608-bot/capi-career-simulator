@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from './Button.jsx'
 
 export default function QASection({ questionText, options, selectedValue, onSelect }) {
   return (
@@ -8,33 +9,19 @@ export default function QASection({ questionText, options, selectedValue, onSele
       </h3>
       <div className="p2-options">
         {options.map((opt) => {
-          const isSelected = selectedValue === opt.value || selectedValue === opt.label
+          const isSelected =
+            selectedValue != null &&
+            ((opt.value !== undefined && String(selectedValue) === String(opt.value)) ||
+              (opt.label !== undefined && String(selectedValue) === String(opt.label)))
           return (
-            <button
+            <Button
               key={opt.label || opt.value}
-              className={`p2-option ${isSelected ? 'p2-selected' : ''}`}
+              variant="option"
+              selected={isSelected}
               onClick={() => onSelect(opt.value !== undefined ? opt.value : opt)}
             >
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 22,
-                  height: 22,
-                  borderRadius: '50%',
-                  background: isSelected ? '#843497' : '#f3f4f6',
-                  color: isSelected ? '#fff' : '#6b7280',
-                  fontSize: 11,
-                  fontWeight: 700,
-                  marginRight: 10,
-                  flexShrink: 0,
-                }}
-              >
-                {opt.label || opt.value}
-              </span>
               {opt.text}
-            </button>
+            </Button>
           )
         })}
       </div>

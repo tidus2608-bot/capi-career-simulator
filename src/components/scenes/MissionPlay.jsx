@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Capi from '../Capi.jsx'
+import Button from '../Button.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_MISSIONS } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
@@ -132,8 +133,9 @@ export default function MissionPlayScene() {
             gap: 16,
           }}
         >
-          <button
-            className="p2-btn"
+          <Button
+            variant="solid"
+            active
             style={{ maxWidth: 320 }}
             onClick={() => {
               capiAudio.sfx('click')
@@ -141,14 +143,14 @@ export default function MissionPlayScene() {
             }}
           >
             BẮT ĐẦU NHIỆM VỤ →
-          </button>
-          <button
-            className="p2-nav-back"
-            style={{ background: 'rgba(0,0,0,0.3)', color: '#fff', border: 'none' }}
+          </Button>
+          <Button
+            variant="ghost"
+            style={{ color: '#fff' }}
             onClick={() => navigate('/mission-pick')}
           >
             ← Quay lại
-          </button>
+          </Button>
         </div>
       </div>
     )
@@ -269,12 +271,12 @@ export default function MissionPlayScene() {
         />
 
         <div className="p2-q-nav">
-          <button className="p2-nav-back" onClick={goBack}>
+          <Button variant="outline" onClick={goBack}>
             ← Quay lại
-          </button>
-          <button className="p2-nav-next" disabled={picked === null} onClick={goNext}>
+          </Button>
+          <Button variant="solid" active={picked !== null} disabled={picked === null} onClick={goNext}>
             Tiếp tục →
-          </button>
+          </Button>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { CAPI_ROLES, CAPI_THEMES } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import { supabase } from '../../lib/supabase.js'
 import SceneShell from './SceneShell.jsx'
+import Button from '../Button.jsx'
 
 const PROFILE_COLOR = {
   Hidden: '#e11d48',
@@ -58,9 +59,9 @@ export default function HistoryScene() {
             flexWrap: 'wrap',
           }}
         >
-          <button className="btn btn-ghost" onClick={() => navigate('/certificate')}>
+          <Button variant="ghost" onClick={() => navigate('/certificate')}>
             {t('common.back')}
-          </button>
+          </Button>
           <div>
             <div className="mono" style={{ color: '#843497' }}>
               {t('history.section_label')}

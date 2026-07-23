@@ -5,6 +5,7 @@ import { capiAudio } from '../../audio.js'
 import { PHASE1_QUESTIONS, CONFIDENCE_CHECKS } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
+import Button from '../Button.jsx'
 import QASection from '../QASection.jsx'
 
 export default function ScanningScene() {
@@ -123,25 +124,25 @@ export default function ScanningScene() {
               dangerouslySetInnerHTML={{ __html: t('intro.scan_intro_blurb') }}
             />
             <div style={{ display: 'flex', gap: 16, width: '100%' }}>
-              <button
-                className="p2-btn-outline"
+              <Button
+                variant="outline"
                 onClick={() => {
                   capiAudio.sfx('click')
                   navigate('/')
                 }}
               >
                 {t('common.back_btn')}
-              </button>
-              <button
-                className="p2-btn-solid active"
-                style={{ cursor: 'pointer' }}
+              </Button>
+              <Button
+                variant="solid"
+                active
                 onClick={() => {
                   capiAudio.sfx('click')
                   setShowIntro(false)
                 }}
               >
                 {t('intro.scan_intro_btn')}
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -160,7 +161,7 @@ export default function ScanningScene() {
           padding: 'clamp(20px, 3.5vh, 40px) 48px clamp(16px, 2.5vh, 32px)',
           boxSizing: 'border-box',
           justifyContent: 'space-between',
-          maxWidth: '1000px',
+          maxWidth: '1200px',
         }}
       >
         {/* Progress Bar Container */}
@@ -200,18 +201,19 @@ export default function ScanningScene() {
             />
 
             <div className="p2-new-actions" style={{ width: '100%' }}>
-              <button className="p2-btn-outline" onClick={back}>
+              <Button variant="outline" onClick={back}>
                 {t('common.back_btn')}
-              </button>
-              <button
-                className={`p2-btn-solid ${currentValue !== undefined && currentValue !== null ? 'active' : ''}`}
+              </Button>
+              <Button
+                variant="solid"
+                active={currentValue !== undefined && currentValue !== null}
                 disabled={currentValue === undefined || currentValue === null}
                 onClick={next}
               >
                 {idx + 1 >= total
                   ? t('common.finish_btn') || 'Hoàn thành →'
                   : t('common.continue_btn') || 'Tiếp tục →'}
-              </button>
+              </Button>
             </div>
           </div>
         </div>

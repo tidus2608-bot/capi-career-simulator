@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { capiAudio } from '../../audio.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
+import Button from '../Button.jsx'
+import { Icon } from '@iconify/react'
 
 export default function IntroScene() {
   const { t } = useTranslation()
@@ -100,25 +102,26 @@ export default function IntroScene() {
           </p>
 
           <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-            <button
-              className="btn btn-primary"
-              style={{ padding: '14px 24px', fontSize: 16, borderRadius: 12 }}
+            <Button
+              variant="solid"
+              active
+              style={{
+                padding: '14px 24px',
+                fontSize: 16,
+                borderRadius: 12,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 8,
+              }}
               onClick={handleStart}
             >
               {t('intro.btn_scan_gene')}
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 8 }}>
-                <path
-                  d="M5 12h14M13 5l7 7-7 7"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
+              <Icon icon="mdi:arrow-right" width="20" height="20" />
+            </Button>
 
-            <button
-              className="btn"
+            <Button
+              variant="outline"
               style={{
                 background: '#fff',
                 color: '#1a1a2e',
@@ -126,24 +129,18 @@ export default function IntroScene() {
                 fontSize: 16,
                 borderRadius: 12,
                 border: 'none',
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
+                justifyContent: 'center',
+                gap: 8,
                 cursor: 'pointer',
                 opacity: 0.9,
               }}
               onClick={handleInfo}
             >
               {t('intro.btn_what_is_gene')}
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 8 }}>
-                <path
-                  d="M5 12h14M13 5l7 7-7 7"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
+              <Icon icon="mdi:arrow-right" width="20" height="20" />
+            </Button>
           </div>
         </div>
 
@@ -158,19 +155,7 @@ export default function IntroScene() {
             opacity: 0.8,
           }}
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            style={{ flexShrink: 0 }}
-          >
-            <circle cx="12" cy="12" r="10"></circle>
-            <path d="M12 16v-4"></path>
-            <path d="M12 8h.01"></path>
-          </svg>
+          <Icon icon="mdi:information-outline" width="16" height="16" style={{ flexShrink: 0 }} />
           {t('intro.footer_hint')}
         </div>
       </div>

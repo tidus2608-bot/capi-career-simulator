@@ -1,11 +1,12 @@
 import { useState, useEffect, useId, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { DualRadar } from '../UI.jsx'
+import DualRadar from '../DualRadar.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_ROLES } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
+import Button from '../Button.jsx'
 
 const PROFILE_COLOR = {
   Hidden: '#e11d48',
@@ -664,16 +665,16 @@ export default function CertificateScene() {
             </div>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
               {onHistory && (
-                <button className="btn btn-ghost" onClick={onHistory}>
+                <Button variant="ghost" onClick={onHistory}>
                   {t('cert.btn_history')}
-                </button>
+                </Button>
               )}
-              <button className="btn btn-ghost" onClick={() => window.print()}>
+              <Button variant="ghost" onClick={() => window.print()}>
                 {t('cert.btn_print')}
-              </button>
-              <button className="btn btn-primary" onClick={handleRestart}>
+              </Button>
+              <Button variant="solid" active onClick={handleRestart}>
                 {t('common.restart')}
-              </button>
+              </Button>
             </div>
           </div>
         </div>

@@ -1,43 +1,16 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import Capi from '../Capi.jsx'
+import Button from '../Button.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_THEMES } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 
 export default function ThemeScene() {
-  const [innerStage, setInnerStage] = useState('intro')
   const [selectedId, setSelectedId] = useState(null)
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { setSelectedTheme } = useWizard()
-
-  if (innerStage === 'intro') {
-    return (
-      <div className="p2-shell">
-        <div className="p2-intro">
-          <div>
-            <Capi outfit="lab" pose="idle" size={160} />
-          </div>
-          <h2>{t('theme.welcome_title')}</h2>
-          <p style={{ color: '#6b7280', fontSize: 15, lineHeight: 1.6, maxWidth: 480, margin: 0 }}>
-            {t('theme.welcome_subtitle')}
-          </p>
-          <button
-            className="p2-btn"
-            style={{ maxWidth: 280, marginTop: 8 }}
-            onClick={() => {
-              capiAudio.sfx('confirm')
-              setInnerStage('select')
-            }}
-          >
-            {t('common.start_btn')}
-          </button>
-        </div>
-      </div>
-    )
-  }
 
   const themes = Object.values(CAPI_THEMES)
 
@@ -94,17 +67,18 @@ export default function ThemeScene() {
         </div>
 
         <div className="p2-new-actions">
-          <button
-            className="p2-btn-outline"
+          <Button
+            variant="outline"
             onClick={() => {
               capiAudio.sfx('click')
-              setInnerStage('intro')
+              navigate('/role-reveal')
             }}
           >
             {t('common.back_btn')}
-          </button>
-          <button
-            className="p2-btn-solid active"
+          </Button>
+          <Button
+            variant="solid"
+            active={!!selectedId}
             disabled={!selectedId}
             onClick={() => {
               if (selectedId) {
@@ -114,8 +88,8 @@ export default function ThemeScene() {
               }
             }}
           >
-            {t('common.continue_btn')}
-          </button>
+            {t('common.continue_btn')} →
+          </Button>
         </div>
       </div>
     </div>
