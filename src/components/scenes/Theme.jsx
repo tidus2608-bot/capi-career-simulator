@@ -42,8 +42,8 @@ export default function ThemeScene() {
                 className="bg"
                 src={
                   tData.id === 'ark-capi'
-                    ? '/illos/sx4-theme-ark.jpg'
-                    : '/illos/sx4-theme-intern.jpg'
+                    ? '/illos/sx4-theme-ark.webp'
+                    : '/illos/sx4-theme-intern.webp'
                 }
                 alt=""
                 onError={(e) => {

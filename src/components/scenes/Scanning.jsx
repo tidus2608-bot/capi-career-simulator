@@ -150,7 +150,7 @@ export default function ScanningScene() {
     )
   }
 
-  const imgPath = '/illos/capi-phase1.png'
+  const imgPath = '/illos/capi-phase1.webp'
 
   return (
     <QAPageLayout

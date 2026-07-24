@@ -99,7 +99,7 @@ export default function MissionPlayScene() {
   if (stage === 'intro') {
     return (
       <TransitionScreen
-        imageSrc={`/illos/transition_mission_${missionId}.svg`}
+        imageSrc={`/illos/mission-${missionId}-start.webp`}
         onNext={() => setStage('q')}
       />
     )
@@ -108,7 +108,7 @@ export default function MissionPlayScene() {
   if (stage === 'ending') {
     return (
       <TransitionScreen
-        imageSrc={`/illos/ending_mission_${missionId}.svg`}
+        imageSrc={`/illos/mission-${missionId}-end.webp`}
         onNext={() => {
           setAnswers(answers)
           navigate('/reflect')

@@ -75,9 +75,7 @@ export default function AppLayout() {
 
     if (path !== '/') return
 
-    if (scoringResult) {
-      navigate('/certificate/loading', { replace: true })
-    } else if (selectedMission) {
+    if (selectedMission) {
       const m = CAPI_MISSIONS[selectedMission]
       const totalQs = m ? m.questions.length : 0
       const answeredCount = Object.keys(phase2Answers || {}).length

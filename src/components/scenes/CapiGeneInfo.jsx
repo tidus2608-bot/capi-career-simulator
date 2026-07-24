@@ -83,7 +83,7 @@ export default function CapiGeneInfoScene() {
                     }
                   }}
                 >
-                  <img className="bg" src={`/illos/capi-gen-${r.key}.jpg`} alt="" />
+                  <img className="bg" src={`/illos/capi-gen-${r.key}.webp`} alt="" />
                   <div className="info-carousel-card-gradient" />
                   <div className="info-carousel-card-info">
                     <div className="info-carousel-card-title">{isEn ? r.name_en : r.name_vn}</div>

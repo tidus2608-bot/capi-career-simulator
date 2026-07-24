@@ -53,7 +53,7 @@ export default function ReflectionScene() {
     }
   }
 
-  const imgPath = `/illos/capi-gen-${q.role}.jpg`
+  const imgPath = `/illos/capi-gen-${q.role}.webp`
 
   return (
     <QAPageLayout

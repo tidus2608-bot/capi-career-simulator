@@ -19,6 +19,14 @@ export default function HeaderControls({ muted, toggleMute }) {
   const isHome = path === '/'
   const isSummary = path === '/certificate/summary'
 
+  const audioIcon = (
+    <Icon
+      icon={muted ? 'mdi:volume-off' : 'mdi:volume-high'}
+      width={20}
+      height={20}
+    />
+  )
+
   if (path === '/certificate/details') {
     return (
       <Button
@@ -62,14 +70,6 @@ export default function HeaderControls({ muted, toggleMute }) {
       navigator.share({ title: 'Mật mã Capi-Gene', url: window.location.href })
     }
   }
-
-  const audioIcon = (
-    <Icon
-      icon={muted ? 'mdi:volume-off' : 'mdi:volume-high'}
-      width={20}
-      height={20}
-    />
-  )
 
   const circleButtonStyle = {
     width: 38,

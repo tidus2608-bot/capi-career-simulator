@@ -46,7 +46,7 @@ export default function RoleRevealScene() {
       >
         {/* Extracted ambient background decoration SVG */}
         <img
-          src="/illos/ambient-circles.svg"
+          src="/illos/ambient-circles.webp"
           alt=""
           style={{
             position: 'absolute',

@@ -54,7 +54,7 @@ export default function MissionPickScene() {
                 {/* Background preview image */}
                 <img
                   className="bg"
-                  src={`/illos/m${m.id}-preview.jpg`}
+                  src={`/illos/m${m.id}-preview.webp`}
                   alt=""
                   onError={(e) => {
                     e.currentTarget.style.display = 'none'
