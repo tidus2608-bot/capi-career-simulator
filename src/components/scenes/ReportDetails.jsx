@@ -1,20 +1,27 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { Icon } from '@iconify/react'
 import SceneShell from './SceneShell.jsx'
-import LanguageSwitch from '../LanguageSwitch.jsx'
 import { CAPI_ROLES } from '../../data.js'
+import reportData from '../../data/reportData.json'
+import { useWizard } from '../../contexts/WizardContext.jsx'
+import Button from '../Button.jsx'
 
-const SECTION_STYLE = {
-  paddingBottom: 40,
-  paddingTop: 24,
-  borderBottom: '1px solid #e5e7eb',
-}
+// Subcomponents
+import PowerBlock from '../report/PowerBlock.jsx'
+import EvidenceBlock from '../report/EvidenceBlock.jsx'
+import DevelopmentTimeline from '../report/DevelopmentTimeline.jsx'
+import AccordionSkills from '../report/AccordionSkills.jsx'
+import CareerMapTabs from '../report/CareerMapTabs.jsx'
 
-const PROFILE_COLOR = {
-  Hidden: '#e11d48',
-  Aligned: '#16a34a',
-  Emerging: '#d97706',
+// Color map for role styles
+const ROLE_COLORS = {
+  explorer: '#7c5cff',
+  builder: '#00e5ff',
+  operator: '#ffb020',
+  connector: '#3ddc84',
+  communicator: '#ff2d7a',
 }
 
 export default function ReportDetails() {
@@ -22,6 +29,7 @@ export default function ReportDetails() {
   const { t, i18n } = useTranslation()
   const isEn = i18n.language === 'en'
   const { result, certCopy } = useOutletContext()
+  const { selectedMission } = useWizard()
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -29,157 +37,206 @@ export default function ReportDetails() {
       const timer = setTimeout(() => {
         window.print()
         navigate('/certificate/details', { replace: true })
-      }, 600)
+      }, 800)
       return () => clearTimeout(timer)
     }
   }, [navigate])
 
   if (!result || !certCopy) return null
 
-  const primary = CAPI_ROLES[result.primaryRole] || { nameVn: 'Nhà Khám Phá', name: 'Explorer' }
-  const secondary = CAPI_ROLES[result.secondaryRole] || { nameVn: 'Kỹ Sư Chế Tạo', name: 'Builder' }
-  const profileColor = PROFILE_COLOR[result.profileType] || '#843497'
+  const primaryRoleKey = result.primaryRole
+  const secondaryRoleKey = result.secondaryRole
 
-  const growthAreaStr = certCopy.growthAreasVn?.[0] || ''
-  const colonIndex = growthAreaStr.indexOf(':')
-  const growthHeadline = colonIndex !== -1 ? growthAreaStr.substring(0, colonIndex).trim() : t('report.card_growth')
-  const growthDesc = colonIndex !== -1 ? growthAreaStr.substring(colonIndex + 1).trim() : (growthAreaStr || '')
+  const primaryRoleMeta = CAPI_ROLES[primaryRoleKey] || {
+    nameVn: 'Nhà Khám Phá',
+    name: 'Explorer',
+    color: '#7c5cff',
+  }
+  const secondaryRoleMeta = CAPI_ROLES[secondaryRoleKey] || {
+    nameVn: 'Kỹ Sư Chế Tạo',
+    name: 'Builder',
+    color: '#00e5ff',
+  }
+
+  // Fetch data from reportData
+  const primaryRoleData = reportData.rolebank?.[primaryRoleKey] || {}
+
+  // Combination profiles
+  const primaryComboId = `${primaryRoleKey}_${secondaryRoleKey}`
+
+  const primaryComboData = reportData.combinationbank?.[primaryComboId] || {}
+
+  // Lowest role for Step 2 Missing Piece
+  const sortedRoles = Object.keys(ROLE_COLORS).sort(
+    (a, b) => (result.phase2?.[a] || 0) - (result.phase2?.[b] || 0),
+  )
+  const missingRoleKey = sortedRoles[0]
+  const missingRoleMeta = CAPI_ROLES[missingRoleKey] || {}
+
+  // Find exact pair for missing piece
+  const missingPieceData = (reportData.missingpiece || []).find(
+    (mp) => mp.primary_role === primaryRoleKey && mp.missing_role === missingRoleKey,
+  )
+
+  // Setup standard Career domains (Block 11)
+  const allCareers = (reportData.careermap || []).filter(
+    (c) => c.role_id === primaryRoleKey || c.role_id === secondaryRoleKey,
+  )
+
+  const handlePrint = () => {
+    window.print()
+  }
+
+  // Filter activities for Block 8
+  const primaryActivities = (reportData.activities || []).filter(
+    (act) => act.role_id === primaryRoleKey,
+  )
+
+  // Filter resources skills for Step 3
+  const primarySkills = (reportData.resources || []).filter(
+    (res) => res.role_id === primaryRoleKey && res.resource_type === 'skill',
+  )
 
   return (
     <SceneShell light>
-      {/* STICKY BACK HEADER */}
-      <div 
+      {/* Global CSS style block for printing & standard page styling overrides */}
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+          @media print {
+            body {
+              background-color: #FFFFFF !important;
+              color: #000000 !important;
+            }
+            .no-print {
+              display: none !important;
+            }
+            .print-container {
+              padding: 0 !important;
+              max-width: 100% !important;
+              margin: 0 !important;
+            }
+            .print-card {
+              box-shadow: none !important;
+              border: 1px solid #E2E8F0 !important;
+              page-break-inside: avoid;
+              margin-bottom: 20px;
+            }
+            .page-break {
+              page-break-before: always;
+            }
+          }
+        `,
+        }}
+      />
+      {/* Main Report Container */}
+      <div
+        className="print-container"
         style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 50,
-          background: 'rgba(255, 255, 255, 0.8)',
-          backdropFilter: 'blur(12px)',
-          borderBottom: '1px solid #f3f4f6',
-          padding: '12px 24px',
+          maxWidth: '1000px',
+          margin: '0 auto',
+          padding: '120px 24px 40px 24px',
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
+          flexDirection: 'column',
+          gap: '32px'
         }}
       >
-        <button 
-          onClick={() => navigate('/certificate/summary')}
+        {/* Title Block 1 */}
+        <div
           style={{
             display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            background: 'none',
-            border: 'none',
-            color: '#4b5563',
-            fontSize: 16,
-            fontWeight: 600,
-            cursor: 'pointer',
-            padding: '8px 12px',
-            borderRadius: 8,
-            transition: 'background 0.2s',
+            justifyContent: 'space-between',
+            alignItems: 'flex-end',
+            borderBottom: '2px solid #E2E8F0',
+            paddingBottom: '16px',
           }}
-          onMouseEnter={(e) => e.currentTarget.style.background = '#f3f4f6'}
-          onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
         >
-          <span>←</span> {t('report.details_back')}
-        </button>
-
-        <LanguageSwitch />
-      </div>
-
-      <div style={{ maxWidth: 800, margin: '0 auto', padding: '40px 24px', display: 'flex', flexDirection: 'column', gap: 24 }}>
-        
-        {/* HEADER */}
-        <div style={{ textAlign: 'center', marginBottom: 40 }}>
-          <div className="mono" style={{ color: '#843497', letterSpacing: 4, marginBottom: 16 }}>CAPI-GENE REPORT</div>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 40, color: '#1a1a2e' }}>
-            {t('report.details_title')} <br/> <span style={{ color: '#843497' }}>{isEn ? primary.name : primary.nameVn}</span>
-          </h1>
-        </div>
-
-        {/* 2. WORKING STYLE */}
-        <div style={SECTION_STYLE}>
-          <div className="mono" style={{ color: '#843497', marginBottom: 16 }}>2 · {t('report.card_style').toUpperCase()}</div>
-          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 24, color: '#1a1a2e', marginBottom: 16 }}>
-            {isEn ? (certCopy.workingStyleHeadlineEn || certCopy.workingStyleHeadlineVn) : certCopy.workingStyleHeadlineVn}
-          </h3>
-          <p style={{ fontSize: 16, lineHeight: 1.6, color: '#4b5563' }}>
-            {isEn ? (certCopy.workingStyleEn || certCopy.workingStyleVn) : certCopy.workingStyleVn}
-          </p>
-        </div>
-
-        {/* 3 & 4. STRENGTHS & GROWTH */}
-        <div style={{ ...SECTION_STYLE, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
           <div>
-            <div className="mono" style={{ color: '#843497', marginBottom: 16 }}>3 · {t('report.details_strength')}</div>
-            <h4 style={{ fontFamily: 'var(--font-display)', fontSize: 18, color: '#1a1a2e', marginBottom: 12 }}>
-              {isEn ? (certCopy.strengthsHeadlineEn || certCopy.strengthsHeadlineVn) : certCopy.strengthsHeadlineVn}
-            </h4>
-            <p style={{ fontSize: 15, lineHeight: 1.6, color: '#4b5563' }}>
-              {isEn ? (certCopy.strengthsEn || certCopy.strengthsVn) : certCopy.strengthsVn}
-            </p>
+            <h1 style={{ fontSize: '32px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+              {t('report.details_title_main')}
+            </h1>
+            <span
+              style={{
+                fontSize: '13px',
+                fontWeight: 600,
+                color: '#7E22CE',
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+              }}
+            >
+              Capi-Gene Decoding Report
+            </span>
           </div>
+
           <div>
-            <div className="mono" style={{ color: '#843497', marginBottom: 16 }}>4 · {t('report.details_growth')}</div>
-            <h4 style={{ fontFamily: 'var(--font-display)', fontSize: 18, color: '#1a1a2e', marginBottom: 12 }}>
-              {isEn ? (certCopy.growthHeadlineEn || growthHeadline) : growthHeadline}
-            </h4>
-            <p style={{ fontSize: 15, lineHeight: 1.6, color: '#4b5563' }}>
-              {isEn ? (certCopy.areasOfImprovementEn || growthDesc) : growthDesc}
-            </p>
+            <Button
+              variant="solid"
+              className="no-print"
+              onClick={handlePrint}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                width: 'fit-content',
+              }}
+            >
+              <Icon icon="mdi:printer" width={18} height={18} />
+              <span>{t('report.btn_pdf')}</span>
+            </Button>
           </div>
         </div>
 
-        {/* 5. PROFILE ALIGNMENT */}
-        <div style={{ ...SECTION_STYLE, background: '#f9fafb', padding: 32, borderRadius: 16, margin: '24px 0', border: '1px solid #e5e7eb' }}>
-          <div className="mono" style={{ color: '#843497', marginBottom: 16 }}>5 · {t('report.details_compatibility')}</div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-            <div style={{ padding: '6px 12px', background: profileColor, color: 'white', borderRadius: 20, fontSize: 14, fontWeight: 600 }}>
-              {result.profileType} Profile
-            </div>
-          </div>
-          <p style={{ fontSize: 16, lineHeight: 1.6, color: '#374151', marginBottom: 12 }}>
-            {isEn ? (certCopy.profileTypeNarrativeEn || certCopy.profileTypeNarrativeVn) : certCopy.profileTypeNarrativeVn}
-          </p>
-          <p style={{ fontSize: 16, lineHeight: 1.6, color: '#374151', fontStyle: 'italic' }}>
-            {isEn ? (certCopy.realityGrowthInsightEn || certCopy.realityGrowthInsightVn) : certCopy.realityGrowthInsightVn}
-          </p>
-        </div>
+        {/* BLOCK 2-5: Primary Power Card & Radar Section */}
+        <PowerBlock
+          isEn={isEn}
+          isSecondary={false}
+          primaryRoleKey={primaryRoleKey}
+          secondaryRoleKey={secondaryRoleKey}
+          primaryRoleMeta={primaryRoleMeta}
+          secondaryRoleMeta={secondaryRoleMeta}
+          primaryRoleData={primaryRoleData}
+          primaryComboData={primaryComboData}
+          result={result}
+        />
 
-        {/* 6. CAREER PATHS */}
-        <div style={SECTION_STYLE}>
-          <div className="mono" style={{ color: '#843497', marginBottom: 24 }}>6 · {t('report.details_career')}</div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-            {((isEn ? certCopy.primaryCareersEn : certCopy.primaryCareers) || []).map((c, i) => (
-              <div key={`prim-${i}`} style={{ padding: 20, background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12 }}>
-                <div style={{ fontWeight: 600, fontSize: 16, color: '#111827', marginBottom: 8 }}>{c}</div>
-                <div style={{ fontSize: 14, color: '#6b7280' }}>
-                  {isEn ? `Primary role: ${primary.name}` : `Định hướng cốt lõi: ${primary.nameVn}`}
-                </div>
-              </div>
-            ))}
-            {((isEn ? certCopy.secondaryCareersEn : certCopy.secondaryCareers) || []).map((c, i) => (
-              <div key={`sec-${i}`} style={{ padding: 20, background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12 }}>
-                <div style={{ fontWeight: 600, fontSize: 16, color: '#111827', marginBottom: 8 }}>{c}</div>
-                <div style={{ fontSize: 14, color: '#6b7280' }}>
-                  {isEn ? `Secondary role: ${secondary.name}` : `Định hướng bổ trợ: ${secondary.nameVn}`}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* BLOCK 6: Combination Power Card & Radar Section */}
+        <PowerBlock
+          isEn={isEn}
+          isSecondary={true}
+          primaryRoleKey={primaryRoleKey}
+          secondaryRoleKey={secondaryRoleKey}
+          primaryRoleMeta={primaryRoleMeta}
+          secondaryRoleMeta={secondaryRoleMeta}
+          primaryRoleData={primaryRoleData}
+          primaryComboData={primaryComboData}
+          result={result}
+        />
 
-        {/* 7. NUANCE */}
-        {certCopy.nuanceVn && (
-          <div style={{ paddingBottom: 60, paddingTop: 24 }}>
-            <div className="mono" style={{ color: '#843497', marginBottom: 16 }}>7 · {t('report.details_nuance')}</div>
-            <p style={{ fontSize: 16, lineHeight: 1.6, color: '#4b5563', fontStyle: 'italic', borderLeft: '4px solid #843497', paddingLeft: 16 }}>
-              {isEn ? (certCopy.nuanceEn || certCopy.nuanceVn) : certCopy.nuanceVn}
-            </p>
-          </div>
-        )}
+        {/* BLOCK 7: Evidence from Simulator */}
+        <EvidenceBlock
+          isEn={isEn}
+          result={result}
+          selectedMission={selectedMission}
+          primaryRoleKey={primaryRoleKey}
+          secondaryRoleKey={secondaryRoleKey}
+          primaryRoleMeta={primaryRoleMeta}
+          secondaryRoleMeta={secondaryRoleMeta}
+        />
 
+        {/* BLOCK 8 & 9: Development Path — 3 Columns Staggered Layout */}
+        <DevelopmentTimeline
+          isEn={isEn}
+          primaryActivities={primaryActivities}
+          missingRoleMeta={missingRoleMeta}
+          missingPieceData={missingPieceData}
+          primarySkills={primarySkills}
+        />
+
+        {/* BLOCK 10: Accordion levels detail */}
+        <AccordionSkills isEn={isEn} primarySkills={primarySkills} />
+
+        {/* BLOCK 11: Career Map */}
+        <CareerMapTabs isEn={isEn} allCareers={allCareers} />
       </div>
     </SceneShell>
   )

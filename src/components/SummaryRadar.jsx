@@ -99,8 +99,8 @@ export default function SummaryRadar({ scores, size = 260 }) {
       {ROLES_CONFIG.map((rc, i) => {
         const angle = -Math.PI / 2 + (i / ROLES_CONFIG.length) * Math.PI * 2
         // Position badge slightly outside max radius
-        const bx = cx + Math.cos(angle) * (r + 26)
-        const by = cy + Math.sin(angle) * (r + 26)
+        const bx = cx + Math.cos(angle) * (r + 34)
+        const by = cy + Math.sin(angle) * (r + 34)
         const scoreVal = Math.round(getScore(rc.key))
 
         return (
@@ -111,22 +111,40 @@ export default function SummaryRadar({ scores, size = 260 }) {
               left: `${bx}px`,
               top: `${by}px`,
               transform: 'translate(-50%, -50%)',
-              backgroundColor: rc.color,
-              color: '#FFFFFF',
-              borderRadius: '9999px',
-              padding: '3px 10px',
-              fontSize: '11px',
-              fontWeight: 700,
-              whiteSpace: 'nowrap',
-              boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
               display: 'flex',
+              flexDirection: 'column',
               alignItems: 'center',
               gap: '4px',
               zIndex: 10
             }}
           >
-            <span>{scoreVal}%</span>
-            <span>{isEn ? (CAPI_ROLES[rc.key]?.name || rc.key) : (CAPI_ROLES[rc.key]?.nameVn || rc.key)}</span>
+            <div
+              style={{
+                backgroundColor: rc.color,
+                color: rc.key === 'communicator' ? '#1F2937' : '#FFFFFF',
+                borderRadius: '50%',
+                width: '38px',
+                height: '38px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '12px',
+                fontWeight: 800,
+                boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+              }}
+            >
+              {scoreVal}%
+            </div>
+            <span
+              style={{
+                fontSize: '11px',
+                fontWeight: 700,
+                color: '#1E293B',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              {isEn ? (CAPI_ROLES[rc.key]?.name || rc.key) : (CAPI_ROLES[rc.key]?.nameVn || rc.key)}
+            </span>
           </div>
         )
       })}

@@ -18,6 +18,7 @@ export default function HeaderControls({ muted, toggleMute }) {
 
   const isHome = path === '/'
   const isSummary = path === '/certificate/summary'
+  const isDetails = path === '/certificate/details'
 
   const audioIcon = (
     <Icon
@@ -26,20 +27,6 @@ export default function HeaderControls({ muted, toggleMute }) {
       height={20}
     />
   )
-
-  if (path === '/certificate/details') {
-    return (
-      <Button
-        variant="icon"
-        title={muted ? t('common.audio_on') : t('common.audio_off')}
-        aria-label={muted ? t('common.audio_on') : t('common.audio_off')}
-        aria-pressed={muted}
-        onClick={toggleMute}
-      >
-        {audioIcon}
-      </Button>
-    )
-  }
 
   const TRANSLATED_PATHS = new Set([
     '/',
@@ -53,6 +40,7 @@ export default function HeaderControls({ muted, toggleMute }) {
     '/certificate',
     '/certificate/loading',
     '/certificate/summary',
+    '/certificate/details',
     '/history',
   ])
 
@@ -86,9 +74,10 @@ export default function HeaderControls({ muted, toggleMute }) {
     flexShrink: 0,
   }
 
-  if (isHome || isSummary) {
+  if (isHome || isSummary || isDetails) {
     return (
       <div
+        className="no-print"
         style={{
           position: 'fixed',
           top: 24,
@@ -118,7 +107,7 @@ export default function HeaderControls({ muted, toggleMute }) {
           Capi Career Path Simulator
         </div>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-          {isSummary ? (
+          {isSummary || isDetails ? (
             <>
               <LanguageSwitch />
               <Button
