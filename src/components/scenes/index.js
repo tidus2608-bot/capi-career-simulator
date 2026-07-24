@@ -10,3 +10,10 @@ export { default as HistoryScene } from './History.jsx'
 export { default as Transition } from './Transition.jsx'
 export { default as SceneShell } from './SceneShell.jsx'
 export { default as CapiGeneInfoScene } from './CapiGeneInfo.jsx'
+export { default as TransitionScreen } from './TransitionScreen.jsx'
+export { default as ReportLoading } from './ReportLoading.jsx'
+export { default as ReportSummary } from './ReportSummary.jsx'
+export { default as ReportDetails } from './ReportDetails.jsx'
+export { default as QAPageLayout } from './QAPageLayout.jsx'
+
+

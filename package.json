@@ -16,6 +16,7 @@
     "verify": "bun run lint && bun run typecheck && bun run test && bun run build"
   },
   "dependencies": {
+    "@iconify/react": "^6.0.2",
     "@supabase/supabase-js": "^2.106.2",
     "i18next": "^26.2.0",
     "i18next-browser-languagedetector": "^8.2.1",

@@ -5,6 +5,7 @@ import { capiAudio } from '../../audio.js'
 import { CAPI_THEMES, CAPI_MISSIONS, MISSION_ICONS } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
+import Button from '../Button.jsx'
 
 export default function MissionPickScene() {
   const { selectedTheme, setSelectedMission } = useWizard()
@@ -25,7 +26,7 @@ export default function MissionPickScene() {
           justifyContent: 'space-between',
         }}
       >
-        <h2 className="p2-new-header" style={{ margin: '0 0 16px', flexShrink: 0 }}>
+        <h2 className="p2-new-header" style={{ margin: 0, flexShrink: 0 }}>
           {t('common.select_challenge')}
         </h2>
 
@@ -53,7 +54,7 @@ export default function MissionPickScene() {
                 {/* Background preview image */}
                 <img
                   className="bg"
-                  src={`/illos/m${m.id}-preview.jpg`}
+                  src={`/illos/m${m.id}-preview.webp`}
                   alt=""
                   onError={(e) => {
                     e.currentTarget.style.display = 'none'
@@ -119,17 +120,18 @@ export default function MissionPickScene() {
         </div>
 
         <div className="p2-new-actions" style={{ width: '100%', maxWidth: 1200, flexShrink: 0 }}>
-          <button
-            className="p2-btn-outline"
+          <Button
+            variant="outline"
             onClick={() => {
               capiAudio.sfx('click')
               navigate('/theme')
             }}
           >
             ← {t('common.back_btn')}
-          </button>
-          <button
-            className={`p2-btn-solid ${selectedId ? 'active' : ''}`}
+          </Button>
+          <Button
+            variant="solid"
+            active={!!selectedId}
             disabled={!selectedId}
             onClick={() => {
               if (selectedId) {
@@ -140,7 +142,7 @@ export default function MissionPickScene() {
             }}
           >
             {t('common.start_btn')} →
-          </button>
+          </Button>
         </div>
       </div>
     </SceneShell>

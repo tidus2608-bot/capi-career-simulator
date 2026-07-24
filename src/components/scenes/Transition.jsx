@@ -11,7 +11,7 @@ export default function Transition({ k, children }) {
       <div key={`${k}-flash`} className="scene-flash" aria-hidden="true">
         <div className="capi-sprite-clip">
           <img
-            src="/illos/capi-transition.svg"
+            src="/illos/capi-transition.webp"
             className="capi-sprite-img"
             alt=""
             draggable="false"

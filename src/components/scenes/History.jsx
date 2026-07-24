@@ -5,6 +5,7 @@ import { CAPI_ROLES, CAPI_THEMES } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import { supabase } from '../../lib/supabase.js'
 import SceneShell from './SceneShell.jsx'
+import Button from '../Button.jsx'
 
 const PROFILE_COLOR = {
   Hidden: '#e11d48',
@@ -49,6 +50,9 @@ export default function HistoryScene() {
           padding: '28px 24px',
           maxWidth: 900,
           margin: '0 auto',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 28,
         }}
       >
         <div
@@ -57,14 +61,13 @@ export default function HistoryScene() {
             display: 'flex',
             alignItems: 'center',
             gap: 16,
-            marginBottom: 28,
             flexWrap: 'wrap',
           }}
         >
-          <button className="btn btn-ghost" onClick={() => navigate('/certificate')}>
+          <Button variant="ghost" onClick={() => navigate('/certificate')}>
             {t('common.back')}
-          </button>
-          <div>
+          </Button>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             <div className="mono" style={{ color: '#843497' }}>
               {t('history.section_label')}
             </div>
@@ -72,7 +75,7 @@ export default function HistoryScene() {
               style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: 28,
-                margin: '4px 0 0',
+                margin: 0,
                 color: '#1a1a2e',
               }}
             >
@@ -93,14 +96,29 @@ export default function HistoryScene() {
               textAlign: 'center',
               color: '#e11d48',
               borderColor: '#fecdd3',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 12,
             }}
           >
-            <div style={{ fontSize: 40, marginBottom: 12 }}>⚠️</div>
+            <div style={{ fontSize: 40 }}>⚠️</div>
             {t('history.load_error', { error: visibleError })}
           </div>
         ) : visibleRuns.length === 0 ? (
-          <div className="glass" style={{ padding: 30, textAlign: 'center', color: '#6b7280' }}>
-            <div style={{ fontSize: 40, marginBottom: 12 }}>📋</div>
+          <div
+            className="glass"
+            style={{
+              padding: 30,
+              textAlign: 'center',
+              color: '#6b7280',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 12,
+            }}
+          >
+            <div style={{ fontSize: 40 }}>📋</div>
             {t('history.empty')}
           </div>
         ) : (
@@ -125,8 +143,8 @@ export default function HistoryScene() {
                     alignItems: 'center',
                   }}
                 >
-                  <div>
-                    <div style={{ display: 'flex', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                       <span
                         className="pill"
                         style={{ color: pr.color, borderColor: `${pr.color}55` }}

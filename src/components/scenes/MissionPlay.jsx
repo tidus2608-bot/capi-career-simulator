@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Capi from '../Capi.jsx'
+import { useTranslation } from 'react-i18next'
+import Button from '../Button.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_MISSIONS } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import QASection from '../QASection.jsx'
+import SceneShell from './SceneShell.jsx'
+import TransitionScreen from './TransitionScreen.jsx'
 
 const ILLO_EXT = {
   'm1-q15': 'png',
@@ -23,39 +26,32 @@ const MISSION_PADS = {
   5: [110, 174.6, 220, 329.6],
 }
 
-const MISSION_STARTS = {
-  1: '/illos/mission-1-start.webp',
-  2: '/illos/mission-2-start.svg',
-  3: '/illos/mission-3-start.svg',
-  4: '/illos/mission-4-start.webp',
-  5: '/illos/mission-5-start.svg',
-  6: '/illos/mission-6-start.svg',
-}
-
-const MISSION_ENDS = {
-  1: '/illos/mission-1-end.webp',
-  2: '/illos/mission-2-end.svg',
-  3: '/illos/mission-3-end.svg',
-  4: '/illos/mission-4-end.svg',
-  5: '/illos/mission-5-end.webp',
-  6: '/illos/mission-6-end.svg',
-}
+// Transition images are located under public/illos/
 
 export default function MissionPlayScene() {
+  const { t } = useTranslation()
   const {
     selectedMission: missionId,
     phase2Answers: answers,
     setPhase2Answers: setAnswers,
-    missionPlayIndex: idx,
-    setMissionPlayIndex: setIdx,
+    missionPlayIndices,
+    setMissionPlayIndices,
   } = useWizard()
+  const idx = missionPlayIndices[missionId] ?? 0
+  const setIdx = (newVal) => {
+    const nextIdx = typeof newVal === 'function' ? newVal(idx) : newVal
+    setMissionPlayIndices((prev) => ({
+      ...prev,
+      [missionId]: nextIdx,
+    }))
+  }
   const navigate = useNavigate()
   const m = CAPI_MISSIONS[missionId]
   const qs = m ? m.questions : []
 
   const [stage, setStage] = useState(() => {
     if (idx > 0) return 'q'
-    return MISSION_STARTS[missionId] ? 'intro' : 'q'
+    return 'intro'
   })
   const [picked, setPicked] = useState(() => {
     const currentQ = qs[idx]
@@ -102,181 +98,98 @@ export default function MissionPlayScene() {
 
   if (stage === 'intro') {
     return (
-      <div className="p2-shell">
-        <img
-          src={MISSION_STARTS[missionId]}
-          alt=""
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain',
-            objectPosition: 'top center',
-            zIndex: 0,
-          }}
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            zIndex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            paddingBottom: 60,
-            gap: 16,
-          }}
-        >
-          <button
-            className="p2-btn"
-            style={{ maxWidth: 320 }}
-            onClick={() => {
-              capiAudio.sfx('click')
-              setStage('q')
-            }}
-          >
-            BẮT ĐẦU NHIỆM VỤ →
-          </button>
-          <button
-            className="p2-nav-back"
-            style={{ background: 'rgba(0,0,0,0.3)', color: '#fff', border: 'none' }}
-            onClick={() => navigate('/mission-pick')}
-          >
-            ← Quay lại
-          </button>
-        </div>
-      </div>
+      <TransitionScreen
+        imageSrc={`/illos/mission-${missionId}-start.webp`}
+        onNext={() => setStage('q')}
+      />
     )
   }
 
   if (stage === 'ending') {
-    const endingImg =
-      MISSION_ENDS[missionId] ??
-      ([1, 2, 6].includes(missionId) ? '/illos/ending-ark.webp' : '/illos/ending-intern.webp')
     return (
-      <div className="p2-shell">
-        <img
-          src={endingImg}
-          alt=""
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain',
-            objectPosition: 'top center',
-            zIndex: 0,
-          }}
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
-        />
-        <div className="p2-ending" style={{ position: 'relative', zIndex: 1 }}>
-          <Capi outfit="lab" pose="cheer" size={130} />
-          <div className="mono" style={{ color: '#843497', fontSize: 12, letterSpacing: '0.15em' }}>
-            NHIỆM VỤ HOÀN THÀNH ✓
-          </div>
-          <h2>{m.name_vn}</h2>
-          <p style={{ color: '#6b7280', fontSize: 15, lineHeight: 1.6, maxWidth: 440, margin: 0 }}>
-            Bạn đã trả lời {qs.length} câu hỏi. Capi-Gene đang tổng hợp dữ liệu hành vi của bạn...
-          </p>
-          <button
-            className="p2-btn"
-            style={{ maxWidth: 300 }}
-            onClick={() => {
-              capiAudio.sfx('confirm')
-              setAnswers(answers)
-              navigate('/reflect')
-            }}
-          >
-            Đi đến phản chiếu →
-          </button>
-        </div>
-      </div>
+      <TransitionScreen
+        imageSrc={`/illos/mission-${missionId}-end.webp`}
+        onNext={() => {
+          setAnswers(answers)
+          navigate('/reflect')
+        }}
+      />
     )
   }
 
   return (
-    <div className="p2-q-shell">
-      {/* Left panel: illustration + context */}
-      <div className="p2-q-left" key={`illo-${idx}`}>
-        <img
-          src={illoSrc}
-          alt=""
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain',
-            objectPosition: 'top center',
-          }}
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
-        />
-        {q.chapter_vn && <div className="p2-chapter-pill">{q.chapter_vn}</div>}
-        {q.context_vn && (
-          <div
-            style={{
-              position: 'absolute',
-              bottom: 16,
-              left: 16,
-              right: 16,
-              zIndex: 3,
-              background: 'rgba(0,0,0,0.45)',
-              color: 'rgba(255,255,255,0.9)',
-              fontSize: 11,
-              fontFamily: 'var(--font-mono)',
-              letterSpacing: '0.05em',
-              lineHeight: 1.5,
-              padding: '7px 12px',
-              borderRadius: 8,
-            }}
-          >
-            {q.context_vn}
+    <SceneShell light className="no-scroll-shell">
+      <div
+        className="p2-new-layout"
+        style={{
+          height: '100%',
+          padding: 'clamp(20px, 3.5vh, 40px) 48px clamp(16px, 2.5vh, 32px)',
+          boxSizing: 'border-box',
+          justifyContent: 'space-between',
+          maxWidth: '1200px',
+        }}
+      >
+        {/* Split Layout */}
+        <div className="p1-split-layout">
+          <div className="p1-left-illustration" style={{ position: 'relative', height: '100%' }}>
+            <img
+              src={illoSrc}
+              alt=""
+              onError={(e) => {
+                e.currentTarget.style.display = 'none'
+              }}
+            />
           </div>
-        )}
+
+          <div className="p1-right-content">
+            {/* Chapter Title at the top of the right column */}
+            {q.chapter_vn && (
+              <h2 className="p2-new-header" style={{ margin: 0, textTransform: 'none' }}>
+                {q.chapter_vn}
+              </h2>
+            )}
+
+            {/* Progress Bar Container */}
+            <div className="p1-progress-bar-container">
+              <div className="p1-progress-labels">
+                <span>
+                  {t('common_extra.question_of', { num: String(idx + 1).padStart(2, '0'), total: String(qs.length).padStart(2, '0') })}
+                </span>
+                <span>{t('common_extra.completed_pct', { percent: progress })}</span>
+              </div>
+              <div className="p1-progress-outer">
+                <div className="p1-progress-inner" style={{ width: `${progress}%` }} />
+              </div>
+            </div>
+
+            <QASection
+              key={idx}
+              questionText={q.capi_dialogue_vn?.replace(/^[""]|[""]$/g, '')}
+              options={q.options.map((opt) => ({
+                label: opt.label,
+                text: opt.text_vn,
+                ...opt,
+              }))}
+              selectedValue={picked}
+              onSelect={selectOption}
+            />
+
+            <div className="p2-new-actions" style={{ width: '100%' }}>
+              <Button variant="outline" onClick={goBack}>
+                {t('common.back')}
+              </Button>
+              <Button
+                variant="solid"
+                active={picked !== null}
+                disabled={picked === null}
+                onClick={goNext}
+              >
+                {t('common.continue_btn')} →
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
-
-      {/* Right panel: question + options + nav */}
-      <div className="p2-q-right">
-        <div className="p2-q-header">
-          <span className="p2-q-header-label">
-            Câu hỏi {idx + 1} / {qs.length}
-          </span>
-          <span className="p2-q-header-progress">{progress}% Hoàn thiện</span>
-        </div>
-        <div className="p2-q-progress-bar">
-          <div className="p2-q-progress-bar-fill" style={{ width: `${progress}%` }} />
-        </div>
-
-        <QASection
-          key={idx}
-          questionText={q.capi_dialogue_vn?.replace(/^[""]|[""]$/g, '')}
-          options={q.options.map((opt) => ({
-            label: opt.label,
-            text: opt.text_vn,
-            ...opt,
-          }))}
-          selectedValue={picked}
-          onSelect={selectOption}
-        />
-
-        <div className="p2-q-nav">
-          <button className="p2-nav-back" onClick={goBack}>
-            ← Quay lại
-          </button>
-          <button className="p2-nav-next" disabled={picked === null} onClick={goNext}>
-            Tiếp tục →
-          </button>
-        </div>
-      </div>
-    </div>
+    </SceneShell>
   )
 }

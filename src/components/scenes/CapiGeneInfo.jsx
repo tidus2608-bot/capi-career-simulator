@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { capiAudio } from '../../audio.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
+import Button from '../Button.jsx'
+import { Icon } from '@iconify/react'
 import missionsData from '../../data/missions.json'
 
 export default function CapiGeneInfoScene() {
@@ -36,11 +38,11 @@ export default function CapiGeneInfoScene() {
           justifyContent: 'space-between',
         }}
       >
-        <h2 className="p2-new-header" style={{ marginBottom: 12 }}>
+        <h2 className="p2-new-header">
           {t('common.capi_gene_info_title')}
         </h2>
 
-        <div className="role-carousel-wrapper" style={{ marginBottom: 12 }}>
+        <div className="role-carousel-wrapper">
           <button
             className="role-carousel-btn"
             onClick={handlePrev}
@@ -48,18 +50,12 @@ export default function CapiGeneInfoScene() {
               background: 'rgba(0,0,0,0.05)',
               color: '#1a1a2e',
               borderColor: 'rgba(0,0,0,0.1)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-            >
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
+            <Icon icon="mdi:chevron-left" width="24" height="24" />
           </button>
 
           <div className="info-carousel-container">
@@ -87,7 +83,7 @@ export default function CapiGeneInfoScene() {
                     }
                   }}
                 >
-                  <img className="bg" src={`/illos/capi-gen-${r.key}.jpg`} alt="" />
+                  <img className="bg" src={`/illos/capi-gen-${r.key}.webp`} alt="" />
                   <div className="info-carousel-card-gradient" />
                   <div className="info-carousel-card-info">
                     <div className="info-carousel-card-title">{isEn ? r.name_en : r.name_vn}</div>
@@ -107,18 +103,12 @@ export default function CapiGeneInfoScene() {
               background: 'rgba(0,0,0,0.05)',
               color: '#1a1a2e',
               borderColor: 'rgba(0,0,0,0.1)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-            >
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <Icon icon="mdi:chevron-right" width="24" height="24" />
           </button>
         </div>
 
@@ -128,21 +118,16 @@ export default function CapiGeneInfoScene() {
             <div className="p2-info-details-header">
               <div
                 className="p2-info-details-icon-wrapper"
-                style={{ background: '#e0e7ff', color: '#4f46e5' }}
+                style={{
+                  background: '#e0e7ff',
+                  color: '#4f46e5',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
               >
                 {/* Chat bubble icon */}
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                </svg>
+                <Icon icon="mdi:comment-text-outline" width="16" height="16" />
               </div>
               {t('common.role_description')}
             </div>
@@ -155,21 +140,16 @@ export default function CapiGeneInfoScene() {
             <div className="p2-info-details-header">
               <div
                 className="p2-info-details-icon-wrapper"
-                style={{ background: '#fee2e2', color: '#ef4444' }}
+                style={{
+                  background: '#fee2e2',
+                  color: '#ef4444',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
               >
                 {/* Star icon */}
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                </svg>
+                <Icon icon="mdi:star-outline" width="16" height="16" />
               </div>
               {t('common.role_characteristics')}
             </div>
@@ -184,17 +164,18 @@ export default function CapiGeneInfoScene() {
         </div>
 
         <div className="p2-new-actions" style={{ width: '100%', maxWidth: 960 }}>
-          <button
-            className="p2-btn-outline"
+          <Button
+            variant="outline"
             onClick={() => {
               capiAudio.sfx('click')
               navigate('/')
             }}
           >
             {t('common.back_btn')}
-          </button>
-          <button
-            className="p2-btn-solid active"
+          </Button>
+          <Button
+            variant="solid"
+            active
             onClick={() => {
               capiAudio.sfx('confirm')
               setStartedAt(new Date().toISOString())
@@ -203,7 +184,7 @@ export default function CapiGeneInfoScene() {
             }}
           >
             {t('intro.btn_scan_gene')}
-          </button>
+          </Button>
         </div>
       </div>
     </SceneShell>

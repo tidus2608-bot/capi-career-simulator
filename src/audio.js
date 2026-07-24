@@ -6,6 +6,8 @@ class CapiAudio {
     this.master = null
     this.muted = typeof localStorage !== 'undefined' && localStorage.getItem('capi_muted') === '1'
     this.currentPad = null
+    this.bgBuffer = null
+    this.bgLoading = false
   }
 
   _ensure() {
@@ -18,6 +20,25 @@ class CapiAudio {
     } catch {
       /* noop */
     }
+  }
+
+  async _loadBgMusic() {
+    if (this.bgBuffer) return this.bgBuffer
+    if (this.bgLoading) return null
+    this.bgLoading = true
+    try {
+      const response = await fetch('/sounds/bg-music.wav')
+      const arrayBuffer = await response.arrayBuffer()
+      this._ensure()
+      if (this.ctx) {
+        this.bgBuffer = await this.ctx.decodeAudioData(arrayBuffer)
+      }
+    } catch (e) {
+      console.error('Failed to load background music:', e)
+    } finally {
+      this.bgLoading = false
+    }
+    return this.bgBuffer
   }
 
   setMuted(m) {
@@ -46,43 +67,42 @@ class CapiAudio {
     }
   }
 
-  /* A simple ambient pad built from detuned oscillators */
-  pad(freqs = [110, 164.8, 220], color = 'warm') {
+  /* Plays the background music WAV file loopingly */
+  async pad() {
     this._ensure()
     if (!this.ctx) return
+
+    // If already playing background music, do not interrupt it
+    if (this.currentPad && this.currentPad.isBgMusic) {
+      return
+    }
+
     this.stopPad()
-    const nodes = []
+
     const out = this.ctx.createGain()
     out.gain.value = 0
     out.connect(this.master)
 
-    const filter = this.ctx.createBiquadFilter()
-    filter.type = 'lowpass'
-    filter.frequency.value = color === 'cold' ? 1400 : 900
-    filter.Q.value = 4
-    filter.connect(out)
+    this.currentPad = { out, nodes: [], isBgMusic: true }
 
-    freqs.forEach((f, i) => {
-      const osc = this.ctx.createOscillator()
-      osc.type = i % 2 === 0 ? 'sawtooth' : 'sine'
-      osc.frequency.value = f
-      osc.detune.value = (Math.random() - 0.5) * 14
-      const g = this.ctx.createGain()
-      g.gain.value = 0.14 / freqs.length
-      osc.connect(g).connect(filter)
-      osc.start()
+    try {
+      const buffer = await this._loadBgMusic()
+      if (!buffer) return
 
-      const lfo = this.ctx.createOscillator()
-      lfo.frequency.value = 0.08 + Math.random() * 0.1
-      const lfoG = this.ctx.createGain()
-      lfoG.gain.value = 6
-      lfo.connect(lfoG).connect(osc.detune)
-      lfo.start()
-      nodes.push(osc, lfo)
-    })
+      // Abort if stopped/changed during load duration
+      if (!this.currentPad || !this.currentPad.isBgMusic) return
 
-    out.gain.linearRampToValueAtTime(0.4, this.ctx.currentTime + 2)
-    this.currentPad = { out, nodes }
+      const source = this.ctx.createBufferSource()
+      source.buffer = buffer
+      source.loop = true
+      source.connect(out)
+      source.start(0)
+
+      out.gain.linearRampToValueAtTime(0.5, this.ctx.currentTime + 1.5)
+      this.currentPad.nodes.push(source)
+    } catch (e) {
+      console.error('Error playing bg music:', e)
+    }
   }
 
   stopPad() {

@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { SUPPORTED_LANGS } from '../i18n/index.js'
+import Button from './Button.jsx'
 
 const LANG_LABELS = {
   vi: 'VI',
@@ -29,8 +30,9 @@ export default function LanguageSwitch({ style = {} }) {
       {SUPPORTED_LANGS.map((lng) => {
         const active = current === lng
         return (
-          <button
+          <Button
             key={lng}
+            variant="ghost"
             type="button"
             onClick={() => i18n.changeLanguage(lng)}
             aria-pressed={active}
@@ -51,7 +53,7 @@ export default function LanguageSwitch({ style = {} }) {
             }}
           >
             {LANG_LABELS[lng]}
-          </button>
+          </Button>
         )
       })}
     </div>

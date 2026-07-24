@@ -543,11 +543,11 @@
       }
     ],
     "likert_labels_vn": {
-      "1": "Rất không phù hợp",
-      "2": "Không phù hợp",
-      "3": "Bình thường",
-      "4": "Phù hợp",
-      "5": "Rất phù hợp"
+      "0": "Rất không phù hợp",
+      "1": "Không phù hợp",
+      "2": "Bình thường",
+      "3": "Phù hợp",
+      "4": "Rất phù hợp"
     },
     "scoring_formula": "Per role: (answer-1)/4 × 100."
   },
@@ -711,7 +711,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "Capi đứng trước bờ sông, nhìn dòng sông ngập rác nhựa, chai lọ, túi nilon.",
           "capi_dialogue_vn": "\"Ôi không, ven sông có rất nhiều rác nhựa! Trước khi hành động, bạn sẽ làm gì đầu tiên để hiểu rõ vấn đề đang xảy ra?\"",
           "options": [
             {
@@ -739,7 +738,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "Capy chỉ tay vào đám chai lọ đang trôi dạt nhiều hơn vào buổi tối",
           "capi_dialogue_vn": "“Sao ban đêm rác lại nhiều hơn ta? Bạn tìm hiểu thử xem?”",
           "options": [
             {
@@ -767,7 +765,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "Capy và các bạn đứng quanh bàn lắp ráp, với các giấy tờ mẫu vẽ, cánh tay chưa lắp ráp. Mọi người đang trao đổi",
           "capi_dialogue_vn": "\"Để làm robot thì chúng ta chia công việc để tiến độ nhanh hơn nhé, bạn muốn làm phần nào?\"",
           "options": [
             {
@@ -795,7 +792,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "“Cùng bàn ý tưởng nào! Trong buổi họp nhóm đầu tiên này, bạn thường chọn vai trò nào?”",
           "options": [
             {
@@ -823,7 +819,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "\"Khung robot đang dần hình thành. Nhưng có tới 2 phương án có thể chọn, bạn sẽ ra quyết định thế nào?\"",
           "options": [
             {
@@ -851,7 +846,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "Hoàn thiện mẫu thử. Chiếu hình ảnh robot nằm trên bàn, cả nhóm đang đánh giá",
           "capi_dialogue_vn": "“Trước buổi demo cho cộng đồng, bạn muốn tập trung vào điều gì nhất?”",
           "options": [
             {
@@ -879,7 +873,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "“Bị thiếu một vài thiết bị mất rồi! Bạn sẽ chọn cách xử lý nào trước để nhóm vẫn có thể tiếp tục phát triển robot theo kế hoạch?”",
           "options": [
             {
@@ -907,7 +900,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "Chiếu cảnh Capi đang nói chuyện với đối tượng khác",
           "capi_dialogue_vn": "\"Sau khi vận hành thử, robot hoạt động khá ồn khiến một số người khó chịu. Bạn sẽ làm gì?\"",
           "options": [
             {
@@ -935,7 +927,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "\"Một bạn nhỏ hỏi: 'Robot này có liên quan gì đến tụi em?'. Trả lời sao đây?\"",
           "options": [
             {
@@ -963,7 +954,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "\"Mọi người ở đây vẫn chưa tin robot lắm. Bạn sẽ làm như thế nào?\"",
           "options": [
             {
@@ -991,7 +981,6 @@
           "chapter_vn": "Chương 3: Thử thách",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "Robot bắt đầu được đưa vào hoạt động trên sông, nhưng gặp các thách thức đầu tiên",
           "capi_dialogue_vn": "“Nước chảy xiết quá, robot bị đẩy lệch hướng rồi! Chúng ta nên ưu tiên làm gì đây?”",
           "options": [
             {
@@ -1019,7 +1008,6 @@
           "chapter_vn": "Chương 3: Thử thách",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "“Robot bị kẹt rác ở một số khu vực rồi! Bạn sẽ ưu tiên xử lý theo hướng nào?”",
           "options": [
             {
@@ -1047,7 +1035,6 @@
           "chapter_vn": "Chương 4: Nhân rộng",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "“Hệ thống robot đang hoạt động khá tốt trong giai đoạn hiện tại. Bạn muốn nhóm tập trung vào việc gì tiếp theo?”",
           "options": [
             {
@@ -1075,7 +1062,6 @@
           "chapter_vn": "Chương 4: Nhân rộng",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "\"Dự án đang được cân nhắc mở rộng sang nhiều khu vực khác nhau. Bạn sẽ muốn bắt đầu từ đâu?\"",
           "options": [
             {
@@ -1103,7 +1089,6 @@
           "chapter_vn": "Chương 4: Nhân rộng",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Tín hiệu cầu cứu từ một thành phố khác vừa gửi tới! Họ cũng muốn triển khai mô hình robot này cho khu vực của mình. Trong giai đoạn chuẩn bị nhiệm vụ mới, bạn muốn đảm nhận vai trò nào nhất?",
           "options": [
             {
@@ -1131,7 +1116,6 @@
           "chapter_vn": "Chương 4: Nhân rộng",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "“Không chỉ chạy tốt hôm nay, hệ thống cần phát triển bền vững trong nhiều năm tới. Bạn nghĩ nhóm nên ưu tiên điều gì nhất?”",
           "options": [
             {
@@ -1159,7 +1143,6 @@
           "chapter_vn": "Chương 5: Thử thách cuối",
           "layer": "unexpected",
           "weight": 2,
-          "context_vn": "Capi và bạn đứng trước mặt mọi người để cổ động, mưa bão lớn nhưng mặt bạn và Capi nghiêm túc, vẫn cố gắng hoàn thành nhiệm vụ",
           "capi_dialogue_vn": "“Ngay trong buổi demo, robot đột ngột dừng lại. Bạn phản ứng thế nào?”",
           "options": [
             {
@@ -1187,7 +1170,6 @@
           "chapter_vn": "Chương 5: Thử thách cuối",
           "layer": "unexpected",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "“Ngay sát lúc chốt phương án, đối tác bất ngờ muốn thay đổi yêu cầu. Bạn xử lý ra sao?”",
           "options": [
             {
@@ -1215,7 +1197,6 @@
           "chapter_vn": "Chương 5: Thử thách cuối",
           "layer": "unexpected",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "“Đến ngày triển khai, thời tiết xấu hơn dự kiến. Bạn ưu tiên xử lý theo hướng nào trước?”",
           "options": [
             {
@@ -1243,7 +1224,6 @@
           "chapter_vn": "Chương 5: Thử thách cuối",
           "layer": "unexpected",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "“Dự án bắt đầu được nhiều người chú ý hơn rồi! Bạn muốn tận dụng cơ hội này theo cách nào?”",
           "options": [
             {
@@ -1279,7 +1259,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "Bác sĩ, y tá chạy sấp mặt, bệnh nhân thì chờ đợi mệt mỏi.",
           "capi_dialogue_vn": "“Vừa đến bệnh viện, bạn thấy bác sĩ và y tá đều đang rất bận. Trước khi bắt đầu, bạn sẽ ưu tiên làm gì để hiểu rõ tình hình?”",
           "options": [
             {
@@ -1307,7 +1286,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Bác sĩ mất quá nhiều thời gian đọc hồ sơ nên mặt hơi quạu rồi. Bạn làm gì tiếp theo?",
           "options": [
             {
@@ -1335,7 +1313,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Một số bác sĩ vẫn gặp khó khăn khi sử dụng hệ thống mới trong công việc hằng ngày. Bạn sẽ ưu tiên hướng xử lý nào trước?",
           "options": [
             {
@@ -1363,7 +1340,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Một vài bác sĩ có vẻ chưa thực sự tin vào hệ thống AI mới. Trong tình huống này, bạn sẽ làm gì?",
           "options": [
             {
@@ -1391,7 +1367,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "Capi và bạn ở trong phòng thí nghiệm, nhìn lên bảng chứa các thông tin, cùng chiếc máy tính trên bàn. Hệ thống vẫn đang báo đỏ. Các bác sĩ thì nhíu mày từ đằng xa",
           "capi_dialogue_vn": "“Cả nhóm bắt đầu bàn ý tưởng cho AI rồi. Trong buổi họp đầu tiên này, bạn thường tự nhiên đóng vai trò nào nhất?”",
           "options": [
             {
@@ -1419,7 +1394,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "“Dự án AI có nhiều phần quan trọng cần làm. Bạn muốn nhận phần nào nhất?”",
           "options": [
             {
@@ -1447,7 +1421,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Mọi người có vẻ đang có nhiều ý kiến khác nhau về cách làm AI. Bạn sẽ ra quyết định thế nào",
           "options": [
             {
@@ -1475,7 +1448,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Sắp xong rồi! Để đảm bảo AI có thể chạy thử mượt mà trước các bác sĩ, bạn sẽ làm gì?",
           "options": [
             {
@@ -1503,7 +1475,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Ôi không, hệ thống AI đưa ra một số kết quả chưa chính xác. Chúng ta phải làm gì bây giờ?",
           "options": [
             {
@@ -1531,7 +1502,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Gay go rồi, thiếu dữ liệu huấn luyện nên em AI cứ báo lỗi, lõi năng lượng không nạp thêm được. Bạn tính xử lý sao đây?",
           "options": [
             {
@@ -1559,7 +1529,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Hình như các bác sĩ đang thấy hệ thống hơi khó dùng nên chỉ số Happy đứng yên rồi. Bạn sẽ ưu tiên làm gì để giúp họ?",
           "options": [
             {
@@ -1587,7 +1556,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Một bệnh nhân hỏi: “AI này thật ra giúp gì cho tôi?” Bạn sẽ trả lời theo hướng nào?",
           "options": [
             {
@@ -1615,7 +1583,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "AI bắt đầu giúp các ca nhẹ, bệnh nhân bắt đầu mỉm cười.",
           "capi_dialogue_vn": "\"Lõi bắt đầu nạp được năng lượng rồi kìa! Hệ thống AI đã cho kết quả khá tích cực trong giai đoạn đầu. Giờ bạn muốn nhóm tập trung vào việc gì tiếp theo?”",
           "options": [
             {
@@ -1643,7 +1610,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "AI sắp được dùng ở nhiều phòng khác nữa để nạp thêm năng lượng. Bạn bắt đầu từ đâu?",
           "options": [
             {
@@ -1671,7 +1637,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Để nạp lõi năng lượng nhanh hơn, ta có thể dùng AI ở các khoang khác. Để làm được thì chúng ta cần gì?",
           "options": [
             {
@@ -1699,7 +1664,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Dự án phòng khám trên tàu đang rất \"hot\" và được cả phi hành đoàn chú ý. Bạn muốn tận dụng cơ hội này thế nào?",
           "options": [
             {
@@ -1727,7 +1691,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Để phòng khám vận hành bền vững suốt chuyến bay dài, theo bạn điều gì quan trọng nhất?",
           "options": [
             {
@@ -1755,7 +1718,6 @@
           "chapter_vn": "Chương 4: Đối mặt thử thách",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "Sảnh phòng khám trên tàu đông nghẹt phi hành đoàn, màn hình AI chớp nháy đỏ với chữ \"Quá tải\". Capi nhìn bảng năng lượng đang tụt dần, mồ hôi hột chảy ròng ròng.",
           "capi_dialogue_vn": "Căng rồi! AI gặp sự cố, chỉ số Happy đang giảm mạnh. Bạn xử lý sao?",
           "options": [
             {
@@ -1783,7 +1745,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Sát giờ chốt phương án rồi mà bác sĩ lại muốn thay đổi một vài chỗ. Bạn sẽ xử lý thế nào đây?",
           "options": [
             {
@@ -1811,7 +1772,6 @@
           "chapter_vn": "Chương 4: Đối mặt thử thách",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Giờ cao điểm mà hệ thống lại đứng máy rồi! Chỉ số Happy đang tụt dốc không phanh, cứ thế này lõi năng lượng sẽ hỏng mất. Bạn ưu tiên cứu hướng nào đây?",
           "options": [
             {
@@ -1847,7 +1807,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "Hiện trường đổ nát sau thảm họa, khói bụi mịt mù, Capi khoác bộ đồ cứu hỏa, tay cầm thiết bị dò tìm sự sống.",
           "capi_dialogue_vn": "Khi vừa đến hiện trường sau một trận động đất, nhóm cần chọn một hướng tiếp cận đầu tiên để hiểu bối cảnh. Bạn sẽ ưu tiên gì trước?",
           "options": [
             {
@@ -1875,7 +1834,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Đội cứu hộ đang mất khá nhiều thời gian để tìm kiếm trong một khu vực rộng và nguy hiểm. Bạn sẽ đề xuất bước tiếp theo nào?",
           "options": [
             {
@@ -1903,7 +1861,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Một số robot vẫn gặp khó khăn khi di chuyển qua đống đổ nát tại hiện trường. Bạn sẽ ưu tiên hướng xử lý nào trước?",
           "options": [
             {
@@ -1931,7 +1888,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Một số thành viên cứu hộ vẫn chưa thực sự tin tưởng robot trong nhiệm vụ thực địa. Trong tình huống này, bạn sẽ ưu tiên gì?",
           "options": [
             {
@@ -1959,7 +1915,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "Capi hướng dẫn robot quét dữ liệu hiện trường để tìm ra lối vào an toàn nhất cho đội cứu hộ",
           "capi_dialogue_vn": "Trong buổi họp nhanh giữa đội cứu hộ và team kỹ thuật, bạn thường đóng vai trò nào nhất?",
           "options": [
             {
@@ -1987,7 +1942,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Team đang tranh luận giữa hai cách triển khai robot khác nhau cho nhiệm vụ cứu hộ. Bạn sẽ nghiêng về cách nào?",
           "options": [
             {
@@ -2015,7 +1969,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Bạn được giao một nhiệm vụ quan trọng trong chiến dịch cứu hộ. Bạn muốn nhận phần nào nhất?",
           "options": [
             {
@@ -2043,7 +1996,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Trước buổi demo nhanh cho đội cứu hộ, bạn muốn tập trung vào phần nào nhất?",
           "options": [
             {
@@ -2071,7 +2023,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "Robot bắt đầu đào bới và dọn dẹp các mảnh vỡ, Capi chăm chú theo dõi màn hình hiển thị tình trạng robot.",
           "capi_dialogue_vn": "Trong quá trình test, robot không phát hiện được một số nạn nhân ở khu vực khó tiếp cận. Bạn sẽ ưu tiên xử lý theo hướng nào?",
           "options": [
             {
@@ -2099,7 +2050,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Team đang thiếu một số thiết bị quan trọng nên chưa thể tiếp tục triển khai như kế hoạch. Bạn sẽ xử lý thế nào trước?",
           "options": [
             {
@@ -2127,7 +2077,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Một số nạn nhân hoặc người dân cảm thấy hoảng sợ khi thấy robot xuất hiện ở hiện trường. Bạn sẽ ưu tiên gì?",
           "options": [
             {
@@ -2155,7 +2104,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Dự án đang được đề xuất mở rộng sang nhiều khu vực cứu hộ khác nhau. Bạn sẽ muốn bắt đầu từ đâu?",
           "options": [
             {
@@ -2183,7 +2131,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "Robot tiếp tục đào bới và hỗ trợ cứu hộ, mọi người cảm thấy an tâm hơn và có những dấu hiệu tốt từ dự án",
           "capi_dialogue_vn": "Robot đã giúp đội cứu hộ làm việc hiệu quả hơn ở khu vực thử nghiệm đầu tiên. Bạn muốn nhóm tập trung vào việc gì tiếp theo?",
           "options": [
             {
@@ -2211,7 +2158,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Nhiều tổ chức cứu hộ khác bắt đầu quan tâm đến hệ thống này. Trong giai đoạn mở rộng, bạn muốn đảm nhận vai trò nào nhất?",
           "options": [
             {
@@ -2239,7 +2185,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Dự án bắt đầu được chú ý rộng rãi hơn. Bạn muốn tận dụng cơ hội này theo cách nào?",
           "options": [
             {
@@ -2267,7 +2212,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Nếu muốn hệ thống phát triển bền vững trong nhiều năm, theo bạn điều gì cần được ưu tiên nhất?",
           "options": [
             {
@@ -2295,7 +2239,6 @@
           "chapter_vn": "Chương 4: Đối mặt thử thách",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "Tuy nhiên, kết cấu công trình có dấu hiệu sập lần hai, Capi phải ra lệnh cho robot tạm dừng hoặc thay đổi hướng cứu hộ để đảm bảo an toàn.",
           "capi_dialogue_vn": "Trong một ca cứu hộ quan trọng, robot bất ngờ dừng hoạt động giữa chừng. Phản ứng đầu tiên của bạn sẽ là gì?",
           "options": [
             {
@@ -2323,7 +2266,6 @@
           "chapter_vn": "Chương 4: Đối mặt thử thách",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Chiến lược cứu hộ thay đổi đột ngột vì tình hình hiện trường xấu đi nhanh hơn dự kiến. Bạn sẽ xử lý ra sao?",
           "options": [
             {
@@ -2351,7 +2293,6 @@
           "chapter_vn": "Chương 4: Đối mặt thử thách",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Hệ thống bắt đầu quá tải khi nhiều robot hoạt động cùng lúc và rất nhiều tín hiệu đổ về liên tục. Bạn sẽ ưu tiên hướng nào?",
           "options": [
             {
@@ -2379,7 +2320,6 @@
           "chapter_vn": "Chương 4: Đối mặt thử thách",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Một người dân hỏi: “Robot này thực sự giúp gì cho chúng tôi?” Bạn sẽ trả lời theo hướng nào?",
           "options": [
             {
@@ -2415,7 +2355,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "Capi đứng trước một căn hộ mẫu với hệ thống dây điện lằng nhằng, các thiết bị rời rạc không kết nối được với nhau.",
           "capi_dialogue_vn": "Khi vừa đến ngôi nhà nơi sẽ triển khai hệ thống smart home, nhóm cần chọn một cách tiếp cận ban đầu để hiểu bối cảnh sử dụng. Bạn sẽ ưu tiên gì trước?",
           "options": [
             {
@@ -2443,7 +2382,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Nhóm nhận thấy đèn và điều hòa trong nhà thường xuyên bị quên tắt. Bạn sẽ đề xuất bước tiếp theo nào?",
           "options": [
             {
@@ -2471,7 +2409,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Một người lớn tuổi trong gia đình gặp khó khăn khi sử dụng app điều khiển hệ thống. Bạn sẽ ưu tiên hướng xử lý nào trước?",
           "options": [
             {
@@ -2499,7 +2436,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Gia đình bày tỏ lo ngại về bảo mật dữ liệu và quyền riêng tư khi dùng smart home. Trong tình huống này, bạn sẽ ưu tiên gì?",
           "options": [
             {
@@ -2527,7 +2463,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "Capi đang vẽ sơ đồ kết nối trên bảng, tay cầm tablet kiểm tra luồng dữ liệu của đèn và điều hòa.",
           "capi_dialogue_vn": "Trong một buổi họp đầu tiên của nhóm dự án, bạn thường tự nhiên đóng vai trò nào nhất?",
           "options": [
             {
@@ -2555,7 +2490,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Nhóm đang có nhiều phương án thiết kế hệ thống khác nhau và cần sớm chốt hướng đi. Bạn sẽ nghiêng về cách nào?",
           "options": [
             {
@@ -2583,7 +2517,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Nếu được chọn một phần việc quan trọng trong dự án, bạn muốn nhận phần nào nhất?",
           "options": [
             {
@@ -2611,7 +2544,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Trước buổi demo cho gia đình dùng thử, bạn muốn tập trung vào phần nào nhất?",
           "options": [
             {
@@ -2639,7 +2571,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Trong quá trình test, hệ thống hoạt động chưa ổn định như mong đợi. Bạn sẽ ưu tiên xử lý theo hướng nào?",
           "options": [
             {
@@ -2667,7 +2598,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Nhóm đang thiếu một số thiết bị cần thiết để tiếp tục triển khai như kế hoạch. Bạn sẽ xử lý thế nào trước?",
           "options": [
             {
@@ -2695,7 +2625,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "Các thiết bị bắt đầu nhấp nháy, Capi chỉnh sửa code trên bảng điều khiển trung tâm để đồng bộ hóa.",
           "capi_dialogue_vn": "Sau khi dùng thử, một số người trong gia đình phản hồi rằng hệ thống hiện tại còn hơi khó sử dụng. Bạn sẽ ưu tiên gì?",
           "options": [
             {
@@ -2723,7 +2652,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Hệ thống đang được cân nhắc triển khai cho nhiều ngôi nhà khác nhau. Bạn sẽ muốn bắt đầu từ đâu?",
           "options": [
             {
@@ -2751,7 +2679,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Hệ thống đang hoạt động khá tốt trong giai đoạn hiện tại. Bạn muốn nhóm tập trung vào việc gì tiếp theo?",
           "options": [
             {
@@ -2779,7 +2706,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Nhiều gia đình khác bắt đầu quan tâm và muốn áp dụng hệ thống này. Bạn sẽ đề xuất bước khởi đầu nào?",
           "options": [
             {
@@ -2807,7 +2733,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Dự án bắt đầu được chú ý nhiều hơn từ bên ngoài. Bạn muốn tận dụng cơ hội này theo cách nào?",
           "options": [
             {
@@ -2835,7 +2760,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Nếu muốn dự án phát triển bền vững trong nhiều năm, theo bạn điều gì cần được ưu tiên nhất?",
           "options": [
             {
@@ -2863,7 +2787,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Trong buổi demo cho gia đình, hệ thống bất ngờ gặp lỗi và hoạt động không như mong đợi. Phản ứng đầu tiên của bạn sẽ là gì?",
           "options": [
             {
@@ -2891,7 +2814,6 @@
           "chapter_vn": "Chương 3: Vận hành",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Ngay sát thời điểm chốt phương án, người dùng lại thay đổi một số yêu cầu so với ban đầu. Bạn sẽ xử lý ra sao?",
           "options": [
             {
@@ -2919,7 +2841,6 @@
           "chapter_vn": "Chương 4: Đối mặt thử thách",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "Hệ thống gặp lỗi logic, đèn chớp tắt liên tục, Capi đổ mồ hôi nhưng vẫn bình tĩnh phân tích từng đoạn mã lỗi.",
           "capi_dialogue_vn": "Trong một thời điểm nhiều thiết bị hoạt động cùng lúc, hệ thống bắt đầu phản hồi chậm và có dấu hiệu quá tải. Bạn sẽ ưu tiên hướng nào?",
           "options": [
             {
@@ -2947,7 +2868,6 @@
           "chapter_vn": "Chương 4: Đối mặt thử thách",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Sau buổi giới thiệu, người dùng hỏi: “Hệ thống này thật ra mang lại giá trị gì cho gia đình tôi?” Bạn sẽ trả lời theo hướng nào?",
           "options": [
             {
@@ -2983,7 +2903,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "Kho hàng hỗn loạn, kiện hàng rơi vãi, robot nằm im không phản ứng, màn hình điều khiển báo lỗi liên tục.",
           "capi_dialogue_vn": "Khi vừa đến kho để khảo sát, bạn thấy hàng hóa, xe nâng và nhân viên đang di chuyển liên tục. Nhóm cần chọn cách tiếp cận ban đầu để hiểu tình hình vận hành. Bạn sẽ ưu tiên làm gì trước?",
           "options": [
             {
@@ -3011,7 +2930,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Nhóm nhận thấy nhân viên mất khá nhiều thời gian để tìm đúng vị trí hàng trong kho. Bạn sẽ đề xuất bước tiếp theo nào?",
           "options": [
             {
@@ -3039,7 +2957,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Một nhân viên trong kho gặp khó khăn khi dùng hệ thống mới trong ca làm việc. Bạn sẽ ưu tiên xử lý theo hướng nào trước?",
           "options": [
             {
@@ -3067,7 +2984,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Một số nhân viên lo ngại về mức độ an toàn khi robot hoạt động chung trong kho. Bạn sẽ ưu tiên làm gì?",
           "options": [
             {
@@ -3095,7 +3011,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "Capi và bạn ngồi lại để thảo luận cách kiểm tra từng con robot, gỡ bỏ các vật cản trên đường di chuyển và nạp lại thuật toán định vị.",
           "capi_dialogue_vn": "Trong buổi họp đầu tiên của nhóm dự án, bạn thường tự nhiên đóng vai trò nào nhất?",
           "options": [
             {
@@ -3123,7 +3038,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Nhóm đang có nhiều phương án khác nhau để cải thiện vận hành trong kho. Bạn sẽ nghiêng về cách nào?",
           "options": [
             {
@@ -3151,7 +3065,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Nếu được chọn một phần việc quan trọng trong dự án, bạn muốn nhận phần nào nhất?",
           "options": [
             {
@@ -3179,7 +3092,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Nhóm sắp demo hệ thống cho quản lý kho và đội vận hành. Bạn muốn tập trung vào phần nào nhất?",
           "options": [
             {
@@ -3207,7 +3119,6 @@
           "chapter_vn": "Chương 3: Đối mặt thử thách",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "Capi nhấn nút kích hoạt, tiếng động cơ robot bắt đầu vang lên đều đặn, hàng hóa được di chuyển nhịp nhàng. Tuy nhiên bắt đầu phát snh lỗi",
           "capi_dialogue_vn": "Trong quá trình test, hệ thống bất ngờ chạy sai và gây lỗi trong thao tác lấy hàng. Bạn sẽ ưu tiên làm gì trước?",
           "options": [
             {
@@ -3235,7 +3146,6 @@
           "chapter_vn": "Chương 3: Đối mặt thử thách",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Nhóm đang thiếu robot hoặc một số thiết bị cần thiết để tiếp tục test như kế hoạch. Bạn sẽ xử lý thế nào trước?",
           "options": [
             {
@@ -3263,7 +3173,6 @@
           "chapter_vn": "Chương 3: Đối mặt thử thách",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Sau khi dùng thử, một số nhân viên cho rằng hệ thống hiện tại còn hơi khó dùng. Bạn sẽ ưu tiên làm gì?",
           "options": [
             {
@@ -3291,7 +3200,6 @@
           "chapter_vn": "Chương 3: Đối mặt thử thách",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Nhóm đang cân nhắc triển khai hệ thống này cho nhiều kho khác nhau. Bạn sẽ muốn bắt đầu từ đâu?",
           "options": [
             {
@@ -3319,7 +3227,6 @@
           "chapter_vn": "Chương 4: Vận hành",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "Kho hàng bắt đầu vận hành nhịp hàng. Trên bảng thông tin chiếu rằng tiến độ giao hàng đã tăng lên. Nhân viên trong kho nhìn vui vẻ",
           "capi_dialogue_vn": "Hệ thống hiện đang hoạt động khá tốt trong giai đoạn đầu. Bạn muốn nhóm tập trung vào việc gì tiếp theo?",
           "options": [
             {
@@ -3347,7 +3254,6 @@
           "chapter_vn": "Chương 4: Vận hành",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Một kho hàng khác muốn áp dụng hệ thống này cho đơn vị của họ. Bạn sẽ đề xuất bước khởi đầu nào?",
           "options": [
             {
@@ -3375,7 +3281,6 @@
           "chapter_vn": "Chương 4: Vận hành",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Dự án bắt đầu được nhiều người biết đến hơn và nhận được sự quan tâm từ bên ngoài. Bạn muốn tận dụng cơ hội này theo cách nào?",
           "options": [
             {
@@ -3403,7 +3308,6 @@
           "chapter_vn": "Chương 4: Vận hành",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Nếu muốn dự án phát triển bền vững trong nhiều năm, theo bạn điều gì cần được ưu tiên nhất?",
           "options": [
             {
@@ -3431,7 +3335,6 @@
           "chapter_vn": "Chương 5: Thử thách cuối",
           "layer": "unexpected",
           "weight": 2,
-          "context_vn": "Đơn hàng tăng đột biến (cao điểm), robot bị kẹt tại nút giao, Capi phải trực tiếp can thiệp để tối ưu hóa lộ trình.",
           "capi_dialogue_vn": "Trong buổi demo, hệ thống bất ngờ gặp lỗi và robot không hoạt động như mong đợi. Bạn sẽ phản ứng thế nào đầu tiên?",
           "options": [
             {
@@ -3459,7 +3362,6 @@
           "chapter_vn": "Chương 5: Thử thách cuối",
           "layer": "unexpected",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Ngay sát thời điểm chốt phương án, phía khách hàng thay đổi một số yêu cầu so với ban đầu. Bạn sẽ xử lý ra sao?",
           "options": [
             {
@@ -3487,7 +3389,6 @@
           "chapter_vn": "Chương 5: Thử thách cuối",
           "layer": "unexpected",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Trong giờ cao điểm, hệ thống bắt đầu phản hồi chậm và có dấu hiệu quá tải. Bạn sẽ ưu tiên làm gì trước?",
           "options": [
             {
@@ -3515,7 +3416,6 @@
           "chapter_vn": "Chương 5: Thử thách cuối",
           "layer": "unexpected",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Sau buổi giới thiệu, khách hàng hỏi: “Hệ thống này thật ra mang lại giá trị gì cho bên tôi?” Bạn sẽ trả lời theo hướng nào?",
           "options": [
             {
@@ -3551,7 +3451,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "Bầu trời u ám, bản đồ thành phố hiển thị chi tiết các tòa nhà cao tầng và chướng ngại vật phức tạp. Capi cầm tablet, tay chạm liên tục vào các điểm mù trên bản đồ để lên phương án tiếp cận.",
           "capi_dialogue_vn": "Nhóm cần chọn một hướng tiếp cận đầu tiên để hiểu bối cảnh. Bạn sẽ ưu tiên gì trước?",
           "options": [
             {
@@ -3579,7 +3478,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Nhóm nhận thấy việc giao hàng thường chậm ở những khu vực đông xe và khó tiếp cận. Bạn sẽ đề xuất bước tiếp theo nào?",
           "options": [
             {
@@ -3607,7 +3505,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Một số khách hàng cho biết họ gặp khó khăn khi theo dõi trạng thái đơn hàng bằng drone. Bạn sẽ ưu tiên hướng xử lý nào trước?",
           "options": [
             {
@@ -3635,7 +3532,6 @@
           "chapter_vn": "Chương 1: Trinh sát",
           "layer": "problem_discovery",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Cơ quan quản lý bày tỏ lo ngại về an toàn bay và quyền riêng tư. Trong tình huống này, bạn muốn đóng vai trò nào nhất?",
           "options": [
             {
@@ -3663,7 +3559,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "Phòng họp tràn ngập ánh sáng từ màn hình hologram mô phỏng lưới bay. Capi đứng giữa, tay điều phối các thông số kỹ thuật, gương mặt tập trung cao độ để thống nhất ý kiến với cả team.",
           "capi_dialogue_vn": "Trong buổi họp team để thiết kế mạng lưới drone, bạn thường tự nhiên đóng vai trò nào nhất?",
           "options": [
             {
@@ -3691,7 +3586,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Team đang tranh luận giữa nhiều phương án khác nhau để triển khai mạng lưới drone. Bạn sẽ nghiêng về cách nào?",
           "options": [
             {
@@ -3719,7 +3613,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Bạn được giao một phần việc quan trọng trong dự án. Bạn muốn nhận phần nào nhất?",
           "options": [
             {
@@ -3747,7 +3640,6 @@
           "chapter_vn": "Chương 2: Chế tạo",
           "layer": "team_work",
           "weight": 1,
-          "context_vn": "",
           "capi_dialogue_vn": "Trước buổi demo cho đối tác và cơ quan liên quan, bạn muốn tập trung vào phần nào nhất?",
           "options": [
             {
@@ -3775,7 +3667,6 @@
           "chapter_vn": "Chương 3: Đối mặt thử thách",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "Hiện trường thử nghiệm thực tế với gió lớn. Capi đứng trước trạm điều khiển di động, theo dõi sát sao dữ liệu bay. Một vài drone chao đảo, Capi siết chặt tay, bình tĩnh thao tác sửa lỗi.",
           "capi_dialogue_vn": "Trong quá trình test, một số drone giao hàng thất bại hoặc phải quay đầu giữa đường. Bạn muốn đóng vai trò nào nhất?",
           "options": [
             {
@@ -3803,7 +3694,6 @@
           "chapter_vn": "Chương 3: Đối mặt thử thách",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Team đang thiếu một số thiết bị hoặc hạ tầng cần thiết để tiếp tục test như kế hoạch. Bạn sẽ xử lý thế nào trước?",
           "options": [
             {
@@ -3831,7 +3721,6 @@
           "chapter_vn": "Chương 3: Đối mặt thử thách",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Một số người dùng phản hồi rằng hệ thống nhận hàng bằng drone còn khó hiểu và gây lo lắng. Bạn sẽ ưu tiên gì?",
           "options": [
             {
@@ -3859,7 +3748,6 @@
           "chapter_vn": "Chương 3: Đối mặt thử thách",
           "layer": "challenge",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Hệ thống đang được đề xuất mở rộng trên toàn thành phố. Bạn sẽ muốn bắt đầu từ đâu?",
           "options": [
             {
@@ -3887,7 +3775,6 @@
           "chapter_vn": "Chương 4: Vận hành",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "Bản đồ toàn thành phố sáng rực các tuyến đường đã thông suốt. Capi đang kiểm tra hệ thống điều phối từ trung tâm, ánh mắt ánh lên sự tự hào nhưng vẫn cẩn trọng quan sát các cảnh báo quy mô lớn.",
           "capi_dialogue_vn": "Hệ thống giao hàng bằng drone đã hoạt động khá tốt ở một khu vực thử nghiệm. Bạn muốn nhóm tập trung vào việc gì tiếp theo?",
           "options": [
             {
@@ -3915,7 +3802,6 @@
           "chapter_vn": "Chương 4: Vận hành",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Nhiều thành phố khác bắt đầu quan tâm đến mô hình này. Bạn muốn đóng vai trò nào nhất?",
           "options": [
             {
@@ -3943,7 +3829,6 @@
           "chapter_vn": "Chương 4: Vận hành",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Dự án bắt đầu được truyền thông chú ý nhiều hơn. Bạn muốn tận dụng cơ hội này theo cách nào?",
           "options": [
             {
@@ -3971,7 +3856,6 @@
           "chapter_vn": "Chương 4: Vận hành",
           "layer": "impact",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Nếu muốn hệ thống phát triển bền vững trong nhiều năm, theo bạn điều gì cần được ưu tiên nhất?",
           "options": [
             {
@@ -3999,7 +3883,6 @@
           "chapter_vn": "Chương 5: Thử thách cuối",
           "layer": "unexpected",
           "weight": 2,
-          "context_vn": "Sân thượng rung lắc dưới tác động của bão, Capi khoác áo chuyên dụng, gương mặt nghiêm nghị quan sát dashboard hiển thị đỏ rực cảnh báo quá tải. Capi quyết tâm giúp cho hệ thống vận hành tốt.",
           "capi_dialogue_vn": "Trong buổi demo quan trọng, một drone bất ngờ gặp lỗi giữa đường. Phản ứng đầu tiên của bạn sẽ là gì?",
           "options": [
             {
@@ -4027,7 +3910,6 @@
           "chapter_vn": "Chương 5: Thử thách cuối",
           "layer": "unexpected",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Ngay trước khi triển khai, quy định bay thay đổi đột ngột so với kế hoạch ban đầu. Bạn sẽ xử lý ra sao?",
           "options": [
             {
@@ -4055,7 +3937,6 @@
           "chapter_vn": "Chương 5: Thử thách cuối",
           "layer": "unexpected",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Hệ thống bắt đầu quá tải khi số lượng đơn giao tăng mạnh cùng lúc. Bạn sẽ ưu tiên hướng nào?",
           "options": [
             {
@@ -4083,7 +3964,6 @@
           "chapter_vn": "Chương 5: Thử thách cuối",
           "layer": "unexpected",
           "weight": 2,
-          "context_vn": "",
           "capi_dialogue_vn": "Một khách hàng hỏi: “Hệ thống drone này thực sự giúp gì cho tôi?” Bạn sẽ trả lời theo hướng nào?",
           "options": [
             {

@@ -1,12 +1,9 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Capi from '../Capi.jsx'
-import { Typed } from '../UI.jsx'
 import { capiAudio } from '../../audio.js'
-import { CAPI_ROLES, PHASE3_QUESTIONS, LIKERT_FIT } from '../../data.js'
+import { PHASE3_QUESTIONS, LIKERT_FIT } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
-import SceneShell from './SceneShell.jsx'
-import LikertSlider from './LikertSlider.jsx'
+import QAPageLayout from './QAPageLayout.jsx'
 
 export default function ReflectionScene() {
   const navigate = useNavigate()
@@ -17,108 +14,72 @@ export default function ReflectionScene() {
     reflectIndex: idx,
     setReflectIndex: setIdx,
   } = useWizard()
+
   useEffect(() => {
     capiAudio.pad([130.8, 196, 261.6, 392])
   }, [])
 
   const q = PHASE3_QUESTIONS[idx]
-  const current = answers[q.role] ?? 3
+  if (!q) return null
+
+  const currentValue = answers[q.role] ?? null
+
+  const handleSelectOption = (v) => {
+    capiAudio.sfx('click')
+    setAnswers((prev) => ({ ...prev, [q.role]: v }))
+  }
 
   const next = () => {
-    const newAnswers = { ...answers, [q.role]: current }
     capiAudio.sfx('click')
     if (idx + 1 >= PHASE3_QUESTIONS.length) {
       capiAudio.sfx('success')
       const full = {}
-      for (const pq of PHASE3_QUESTIONS) full[pq.role] = newAnswers[pq.role] ?? 3
+      for (const pq of PHASE3_QUESTIONS) {
+        full[pq.role] = answers[pq.role] ?? 3
+      }
       onReflectDone(full)
       navigate('/certificate')
     } else {
-      setAnswers(newAnswers)
       setIdx(idx + 1)
     }
   }
 
-  const roleData = CAPI_ROLES[q.role] || { color: '#843497', nameVn: q.role }
+  const back = () => {
+    capiAudio.sfx('click')
+    if (idx > 0) {
+      setIdx(idx - 1)
+    } else {
+      navigate('/mission-play')
+    }
+  }
+
+  const imgPath = `/illos/capi-gen-${q.role}.webp`
 
   return (
-    <SceneShell light>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateRows: 'auto 1fr auto',
-          height: '100%',
-          padding: '28px 24px',
-          gap: 20,
-          maxWidth: 860,
-          margin: '0 auto',
-        }}
-      >
-        {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
-          <div className="mono" style={{ color: '#843497' }}>
-            PHASE 3 · PHẢN CHIẾU
-          </div>
-          <div className="progress" style={{ flex: 1, maxWidth: 280 }}>
-            <i style={{ width: `${((idx + 1) / PHASE3_QUESTIONS.length) * 100}%` }} />
-          </div>
-          <div className="mono" style={{ color: '#9ca3af' }}>
-            {idx + 1} / {PHASE3_QUESTIONS.length}
-          </div>
-        </div>
-
-        {/* Capi + question */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'auto 1fr',
-            gap: 20,
-            alignItems: 'end',
-            alignSelf: 'end',
-          }}
-          className="fade-up"
-        >
-          <Capi outfit="lab" pose="talk" size={120} />
-          <div className="dialogue">
-            <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8 }}>
-              <div className="mono" style={{ color: '#843497' }}>
-                CAPI
-              </div>
-              <span
-                className="pill"
-                style={{ color: roleData.color, borderColor: `${roleData.color}44` }}
-              >
-                {roleData.nameVn}
-              </span>
-            </div>
-            <div
-              key={idx}
-              style={{
-                fontSize: 18,
-                lineHeight: 1.5,
-                fontFamily: 'var(--font-display)',
-                color: '#1a1a2e',
-              }}
-            >
-              <Typed text={q.text_vn} speed={16} />
-            </div>
-          </div>
-        </div>
-
-        {/* Likert + Next */}
-        <div className="glass fade-up" style={{ padding: '22px 28px', animationDelay: '0.1s' }}>
-          <LikertSlider
-            labels={LIKERT_FIT}
-            value={current}
-            onChange={(v) => setAnswers((a) => ({ ...a, [q.role]: v }))}
-          />
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 16 }}>
-            <button className="btn btn-primary" onClick={next}>
-              {idx + 1 >= PHASE3_QUESTIONS.length ? 'Hoàn thành →' : 'Tiếp theo →'}
-            </button>
-          </div>
-        </div>
-      </div>
-    </SceneShell>
+    <QAPageLayout
+      imageSrc={imgPath}
+      idx={idx}
+      total={PHASE3_QUESTIONS.length}
+      questionText={q.text_vn}
+      options={[1, 2, 3, 4, 5].map((val) => ({
+        value: val,
+        text: LIKERT_FIT[val - 1] || `Option ${val}`,
+      }))}
+      selectedValue={currentValue}
+      onSelect={handleSelectOption}
+      onBack={back}
+      onNext={next}
+      nextDisabled={currentValue === null}
+      isFinished={idx + 1 >= PHASE3_QUESTIONS.length}
+      imageStyle={{
+        aspectRatio: '1024 / 1440',
+        objectFit: 'cover',
+        width: 'auto',
+        height: '100%',
+        maxWidth: '100%',
+        maxHeight: '100%',
+      }}
+    />
   )
 }
+

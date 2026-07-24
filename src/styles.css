@@ -1034,13 +1034,14 @@ button:focus-visible {
   margin: 0 auto;
   align-items: center;
   justify-content: center;
+  gap: clamp(24px, 4vh, 40px);
 }
 
 .p2-new-header {
   font-family: var(--font-display);
   font-size: clamp(20px, 3vw, 28px);
   color: #1a1a2e;
-  margin: 0 0 40px;
+  margin: 0;
   text-align: center;
   font-weight: 600;
 }
@@ -1050,7 +1051,6 @@ button:focus-visible {
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   width: 100%;
-  margin-bottom: 32px;
 }
 
 .p2-new-card {
@@ -1116,13 +1116,13 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  gap: 8px;
 }
 
 .p2-new-card-subtitle {
   font-family: var(--font-display);
   font-size: 14px;
   color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 4px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   transform: translateY(20px);
@@ -1145,7 +1145,6 @@ button:focus-visible {
   font-size: 15px;
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.5;
-  margin-top: 12px;
   opacity: 0;
   height: 0;
   overflow: hidden;
@@ -1234,11 +1233,14 @@ button:focus-visible {
   text-transform: uppercase;
 }
 .p2-q-right {
-  background: #fff;
+  background: #f5f6fa;
   display: flex;
   flex-direction: column;
-  padding: 28px 68px 20px 28px;
+  padding: clamp(20px, 3.5vh, 40px) 48px clamp(16px, 2.5vh, 32px);
   overflow-y: auto;
+  box-sizing: border-box;
+  justify-content: space-between;
+  min-height: 0;
 }
 .p2-q-header {
   display: flex;
@@ -1287,33 +1289,32 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 4px;
 }
 .p2-option {
   width: 100%;
-  background: #fff;
-  border: 1.5px solid #e5e7eb;
-  border-radius: 10px;
-  padding: 1.5rem 1rem;
-  text-align: left;
+  background: #e6e5ea;
+  border: 1.5px solid transparent;
+  border-radius: 20px;
+  padding: 1.15rem 1.5rem;
+  text-align: center;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
   font-family: var(--font-body);
+  font-weight: 500;
   line-height: 1.5;
-  color: #1a1a2e;
+  color: #1c1c24;
   transition:
-    border-color 0.15s,
-    background 0.15s;
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
 }
 .p2-option:hover {
-  border-color: #843497;
-  background: #fdf6ff;
+  background: #d8d7dc;
 }
 .p2-option.p2-selected {
-  border-color: #843497;
-  background: #f5e8ff;
-  color: #6b2a7a;
-  font-weight: 500;
+  background: #843497;
+  color: #fff;
+  font-weight: 600;
 }
 
 .p2-q-nav {
@@ -1796,7 +1797,6 @@ button:focus-visible {
   grid-template-columns: 1.2fr 1.1fr;
   gap: clamp(24px, 4vw, 48px);
   text-align: left;
-  margin-bottom: clamp(16px, 2.5vh, 28px);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
   flex-shrink: 0;
 }
@@ -1804,6 +1804,7 @@ button:focus-visible {
 .p2-info-details-col {
   display: flex;
   flex-direction: column;
+  gap: clamp(8px, 1.5vh, 16px);
 }
 
 .p2-info-details-header {
@@ -1814,7 +1815,6 @@ button:focus-visible {
   font-size: 16px;
   font-weight: 700;
   color: #1a1a2e;
-  margin-bottom: clamp(8px, 1.5vh, 16px);
 }
 
 .p2-info-details-icon-wrapper {
@@ -1837,13 +1837,15 @@ button:focus-visible {
   padding: 0;
   margin: 0;
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1vh, 10px);
 }
 
 .p2-info-details-list li {
   font-size: 15px;
   line-height: 1.55;
   color: #4b5563;
-  margin-bottom: clamp(6px, 1vh, 10px);
   position: relative;
   padding-left: 14px;
   font-weight: 500;
@@ -1940,6 +1942,9 @@ button:focus-visible {
   right: 0;
   padding: clamp(20px, 3vh, 32px);
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .info-carousel-card-title {
@@ -1947,7 +1952,7 @@ button:focus-visible {
   font-size: clamp(28px, 4.5vh, 42px);
   font-weight: 800;
   color: #fff;
-  margin: 0 0 6px;
+  margin: 0;
   letter-spacing: -0.02em;
 }
 
@@ -1988,17 +1993,16 @@ button:focus-visible {
 /* ── Phase 1 Redesign ── */
 .p1-split-layout {
   display: flex;
-  gap: clamp(24px, 4vw, 48px);
+  gap: clamp(16px, 2.5vw, 32px);
   width: 100%;
-  max-width: 1000px;
+  max-width: 1200px;
   flex: 1;
   align-items: center;
   min-height: 0;
-  margin-bottom: 24px;
 }
 
 .p1-left-illustration {
-  flex: 1.3;
+  flex: 1.4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2007,61 +2011,76 @@ button:focus-visible {
 }
 
 .p1-left-illustration img {
-  height: 100%;
-  max-height: clamp(340px, 50vh, 520px);
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 20px;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 24px;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
 }
 
 .p1-right-content {
-  flex: 1.2;
+  flex: 1.1;
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 0;
   justify-content: space-between;
+  gap: clamp(16px, 2.5vh, 28px);
 }
 
 .p1-progress-bar-container {
   width: 100%;
-  margin-bottom: clamp(16px, 2.5vh, 28px);
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .p1-progress-labels {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+}
+
+.p1-progress-labels span:first-child {
+  font-size: clamp(18px, 2.5vh, 22px);
+  font-weight: 700;
+  color: #1c1c24;
+  font-family: var(--font-display);
+}
+
+.p1-progress-labels span:last-child {
   font-size: 14px;
   font-weight: 600;
-  color: #4b5563;
-  margin-bottom: 8px;
+  color: #1c1c24;
   font-family: var(--font-display);
+  padding-bottom: 2px;
 }
 
 .p1-progress-outer {
   width: 100%;
-  height: 6px;
-  background: #e5e7eb;
-  border-radius: 3px;
+  height: 8px;
+  background: #e6e5ea;
+  border-radius: 4px;
   overflow: hidden;
 }
 
 .p1-progress-inner {
   height: 100%;
-  background: #6b7280;
-  border-radius: 3px;
+  background: #5c5d6c;
+  border-radius: 4px;
   transition: width 0.3s ease;
 }
 
 .p1-question-text {
-  font-size: clamp(16px, 2.4vh, 22px);
-  font-weight: 800;
-  line-height: 1.5;
-  color: #1a1a2e;
-  margin: 0 0 clamp(16px, 2.5vh, 24px);
-  text-align: left;
+  font-size: clamp(16px, 2.5vh, 20px);
+  font-weight: 700;
+  line-height: 1.45;
+  color: #1c1c24;
+  margin: 0;
+  text-align: center;
 }
 
 .p1-likert-options {
@@ -2163,7 +2182,7 @@ button:focus-visible {
   max-width: none;
   flex: 1;
   min-height: 0;
-  margin: 0 auto 32px auto;
+  margin: 0 auto;
 }
 
 .p2-mission-card {
@@ -2219,7 +2238,6 @@ button:focus-visible {
   justify-content: center;
   font-size: 24px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  margin-bottom: 16px;
   flex-shrink: 0;
 }
 
@@ -2243,6 +2261,7 @@ button:focus-visible {
     opacity 0.3s ease,
     transform 0.3s ease;
   box-sizing: border-box;
+  gap: 6px;
 }
 
 .p2-mission-card:hover .p2-mission-card-base-view,
@@ -2264,7 +2283,6 @@ button:focus-visible {
 .p2-mission-english-name {
   font-size: 13px;
   color: rgba(255, 255, 255, 0.7);
-  margin-top: 4px;
   text-align: center;
   font-family: var(--font-mono);
 }
@@ -2294,6 +2312,7 @@ button:focus-visible {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  gap: 8px;
 }
 
 .p2-mission-card-details-bottom {
@@ -2301,6 +2320,7 @@ button:focus-visible {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  gap: 12px;
 }
 
 .p2-mission-card:hover .p2-mission-card-details-view,
@@ -2314,7 +2334,6 @@ button:focus-visible {
   font-size: 13.5px;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.85);
-  margin: 16px 0 20px;
   text-align: center;
   font-family: var(--font-body);
 }
@@ -2325,7 +2344,6 @@ button:focus-visible {
   color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: 12px;
   font-family: var(--font-display);
 }
 
@@ -2592,3 +2610,36 @@ button.admin-auth-link {
     font-size: 12px;
   }
 }
+
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 16px rgba(132, 52, 151, 0.3);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.02);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 24px rgba(132, 52, 151, 0.6);
+  }
+}
+
+@keyframes blinkIndicator {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.2);
+    box-shadow: 0 0 8px #ff6b9d;
+  }
+
+.pulse-hover {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s;
+}
+.pulse-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(132, 52, 151, 0.2);
+}
+
+}
+

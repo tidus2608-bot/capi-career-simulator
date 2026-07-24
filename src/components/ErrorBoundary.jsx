@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import Button from './Button.jsx'
 
 function Fallback({ message }) {
   const { t } = useTranslation()
@@ -46,13 +47,14 @@ function Fallback({ message }) {
             {message}
           </pre>
         )}
-        <button
-          className="btn btn-primary"
+        <Button
+          variant="solid"
+          active
           onClick={() => window.location.reload()}
           style={{ padding: '12px 28px', fontSize: 14 }}
         >
           {t('error_boundary.btn_restart')}
-        </button>
+        </Button>
       </div>
     </div>
   )
