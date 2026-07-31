@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { supabase } from '../lib/supabase.js'
 import { topRole, PHASE1_QUESTIONS } from '../data.js'
 import { calculateScore, buildCertificateCopy } from '../lib/scoring.js'
@@ -82,13 +82,6 @@ export function WizardProvider({ children }) {
     return () => subscription.unsubscribe()
   }, [])
 
-  // Auto-save pending runs once authenticated
-  useEffect(() => {
-    if (user && pendingRunRow && saveStatus !== 'saving') {
-      saveRun(pendingRunRow)
-    }
-  }, [user, pendingRunRow])
-
   const onScanDone = (answers) => {
     setPhase1Answers(answers)
     const spScores = {}
@@ -155,43 +148,46 @@ export function WizardProvider({ children }) {
     setSavedRunId(null)
   }
 
-  const saveRun = async (row) => {
-    if (!user) {
-      setSaveStatus('skipped')
-      return
-    }
-    setSaveStatus('saving')
-    setSaveError(null)
-
-    const ctrl = new AbortController()
-    const timeoutId = setTimeout(() => ctrl.abort(), SAVE_TIMEOUT_MS)
-
-    try {
-      const finalRow = {
-        ...row,
-        user_id: user.id,
-        display_name: user.user_metadata?.full_name ?? user.email ?? null,
+  const saveRun = useCallback(
+    async (row) => {
+      if (!user) {
+        setSaveStatus('skipped')
+        return
       }
-      const existingId = savedRunId
+      setSaveStatus('saving')
+      setSaveError(null)
 
-      const query = existingId
-        ? supabase.from('runs').update(finalRow).eq('id', existingId).select('id').single()
-        : supabase.from('runs').insert(finalRow).select('id').single()
+      const ctrl = new AbortController()
+      const timeoutId = setTimeout(() => ctrl.abort(), SAVE_TIMEOUT_MS)
 
-      const { data, error } = await query.abortSignal(ctrl.signal)
-      clearTimeout(timeoutId)
+      try {
+        const finalRow = {
+          ...row,
+          user_id: user.id,
+          display_name: user.user_metadata?.full_name ?? user.email ?? null,
+        }
+        const existingId = savedRunId
 
-      if (error) throw error
-      if (data?.id) setSavedRunId(data.id)
-      setSaveStatus('success')
-      setPendingRunRow(null)
-    } catch (err) {
-      clearTimeout(timeoutId)
-      console.warn('Run save failed', err)
-      setSaveError(err?.message || 'Lưu thất bại')
-      setSaveStatus('error')
-    }
-  }
+        const query = existingId
+          ? supabase.from('runs').update(finalRow).eq('id', existingId).select('id').single()
+          : supabase.from('runs').insert(finalRow).select('id').single()
+
+        const { data, error } = await query.abortSignal(ctrl.signal)
+        clearTimeout(timeoutId)
+
+        if (error) throw error
+        if (data?.id) setSavedRunId(data.id)
+        setSaveStatus('success')
+        setPendingRunRow(null)
+      } catch (err) {
+        clearTimeout(timeoutId)
+        console.warn('Run save failed', err)
+        setSaveError(err?.message || 'Lưu thất bại')
+        setSaveStatus('error')
+      }
+    },
+    [user, savedRunId, setSavedRunId, setSaveStatus, setSaveError, setPendingRunRow],
+  )
 
   const retrySave = () => {
     if (pendingRunRow) {
@@ -221,6 +217,13 @@ export function WizardProvider({ children }) {
       saveRun(row)
     }
   }
+
+  // Auto-save pending runs once authenticated
+  useEffect(() => {
+    if (user && pendingRunRow && saveStatus !== 'saving') {
+      saveRun(pendingRunRow)
+    }
+  }, [user, pendingRunRow, saveStatus, saveRun])
 
   const loadRun = (runData) => {
     const result = {
