@@ -47,6 +47,7 @@
     "finish": "HOÀN THÀNH →",
     "back": "← Quay lại",
     "restart": "LÀM LẠI TỪ ĐẦU",
+    "cancel": "Hủy",
     "retry": "Thử lại",
     "loading": "Đang tải...",
     "back_to_themes": "Đổi cổng",
@@ -122,6 +123,11 @@
     "title": "Capi gặp sự cố",
     "body": "Một lỗi không mong muốn vừa xảy ra. Bạn có thể khởi động lại để tiếp tục — kết quả đã lưu trước đó vẫn an toàn trong tài khoản của bạn.",
     "btn_restart": "Khởi động lại"
+  },
+  "confirm_exit": {
+    "title": "Dừng tiến trình?",
+    "desc": "Tiến trình làm bài hiện tại của bạn sẽ bị hủy và không được lưu lại. Bạn có chắc chắn muốn quay về trang chủ?",
+    "confirm_btn": "Dừng chơi"
   },
   "questions": {
     "Q1": "Khi robot gặp sự cố, tôi muốn trực tiếp kiểm tra và sửa chữa.",
