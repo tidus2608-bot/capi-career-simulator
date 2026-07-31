@@ -53,6 +53,7 @@ export function WizardProvider({ children }) {
   const [certCopy, setCertCopy] = useLocalStorageState('certCopy', null)
   const [startedAt, setStartedAt] = useLocalStorageState('startedAt', null)
   const [savedRunId, setSavedRunId] = useLocalStorageState('savedRunId', null)
+  const [pendingRunRow, setPendingRunRow] = useLocalStorageState('pendingRunRow', null)
 
   // Exact question indexes
   const [scanIndex, setScanIndex] = useLocalStorageState('scanIndex', 0)
@@ -81,6 +82,13 @@ export function WizardProvider({ children }) {
     return () => subscription.unsubscribe()
   }, [])
 
+  // Auto-save pending runs once authenticated
+  useEffect(() => {
+    if (user && pendingRunRow && saveStatus !== 'saving') {
+      saveRun(pendingRunRow)
+    }
+  }, [user, pendingRunRow])
+
   const onScanDone = (answers) => {
     setPhase1Answers(answers)
     const spScores = {}
@@ -94,37 +102,60 @@ export function WizardProvider({ children }) {
   const onReflectDone = (answers) => {
     setPhase3Answers(answers)
     const result = calculateScore(selectedMission, phase1Answers, phase2Answers, answers)
+
+    // Add missionId and theme to the result so they are self-contained
+    result.missionId = selectedMission
+    result.theme = selectedTheme
+
     const cert = buildCertificateCopy(result)
     setScoringResult(result)
     setCertCopy(cert)
-    saveRun(result, answers)
+
+    const row = {
+      theme: selectedTheme,
+      mission_id: selectedMission,
+      started_at: startedAt,
+      completed_at: new Date().toISOString(),
+      phase1_answers: phase1Answers,
+      phase2_answers: phase2Answers,
+      phase3_answers: answers,
+      scores: {
+        phase1: result.phase1,
+        phase2: result.phase2,
+        phase3: result.phase3,
+        final: result.final,
+        reality_gap: result.realityGap,
+        learning_gap: result.learningGap,
+      },
+      confidence_factor: result.confidenceFactor,
+      primary_role: result.primaryRole,
+      secondary_role: result.secondaryRole,
+      profile_type: result.profileType,
+    }
+
+    if (user) {
+      saveRun(row)
+    } else {
+      setPendingRunRow(row)
+      setSaveStatus('skipped')
+    }
+
+    // Clear all test progress states from localStorage
+    setPhase1Answers({ selfPerception: {}, confidence: {} })
+    setPhase1TopRole(null)
+    setSelectedTheme(null)
+    setSelectedMission(null)
+    setPhase2Answers({})
+    setPhase3Answers({})
+    setScanIndex(0)
+    setMissionPlayIndices({})
+    setReflectIndex(0)
+    setScanQuestions(null)
+    setStartedAt(null)
+    setSavedRunId(null)
   }
 
-  const buildRunRow = (result, p3Answers) => ({
-    user_id: user.id,
-    display_name: user.user_metadata?.full_name ?? user.email ?? null,
-    theme: selectedTheme,
-    mission_id: selectedMission,
-    started_at: startedAt,
-    completed_at: new Date().toISOString(),
-    phase1_answers: phase1Answers,
-    phase2_answers: phase2Answers,
-    phase3_answers: p3Answers,
-    scores: {
-      phase1: result.phase1,
-      phase2: result.phase2,
-      phase3: result.phase3,
-      final: result.final,
-      reality_gap: result.realityGap,
-      learning_gap: result.learningGap,
-    },
-    confidence_factor: result.confidenceFactor,
-    primary_role: result.primaryRole,
-    secondary_role: result.secondaryRole,
-    profile_type: result.profileType,
-  })
-
-  const saveRun = async (result, p3Answers) => {
+  const saveRun = async (row) => {
     if (!user) {
       setSaveStatus('skipped')
       return
@@ -136,12 +167,16 @@ export function WizardProvider({ children }) {
     const timeoutId = setTimeout(() => ctrl.abort(), SAVE_TIMEOUT_MS)
 
     try {
-      const row = buildRunRow(result, p3Answers)
+      const finalRow = {
+        ...row,
+        user_id: user.id,
+        display_name: user.user_metadata?.full_name ?? user.email ?? null,
+      }
       const existingId = savedRunId
 
       const query = existingId
-        ? supabase.from('runs').update(row).eq('id', existingId).select('id').single()
-        : supabase.from('runs').insert(row).select('id').single()
+        ? supabase.from('runs').update(finalRow).eq('id', existingId).select('id').single()
+        : supabase.from('runs').insert(finalRow).select('id').single()
 
       const { data, error } = await query.abortSignal(ctrl.signal)
       clearTimeout(timeoutId)
@@ -149,6 +184,7 @@ export function WizardProvider({ children }) {
       if (error) throw error
       if (data?.id) setSavedRunId(data.id)
       setSaveStatus('success')
+      setPendingRunRow(null)
     } catch (err) {
       clearTimeout(timeoutId)
       console.warn('Run save failed', err)
@@ -158,7 +194,53 @@ export function WizardProvider({ children }) {
   }
 
   const retrySave = () => {
-    if (scoringResult) saveRun(scoringResult, phase3Answers)
+    if (pendingRunRow) {
+      saveRun(pendingRunRow)
+    } else if (scoringResult) {
+      const row = {
+        theme: scoringResult.theme,
+        mission_id: scoringResult.missionId,
+        started_at: startedAt,
+        completed_at: new Date().toISOString(),
+        phase1_answers: phase1Answers,
+        phase2_answers: phase2Answers,
+        phase3_answers: phase3Answers,
+        scores: {
+          phase1: scoringResult.phase1,
+          phase2: scoringResult.phase2,
+          phase3: scoringResult.phase3,
+          final: scoringResult.final,
+          reality_gap: scoringResult.realityGap,
+          learning_gap: scoringResult.learningGap,
+        },
+        confidence_factor: scoringResult.confidenceFactor,
+        primary_role: scoringResult.primaryRole,
+        secondary_role: scoringResult.secondaryRole,
+        profile_type: scoringResult.profileType,
+      }
+      saveRun(row)
+    }
+  }
+
+  const loadRun = (runData) => {
+    const result = {
+      phase1: runData.scores?.phase1 || {},
+      phase2: runData.scores?.phase2 || {},
+      phase3: runData.scores?.phase3 || {},
+      final: runData.scores?.final || {},
+      realityGap: runData.scores?.reality_gap || {},
+      learningGap: runData.scores?.learning_gap || {},
+      confidenceFactor: runData.confidence_factor,
+      primaryRole: runData.primary_role,
+      secondaryRole: runData.secondary_role,
+      profileType: runData.profile_type,
+      missionId: runData.mission_id,
+      theme: runData.theme,
+    }
+    const cert = buildCertificateCopy(result)
+    setScoringResult(result)
+    setCertCopy(cert)
+    setSavedRunId(runData.id)
   }
 
   const onRestart = () => {
@@ -173,6 +255,7 @@ export function WizardProvider({ children }) {
     setCertCopy(null)
     setStartedAt(null)
     setSavedRunId(null)
+    setPendingRunRow(null)
     setScanIndex(0)
     setMissionPlayIndices({})
     setReflectIndex(0)
@@ -192,6 +275,7 @@ export function WizardProvider({ children }) {
         phase1Answers,
         setPhase1Answers,
         phase1TopRole,
+        setPhase1TopRole,
         selectedTheme,
         setSelectedTheme,
         selectedMission,
@@ -201,7 +285,9 @@ export function WizardProvider({ children }) {
         phase3Answers,
         setPhase3Answers,
         scoringResult,
+        setScoringResult,
         certCopy,
+        setCertCopy,
         startedAt,
         setStartedAt,
         scanIndex,
@@ -214,9 +300,12 @@ export function WizardProvider({ children }) {
         setScanQuestions,
         saveStatus,
         saveError,
+        saveRun,
+        setPendingRunRow,
         onScanDone,
         onReflectDone,
         retrySave,
+        loadRun,
         onRestart,
       }}
     >

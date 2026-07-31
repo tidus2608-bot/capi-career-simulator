@@ -68,7 +68,8 @@ export async function verifySession(request: Request, env: AuthEnv): Promise<str
     const { email, ts } = JSON.parse(atob(payload)) as { email?: string; ts?: number }
     if (!email || !ts) return null
     if (Date.now() - ts > 86_400_000) return null // 24h expiry
-    if (!(await authorizeAdminEmail(email, env, (candidate) => isAllowed(candidate, env)))) return null
+    if (!(await authorizeAdminEmail(email, env, (candidate) => isAllowed(candidate, env))))
+      return null
     return email
   } catch {
     return null

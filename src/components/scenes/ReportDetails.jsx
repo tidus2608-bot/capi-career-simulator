@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '@iconify/react'
+import { capiAudio } from '../../audio.js'
 import SceneShell from './SceneShell.jsx'
 import { CAPI_ROLES } from '../../data.js'
 import reportData from '../../data/reportData.json'
@@ -138,7 +139,7 @@ export default function ReportDetails() {
           padding: '120px 24px 40px 24px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '32px'
+          gap: '32px',
         }}
       >
         {/* Title Block 1 */}
@@ -237,6 +238,73 @@ export default function ReportDetails() {
 
         {/* BLOCK 11: Career Map */}
         <CareerMapTabs isEn={isEn} allCareers={allCareers} />
+
+        {/* CTA Actions Group */}
+        <div
+          className="no-print"
+          style={{
+            display: 'flex',
+            gap: '16px',
+            width: '100%',
+            marginTop: '32px',
+            flexWrap: 'wrap',
+          }}
+        >
+          <Button
+            variant="outline"
+            onClick={() => {
+              capiAudio.sfx('click')
+              navigate('/certificate/summary')
+            }}
+            style={{
+              flex: 1,
+              minWidth: '240px',
+              height: '48px',
+              borderRadius: '12px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              fontSize: '16px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              border: '1.5px solid #8B2FA9',
+              color: '#8B2FA9',
+              backgroundColor: '#FFFFFF',
+            }}
+          >
+            <Icon icon="mdi:arrow-left" width={18} height={18} />
+            <span>{isEn ? 'Back to Summary' : 'Quay về tổng quát'}</span>
+          </Button>
+
+          <Button
+            variant="solid"
+            active
+            onClick={() => {
+              capiAudio.sfx('click')
+              navigate('/history')
+            }}
+            style={{
+              flex: 1,
+              minWidth: '240px',
+              height: '48px',
+              borderRadius: '12px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              fontSize: '16px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              backgroundColor: '#8B2FA9',
+              color: '#FFFFFF',
+              border: 'none',
+            }}
+          >
+            <Icon icon="mdi:history" width={18} height={18} />
+            <span>{isEn ? 'Past Runs History' : 'Lịch sử làm bài'}</span>
+          </Button>
+        </div>
       </div>
     </SceneShell>
   )

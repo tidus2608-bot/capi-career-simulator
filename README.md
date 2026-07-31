@@ -129,14 +129,14 @@ any step blocks the deploy.
 
 **Cloudflare Pages → Settings → Environment Variables** (Production + Preview):
 
-| Name                        | Type      | Used by        |
-| --------------------------- | --------- | -------------- |
-| `VITE_SUPABASE_URL`         | plaintext | frontend build |
-| `VITE_SUPABASE_ANON_KEY`    | plaintext | frontend build |
-| `SUPABASE_URL`              | plaintext | `/api/*`       |
-| `SUPABASE_ANON_KEY`         | plaintext | `/api/*`       |
-| `SUPABASE_SERVICE_ROLE_KEY` | encrypted | `/api/*`       |
-| `SESSION_SECRET`            | encrypted | `/api/auth`    |
+| Name                        | Type      | Used by                    |
+| --------------------------- | --------- | -------------------------- |
+| `VITE_SUPABASE_URL`         | plaintext | frontend build             |
+| `VITE_SUPABASE_ANON_KEY`    | plaintext | frontend build             |
+| `SUPABASE_URL`              | plaintext | `/api/*`                   |
+| `SUPABASE_ANON_KEY`         | plaintext | `/api/*`                   |
+| `SUPABASE_SERVICE_ROLE_KEY` | encrypted | `/api/*`                   |
+| `SESSION_SECRET`            | encrypted | `/api/auth`                |
 | `ALLOWED_DOMAIN`            | plaintext | `/api/auth` bootstrap only |
 | `ALLOWED_EMAIL`             | plaintext | `/api/auth` bootstrap only |
 

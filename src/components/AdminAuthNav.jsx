@@ -203,7 +203,13 @@ export default function AdminAuthNav({ supabase, session, onHistory }) {
           onKeyDown={handleTriggerKeyDown}
         >
           <span className="admin-auth-user-name">{displayName}</span>
-          <svg className="admin-auth-menu-caret" width="14" height="14" viewBox="0 0 20 20" aria-hidden="true">
+          <svg
+            className="admin-auth-menu-caret"
+            width="14"
+            height="14"
+            viewBox="0 0 20 20"
+            aria-hidden="true"
+          >
             <path d="m5 7.5 5 5 5-5" fill="none" stroke="currentColor" strokeWidth="1.8" />
           </svg>
         </button>

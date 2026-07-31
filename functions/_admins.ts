@@ -59,7 +59,11 @@ export async function getAdmin(email: string, env: AdminEnv): Promise<AdminRow |
   return rows[0] ?? null
 }
 
-export async function createAdmin(email: string, actorEmail: string, env: AdminEnv): Promise<AdminRow> {
+export async function createAdmin(
+  email: string,
+  actorEmail: string,
+  env: AdminEnv,
+): Promise<AdminRow> {
   const normalized = normalizeAdminEmail(email)
   if (!normalized) throw new AdminInputError('Invalid email')
 
@@ -87,7 +91,8 @@ export async function deleteAdmin(email: string, actorEmail: string, env: AdminE
   if (!normalized) throw new AdminInputError('Invalid email')
 
   const actor = normalizeAdminEmail(actorEmail)
-  if (actor && normalized === actor) throw new AdminConflictError('You cannot delete your own admin account')
+  if (actor && normalized === actor)
+    throw new AdminConflictError('You cannot delete your own admin account')
 
   try {
     await supabaseRest(env).rpc('delete_admin', {

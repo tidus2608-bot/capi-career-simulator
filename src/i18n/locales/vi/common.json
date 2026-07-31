@@ -113,7 +113,9 @@
     "empty": "Chưa có lần chạy nào được lưu.",
     "load_error": "Không tải được lịch sử: {{error}}",
     "final_score": "Final Score",
-    "mission_prefix": "Mission #"
+    "mission_prefix": "Mission #",
+    "login_required_title": "Yêu cầu đăng nhập",
+    "login_required_desc": "Vui lòng đăng nhập tài khoản của bạn để xem và đồng bộ lịch sử các lượt làm bài test."
   },
   "error_boundary": {
     "system_fault": "SYSTEM FAULT",

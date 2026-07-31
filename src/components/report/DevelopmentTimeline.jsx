@@ -26,7 +26,15 @@ export default function DevelopmentTimeline({
     >
       {/* Header Row with Horizontal Line */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <h3 style={{ margin: 0, fontSize: '22px', fontWeight: 800, color: '#A855F7', whiteSpace: 'nowrap' }}>
+        <h3
+          style={{
+            margin: 0,
+            fontSize: '22px',
+            fontWeight: 800,
+            color: '#A855F7',
+            whiteSpace: 'nowrap',
+          }}
+        >
           {t('report.dev_path_title')}
         </h3>
         <div style={{ flex: 1, height: '2px', backgroundColor: '#E9D5FF' }} />
@@ -115,11 +123,31 @@ export default function DevelopmentTimeline({
             1
           </div>
 
-          <h4 style={{ margin: '0 0 16px 0', fontSize: '19px', fontWeight: 800, color: '#C084FC', flexShrink: 0 }}>
+          <h4
+            style={{
+              margin: '0 0 16px 0',
+              fontSize: '19px',
+              fontWeight: 800,
+              color: '#C084FC',
+              flexShrink: 0,
+            }}
+          >
             {t('report.dev_step1_try')}
           </h4>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13.5px', color: '#334155', lineHeight: 1.5, fontWeight: 500, justifyContent: 'center', flex: 1 }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '10px',
+              fontSize: '13.5px',
+              color: '#334155',
+              lineHeight: 1.5,
+              fontWeight: 500,
+              justifyContent: 'center',
+              flex: 1,
+            }}
+          >
             {primaryActivities.slice(0, 3).map((act, i) => (
               <div key={i}>{act.activity_name}</div>
             ))}
@@ -164,19 +192,51 @@ export default function DevelopmentTimeline({
             2
           </div>
 
-          <h4 style={{ margin: '0 0 10px 0', fontSize: '19px', fontWeight: 800, color: '#C084FC', flexShrink: 0 }}>
+          <h4
+            style={{
+              margin: '0 0 10px 0',
+              fontSize: '19px',
+              fontWeight: 800,
+              color: '#C084FC',
+              flexShrink: 0,
+            }}
+          >
             {t('report.dev_step2_balance')}
           </h4>
 
-          <div style={{ fontSize: '14.5px', fontWeight: 700, color: '#1E293B', marginBottom: '10px', flexShrink: 0 }}>
-            {isEn ? `${missingRoleMeta.nameVn} (${missingRoleMeta.name})` : `${missingRoleMeta.nameVn} (${missingRoleMeta.name})`}
+          <div
+            style={{
+              fontSize: '14.5px',
+              fontWeight: 700,
+              color: '#1E293B',
+              marginBottom: '10px',
+              flexShrink: 0,
+            }}
+          >
+            {isEn
+              ? `${missingRoleMeta.nameVn} (${missingRoleMeta.name})`
+              : `${missingRoleMeta.nameVn} (${missingRoleMeta.name})`}
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13.5px', color: '#334155', lineHeight: 1.45, fontWeight: 500, justifyContent: 'center', flex: 1 }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '8px',
+              fontSize: '13.5px',
+              color: '#334155',
+              lineHeight: 1.45,
+              fontWeight: 500,
+              justifyContent: 'center',
+              flex: 1,
+            }}
+          >
             {missingPieceData?.activities_to_train ? (
-              missingPieceData.activities_to_train.split('.').map((s) => s.trim()).filter(Boolean).map((act, i) => (
-                <div key={i}>{act}</div>
-              ))
+              missingPieceData.activities_to_train
+                .split('.')
+                .map((s) => s.trim())
+                .filter(Boolean)
+                .map((act, i) => <div key={i}>{act}</div>)
             ) : (
               <div>{missingPieceData?.copy || t('report.dev_balance_with')}</div>
             )}
@@ -221,11 +281,31 @@ export default function DevelopmentTimeline({
             3
           </div>
 
-          <h4 style={{ margin: '0 0 16px 0', fontSize: '19px', fontWeight: 800, color: '#C084FC', flexShrink: 0 }}>
+          <h4
+            style={{
+              margin: '0 0 16px 0',
+              fontSize: '19px',
+              fontWeight: 800,
+              color: '#C084FC',
+              flexShrink: 0,
+            }}
+          >
             {t('report.dev_step3_skills')}
           </h4>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13.5px', color: '#334155', lineHeight: 1.5, fontWeight: 500, justifyContent: 'center', flex: 1 }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '10px',
+              fontSize: '13.5px',
+              color: '#334155',
+              lineHeight: 1.5,
+              fontWeight: 500,
+              justifyContent: 'center',
+              flex: 1,
+            }}
+          >
             {primarySkills.map((sk, i) => (
               <div key={i}>{sk.name}</div>
             ))}

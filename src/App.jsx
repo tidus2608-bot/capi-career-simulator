@@ -14,6 +14,7 @@ export default function AppLayout() {
   const location = useLocation()
   const navigate = useNavigate()
   const {
+    user,
     authLoading,
     setPhase1Answers,
     setPhase1TopRole,
@@ -30,6 +31,8 @@ export default function AppLayout() {
     selectedMission,
     selectedTheme,
     startedAt,
+    saveRun,
+    setPendingRunRow,
   } = useWizard()
 
   const [tweaks, setTweaks] = useState(TWEAK_DEFAULTS)
@@ -107,21 +110,24 @@ export default function AppLayout() {
   useEffect(() => {
     if (path === '/' || path === '/capi-gene-info' || path === '/scan') return
 
+    // If we have an active scoring result and are navigating to the certificate, bypass intermediate guards
+    if (scoringResult && path.startsWith('/certificate')) return
+
     if (path === '/role-reveal' || path === '/theme' || path === '/mission-pick') {
-      if (!phase1TopRole) navigate('/', { replace: true })
+      if (!phase1TopRole && !scoringResult) navigate('/', { replace: true })
       return
     }
 
     if (path === '/mission-play' || path === '/reflect') {
-      if (!selectedMission) navigate('/theme', { replace: true })
+      if (!selectedMission && !scoringResult) navigate('/theme', { replace: true })
       return
     }
 
-    if (path.startsWith('/certificate') || path === '/history') {
+    if (path.startsWith('/certificate')) {
       if (!scoringResult) navigate('/', { replace: true })
       return
     }
-  }, [path, phase1TopRole, selectedMission, scoringResult, navigate])
+  }, [path, phase1TopRole, selectedMission, scoringResult, user, navigate])
 
   const handleRestart = () => {
     onRestart()
@@ -298,10 +304,48 @@ export default function AppLayout() {
               setSelectedTheme('ark-capi')
               setScoringResult(r)
               setCertCopy(c)
+
+              const row = {
+                theme: 'ark-capi',
+                mission_id: 1,
+                started_at: new Date().toISOString(),
+                completed_at: new Date().toISOString(),
+                phase1_answers: ph1,
+                phase2_answers: ph2,
+                phase3_answers: ph3,
+                scores: {
+                  phase1: r.phase1,
+                  phase2: r.phase2,
+                  phase3: r.phase3,
+                  final: r.final,
+                  reality_gap: r.realityGap,
+                  learning_gap: r.learningGap,
+                },
+                confidence_factor: r.confidenceFactor,
+                primary_role: r.primaryRole,
+                secondary_role: r.secondaryRole,
+                profile_type: r.profileType,
+              }
+
+              if (user) {
+                saveRun(row)
+              } else {
+                setPendingRunRow(row)
+              }
+
               navigate('/certificate')
             }}
           >
             → Cert
+          </button>
+          <button
+            className="btn btn-ghost"
+            style={{ padding: '8px 10px', fontSize: 12 }}
+            onClick={() => {
+              navigate('/history')
+            }}
+          >
+            → History
           </button>
           <button
             className="btn btn-ghost"

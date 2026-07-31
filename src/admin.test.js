@@ -16,7 +16,6 @@ describe('Admin Dashboard XSS Prevention', () => {
     const html = fs.readFileSync(htmlPath, 'utf-8')
 
     dom = new JSDOM(html, {
-      runScripts: 'dangerously',
       url: 'http://localhost/admin.html',
       beforeParse(win) {
         win.fetch = vi.fn((url) => {
@@ -24,7 +23,11 @@ describe('Admin Dashboard XSS Prevention', () => {
           if (path.includes('/api/auth/status')) {
             return Promise.resolve({
               status: 200,
-              json: async () => ({ authenticated: true, role: 'admin', email: 'admin@example.com' }),
+              json: async () => ({
+                authenticated: true,
+                role: 'admin',
+                email: 'admin@example.com',
+              }),
             })
           }
           if (path.includes('/api/admins')) {
@@ -50,6 +53,37 @@ describe('Admin Dashboard XSS Prevention', () => {
 
     window = dom.window
     document = window.document
+
+    // Manually extract and evaluate script to bypass Bun's VM Proxy prototype chain limitation
+    const scriptStartTag = '<script>'
+    const scriptEndTag = '</script>'
+    const scriptBlocks = []
+    let pos = 0
+    while (true) {
+      const startIdx = html.indexOf(scriptStartTag, pos)
+      if (startIdx === -1) break
+      const endIdx = html.indexOf(scriptEndTag, startIdx)
+      if (endIdx === -1) break
+      scriptBlocks.push(html.substring(startIdx + scriptStartTag.length, endIdx))
+      pos = endIdx + scriptEndTag.length
+    }
+
+    for (const code of scriptBlocks) {
+      try {
+        const fn = new Function(
+          'window',
+          'document',
+          'fetch',
+          'location',
+          'console',
+          code +
+            '\nif (typeof renderDashboard !== "undefined") window.renderDashboard = renderDashboard;\nif (typeof renderAdmins !== "undefined") window.renderAdmins = renderAdmins;',
+        )
+        fn(window, document, window.fetch, window.location, window.console)
+      } catch (err) {
+        console.warn('Failed to parse script block:', err)
+      }
+    }
   })
 
   it('should safely render malicious data without executing XSS payloads', async () => {

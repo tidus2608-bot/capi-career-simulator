@@ -130,7 +130,12 @@ describe('session round-trip', () => {
     const token = await createSession('admin@example.com', authEnv.SESSION_SECRET)
     const req = new Request('https://x.test/', { headers: { Cookie: `admin_session=${token}` } })
 
-    await expect(verifySession(req, { SESSION_SECRET: authEnv.SESSION_SECRET, ALLOWED_EMAIL: authEnv.ALLOWED_EMAIL })).resolves.toBeNull()
+    await expect(
+      verifySession(req, {
+        SESSION_SECRET: authEnv.SESSION_SECRET,
+        ALLOWED_EMAIL: authEnv.ALLOWED_EMAIL,
+      }),
+    ).resolves.toBeNull()
   })
 })
 

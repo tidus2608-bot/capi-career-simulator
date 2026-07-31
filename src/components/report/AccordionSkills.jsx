@@ -12,7 +12,7 @@ const SKILL_STYLE_OVERRIDES = {
     skillAreaVi: 'Nghệ thuật kể chuyện (Kể chuyện, cách diễn đạt ngôn từ)',
     skillAreaEn: 'Storytelling (Storytelling, verbal expression)',
   },
-  'storytelling': {
+  storytelling: {
     nameVi: 'Nghệ thuật kể chuyện',
     nameEn: 'Storytelling',
     icon: 'mdi:book-open-page-variant-outline',
@@ -58,7 +58,7 @@ export default function AccordionSkills({ isEn, primarySkills }) {
     primarySkills.reduce((acc, _, idx) => {
       acc[idx] = true
       return acc
-    }, {})
+    }, {}),
   )
 
   const toggleExpand = (idx) => {
@@ -84,7 +84,15 @@ export default function AccordionSkills({ isEn, primarySkills }) {
     >
       {/* Section Title Header with Purple Rule */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <h3 style={{ margin: 0, fontSize: '22px', fontWeight: 800, color: '#A855F7', whiteSpace: 'nowrap' }}>
+        <h3
+          style={{
+            margin: 0,
+            fontSize: '22px',
+            fontWeight: 800,
+            color: '#A855F7',
+            whiteSpace: 'nowrap',
+          }}
+        >
           {t('report.training_accordion_title')}
         </h3>
         <div style={{ flex: 1, height: '2px', backgroundColor: '#E9D5FF' }} />
@@ -105,10 +113,14 @@ export default function AccordionSkills({ isEn, primarySkills }) {
           const skillName = override ? (isEn ? override.nameEn : override.nameVi) : sk.name
           const iconName = override ? override.icon : 'mdi:school-outline'
           const whyRec = override
-            ? (isEn ? override.whyRecEn : override.whyRecVi)
+            ? isEn
+              ? override.whyRecEn
+              : override.whyRecVi
             : sk.why_recommended
           const skillArea = override
-            ? (isEn ? override.skillAreaEn : override.skillAreaVi)
+            ? isEn
+              ? override.skillAreaEn
+              : override.skillAreaVi
             : sk.skill_area
 
           const isOpen = !!expandedStates[idx]
@@ -116,8 +128,12 @@ export default function AccordionSkills({ isEn, primarySkills }) {
           // Level styling matching mockup
           const isBeginner = sk.level === 'beginner'
           const lvlText = isBeginner
-            ? (isEn ? 'Beginner' : 'Khởi đầu')
-            : (isEn ? 'Intermediate' : 'Trung cấp')
+            ? isEn
+              ? 'Beginner'
+              : 'Khởi đầu'
+            : isEn
+              ? 'Intermediate'
+              : 'Trung cấp'
           const lvlBg = isBeginner ? '#48BB78' : '#ECC94B'
           const lvlColor = isBeginner ? '#FFFFFF' : '#1F2937'
 
@@ -179,7 +195,13 @@ export default function AccordionSkills({ isEn, primarySkills }) {
                   }}
                 >
                   {/* Level row */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
                     <span style={{ fontSize: '14px', fontWeight: 700, color: '#1F2937' }}>
                       {isEn ? 'Level:' : 'Cấp độ:'}
                     </span>
@@ -203,7 +225,14 @@ export default function AccordionSkills({ isEn, primarySkills }) {
 
                   {/* Why recommended block */}
                   <div style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
-                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#1F2937', whiteSpace: 'nowrap' }}>
+                    <span
+                      style={{
+                        fontSize: '14px',
+                        fontWeight: 700,
+                        color: '#1F2937',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
                       {t('report.training_why_rec')}
                     </span>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
@@ -211,7 +240,14 @@ export default function AccordionSkills({ isEn, primarySkills }) {
                         {whyRec}
                       </span>
                       {skillArea && (
-                        <span style={{ fontSize: '13px', color: '#64748B', lineHeight: 1.4, marginTop: '2px' }}>
+                        <span
+                          style={{
+                            fontSize: '13px',
+                            color: '#64748B',
+                            lineHeight: 1.4,
+                            marginTop: '2px',
+                          }}
+                        >
                           {skillArea}
                         </span>
                       )}

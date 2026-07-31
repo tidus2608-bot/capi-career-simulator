@@ -124,7 +124,7 @@ function highlightText(text, themeColor) {
               newResult.push(
                 <span key={phrase + i} style={{ color: themeColor, fontWeight: 700 }}>
                   {phrase}
-                </span>
+                </span>,
               )
             }
           }
@@ -173,7 +173,7 @@ export default function EvidenceBlock({
     }
 
     const match = (reportData.evidence || []).find(
-      (e) => e.mission_id === missionSlug && e.role_id === roleKey
+      (e) => e.mission_id === missionSlug && e.role_id === roleKey,
     )
     if (match) {
       let rawText = match.evidence_template
@@ -186,9 +186,15 @@ export default function EvidenceBlock({
     }
 
     const currentMissionMeta = Object.values(CAPI_MISSIONS).find(
-      (m) => MISSION_SLUG_MAP[m.id] === missionSlug
+      (m) => MISSION_SLUG_MAP[m.id] === missionSlug,
     )
-    const name = isEn ? (roleKey === 'explorer' ? 'Explorer' : 'Builder') : (roleKey === 'explorer' ? 'Nhà Khám Phá' : 'Kỹ Sư Chế Tạo')
+    const name = isEn
+      ? roleKey === 'explorer'
+        ? 'Explorer'
+        : 'Builder'
+      : roleKey === 'explorer'
+        ? 'Nhà Khám Phá'
+        : 'Kỹ Sư Chế Tạo'
     return isEn
       ? `During the ${currentMissionMeta?.name_en || 'simulation'} mission, you demonstrated core attributes of a ${name}.`
       : `Trong nhiệm vụ ${currentMissionMeta?.name_vn || 'mô phỏng'}, con đã thể hiện các tố chất cốt lõi của một ${name}.`
@@ -219,7 +225,8 @@ export default function EvidenceBlock({
             position: 'absolute',
             top: '12px',
             right: '12px',
-            backgroundColor: roleKey === 'explorer' || roleKey === primaryRoleKey ? '#FBCFE8' : '#CFFAFE',
+            backgroundColor:
+              roleKey === 'explorer' || roleKey === primaryRoleKey ? '#FBCFE8' : '#CFFAFE',
             color: roleKey === 'explorer' || roleKey === primaryRoleKey ? '#BE185D' : '#0891B2',
             fontSize: '11px',
             fontWeight: 700,
@@ -248,12 +255,28 @@ export default function EvidenceBlock({
         </div>
 
         {/* Content Column */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', flex: 1, paddingRight: '70px' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
+            flex: 1,
+            paddingRight: '70px',
+          }}
+        >
           <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: theme.titleColor }}>
             {isEn ? theme.titleEn : theme.titleVi}
           </h4>
 
-          <div style={{ margin: 0, fontSize: '14.5px', color: '#1F2937', lineHeight: 1.6, whiteSpace: 'pre-line' }}>
+          <div
+            style={{
+              margin: 0,
+              fontSize: '14.5px',
+              color: '#1F2937',
+              lineHeight: 1.6,
+              whiteSpace: 'pre-line',
+            }}
+          >
             {highlightedElements}
           </div>
         </div>
@@ -278,7 +301,15 @@ export default function EvidenceBlock({
     >
       {/* Header Row with Purple Line */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <h3 style={{ margin: 0, fontSize: '22px', fontWeight: 800, color: '#A855F7', whiteSpace: 'nowrap' }}>
+        <h3
+          style={{
+            margin: 0,
+            fontSize: '22px',
+            fontWeight: 800,
+            color: '#A855F7',
+            whiteSpace: 'nowrap',
+          }}
+        >
           {t('report.evidence_simulation_title')}
         </h3>
         <div style={{ flex: 1, height: '2px', backgroundColor: '#E9D5FF' }} />
@@ -289,7 +320,12 @@ export default function EvidenceBlock({
         {renderCard(primaryRoleKey, primaryRoleMeta, missionSlug1, 'report.evidence_primary_role')}
 
         {/* Card 2: Secondary Evidence */}
-        {renderCard(secondaryRoleKey, secondaryRoleMeta, missionSlug2, 'report.evidence_secondary_role')}
+        {renderCard(
+          secondaryRoleKey,
+          secondaryRoleMeta,
+          missionSlug2,
+          'report.evidence_secondary_role',
+        )}
       </div>
     </div>
   )

@@ -26,18 +26,24 @@ export default function ReportSummary() {
     color: '#9333EA',
     name: 'Communicator',
     nameVn: 'Nhà Truyền thông',
-    summaryVn: 'Bạn nổi bật ở khả năng truyền đạt ý tưởng và giúp mọi người nhìn thấy ý nghĩa chung.',
+    summaryVn:
+      'Bạn nổi bật ở khả năng truyền đạt ý tưởng và giúp mọi người nhìn thấy ý nghĩa chung.',
   }
 
   const radarScores = result.phase2 || result.phase1 || {}
 
-  const growthAreaStr = isEn ? (certCopy.growthAreasEn?.[0] || '') : (certCopy.growthAreasVn?.[0] || '')
+  const growthAreaStr = isEn ? certCopy.growthAreasEn?.[0] || '' : certCopy.growthAreasVn?.[0] || ''
   const colonIndex = growthAreaStr.indexOf(':')
-  const growthHeadline = colonIndex !== -1 ? growthAreaStr.substring(0, colonIndex).trim() : t('report.card_growth')
-  const growthDesc = colonIndex !== -1 ? growthAreaStr.substring(colonIndex + 1).trim() : (growthAreaStr || '')
+  const growthHeadline =
+    colonIndex !== -1 ? growthAreaStr.substring(0, colonIndex).trim() : t('report.card_growth')
+  const growthDesc =
+    colonIndex !== -1 ? growthAreaStr.substring(colonIndex + 1).trim() : growthAreaStr || ''
 
-  const primaryQualifications = isEn ? certCopy.primaryQualificationsEn : certCopy.primaryQualifications
-  const strengthsHeadline = primaryQualifications?.[0] || (isEn ? 'System Thinking' : 'Tư duy Hệ thống')
+  const primaryQualifications = isEn
+    ? certCopy.primaryQualificationsEn
+    : certCopy.primaryQualifications
+  const strengthsHeadline =
+    primaryQualifications?.[0] || (isEn ? 'System Thinking' : 'Tư duy Hệ thống')
   const strengthsDesc = isEn
     ? `You possess strong qualifications in ${primary.name.toLowerCase()}, including: ${(primaryQualifications || []).slice(1, 4).join(', ')}.`
     : `Bạn sở hữu thế mạnh vượt trội về ${primary.nameVn.toLowerCase()}, nổi bật là: ${(primaryQualifications || []).slice(1, 4).join(', ')}.`
@@ -54,7 +60,7 @@ export default function ReportSummary() {
     transitionDelay: `${delay}s`,
     display: 'flex',
     flexDirection: 'column',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
   })
 
   return (
@@ -69,7 +75,7 @@ export default function ReportSummary() {
         justifyContent: 'center',
         padding: '110px 24px 40px 24px',
         boxSizing: 'border-box',
-        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
       }}
     >
       {/* MAIN 2-COLUMN ROW (FLEXBOX, CENTRED MAX WIDTH) */}
@@ -80,7 +86,7 @@ export default function ReportSummary() {
           gap: '24px',
           width: '100%',
           maxWidth: '1200px',
-          boxSizing: 'border-box'
+          boxSizing: 'border-box',
         }}
       >
         {/* LEFT COLUMN: Summary Cards & Mascot */}
@@ -90,7 +96,7 @@ export default function ReportSummary() {
             display: 'flex',
             flexDirection: 'column',
             gap: '16px',
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
           }}
         >
           {/* Top Mascot + Speech Bubble */}
@@ -102,7 +108,7 @@ export default function ReportSummary() {
               flexShrink: 0,
               opacity: mounted ? 1 : 0,
               transform: mounted ? 'translateY(0)' : 'translateY(15px)',
-              transition: 'all 0.5s ease-out'
+              transition: 'all 0.5s ease-out',
             }}
           >
             <Capi pose="wave" size={90} style={{ flexShrink: 0 }} />
@@ -117,7 +123,7 @@ export default function ReportSummary() {
                 borderTop: '1px solid #F1F5F9',
                 borderRight: '1px solid #F1F5F9',
                 borderBottom: '1px solid #F1F5F9',
-                flex: 1
+                flex: 1,
               }}
             >
               <div
@@ -125,7 +131,7 @@ export default function ReportSummary() {
                   fontWeight: 700,
                   fontSize: '16px',
                   color: '#0F172A',
-                  marginBottom: '2px'
+                  marginBottom: '2px',
                 }}
               >
                 {t('report.mascot_title')}
@@ -134,7 +140,7 @@ export default function ReportSummary() {
                 style={{
                   fontSize: '13px',
                   color: '#64748B',
-                  lineHeight: '1.4'
+                  lineHeight: '1.4',
                 }}
               >
                 {t('report.mascot_desc')}
@@ -154,12 +160,14 @@ export default function ReportSummary() {
                 padding: '4px 14px',
                 display: 'inline-block',
                 marginBottom: '4px',
-                width: 'fit-content'
+                width: 'fit-content',
               }}
             >
               {t('report.card_strength')}
             </span>
-            <h4 style={{ margin: '2px 0 2px 0', fontSize: '17px', fontWeight: 700, color: '#1E293B' }}>
+            <h4
+              style={{ margin: '2px 0 2px 0', fontSize: '17px', fontWeight: 700, color: '#1E293B' }}
+            >
               {strengthsHeadline}
             </h4>
             <p style={{ margin: 0, fontSize: '14px', color: '#475569', lineHeight: '1.4' }}>
@@ -179,16 +187,20 @@ export default function ReportSummary() {
                 padding: '4px 14px',
                 display: 'inline-block',
                 marginBottom: '4px',
-                width: 'fit-content'
+                width: 'fit-content',
               }}
             >
               {t('report.card_style')}
             </span>
-            <h4 style={{ margin: '2px 0 2px 0', fontSize: '17px', fontWeight: 700, color: '#1E293B' }}>
+            <h4
+              style={{ margin: '2px 0 2px 0', fontSize: '17px', fontWeight: 700, color: '#1E293B' }}
+            >
               {isEn ? 'Natural Behaviors' : 'Xu hướng hành vi'}
             </h4>
             <p style={{ margin: 0, fontSize: '14px', color: '#475569', lineHeight: '1.4' }}>
-              {isEn ? (certCopy.workingStyleHeadlineEn || certCopy.workingStyleHeadlineVn) : certCopy.workingStyleHeadlineVn}
+              {isEn
+                ? certCopy.workingStyleHeadlineEn || certCopy.workingStyleHeadlineVn
+                : certCopy.workingStyleHeadlineVn}
             </p>
           </div>
 
@@ -204,16 +216,18 @@ export default function ReportSummary() {
                 padding: '4px 14px',
                 display: 'inline-block',
                 marginBottom: '4px',
-                width: 'fit-content'
+                width: 'fit-content',
               }}
             >
               {t('report.card_growth')}
             </span>
-            <h4 style={{ margin: '2px 0 2px 0', fontSize: '17px', fontWeight: 700, color: '#1E293B' }}>
-              {isEn ? (certCopy.growthHeadlineEn || growthHeadline) : growthHeadline}
+            <h4
+              style={{ margin: '2px 0 2px 0', fontSize: '17px', fontWeight: 700, color: '#1E293B' }}
+            >
+              {isEn ? certCopy.growthHeadlineEn || growthHeadline : growthHeadline}
             </h4>
             <p style={{ margin: 0, fontSize: '14px', color: '#475569', lineHeight: '1.4' }}>
-              {isEn ? (certCopy.areasOfImprovementEn || growthDesc) : growthDesc}
+              {isEn ? certCopy.areasOfImprovementEn || growthDesc : growthDesc}
             </p>
           </div>
 
@@ -233,7 +247,7 @@ export default function ReportSummary() {
               justifyContent: 'center',
               color: '#7E22CE',
               borderColor: '#E9D5FF',
-              marginTop: 'auto'
+              marginTop: 'auto',
             }}
           >
             ← {t('report.btn_back_to_home')}
@@ -259,7 +273,7 @@ export default function ReportSummary() {
             transform: mounted ? 'scale(1)' : 'scale(0.97)',
             transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
             minHeight: 0,
-            overflow: 'hidden'
+            overflow: 'hidden',
           }}
         >
           {/* Watermark Award Icon Top Right */}
@@ -274,7 +288,7 @@ export default function ReportSummary() {
               right: -15,
               opacity: 0.08,
               pointerEvents: 'none',
-              zIndex: 0
+              zIndex: 0,
             }}
           />
 
@@ -289,7 +303,7 @@ export default function ReportSummary() {
               fontWeight: 600,
               fontFamily: 'monospace',
               letterSpacing: '0.5px',
-              marginBottom: '8px'
+              marginBottom: '8px',
             }}
           >
             CAPI-GENE ID: CG-2026-{certId}
@@ -304,7 +318,7 @@ export default function ReportSummary() {
                 fontWeight: 800,
                 color: '#1E1B4B',
                 fontFamily: 'var(--font-display, sans-serif)',
-                letterSpacing: '-0.5px'
+                letterSpacing: '-0.5px',
               }}
             >
               {t('report.cert_title')}
@@ -324,7 +338,7 @@ export default function ReportSummary() {
               width: '100%',
               textAlign: 'center',
               boxSizing: 'border-box',
-              margin: '12px 0'
+              margin: '12px 0',
             }}
           >
             <h3
@@ -333,18 +347,29 @@ export default function ReportSummary() {
                 fontSize: '24px',
                 fontWeight: 800,
                 color: '#7E22CE',
-                fontFamily: 'var(--font-display, sans-serif)'
+                fontFamily: 'var(--font-display, sans-serif)',
               }}
             >
-              {isEn ? (primary.name || 'Communicator') : (primary.nameVn || 'Nhà Truyền thông')}
+              {isEn ? primary.name || 'Communicator' : primary.nameVn || 'Nhà Truyền thông'}
             </h3>
             <p style={{ margin: 0, fontSize: '14px', color: '#6B21A8', lineHeight: '1.4' }}>
-              {t(`common.roles.${result.primaryRole}.tagline`) || certCopy.workingStyleHeadlineVn || 'Bạn nổi bật ở khả năng truyền đạt ý tưởng và giúp mọi người nhìn thấy ý nghĩa chung.'}
+              {t(`common.roles.${result.primaryRole}.tagline`) ||
+                certCopy.workingStyleHeadlineVn ||
+                'Bạn nổi bật ở khả năng truyền đạt ý tưởng và giúp mọi người nhìn thấy ý nghĩa chung.'}
             </p>
           </div>
 
           {/* Polygon Radar with Vertex Badges */}
-          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', minHeight: 0 }}>
+          <div
+            style={{
+              flex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              minHeight: 0,
+            }}
+          >
             <SummaryRadar scores={radarScores} size={280} />
           </div>
 
@@ -359,7 +384,7 @@ export default function ReportSummary() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '8px'
+                gap: '8px',
               }}
             >
               <Icon icon="mdi:eye-outline" width={20} height={20} />
@@ -374,7 +399,7 @@ export default function ReportSummary() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '8px'
+                gap: '8px',
               }}
             >
               <Icon icon="mdi:download-outline" width={20} height={20} />

@@ -40,7 +40,6 @@ export default function QAPageLayout({
             <img src={imageSrc} alt="" style={imageStyle} />
           </div>
 
-
           <div className="p1-right-content">
             {/* Progress Bar Container */}
             <div className="p1-progress-bar-container">
@@ -78,9 +77,10 @@ export default function QAPageLayout({
                 disabled={nextDisabled}
                 onClick={onNext}
               >
-                {nextText || (isFinished
-                  ? t('common.finish_btn') || 'Hoàn thành →'
-                  : t('common.continue_btn') || 'Tiếp tục →')}
+                {nextText ||
+                  (isFinished
+                    ? t('common.finish_btn') || 'Hoàn thành →'
+                    : t('common.continue_btn') || 'Tiếp tục →')}
               </Button>
             </div>
           </div>

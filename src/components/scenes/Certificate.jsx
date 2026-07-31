@@ -30,18 +30,18 @@ export default function CertificateScene() {
   if (!result || !certCopy) return <Navigate to="/" replace />
 
   return (
-    <Outlet 
-      context={{ 
-        user, 
-        result, 
-        certCopy, 
-        certId, 
-        certDate, 
-        saveStatus, 
-        saveError, 
-        onRetrySave, 
-        onRestart: handleRestart 
-      }} 
+    <Outlet
+      context={{
+        user,
+        result,
+        certCopy,
+        certId,
+        certDate,
+        saveStatus,
+        saveError,
+        onRetrySave,
+        onRestart: handleRestart,
+      }}
     />
   )
 }

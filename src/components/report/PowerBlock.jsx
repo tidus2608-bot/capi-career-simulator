@@ -6,7 +6,13 @@ import SummaryRadar from '../SummaryRadar.jsx'
 const BULLET_COLORS = ['#6366F1', '#10B981', '#F59E0B', '#EF4444', '#06B6D4']
 
 const ROLE_RANKING_CONFIG = [
-  { key: 'communicator', color: '#EAB308', nameVn: 'Communicator', nameEn: 'Communicator', textDark: true },
+  {
+    key: 'communicator',
+    color: '#EAB308',
+    nameVn: 'Communicator',
+    nameEn: 'Communicator',
+    textDark: true,
+  },
   { key: 'connector', color: '#F97316', nameVn: 'Connector', nameEn: 'Connector' },
   { key: 'explorer', color: '#22C55E', nameVn: 'Explorer', nameEn: 'Explorer' },
   { key: 'builder', color: '#EF4444', nameVn: 'Builder', nameEn: 'Builder' },
@@ -16,7 +22,8 @@ const ROLE_RANKING_CONFIG = [
 const COMBO_PROFILE_EN = {
   connector_communicator: {
     name: 'Empathetic Storyteller (Connector + Communicator)',
-    headline: 'You have the ability to empathize with others and convey messages in a way that touches the listeners.',
+    headline:
+      'You have the ability to empathize with others and convey messages in a way that touches the listeners.',
     parent_empathy: [
       'Caring about everyone around you',
       'Loving storytelling, explaining, or representing the team in discussions',
@@ -25,7 +32,8 @@ const COMBO_PROFILE_EN = {
       'Paying close attention to the emotions, needs, and perspectives of others.',
       'Adjusting your delivery so the listener feels understood and inspired to participate.',
     ],
-    environment: 'Community projects, social media, education, workshops, social impact pitching, team presentations.',
+    environment:
+      'Community projects, social media, education, workshops, social impact pitching, team presentations.',
   },
 }
 
@@ -56,8 +64,9 @@ export default function PowerBlock({
 
   // Setup Role & Combo names
   const primaryName = isEn ? primaryRoleMeta.name : primaryRoleMeta.nameVn
-  
-  const comboNameVi = primaryComboData.profile_name || `${primaryRoleMeta.nameVn} + ${secondaryRoleMeta.nameVn}`
+
+  const comboNameVi =
+    primaryComboData.profile_name || `${primaryRoleMeta.nameVn} + ${secondaryRoleMeta.nameVn}`
   const comboNameEn = comboOverrideEn?.name || `${primaryRoleMeta.name} + ${secondaryRoleMeta.name}`
   const comboName = isEn ? comboNameEn : comboNameVi
 
@@ -82,23 +91,26 @@ export default function PowerBlock({
   const bannerTitle = isSecondary ? (
     isEn ? (
       <>
-        You are also a <span style={{ color: '#8B2FA9', fontWeight: 800 }}>{comboName}</span> with a tendency to {comboOverrideEn?.headline || cleanComboTagline}
+        You are also a <span style={{ color: '#8B2FA9', fontWeight: 800 }}>{comboName}</span> with a
+        tendency to {comboOverrideEn?.headline || cleanComboTagline}
       </>
     ) : (
       <>
-        Bạn cũng là một <span style={{ color: '#8B2FA9', fontWeight: 800 }}>{comboName}</span> với {cleanComboTagline}
+        Bạn cũng là một <span style={{ color: '#8B2FA9', fontWeight: 800 }}>{comboName}</span> với{' '}
+        {cleanComboTagline}
       </>
     )
+  ) : isEn ? (
+    <>
+      You are best suited as an{' '}
+      <span style={{ color: '#8B2FA9', fontWeight: 800 }}>{primaryName}</span> with a tendency to{' '}
+      {cleanTagline}
+    </>
   ) : (
-    isEn ? (
-      <>
-        You are best suited as an <span style={{ color: '#8B2FA9', fontWeight: 800 }}>{primaryName}</span> with a tendency to {cleanTagline}
-      </>
-    ) : (
-      <>
-        Bạn phù hợp nhất là một <span style={{ color: '#8B2FA9', fontWeight: 800 }}>{primaryName}</span> {cleanTagline}
-      </>
-    )
+    <>
+      Bạn phù hợp nhất là một{' '}
+      <span style={{ color: '#8B2FA9', fontWeight: 800 }}>{primaryName}</span> {cleanTagline}
+    </>
   )
 
   const bannerSubtitle = isEn
@@ -112,7 +124,7 @@ export default function PowerBlock({
     const primaryItem = ROLE_RANKING_CONFIG.find((rc) => rc.key === primaryRoleKey)
     const secondaryItem = ROLE_RANKING_CONFIG.find((rc) => rc.key === secondaryRoleKey)
     const others = ROLE_RANKING_CONFIG.filter(
-      (rc) => rc.key !== primaryRoleKey && rc.key !== secondaryRoleKey
+      (rc) => rc.key !== primaryRoleKey && rc.key !== secondaryRoleKey,
     )
     const othersScored = others
       .map((rc) => ({ ...rc, score: Math.round(result.phase2?.[rc.key] || 0) }))
@@ -151,7 +163,7 @@ export default function PowerBlock({
         .split(',')
         .map((s) => s.trim())
         .filter((s) => s.length > 2)
-      
+
       portraitBullets = parseBullets(primaryComboData.portrait || '')
       environmentText = primaryComboData.best_environment || ''
     }
@@ -208,11 +220,27 @@ export default function PowerBlock({
         }}
       >
         <div style={{ zIndex: 1, flex: 1, paddingRight: '120px' }}>
-          <h2 style={{ fontSize: '22px', fontWeight: 600, margin: 0, lineHeight: 1.5, color: '#1F2937' }}>
+          <h2
+            style={{
+              fontSize: '22px',
+              fontWeight: 600,
+              margin: 0,
+              lineHeight: 1.5,
+              color: '#1F2937',
+            }}
+          >
             {bannerTitle}
           </h2>
-          
-          <p style={{ margin: '12px 0 0 0', fontSize: '14.5px', color: '#475569', fontWeight: 500, lineHeight: 1.5 }}>
+
+          <p
+            style={{
+              margin: '12px 0 0 0',
+              fontSize: '14.5px',
+              color: '#475569',
+              fontWeight: 500,
+              lineHeight: 1.5,
+            }}
+          >
             {bannerSubtitle}
           </p>
         </div>
@@ -250,7 +278,15 @@ export default function PowerBlock({
         </div>
 
         {/* Roles Ranked Bars Column */}
-        <div style={{ flex: 1.2, minWidth: '320px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div
+          style={{
+            flex: 1.2,
+            minWidth: '320px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '12px',
+          }}
+        >
           {rankedRoles.map((role, idx) => {
             return (
               <div
@@ -295,8 +331,17 @@ export default function PowerBlock({
           <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#1F2937' }}>
             {t('report.parent_notice_when')}
           </h4>
-          
-          <ul style={{ margin: 0, paddingLeft: 0, listStyleType: 'none', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+
+          <ul
+            style={{
+              margin: 0,
+              paddingLeft: 0,
+              listStyleType: 'none',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '8px',
+            }}
+          >
             {empathyBullets.map((b, idx) => (
               <li
                 key={idx}
@@ -315,7 +360,9 @@ export default function PowerBlock({
             ))}
           </ul>
 
-          <p style={{ margin: '4px 0 0 0', fontSize: '13px', color: '#70707A', fontStyle: 'italic' }}>
+          <p
+            style={{ margin: '4px 0 0 0', fontSize: '13px', color: '#70707A', fontStyle: 'italic' }}
+          >
             {isEn
               ? `These are natural expressions of the ${isSecondary ? comboName : primaryName} profile.`
               : `Đó chính là những biểu hiện tự nhiên của nhóm ${isSecondary ? comboName : 'này'}.`}
@@ -337,8 +384,17 @@ export default function PowerBlock({
           <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#1F2937' }}>
             {t('report.child_shines_when')}
           </h4>
-          
-          <ul style={{ margin: 0, paddingLeft: 0, listStyleType: 'none', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+
+          <ul
+            style={{
+              margin: 0,
+              paddingLeft: 0,
+              listStyleType: 'none',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '8px',
+            }}
+          >
             {portraitBullets.map((b, idx) => (
               <li
                 key={idx}
@@ -385,7 +441,7 @@ export default function PowerBlock({
         >
           <Icon icon="mdi:compass-rose" color="#70707A" width={18} height={18} />
         </div>
-        
+
         <div style={{ fontSize: '14.5px', color: '#1F2937', lineHeight: 1.5 }}>
           <strong style={{ color: '#8B2FA9', fontWeight: 700 }}>
             {t('report.suitable_environment')}{' '}
