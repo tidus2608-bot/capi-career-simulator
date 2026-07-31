@@ -9,10 +9,11 @@ import { Icon } from '@iconify/react'
 export default function IntroScene() {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { setStartedAt, setScanIntroActive } = useWizard()
+  const { setStartedAt, setScanIntroActive, onRestart } = useWizard()
 
   const handleStart = () => {
     capiAudio.sfx('confirm')
+    onRestart()
     setStartedAt(new Date().toISOString())
     setScanIntroActive(true)
     navigate('/scan')
@@ -63,7 +64,13 @@ export default function IntroScene() {
         }}
       >
         <div
-          style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 24 }}
+          style={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            gap: 24,
+          }}
           className="fade-up"
         >
           <div
@@ -96,9 +103,7 @@ export default function IntroScene() {
             {t('intro.new_title')}
           </h1>
 
-          <p style={{ fontSize: 16, lineHeight: 1.6, color: '#e2e8f0' }}>
-            {t('intro.new_blurb')}
-          </p>
+          <p style={{ fontSize: 16, lineHeight: 1.6, color: '#e2e8f0' }}>{t('intro.new_blurb')}</p>
 
           <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
             <Button

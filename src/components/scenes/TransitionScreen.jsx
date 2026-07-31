@@ -1,87 +1,129 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { Icon } from '@iconify/react'
 import { capiAudio } from '../../audio.js'
+import Button from '../Button.jsx'
+import SceneShell from './SceneShell.jsx'
 
-export default function TransitionScreen({ imageSrc, onNext }) {
-  const { t } = useTranslation()
-  const [isReady, setIsReady] = useState(false)
+export default function TransitionScreen({ imageSrc, onNext, onBack }) {
+  const { i18n } = useTranslation()
+  const isEn = i18n.language === 'en'
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsReady(true)
-    }, 1000)
-    return () => clearTimeout(timer)
-  }, [])
+  const handleBack = () => {
+    capiAudio.sfx('click')
+    if (onBack) onBack()
+  }
 
-  const handleClick = () => {
-    if (!isReady) return
+  const handleNext = () => {
     capiAudio.sfx('click')
     if (onNext) onNext()
   }
 
   return (
-    /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
-    <div
-      className="p2-shell"
-      onClick={handleClick}
-      style={{ cursor: isReady ? 'pointer' : 'default' }}
-    >
-      <img
-        src={imageSrc}
-        alt=""
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          zIndex: 0,
-        }}
-        onError={(e) => {
-          e.currentTarget.style.display = 'none'
-        }}
-      />
+    <SceneShell light className="no-scroll-shell">
       <div
         style={{
-          position: 'absolute',
-          bottom: 32,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 10,
-          background: 'rgba(10, 16, 48, 0.75)',
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
-          border: '1px solid rgba(255, 255, 255, 0.15)',
-          padding: '10px 24px',
-          borderRadius: '50px',
-          color: '#ffffff',
-          fontSize: '14px',
-          fontFamily: 'var(--font-mono)',
-          fontWeight: '600',
-          letterSpacing: '0.05em',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), 0 0 16px rgba(132, 52, 151, 0.3)',
-          pointerEvents: 'none',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
-          gap: 10,
-          animation: isReady ? 'pulseGlow 2s infinite ease-in-out' : 'none',
-          opacity: isReady ? 1 : 0,
-          transition: 'opacity 0.4s ease-in-out',
-          whiteSpace: 'nowrap',
+          justifyContent: 'center',
+          height: '100%',
+          width: '100%',
+          boxSizing: 'border-box',
+          padding: 'clamp(20px, 4vh, 40px) 48px clamp(16px, 3vh, 32px)',
         }}
       >
-        <span
+        {/* Widescreen Illustration Card Container */}
+        <div
           style={{
-            display: 'inline-block',
-            width: 8,
-            height: 8,
-            borderRadius: '50%',
-            background: '#ff6b9d',
-            animation: 'blinkIndicator 1s infinite alternate',
+            width: '100%',
+            maxWidth: '1200px',
+            aspectRatio: '5 / 4',
+            maxHeight: 'calc(100vh - 160px)',
+            borderRadius: '24px',
+            overflow: 'hidden',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
+            border: '1px solid #E2E8F0',
+            backgroundColor: '#0a1030',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'relative',
           }}
-        />
-        {t('common_extra.click_anywhere_to_continue')}
+        >
+          <img
+            src={imageSrc}
+            alt=""
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+            onError={(e) => {
+              e.currentTarget.style.display = 'none'
+            }}
+          />
+        </div>
+
+        {/* Action buttons matching final report CTA style */}
+        <div
+          style={{
+            display: 'flex',
+            gap: '16px',
+            width: '100%',
+            maxWidth: '1200px',
+            marginTop: '24px',
+            flexShrink: 0,
+          }}
+        >
+          <Button
+            variant="outline"
+            onClick={handleBack}
+            style={{
+              flex: 1,
+              height: '48px',
+              borderRadius: '12px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              fontSize: '16px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              border: '1.5px solid #8B2FA9',
+              color: '#8B2FA9',
+              backgroundColor: '#FFFFFF',
+            }}
+          >
+            <Icon icon="mdi:arrow-left" width={18} height={18} />
+            <span>{isEn ? 'Back' : 'Quay lại'}</span>
+          </Button>
+
+          <Button
+            variant="solid"
+            active
+            onClick={handleNext}
+            style={{
+              flex: 1,
+              height: '48px',
+              borderRadius: '12px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              fontSize: '16px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              backgroundColor: '#8B2FA9',
+              color: '#FFFFFF',
+              border: 'none',
+            }}
+          >
+            <span>{isEn ? 'Continue' : 'Tiếp tục'}</span>
+            <Icon icon="mdi:arrow-right" width={18} height={18} />
+          </Button>
+        </div>
       </div>
-    </div>
+    </SceneShell>
   )
 }

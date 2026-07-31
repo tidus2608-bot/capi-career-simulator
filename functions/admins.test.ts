@@ -72,10 +72,15 @@ describe('/api/admins', () => {
   })
 
   it('rejects malformed emails on create', async () => {
-    mockFetch(adminRows([{ email: 'admin@example.com' }], 1), jsonRows([{ email: 'admin@example.com' }]))
+    mockFetch(
+      adminRows([{ email: 'admin@example.com' }], 1),
+      jsonRows([{ email: 'admin@example.com' }]),
+    )
 
     const response = await createAdminRoute({
-      request: await authedRequest('POST', 'https://site.test/api/admins', { email: 'not-an-email' }),
+      request: await authedRequest('POST', 'https://site.test/api/admins', {
+        email: 'not-an-email',
+      }),
       env,
     })
 
@@ -88,13 +93,16 @@ describe('/api/admins', () => {
       adminRows([{ email: 'admin@example.com' }], 1),
       jsonRows([{ email: 'admin@example.com' }]),
       jsonRows([]),
-      jsonRows([
-        {
-          email: 'new@example.com',
-          created_at: '2026-07-15T00:00:00.000Z',
-          created_by: 'admin@example.com',
-        },
-      ], 201),
+      jsonRows(
+        [
+          {
+            email: 'new@example.com',
+            created_at: '2026-07-15T00:00:00.000Z',
+            created_by: 'admin@example.com',
+          },
+        ],
+        201,
+      ),
     )
 
     const response = await createAdminRoute({
@@ -145,10 +153,16 @@ describe('/api/admins', () => {
   })
 
   it('rejects deleting self', async () => {
-    mockFetch(adminRows([{ email: 'admin@example.com' }], 1), jsonRows([{ email: 'admin@example.com' }]))
+    mockFetch(
+      adminRows([{ email: 'admin@example.com' }], 1),
+      jsonRows([{ email: 'admin@example.com' }]),
+    )
 
     const response = await deleteAdminRoute({
-      request: await authedRequest('DELETE', 'https://site.test/api/admins?email=ADMIN@example.com'),
+      request: await authedRequest(
+        'DELETE',
+        'https://site.test/api/admins?email=ADMIN@example.com',
+      ),
       env,
     })
 
@@ -166,13 +180,18 @@ describe('/api/admins', () => {
     )
 
     const response = await deleteAdminRoute({
-      request: await authedRequest('DELETE', 'https://site.test/api/admins?email=other@example.com'),
+      request: await authedRequest(
+        'DELETE',
+        'https://site.test/api/admins?email=other@example.com',
+      ),
       env,
     })
 
     expect(fetchMock.mock.calls).toHaveLength(3)
     expect(response.status).toBe(409)
-    await expect(response.json()).resolves.toMatchObject({ error: 'You cannot delete the last admin' })
+    await expect(response.json()).resolves.toMatchObject({
+      error: 'You cannot delete the last admin',
+    })
   })
 
   it('deletes another admin when more than one admin remains', async () => {
@@ -183,7 +202,10 @@ describe('/api/admins', () => {
     )
 
     const response = await deleteAdminRoute({
-      request: await authedRequest('DELETE', 'https://site.test/api/admins?email=other@example.com'),
+      request: await authedRequest(
+        'DELETE',
+        'https://site.test/api/admins?email=other@example.com',
+      ),
       env,
     })
 

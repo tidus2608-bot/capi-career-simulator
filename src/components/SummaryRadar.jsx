@@ -4,10 +4,10 @@ import { CAPI_ROLES } from '../data.js'
 
 const ROLES_CONFIG = [
   { key: 'communicator', color: '#EAB308' }, // Top (0 deg)
-  { key: 'connector', color: '#F97316' },    // Top-Right (72 deg)
-  { key: 'operator', color: '#3B82F6' },      // Bottom-Right (144 deg)
-  { key: 'builder', color: '#EF4444' },        // Bottom-Left (216 deg)
-  { key: 'explorer', color: '#22C55E' },      // Top-Left (288 deg)
+  { key: 'connector', color: '#F97316' }, // Top-Right (72 deg)
+  { key: 'operator', color: '#3B82F6' }, // Bottom-Right (144 deg)
+  { key: 'builder', color: '#EF4444' }, // Bottom-Left (216 deg)
+  { key: 'explorer', color: '#22C55E' }, // Top-Left (288 deg)
 ]
 
 export default function SummaryRadar({ scores, size = 260 }) {
@@ -34,7 +34,12 @@ export default function SummaryRadar({ scores, size = 260 }) {
 
   return (
     <div style={{ position: 'relative', width: size, height: size, margin: '0 auto' }}>
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ overflow: 'visible' }}>
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        style={{ overflow: 'visible' }}
+      >
         <defs>
           <linearGradient id="radarFill" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#C084FC" stopOpacity="0.45" />
@@ -83,15 +88,7 @@ export default function SummaryRadar({ scores, size = 260 }) {
 
         {/* Dots on Vertices */}
         {points.map(([x, y], i) => (
-          <circle
-            key={i}
-            cx={x}
-            cy={y}
-            r="4.5"
-            fill="#9333EA"
-            stroke="#FFFFFF"
-            strokeWidth="2"
-          />
+          <circle key={i} cx={x} cy={y} r="4.5" fill="#9333EA" stroke="#FFFFFF" strokeWidth="2" />
         ))}
       </svg>
 
@@ -115,7 +112,7 @@ export default function SummaryRadar({ scores, size = 260 }) {
               flexDirection: 'column',
               alignItems: 'center',
               gap: '4px',
-              zIndex: 10
+              zIndex: 10,
             }}
           >
             <div
@@ -140,10 +137,10 @@ export default function SummaryRadar({ scores, size = 260 }) {
                 fontSize: '11px',
                 fontWeight: 700,
                 color: '#1E293B',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
               }}
             >
-              {isEn ? (CAPI_ROLES[rc.key]?.name || rc.key) : (CAPI_ROLES[rc.key]?.nameVn || rc.key)}
+              {isEn ? CAPI_ROLES[rc.key]?.name || rc.key : CAPI_ROLES[rc.key]?.nameVn || rc.key}
             </span>
           </div>
         )

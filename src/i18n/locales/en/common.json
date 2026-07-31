@@ -113,7 +113,9 @@
     "empty": "No saved runs yet.",
     "load_error": "Couldn't load history: {{error}}",
     "final_score": "Final Score",
-    "mission_prefix": "Mission #"
+    "mission_prefix": "Mission #",
+    "login_required_title": "Sign In Required",
+    "login_required_desc": "Please sign in to view and sync your past career simulation runs."
   },
   "error_boundary": {
     "system_fault": "SYSTEM FAULT",

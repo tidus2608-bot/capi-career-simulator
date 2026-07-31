@@ -38,9 +38,22 @@ export default function RadarRanking({ isEn, result }) {
         </div>
 
         {/* Right Column: Ranked Bars */}
-        <div style={{ flex: 1.2, minWidth: '320px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <div
+          style={{
+            flex: 1.2,
+            minWidth: '320px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '14px',
+          }}
+        >
           {[
-            { key: 'communicator', color: '#EAB308', nameVn: 'Người Truyền Cảm Hứng', nameEn: 'Communicator' },
+            {
+              key: 'communicator',
+              color: '#EAB308',
+              nameVn: 'Người Truyền Cảm Hứng',
+              nameEn: 'Communicator',
+            },
             { key: 'connector', color: '#F97316', nameVn: 'Người Kết Nối', nameEn: 'Connector' },
             { key: 'operator', color: '#3B82F6', nameVn: 'Vận Hành Viên', nameEn: 'Operator' },
             { key: 'builder', color: '#00e5ff', nameVn: 'Kỹ Sư Chế Tạo', nameEn: 'Builder' },
@@ -52,7 +65,9 @@ export default function RadarRanking({ isEn, result }) {
               return (
                 <div key={role.key} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   {/* Ranking Index */}
-                  <span style={{ fontSize: '14px', fontWeight: 800, color: '#94A3B8', width: '22px' }}>
+                  <span
+                    style={{ fontSize: '14px', fontWeight: 800, color: '#94A3B8', width: '22px' }}
+                  >
                     {String(idx + 1).padStart(2, '0')}
                   </span>
 
@@ -69,13 +84,18 @@ export default function RadarRanking({ isEn, result }) {
                       <span style={{ fontWeight: 700, color: '#1E293B' }}>
                         {isEn ? role.nameEn : role.nameVn}
                       </span>
-                      <span style={{ fontWeight: 800, color: role.color }}>
-                        {role.score}%
-                      </span>
+                      <span style={{ fontWeight: 800, color: role.color }}>{role.score}%</span>
                     </div>
 
                     {/* Progress track */}
-                    <div style={{ height: '8px', background: '#F1F5F9', borderRadius: '9999px', overflow: 'hidden' }}>
+                    <div
+                      style={{
+                        height: '8px',
+                        background: '#F1F5F9',
+                        borderRadius: '9999px',
+                        overflow: 'hidden',
+                      }}
+                    >
                       <div
                         style={{
                           height: '100%',

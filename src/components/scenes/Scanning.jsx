@@ -114,7 +114,15 @@ export default function ScanningScene() {
         <div style={{ display: 'grid', placeItems: 'center', minHeight: '100%', padding: 24 }}>
           <div
             className="glass fade-up"
-            style={{ maxWidth: 600, padding: '32px 36px', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'center' }}
+            style={{
+              maxWidth: 600,
+              padding: '32px 36px',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 20,
+              alignItems: 'center',
+            }}
           >
             <div className="mono" style={{ color: '#843497' }}>
               {t('intro.scan_intro_title')}

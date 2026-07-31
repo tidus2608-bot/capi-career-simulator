@@ -100,6 +100,7 @@ export default function MissionPlayScene() {
     return (
       <TransitionScreen
         imageSrc={`/illos/mission-${missionId}-start.webp`}
+        onBack={() => navigate('/mission-pick')}
         onNext={() => setStage('q')}
       />
     )
@@ -109,6 +110,7 @@ export default function MissionPlayScene() {
     return (
       <TransitionScreen
         imageSrc={`/illos/mission-${missionId}-end.webp`}
+        onBack={() => setStage('q')}
         onNext={() => {
           setAnswers(answers)
           navigate('/reflect')
@@ -153,7 +155,10 @@ export default function MissionPlayScene() {
             <div className="p1-progress-bar-container">
               <div className="p1-progress-labels">
                 <span>
-                  {t('common_extra.question_of', { num: String(idx + 1).padStart(2, '0'), total: String(qs.length).padStart(2, '0') })}
+                  {t('common_extra.question_of', {
+                    num: String(idx + 1).padStart(2, '0'),
+                    total: String(qs.length).padStart(2, '0'),
+                  })}
                 </span>
                 <span>{t('common_extra.completed_pct', { percent: progress })}</span>
               </div>

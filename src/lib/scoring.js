@@ -190,11 +190,11 @@ function realityGrowthNarrative(result, primary) {
 }
 
 const PHRASE_BANK_EN = {
-  explorer: ["curious", "empathetic", "questioning", "deeply analytical"],
-  builder: ["hands-on", "creative", "solution-oriented", "turning ideas into working products"],
-  operator: ["meticulous", "reliable", "execution-focused", "ensuring stable system operations"],
-  connector: ["collaborative", "people-oriented", "connecting stakeholders", "leading consensus"],
-  communicator: ["clear", "persuasive", "storytelling", "making complex ideas simple"]
+  explorer: ['curious', 'empathetic', 'questioning', 'deeply analytical'],
+  builder: ['hands-on', 'creative', 'solution-oriented', 'turning ideas into working products'],
+  operator: ['meticulous', 'reliable', 'execution-focused', 'ensuring stable system operations'],
+  connector: ['collaborative', 'people-oriented', 'connecting stakeholders', 'leading consensus'],
+  communicator: ['clear', 'persuasive', 'storytelling', 'making complex ideas simple'],
 }
 
 export function buildCertificateCopy(result) {
@@ -205,8 +205,8 @@ export function buildCertificateCopy(result) {
 
   const workingStyleHeadlineVn = `Bạn có xu hướng ${primary.phrase_bank_vn[0]} và ${primary.phrase_bank_vn[1]}, kết hợp với khả năng ${secondary.phrase_bank_vn[0]}.`
 
-  const phraseEn = PHRASE_BANK_EN[result.primaryRole] || ["curious", "empathetic"]
-  const secPhraseEn = PHRASE_BANK_EN[result.secondaryRole] || ["hands-on"]
+  const phraseEn = PHRASE_BANK_EN[result.primaryRole] || ['curious', 'empathetic']
+  const secPhraseEn = PHRASE_BANK_EN[result.secondaryRole] || ['hands-on']
   const workingStyleHeadlineEn = `You tend to be ${phraseEn[0]} and ${phraseEn[1]}, combined with a capability for ${secPhraseEn[0]} work.`
 
   const profileTypeLabelVn = `${result.profileType} ${primary.name_vn}`
@@ -240,6 +240,12 @@ export function buildCertificateCopy(result) {
     }
   }
 
+  const primaryFinal = result.final[result.primaryRole]
+  const scoreBand =
+    result.scoreBand ||
+    missionsData.score_bands.find((b) => primaryFinal >= b.min && primaryFinal <= b.max) ||
+    missionsData.score_bands[0]
+
   return {
     workingStyleHeadlineVn,
     workingStyleHeadlineEn,
@@ -248,7 +254,7 @@ export function buildCertificateCopy(result) {
       roleEn: primary.name_en,
       tagline: primary.tagline_vn,
       score: round1(result.phase2[result.primaryRole]),
-      bandLabel: result.scoreBand.label_vn,
+      bandLabel: scoreBand.label_vn,
     },
     secondaryPowerVn: {
       roleVn: secondary.name_vn,

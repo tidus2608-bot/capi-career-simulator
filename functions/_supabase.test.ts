@@ -59,9 +59,11 @@ describe('supabaseRest', () => {
   })
 
   it('inserts a row and requests the created representation', async () => {
-    const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
-      new Response(JSON.stringify([{ email: 'admin@example.com' }]), { status: 201 }),
-    )
+    const fetchMock = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify([{ email: 'admin@example.com' }]), { status: 201 }),
+      )
     const sb = supabaseRest(env)
     const { rows } = await sb.insert('admins', { email: 'admin@example.com' })
 
@@ -93,7 +95,9 @@ describe('supabaseRest', () => {
       .spyOn(globalThis, 'fetch')
       .mockResolvedValueOnce(new Response(JSON.stringify({ ok: true }), { status: 200 }))
     const sb = supabaseRest(env)
-    await expect(sb.rpc('delete_admin', { target_email: 'x@example.com' })).resolves.toEqual({ ok: true })
+    await expect(sb.rpc('delete_admin', { target_email: 'x@example.com' })).resolves.toEqual({
+      ok: true,
+    })
     const [url, init] = fetchMock.mock.calls[0]!
     expect(String(url)).toBe('https://example.supabase.co/rest/v1/rpc/delete_admin')
     expect((init as RequestInit).method).toBe('POST')

@@ -39,15 +39,15 @@ const router = createBrowserRouter([
       { path: 'mission-pick', element: <MissionPickScene /> },
       { path: 'mission-play', element: <MissionPlayScene /> },
       { path: 'reflect', element: <ReflectionScene /> },
-      { 
-        path: 'certificate', 
+      {
+        path: 'certificate',
         element: <CertificateScene />,
         children: [
           { path: '', element: <Navigate to="loading" replace /> },
           { path: 'loading', element: <ReportLoading /> },
           { path: 'summary', element: <ReportSummary /> },
           { path: 'details', element: <ReportDetails /> },
-        ]
+        ],
       },
       { path: 'history', element: <HistoryScene /> },
     ],

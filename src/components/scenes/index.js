@@ -15,5 +15,3 @@ export { default as ReportLoading } from './ReportLoading.jsx'
 export { default as ReportSummary } from './ReportSummary.jsx'
 export { default as ReportDetails } from './ReportDetails.jsx'
 export { default as QAPageLayout } from './QAPageLayout.jsx'
-
-

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Icon } from '@iconify/react'
 import { CAPI_ROLES } from '../data.js'
 
-
 export const Typed = ({ text, speed = 22, onDone = () => {}, className = '' }) => {
   const [state, setState] = useState({ text, pos: 0, done: false })
   const onDoneRef = useRef(onDone)
@@ -37,7 +36,6 @@ export const Typed = ({ text, speed = 22, onDone = () => {}, className = '' }) =
     </span>
   )
 }
-
 
 const ROLE_MDI_ICONS = {
   explorer: 'mdi:compass-outline',

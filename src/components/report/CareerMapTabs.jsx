@@ -62,8 +62,10 @@ const CAREER_STYLE_OVERRIDES = {
     icon: 'mdi:megaphone-outline',
     tags: ['Marketing', 'Business', 'Communication'],
     bullets: ['Storytelling', 'Product Launch'],
-    why_fit_vi: 'Phù hợp vì con cần biến tính năng khô khan của sản phẩm thành câu chuyện giá trị cho người dùng.',
-    why_fit_en: 'Suitable because you need to transform dry product features into valuable stories for users.',
+    why_fit_vi:
+      'Phù hợp vì con cần biến tính năng khô khan của sản phẩm thành câu chuyện giá trị cho người dùng.',
+    why_fit_en:
+      'Suitable because you need to transform dry product features into valuable stories for users.',
     domain: 'Tech & Robotics',
   },
   'developer advocate': {
@@ -75,8 +77,10 @@ const CAREER_STYLE_OVERRIDES = {
     icon: 'mdi:sitemap-outline',
     tags: ['Computer Science', 'Communication'],
     bullets: ['Hỗ trợ cộng đồng', 'Viết code & Blog'],
-    why_fit_vi: 'Bạn đóng vai trò cầu nối giữa kỹ sư phần mềm và cộng đồng người dùng. Bạn giúp giải thích các công nghệ phức tạp bằng ngôn ngữ dễ hiểu và thu thập phản hồi.',
-    why_fit_en: 'You act as a bridge between software engineers and the user community. You help explain complex technologies in simple terms and gather feedback.',
+    why_fit_vi:
+      'Bạn đóng vai trò cầu nối giữa kỹ sư phần mềm và cộng đồng người dùng. Bạn giúp giải thích các công nghệ phức tạp bằng ngôn ngữ dễ hiểu và thu thập phản hồi.',
+    why_fit_en:
+      'You act as a bridge between software engineers and the user community. You help explain complex technologies in simple terms and gather feedback.',
     domain: 'Tech & Robotics',
   },
   'technical writer': {
@@ -88,8 +92,10 @@ const CAREER_STYLE_OVERRIDES = {
     icon: 'mdi:file-document-edit-outline',
     tags: ['Marketing', 'Business', 'Communication'],
     bullets: ['Technical Communication', 'Computer Science'],
-    why_fit_vi: 'Sử dụng khả năng ngôn ngữ của mình để tạo ra các hướng dẫn sử dụng, tài liệu kỹ thuật chuyên nghiệp cho các hệ thống robot hoặc phần mềm phức tạp.',
-    why_fit_en: 'Use your language skills to create professional user guides and technical documentation for complex robot systems or software.',
+    why_fit_vi:
+      'Sử dụng khả năng ngôn ngữ của mình để tạo ra các hướng dẫn sử dụng, tài liệu kỹ thuật chuyên nghiệp cho các hệ thống robot hoặc phần mềm phức tạp.',
+    why_fit_en:
+      'Use your language skills to create professional user guides and technical documentation for complex robot systems or software.',
     domain: 'Tech & Robotics',
   },
   'science communicator': {
@@ -101,8 +107,10 @@ const CAREER_STYLE_OVERRIDES = {
     icon: 'mdi:flask-outline',
     tags: ['Education', 'Science Communication'],
     bullets: ['Public Speaking', 'Instructional Design'],
-    why_fit_vi: 'Phù hợp vì con cần giải thích khái niệm khoa học-công nghệ theo cách dễ hiểu và truyền cảm hứng.',
-    why_fit_en: 'Suitable because you need to explain science and technology concepts in an easy-to-understand and inspiring way.',
+    why_fit_vi:
+      'Phù hợp vì con cần giải thích khái niệm khoa học-công nghệ theo cách dễ hiểu và truyền cảm hứng.',
+    why_fit_en:
+      'Suitable because you need to explain science and technology concepts in an easy-to-understand and inspiring way.',
     domain: 'Tech & Robotics',
   },
   'ui/ux designer': {
@@ -114,8 +122,10 @@ const CAREER_STYLE_OVERRIDES = {
     icon: 'mdi:brush-outline',
     tags: ['Design', 'Human-Computer Interaction'],
     bullets: ['Visual Design', 'User Research'],
-    why_fit_vi: 'Phù hợp vì con có khả năng thấu cảm cao, giúp thiết kế những giao diện không chỉ đẹp mà còn dễ sử dụng cho mọi người.',
-    why_fit_en: 'Suitable because you have high empathy, helping design interfaces that are not only beautiful but also easy to use for everyone.',
+    why_fit_vi:
+      'Phù hợp vì con có khả năng thấu cảm cao, giúp thiết kế những giao diện không chỉ đẹp mà còn dễ sử dụng cho mọi người.',
+    why_fit_en:
+      'Suitable because you have high empathy, helping design interfaces that are not only beautiful but also easy to use for everyone.',
     domain: 'Tech & Robotics',
   },
 }
@@ -128,13 +138,24 @@ const getMappedDomain = (job) => {
   }
 
   const d = (job.domain || '').toLowerCase()
-  if (d.includes('tech') || d.includes('robot') || d.includes('engineering') || d.includes('maker') || d.includes('manufacturing')) {
+  if (
+    d.includes('tech') ||
+    d.includes('robot') ||
+    d.includes('engineering') ||
+    d.includes('maker') ||
+    d.includes('manufacturing')
+  ) {
     return 'Tech & Robotics'
   }
   if (d.includes('business') || d.includes('product') || d.includes('operation')) {
     return 'Business & Product'
   }
-  if (d.includes('education') || d.includes('media') || d.includes('social') || d.includes('impact')) {
+  if (
+    d.includes('education') ||
+    d.includes('media') ||
+    d.includes('social') ||
+    d.includes('impact')
+  ) {
     return 'Education & Media'
   }
   if (d.includes('design') || d.includes('creative') || d.includes('art')) {
@@ -161,7 +182,11 @@ export default function CareerMapTabs({ isEn, allCareers }) {
         _overrideKey: 'science communicator',
       }
     }
-    if (key.includes('human-robot interaction') || key.includes('ux researcher') || key.includes('ux designer')) {
+    if (
+      key.includes('human-robot interaction') ||
+      key.includes('ux researcher') ||
+      key.includes('ux designer')
+    ) {
       return {
         ...c,
         career: 'UI/UX Designer',
@@ -196,7 +221,15 @@ export default function CareerMapTabs({ isEn, allCareers }) {
     >
       {/* Header Row with Horizontal Line */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <h3 style={{ margin: 0, fontSize: '24px', fontWeight: 800, color: '#A855F7', whiteSpace: 'nowrap' }}>
+        <h3
+          style={{
+            margin: 0,
+            fontSize: '24px',
+            fontWeight: 800,
+            color: '#A855F7',
+            whiteSpace: 'nowrap',
+          }}
+        >
           {t('report.career_map_title')}
         </h3>
         <div style={{ flex: 1, height: '2px', backgroundColor: '#E9D5FF' }} />
@@ -279,9 +312,21 @@ export default function CareerMapTabs({ isEn, allCareers }) {
               const defaultStyle = ROLE_MAP_STYLES[job.role_id] || ROLE_MAP_STYLES.explorer
               const theme = styleOverride || defaultStyle
 
-              const tags = styleOverride ? styleOverride.tags : (job.suggested_major ? job.suggested_major.split(',').map((s) => s.trim()) : [])
-              const bullets = styleOverride ? styleOverride.bullets : (job.robotics_connection ? [job.robotics_connection] : [])
-              const whyFitText = styleOverride ? (isEn ? styleOverride.why_fit_en : styleOverride.why_fit_vi) : job.why_fit
+              const tags = styleOverride
+                ? styleOverride.tags
+                : job.suggested_major
+                  ? job.suggested_major.split(',').map((s) => s.trim())
+                  : []
+              const bullets = styleOverride
+                ? styleOverride.bullets
+                : job.robotics_connection
+                  ? [job.robotics_connection]
+                  : []
+              const whyFitText = styleOverride
+                ? isEn
+                  ? styleOverride.why_fit_en
+                  : styleOverride.why_fit_vi
+                : job.why_fit
 
               // Determine if card spans full width (last item in odd list)
               const isFullWidth = idx === filteredJobs.length - 1 && filteredJobs.length % 2 !== 0
@@ -319,7 +364,9 @@ export default function CareerMapTabs({ isEn, allCareers }) {
                       <Icon icon={theme.icon} width={22} height={22} />
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#1F2937' }}>
+                      <h4
+                        style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#1F2937' }}
+                      >
                         {job.career}
                       </h4>
                     </div>
@@ -348,7 +395,16 @@ export default function CareerMapTabs({ isEn, allCareers }) {
 
                   {/* Bullets List */}
                   {bullets.length > 0 && (
-                    <ul style={{ margin: 0, paddingLeft: 0, listStyleType: 'none', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <ul
+                      style={{
+                        margin: 0,
+                        paddingLeft: 0,
+                        listStyleType: 'none',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '6px',
+                      }}
+                    >
                       {bullets.map((b, bIdx) => (
                         <li
                           key={bIdx}
@@ -369,9 +425,7 @@ export default function CareerMapTabs({ isEn, allCareers }) {
 
                   {/* Why fit description */}
                   <p style={{ margin: 0, fontSize: '13.5px', color: '#475569', lineHeight: 1.5 }}>
-                    <strong style={{ color: '#475569' }}>
-                      {t('report.career_why_fit')}
-                    </strong>
+                    <strong style={{ color: '#475569' }}>{t('report.career_why_fit')}</strong>
                     {whyFitText}
                   </p>
 

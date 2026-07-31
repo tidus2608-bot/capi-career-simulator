@@ -11,7 +11,7 @@ import missionsData from '../../data/missions.json'
 export default function CapiGeneInfoScene() {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
-  const { setStartedAt, setScanIntroActive } = useWizard()
+  const { setStartedAt, setScanIntroActive, onRestart } = useWizard()
   const isEn = i18n.language === 'en'
   const [activeIdx, setActiveIdx] = useState(0)
 
@@ -38,9 +38,7 @@ export default function CapiGeneInfoScene() {
           justifyContent: 'space-between',
         }}
       >
-        <h2 className="p2-new-header">
-          {t('common.capi_gene_info_title')}
-        </h2>
+        <h2 className="p2-new-header">{t('common.capi_gene_info_title')}</h2>
 
         <div className="role-carousel-wrapper">
           <button
@@ -178,6 +176,7 @@ export default function CapiGeneInfoScene() {
             active
             onClick={() => {
               capiAudio.sfx('confirm')
+              onRestart()
               setStartedAt(new Date().toISOString())
               setScanIntroActive(true)
               navigate('/scan')

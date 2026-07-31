@@ -13,7 +13,7 @@ export default function HeaderControls({ muted, toggleMute }) {
   const { t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
-  const { user, session } = useWizard()
+  const { user, session, onRestart } = useWizard()
   const path = location.pathname
 
   const isHome = path === '/'
@@ -21,11 +21,7 @@ export default function HeaderControls({ muted, toggleMute }) {
   const isDetails = path === '/certificate/details'
 
   const audioIcon = (
-    <Icon
-      icon={muted ? 'mdi:volume-off' : 'mdi:volume-high'}
-      width={20}
-      height={20}
-    />
+    <Icon icon={muted ? 'mdi:volume-off' : 'mdi:volume-high'} width={20} height={20} />
   )
 
   const TRANSLATED_PATHS = new Set([
@@ -49,6 +45,7 @@ export default function HeaderControls({ muted, toggleMute }) {
 
   const handleHomeClick = () => {
     capiAudio.sfx('click')
+    onRestart()
     navigate('/')
   }
 
@@ -143,11 +140,7 @@ export default function HeaderControls({ muted, toggleMute }) {
               >
                 <Icon icon="mdi:share-variant-outline" width={20} height={20} />
               </Button>
-              <Button
-                variant="outline"
-                style={circleButtonStyle}
-                title={t('common.save') || 'Lưu'}
-              >
+              <Button variant="outline" style={circleButtonStyle} title={t('common.save') || 'Lưu'}>
                 <Icon icon="mdi:bookmark-outline" width={20} height={20} />
               </Button>
             </>

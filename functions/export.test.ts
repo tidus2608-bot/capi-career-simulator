@@ -27,24 +27,24 @@ describe('GET /api/export', () => {
         new Response(JSON.stringify([{ email: 'admin@example.com' }]), { status: 200 }),
       )
       .mockResolvedValueOnce(
-      new Response(
-        JSON.stringify([
-          {
-            id: 'run-1',
-            created_at: '2026-07-14T00:00:00.000Z',
-            display_name: '=WEBSERVICE("https://attacker.test")',
-            theme: '+theme',
-            mission_id: 1,
-            primary_role: '-explorer',
-            secondary_role: '@builder',
-            profile_type: 'Aligned',
-            confidence_factor: 0.9,
-            scores: { final: { explorer: 88 } },
-          },
-        ]),
-        { status: 200 },
-      ),
-    )
+        new Response(
+          JSON.stringify([
+            {
+              id: 'run-1',
+              created_at: '2026-07-14T00:00:00.000Z',
+              display_name: '=WEBSERVICE("https://attacker.test")',
+              theme: '+theme',
+              mission_id: 1,
+              primary_role: '-explorer',
+              secondary_role: '@builder',
+              profile_type: 'Aligned',
+              confidence_factor: 0.9,
+              scores: { final: { explorer: 88 } },
+            },
+          ]),
+          { status: 200 },
+        ),
+      )
 
     const response = await exportRuns({
       request: new Request('https://site.test/api/export', {
