@@ -46,6 +46,7 @@
     "next": "NEXT →",
     "finish": "FINISH →",
     "back": "← Back",
+    "cancel": "Cancel",
     "restart": "START OVER",
     "retry": "Try again",
     "loading": "Loading...",
@@ -122,6 +123,11 @@
     "title": "Capi crashed",
     "body": "An unexpected error just occurred. You can restart to keep going — any results you saved earlier are still safe in your account.",
     "btn_restart": "Restart"
+  },
+  "confirm_exit": {
+    "title": "Exit career path simulator?",
+    "desc": "Your current progress will be lost and won't be saved. Are you sure you want to return to the home page?",
+    "confirm_btn": "Stop playing"
   },
   "questions": {
     "Q1": "When a robot has an issue, I want to directly inspect and repair it.",

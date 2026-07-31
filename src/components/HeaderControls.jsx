@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '@iconify/react'
@@ -43,10 +43,22 @@ export default function HeaderControls({ muted, toggleMute }) {
   const showLanguage = TRANSLATED_PATHS.has(path)
   const showHome = !isHome && path !== '/certificate/loading'
 
+  const isInProgress =
+    path !== '/' &&
+    path !== '/capi-gene-info' &&
+    path !== '/history' &&
+    !path.startsWith('/certificate')
+
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
+
   const handleHomeClick = () => {
     capiAudio.sfx('click')
-    onRestart()
-    navigate('/')
+    if (isInProgress) {
+      setShowConfirmModal(true)
+    } else {
+      onRestart()
+      navigate('/')
+    }
   }
 
   const handleShare = () => {
@@ -213,6 +225,133 @@ export default function HeaderControls({ muted, toggleMute }) {
       >
         {audioIcon}
       </Button>
+
+      {/* Confirmation Exit Modal */}
+      {showConfirmModal && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: 'rgba(15, 23, 42, 0.4)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+            animation: 'fadeIn 0.2s ease-out',
+          }}
+        >
+          <style>{`
+            @keyframes fadeIn {
+              from { opacity: 0; }
+              to { opacity: 1; }
+            }
+          `}</style>
+          <div
+            className="glass fade-up"
+            style={{
+              width: '100%',
+              maxWidth: 440,
+              backgroundColor: '#FFFFFF',
+              borderRadius: 24,
+              padding: '32px 24px',
+              border: '1px solid #E2E8F0',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              textAlign: 'center',
+              gap: 24,
+              boxShadow: '0 20px 40px -15px rgba(0, 0, 0, 0.15)',
+              margin: '0 20px',
+            }}
+          >
+            {/* Warning Icon */}
+            <div style={{
+              width: 56,
+              height: 56,
+              borderRadius: '50%',
+              backgroundColor: '#FEF2F2',
+              color: '#EF4444',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <Icon icon="mdi:alert-circle-outline" width={28} height={28} />
+            </div>
+
+            {/* Content */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <h3 style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 22,
+                fontWeight: 700,
+                color: '#0F172A',
+                margin: 0,
+              }}>
+                {t('confirm_exit.title', 'Dừng tiến trình?')}
+              </h3>
+              <p style={{
+                fontSize: 15,
+                color: '#64748B',
+                margin: 0,
+                lineHeight: 1.5,
+              }}>
+                {t('confirm_exit.desc', 'Tiến trình làm bài hiện tại của bạn sẽ bị hủy và không được lưu lại. Bạn có chắc chắn muốn quay về trang chủ?')}
+              </p>
+            </div>
+
+            {/* Actions */}
+            <div style={{ display: 'flex', gap: 12, width: '100%' }}>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  capiAudio.sfx('click')
+                  setShowConfirmModal(false)
+                }}
+                style={{
+                  flex: 1,
+                  height: 44,
+                  borderRadius: 12,
+                  borderColor: '#CBD5E1',
+                  color: '#475569',
+                  fontWeight: 600,
+                  fontSize: 14,
+                  backgroundColor: '#FFFFFF',
+                  width: 'auto',
+                  flexGrow: 1,
+                }}
+              >
+                {t('common.cancel', 'Hủy')}
+              </Button>
+              <Button
+                variant="solid"
+                active
+                onClick={() => {
+                  capiAudio.sfx('click')
+                  setShowConfirmModal(false)
+                  onRestart()
+                  navigate('/')
+                }}
+                style={{
+                  flex: 1,
+                  height: 44,
+                  borderRadius: 12,
+                  backgroundColor: '#EF4444',
+                  color: '#FFFFFF',
+                  fontWeight: 600,
+                  fontSize: 14,
+                  border: 'none',
+                }}
+              >
+                {t('confirm_exit.confirm_btn', 'Dừng chơi')}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }
