@@ -23,14 +23,13 @@ export default function QAPageLayout({
   const { t } = useTranslation()
 
   return (
-    <SceneShell light className="no-scroll-shell">
+    <SceneShell light>
       <div
         className="p2-new-layout"
         style={{
-          height: '100%',
-          padding: 'clamp(20px, 3.5vh, 40px) 48px clamp(16px, 2.5vh, 32px)',
+          minHeight: '100%',
+          padding: 'clamp(20px, 3.5vh, 40px) clamp(20px, 3vw, 48px) clamp(24px, 4vh, 48px)',
           boxSizing: 'border-box',
-          justifyContent: 'space-between',
           maxWidth: '1200px',
         }}
       >

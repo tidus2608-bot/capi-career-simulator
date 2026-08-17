@@ -269,37 +269,46 @@ export default function HeaderControls({ muted, toggleMute }) {
             }}
           >
             {/* Warning Icon */}
-            <div style={{
-              width: 56,
-              height: 56,
-              borderRadius: '50%',
-              backgroundColor: '#FEF2F2',
-              color: '#EF4444',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
+            <div
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: '50%',
+                backgroundColor: '#FEF2F2',
+                color: '#EF4444',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
               <Icon icon="mdi:alert-circle-outline" width={28} height={28} />
             </div>
 
             {/* Content */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <h3 style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 22,
-                fontWeight: 700,
-                color: '#0F172A',
-                margin: 0,
-              }}>
+              <h3
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 22,
+                  fontWeight: 700,
+                  color: '#0F172A',
+                  margin: 0,
+                }}
+              >
                 {t('confirm_exit.title', 'Dừng tiến trình?')}
               </h3>
-              <p style={{
-                fontSize: 15,
-                color: '#64748B',
-                margin: 0,
-                lineHeight: 1.5,
-              }}>
-                {t('confirm_exit.desc', 'Tiến trình làm bài hiện tại của bạn sẽ bị hủy và không được lưu lại. Bạn có chắc chắn muốn quay về trang chủ?')}
+              <p
+                style={{
+                  fontSize: 15,
+                  color: '#64748B',
+                  margin: 0,
+                  lineHeight: 1.5,
+                }}
+              >
+                {t(
+                  'confirm_exit.desc',
+                  'Tiến trình làm bài hiện tại của bạn sẽ bị hủy và không được lưu lại. Bạn có chắc chắn muốn quay về trang chủ?',
+                )}
               </p>
             </div>
 

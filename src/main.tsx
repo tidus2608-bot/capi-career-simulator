@@ -20,6 +20,7 @@ import {
   ReportDetails,
   HistoryScene,
   CapiGeneInfoScene,
+  FeedbackScene,
 } from './components/scenes/index.js'
 
 const router = createBrowserRouter([
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       },
       { path: 'history', element: <HistoryScene /> },
     ],
+  },
+  {
+    path: '/feedback',
+    element: <FeedbackScene />,
   },
 ])
 

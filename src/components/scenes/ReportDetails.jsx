@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '@iconify/react'
@@ -8,6 +8,7 @@ import { CAPI_ROLES } from '../../data.js'
 import reportData from '../../data/reportData.json'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import Button from '../Button.jsx'
+import FeedbackInvitationModal from './FeedbackInvitationModal.jsx'
 
 // Subcomponents
 import PowerBlock from '../report/PowerBlock.jsx'
@@ -30,7 +31,8 @@ export default function ReportDetails() {
   const { t, i18n } = useTranslation()
   const isEn = i18n.language === 'en'
   const { result, certCopy } = useOutletContext()
-  const { selectedMission } = useWizard()
+  const { selectedMission, savedRunId } = useWizard()
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -41,7 +43,46 @@ export default function ReportDetails() {
       }, 800)
       return () => clearTimeout(timer)
     }
-  }, [navigate])
+
+    const storageKey = savedRunId
+      ? `capi_feedback_prompted_${savedRunId}`
+      : 'capi_feedback_prompted_latest'
+
+    try {
+      const alreadyPrompted = localStorage.getItem(storageKey)
+      if (!alreadyPrompted) {
+        const timer = setTimeout(() => {
+          setShowFeedbackModal(true)
+        }, 700)
+        return () => clearTimeout(timer)
+      }
+    } catch (e) {
+      console.warn('Failed to access localStorage for feedback prompt:', e)
+    }
+  }, [navigate, savedRunId])
+
+  const markPrompted = () => {
+    const storageKey = savedRunId
+      ? `capi_feedback_prompted_${savedRunId}`
+      : 'capi_feedback_prompted_latest'
+    try {
+      localStorage.setItem(storageKey, 'true')
+    } catch (e) {
+      void e
+    }
+  }
+
+  const handleCloseFeedbackModal = () => {
+    markPrompted()
+    setShowFeedbackModal(false)
+  }
+
+  const handleAcceptFeedback = () => {
+    markPrompted()
+    setShowFeedbackModal(false)
+    const runQuery = savedRunId ? `?run=${encodeURIComponent(savedRunId)}` : ''
+    window.open(`/feedback${runQuery}`, '_blank')
+  }
 
   if (!result || !certCopy) return null
 
@@ -306,6 +347,12 @@ export default function ReportDetails() {
           </Button>
         </div>
       </div>
+
+      <FeedbackInvitationModal
+        isOpen={showFeedbackModal}
+        onClose={handleCloseFeedbackModal}
+        onAccept={handleAcceptFeedback}
+      />
     </SceneShell>
   )
 }
