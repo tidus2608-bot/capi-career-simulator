@@ -73,8 +73,7 @@ export async function onRequestGet({
     return json({ ok: true, stats, rows, limit, offset }, 200, cors)
   } catch (err) {
     console.error('feedback error', err)
-    const message = err instanceof Error ? err.message : String(err)
-    return json({ ok: false, error: 'Internal error', detail: message }, 500, cors)
+    return json({ ok: false, error: 'Internal error' }, 500, cors)
   }
 }
 
