@@ -53,14 +53,14 @@ export default function IntroScene() {
       />
 
       <div
+        className="intro-hero-content"
         style={{
           position: 'relative',
           zIndex: 1,
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
-          padding: '120px 48px 48px',
-          maxWidth: 600,
+          boxSizing: 'border-box',
         }}
       >
         <div
@@ -77,51 +77,63 @@ export default function IntroScene() {
             style={{
               background: '#843497',
               color: '#fff',
-              padding: '6px 12px',
-              borderRadius: 8,
+              padding: '8px 16px',
+              borderRadius: 10,
               display: 'inline-block',
-              fontSize: 12,
-              fontWeight: 600,
+              fontSize: 'var(--text-xs)',
+              fontWeight: 700,
               alignSelf: 'flex-start',
-              letterSpacing: '0.05em',
-              opacity: 0.9,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
             }}
           >
             {t('intro.new_badge')}
           </div>
 
           <h1
+            className="intro-hero-title"
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(28px, 4vw, 42px)',
-              fontWeight: 700,
+              fontSize: 'clamp(28px, 3.8vw, 48px)',
+              fontWeight: 800,
               lineHeight: 1.2,
               margin: 0,
               color: '#fff',
+              letterSpacing: '-0.02em',
             }}
           >
             {t('intro.new_title')}
           </h1>
 
-          <p style={{ fontSize: 16, lineHeight: 1.6, color: '#e2e8f0' }}>{t('intro.new_blurb')}</p>
+          <p
+            className="intro-hero-blurb"
+            style={{ fontSize: 'var(--text-base)', lineHeight: 1.65, color: '#e2e8f0', margin: 0 }}
+          >
+            {t('intro.new_blurb')}
+          </p>
 
-          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+          <div
+            className="intro-hero-actions"
+            style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}
+          >
             <Button
               variant="solid"
               active
               style={{
-                padding: '14px 24px',
-                fontSize: 16,
-                borderRadius: 12,
+                padding: '16px 30px',
+                fontSize: 'var(--text-base)',
+                fontWeight: 700,
+                borderRadius: 14,
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: 8,
+                gap: 10,
+                minHeight: 52,
               }}
               onClick={handleStart}
             >
               {t('intro.btn_scan_gene')}
-              <Icon icon="mdi:arrow-right" width="20" height="20" />
+              <Icon icon="mdi:arrow-right" width="22" height="22" />
             </Button>
 
             <Button
@@ -129,21 +141,23 @@ export default function IntroScene() {
               style={{
                 background: '#fff',
                 color: '#1a1a2e',
-                padding: '14px 24px',
-                fontSize: 16,
-                borderRadius: 12,
+                padding: '16px 28px',
+                fontSize: 'var(--text-base)',
+                fontWeight: 700,
+                borderRadius: 14,
                 border: 'none',
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: 8,
+                gap: 10,
                 cursor: 'pointer',
-                opacity: 0.9,
+                opacity: 0.95,
+                minHeight: 52,
               }}
               onClick={handleInfo}
             >
               {t('intro.btn_what_is_gene')}
-              <Icon icon="mdi:arrow-right" width="20" height="20" />
+              <Icon icon="mdi:arrow-right" width="22" height="22" />
             </Button>
           </div>
         </div>
@@ -153,13 +167,14 @@ export default function IntroScene() {
             marginTop: 'auto',
             display: 'flex',
             alignItems: 'center',
-            gap: 8,
+            gap: 10,
             color: '#e2e8f0',
-            fontSize: 13,
-            opacity: 0.8,
+            fontSize: 'var(--text-xs)',
+            opacity: 0.85,
+            paddingTop: 16,
           }}
         >
-          <Icon icon="mdi:information-outline" width="16" height="16" style={{ flexShrink: 0 }} />
+          <Icon icon="mdi:information-outline" width="18" height="18" style={{ flexShrink: 0 }} />
           {t('intro.footer_hint')}
         </div>
       </div>

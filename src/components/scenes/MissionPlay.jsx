@@ -9,14 +9,6 @@ import QASection from '../QASection.jsx'
 import SceneShell from './SceneShell.jsx'
 import TransitionScreen from './TransitionScreen.jsx'
 
-const ILLO_EXT = {
-  'm1-q15': 'png',
-  'm1-q16': 'png',
-  'm1-q17': 'png',
-  'm1-q18': 'png',
-  'm1-q19': 'png',
-}
-
 const MISSION_PADS = {
   1: [98, 146.8, 196, 293.7],
   2: [110, 164.8, 220, 329.6],
@@ -62,9 +54,21 @@ export default function MissionPlayScene() {
     capiAudio.pad(MISSION_PADS[missionId] || [110, 164.8, 220])
   }, [missionId])
 
+  // Preload upcoming question illustrations
+  useEffect(() => {
+    if (!qs.length) return
+    const preloadUrls = [idx + 1, idx + 2]
+      .filter((nextI) => nextI < qs.length)
+      .map((nextI) => `/illos/m${missionId}-q${String(nextI + 1).padStart(2, '0')}.webp`)
+
+    for (const url of preloadUrls) {
+      const img = new Image()
+      img.src = url
+    }
+  }, [idx, missionId, qs.length])
+
   const q = qs[idx]
-  const illoKey = `m${missionId}-q${String(idx + 1).padStart(2, '0')}`
-  const illoSrc = `/illos/${illoKey}.${ILLO_EXT[illoKey] || 'webp'}`
+  const illoSrc = `/illos/m${missionId}-q${String(idx + 1).padStart(2, '0')}.webp`
   const progress = Math.round((idx / qs.length) * 100)
 
   const selectOption = (opt) => {
@@ -100,8 +104,8 @@ export default function MissionPlayScene() {
     return (
       <TransitionScreen
         imageSrc={`/illos/mission-${missionId}-start.webp`}
-        onBack={() => navigate('/mission-pick')}
         onNext={() => setStage('q')}
+        onBack={() => navigate('/mission-pick')}
       />
     )
   }
@@ -110,19 +114,18 @@ export default function MissionPlayScene() {
     return (
       <TransitionScreen
         imageSrc={`/illos/mission-${missionId}-end.webp`}
+        onNext={() => navigate('/reflect')}
         onBack={() => setStage('q')}
-        onNext={() => {
-          setAnswers(answers)
-          navigate('/reflect')
-        }}
       />
     )
   }
 
+  if (!q) return null
+
   return (
     <SceneShell light>
       <div
-        className="p2-new-layout"
+        className="p2-new-layout qa-page-layout"
         style={{
           minHeight: '100%',
           padding: 'clamp(20px, 3.5vh, 40px) clamp(20px, 3vw, 48px) clamp(24px, 4vh, 48px)',
@@ -137,48 +140,57 @@ export default function MissionPlayScene() {
               src={illoSrc}
               alt=""
               onError={(e) => {
-                e.currentTarget.style.display = 'none'
+                if (e.currentTarget.src.endsWith('.webp')) {
+                  e.currentTarget.src = e.currentTarget.src.replace(/\.webp$/, '.png')
+                } else if (!e.currentTarget.src.includes('preview')) {
+                  e.currentTarget.src = `/illos/m${missionId}-preview.webp`
+                }
               }}
             />
           </div>
 
           <div className="p1-right-content">
-            {/* Chapter Title at the top of the right column */}
-            {q.chapter_vn && (
-              <h2 className="p2-new-header" style={{ margin: 0, textTransform: 'none' }}>
-                {q.chapter_vn}
-              </h2>
-            )}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'clamp(14px, 2vh, 20px)',
+                width: '100%',
+              }}
+            >
+              {/* Chapter Title Badge */}
+              {q.chapter_vn && <div className="p2-chapter-badge">{q.chapter_vn}</div>}
 
-            {/* Progress Bar Container */}
-            <div className="p1-progress-bar-container">
-              <div className="p1-progress-labels">
-                <span>
-                  {t('common_extra.question_of', {
-                    num: String(idx + 1).padStart(2, '0'),
-                    total: String(qs.length).padStart(2, '0'),
-                  })}
-                </span>
-                <span>{t('common_extra.completed_pct', { percent: progress })}</span>
+              {/* Progress Bar Container */}
+              <div className="p1-progress-bar-container">
+                <div className="p1-progress-labels">
+                  <span>
+                    {t('common_extra.question_of', {
+                      num: String(idx + 1).padStart(2, '0'),
+                      total: String(qs.length).padStart(2, '0'),
+                    })}
+                  </span>
+                  <span>{t('common_extra.completed_pct', { percent: progress })}</span>
+                </div>
+                <div className="p1-progress-outer">
+                  <div className="p1-progress-inner" style={{ width: `${progress}%` }} />
+                </div>
               </div>
-              <div className="p1-progress-outer">
-                <div className="p1-progress-inner" style={{ width: `${progress}%` }} />
-              </div>
+
+              <QASection
+                key={idx}
+                questionText={q.capi_dialogue_vn?.replace(/^[""]|[""]$/g, '')}
+                options={q.options.map((opt) => ({
+                  label: opt.label,
+                  text: opt.text_vn,
+                  ...opt,
+                }))}
+                selectedValue={picked}
+                onSelect={selectOption}
+              />
             </div>
 
-            <QASection
-              key={idx}
-              questionText={q.capi_dialogue_vn?.replace(/^[""]|[""]$/g, '')}
-              options={q.options.map((opt) => ({
-                label: opt.label,
-                text: opt.text_vn,
-                ...opt,
-              }))}
-              selectedValue={picked}
-              onSelect={selectOption}
-            />
-
-            <div className="p2-new-actions" style={{ width: '100%' }}>
+            <div className="p2-new-actions" style={{ width: '100%', marginTop: 'auto' }}>
               <Button variant="outline" onClick={goBack}>
                 {t('common.back')}
               </Button>

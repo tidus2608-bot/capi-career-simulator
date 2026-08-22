@@ -164,14 +164,14 @@ const getMappedDomain = (job) => {
   return 'Tech & Robotics'
 }
 
-export default function CareerMapTabs({ isEn, allCareers }) {
+export default function CareerMapTabs({ isEn, allCareers = [] }) {
   const [activeDomain, setActiveDomain] = useState('')
   const { t } = useTranslation()
 
   const currentDomain = activeDomain || STANDARD_DOMAINS[0]
 
   // Map and clean raw careers data
-  const processedCareers = allCareers.map((c) => {
+  const processedCareers = (allCareers || []).map((c) => {
     const key = c.career.toLowerCase().trim()
 
     // Title & structure mapping to match screenshot overrides
@@ -205,26 +205,13 @@ export default function CareerMapTabs({ isEn, allCareers }) {
   })
 
   return (
-    <div
-      className="print-card"
-      style={{
-        backgroundColor: '#FFFFFF',
-        borderRadius: '24px',
-        border: '1.5px solid #F1F5F9',
-        padding: '32px',
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.02)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '24px',
-        pageBreakBefore: 'always',
-      }}
-    >
+    <section className="report-section print-card career-map-section">
       {/* Header Row with Horizontal Line */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
         <h3
           style={{
             margin: 0,
-            fontSize: '24px',
+            fontSize: 'var(--text-xl)',
             fontWeight: 800,
             color: '#A855F7',
             whiteSpace: 'nowrap',
@@ -258,7 +245,7 @@ export default function CareerMapTabs({ isEn, allCareers }) {
                 background: isActive ? '#9333EA' : 'transparent',
                 border: 'none',
                 color: isActive ? '#FFFFFF' : '#70707A',
-                fontSize: '14px',
+                fontSize: 'var(--text-sm)',
                 fontWeight: isActive ? 700 : 600,
                 borderRadius: '8px',
                 padding: '8px 16px',
@@ -276,7 +263,7 @@ export default function CareerMapTabs({ isEn, allCareers }) {
       <div
         style={{
           display: 'none',
-          fontSize: '16px',
+          fontSize: 'var(--text-base)',
           fontWeight: 800,
           color: '#0E5E8A',
           borderBottom: '2px solid #0EA5E9',
@@ -288,168 +275,166 @@ export default function CareerMapTabs({ isEn, allCareers }) {
         {currentDomain}
       </div>
 
-      {/* Careers Container wrapped in soft purple background with border */}
+      {/* Careers Grid */}
       {filteredJobs.length > 0 && (
-        <div
-          style={{
-            backgroundColor: '#FAF5FF',
-            border: '2px solid #E9D5FF',
-            borderRadius: '24px',
-            padding: '24px',
-          }}
-        >
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '20px',
-            }}
-          >
-            {filteredJobs.map((job, idx) => {
-              const styleOverride = CAREER_STYLE_OVERRIDES[job._overrideKey]
+        <div className="career-map-grid">
+          {filteredJobs.map((job, idx) => {
+            const styleOverride = CAREER_STYLE_OVERRIDES[job._overrideKey]
 
-              // Extract styles, fallback to default role style
-              const defaultStyle = ROLE_MAP_STYLES[job.role_id] || ROLE_MAP_STYLES.explorer
-              const theme = styleOverride || defaultStyle
+            // Extract styles, fallback to default role style
+            const defaultStyle = ROLE_MAP_STYLES[job.role_id] || ROLE_MAP_STYLES.explorer
+            const theme = styleOverride || defaultStyle
 
-              const tags = styleOverride
-                ? styleOverride.tags
-                : job.suggested_major
-                  ? job.suggested_major.split(',').map((s) => s.trim())
-                  : []
-              const bullets = styleOverride
-                ? styleOverride.bullets
-                : job.robotics_connection
-                  ? [job.robotics_connection]
-                  : []
-              const whyFitText = styleOverride
-                ? isEn
-                  ? styleOverride.why_fit_en
-                  : styleOverride.why_fit_vi
-                : job.why_fit
+            const tags = styleOverride
+              ? styleOverride.tags
+              : job.suggested_major
+                ? job.suggested_major.split(',').map((s) => s.trim())
+                : []
+            const bullets = styleOverride
+              ? styleOverride.bullets
+              : job.robotics_connection
+                ? [job.robotics_connection]
+                : []
+            const whyFitText = styleOverride
+              ? isEn
+                ? styleOverride.why_fit_en
+                : styleOverride.why_fit_vi
+              : job.why_fit
 
-              // Determine if card spans full width (last item in odd list)
-              const isFullWidth = idx === filteredJobs.length - 1 && filteredJobs.length % 2 !== 0
+            // Determine if card spans full width (last item in odd list)
+            const isFullWidth = idx === filteredJobs.length - 1 && filteredJobs.length % 2 !== 0
 
-              return (
-                <div
-                  key={idx}
-                  style={{
-                    border: '1.5px solid #E2E8F0',
-                    borderTop: `4px solid ${theme.borderTopColor}`,
-                    borderRadius: '16px',
-                    padding: '24px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '16px',
-                    backgroundColor: '#FFFFFF',
-                    gridColumn: isFullWidth ? '1 / span 2' : 'span 1',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.01)',
-                  }}
-                >
-                  {/* Job Header */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div
-                      style={{
-                        backgroundColor: theme.badgeBg,
-                        color: theme.badgeColor,
-                        width: '40px',
-                        height: '40px',
-                        borderRadius: '8px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <Icon icon={theme.icon} width={22} height={22} />
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <h4
-                        style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#1F2937' }}
-                      >
-                        {job.career}
-                      </h4>
-                    </div>
+            return (
+              <div
+                key={idx}
+                className="career-map-card"
+                style={{
+                  border: '1.5px solid #E2E8F0',
+                  borderTop: `4px solid ${theme.borderTopColor}`,
+                  borderRadius: '16px',
+                  padding: '24px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '16px',
+                  backgroundColor: '#FFFFFF',
+                  gridColumn: isFullWidth ? '1 / span 2' : 'span 1',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.01)',
+                }}
+              >
+                {/* Job Header */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div
+                    style={{
+                      backgroundColor: theme.badgeBg,
+                      color: theme.badgeColor,
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Icon icon={theme.icon} width={22} height={22} />
                   </div>
-
-                  {/* Skill Tag Chips */}
-                  {tags.length > 0 && (
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                      {tags.map((tag, tIdx) => (
-                        <span
-                          key={tIdx}
-                          style={{
-                            backgroundColor: theme.tagBg,
-                            color: theme.tagColor,
-                            borderRadius: '20px',
-                            padding: '3px 10px',
-                            fontSize: '12px',
-                            fontWeight: 600,
-                          }}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Bullets List */}
-                  {bullets.length > 0 && (
-                    <ul
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <h4
                       style={{
                         margin: 0,
-                        paddingLeft: 0,
-                        listStyleType: 'none',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '6px',
+                        fontSize: 'var(--text-md)',
+                        fontWeight: 800,
+                        color: '#1F2937',
                       }}
                     >
-                      {bullets.map((b, bIdx) => (
-                        <li
-                          key={bIdx}
-                          style={{
-                            fontSize: '13.5px',
-                            color: '#475569',
-                            position: 'relative',
-                            paddingLeft: '12px',
-                            lineHeight: 1.5,
-                          }}
-                        >
-                          <span style={{ position: 'absolute', left: 0, color: '#94A3B8' }}>•</span>
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-
-                  {/* Why fit description */}
-                  <p style={{ margin: 0, fontSize: '13.5px', color: '#475569', lineHeight: 1.5 }}>
-                    <strong style={{ color: '#475569' }}>{t('report.career_why_fit')}</strong>
-                    {whyFitText}
-                  </p>
-
-                  {/* Robotics connection (only for fallback rows) */}
-                  {job.robotics_connection && !styleOverride && (
-                    <div
-                      style={{
-                        borderTop: '1px solid #F1F5F9',
-                        paddingTop: '8px',
-                        fontSize: '12.5px',
-                        color: '#64748B',
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      <strong style={{ color: theme.badgeColor }}>Robotics: </strong>
-                      {job.robotics_connection}
-                    </div>
-                  )}
+                      {job.career}
+                    </h4>
+                  </div>
                 </div>
-              )
-            })}
-          </div>
+
+                {/* Skill Tag Chips */}
+                {tags.length > 0 && (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                    {tags.map((tag, tIdx) => (
+                      <span
+                        key={tIdx}
+                        style={{
+                          backgroundColor: theme.tagBg,
+                          color: theme.tagColor,
+                          borderRadius: '20px',
+                          padding: '3px 10px',
+                          fontSize: 'var(--text-xs)',
+                          fontWeight: 600,
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Bullets List */}
+                {bullets.length > 0 && (
+                  <ul
+                    style={{
+                      margin: 0,
+                      paddingLeft: 0,
+                      listStyleType: 'none',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '6px',
+                    }}
+                  >
+                    {bullets.map((b, bIdx) => (
+                      <li
+                        key={bIdx}
+                        style={{
+                          fontSize: 'var(--text-sm)',
+                          color: '#475569',
+                          position: 'relative',
+                          paddingLeft: '12px',
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        <span style={{ position: 'absolute', left: 0, color: '#94A3B8' }}>•</span>
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {/* Why fit description */}
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: 'var(--text-sm)',
+                    color: '#475569',
+                    lineHeight: 1.5,
+                  }}
+                >
+                  <strong style={{ color: '#475569' }}>{t('report.career_why_fit')}</strong>
+                  {whyFitText}
+                </p>
+
+                {/* Robotics connection (only for fallback rows) */}
+                {job.robotics_connection && !styleOverride && (
+                  <div
+                    style={{
+                      borderTop: '1px solid #F1F5F9',
+                      paddingTop: '8px',
+                      fontSize: 'var(--text-xs)',
+                      color: '#64748B',
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    <strong style={{ color: theme.badgeColor }}>Robotics: </strong>
+                    {job.robotics_connection}
+                  </div>
+                )}
+              </div>
+            )
+          })}
         </div>
       )}
-    </div>
+    </section>
   )
 }

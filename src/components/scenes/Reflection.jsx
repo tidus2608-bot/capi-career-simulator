@@ -72,7 +72,6 @@ export default function ReflectionScene() {
       nextDisabled={currentValue === null}
       isFinished={idx + 1 >= PHASE3_QUESTIONS.length}
       imageStyle={{
-        aspectRatio: '1024 / 1440',
         objectFit: 'cover',
         width: 'auto',
         height: '100%',

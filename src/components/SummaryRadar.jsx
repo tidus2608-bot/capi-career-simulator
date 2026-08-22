@@ -13,9 +13,11 @@ const ROLES_CONFIG = [
 export default function SummaryRadar({ scores, size = 260 }) {
   const { i18n } = useTranslation()
   const isEn = i18n.language === 'en'
+  const isSmall = size <= 220
   const cx = size / 2
   const cy = size / 2
-  const r = size / 2 - 45
+  const r = isSmall ? size / 2 - 36 : size / 2 - 45
+  const badgeOffset = isSmall ? 26 : 34
 
   // Map values to 0-100 scale
   const getScore = (key) => {
@@ -33,7 +35,14 @@ export default function SummaryRadar({ scores, size = 260 }) {
   const shapeStr = points.map((p) => p.join(',')).join(' ')
 
   return (
-    <div style={{ position: 'relative', width: size, height: size, margin: '0 auto' }}>
+    <div
+      style={{
+        position: 'relative',
+        width: size,
+        height: size,
+        margin: isSmall ? '16px auto 28px' : '0 auto',
+      }}
+    >
       <svg
         width={size}
         height={size}
@@ -96,8 +105,8 @@ export default function SummaryRadar({ scores, size = 260 }) {
       {ROLES_CONFIG.map((rc, i) => {
         const angle = -Math.PI / 2 + (i / ROLES_CONFIG.length) * Math.PI * 2
         // Position badge slightly outside max radius
-        const bx = cx + Math.cos(angle) * (r + 34)
-        const by = cy + Math.sin(angle) * (r + 34)
+        const bx = cx + Math.cos(angle) * (r + badgeOffset)
+        const by = cy + Math.sin(angle) * (r + badgeOffset)
         const scoreVal = Math.round(getScore(rc.key))
 
         return (
@@ -111,8 +120,10 @@ export default function SummaryRadar({ scores, size = 260 }) {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: '4px',
+              gap: isSmall ? '2px' : '4px',
               zIndex: 10,
+              maxWidth: isSmall ? '80px' : '110px',
+              textAlign: 'center',
             }}
           >
             <div
@@ -120,24 +131,27 @@ export default function SummaryRadar({ scores, size = 260 }) {
                 backgroundColor: rc.color,
                 color: rc.key === 'communicator' ? '#1F2937' : '#FFFFFF',
                 borderRadius: '50%',
-                width: '38px',
-                height: '38px',
+                width: isSmall ? '30px' : '38px',
+                height: isSmall ? '30px' : '38px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '12px',
+                fontSize: isSmall ? '11px' : '12px',
                 fontWeight: 800,
                 boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+                flexShrink: 0,
               }}
             >
               {scoreVal}%
             </div>
             <span
               style={{
-                fontSize: '11px',
+                fontSize: isSmall ? '9.5px' : '11px',
                 fontWeight: 700,
                 color: '#1E293B',
-                whiteSpace: 'nowrap',
+                lineHeight: 1.15,
+                whiteSpace: 'normal',
+                wordBreak: 'keep-all',
               }}
             >
               {isEn ? CAPI_ROLES[rc.key]?.name || rc.key : CAPI_ROLES[rc.key]?.nameVn || rc.key}

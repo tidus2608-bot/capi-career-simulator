@@ -57,21 +57,35 @@ export default function PowerBlock({
   result,
 }) {
   const { t } = useTranslation()
+  const [isMobile, setIsMobile] = React.useState(
+    () => typeof window !== 'undefined' && window.innerWidth <= 768,
+  )
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   // Combination identifiers
   const comboKey = `${primaryRoleKey}_${secondaryRoleKey}`
   const comboOverrideEn = COMBO_PROFILE_EN[comboKey]
 
   // Setup Role & Combo names
-  const primaryName = isEn ? primaryRoleMeta.name : primaryRoleMeta.nameVn
+  const primaryName = isEn
+    ? primaryRoleMeta?.name || primaryRoleMeta?.name_en || primaryRoleKey
+    : primaryRoleMeta?.nameVn || primaryRoleMeta?.name_vn || primaryRoleKey
 
   const comboNameVi =
-    primaryComboData.profile_name || `${primaryRoleMeta.nameVn} + ${secondaryRoleMeta.nameVn}`
-  const comboNameEn = comboOverrideEn?.name || `${primaryRoleMeta.name} + ${secondaryRoleMeta.name}`
+    primaryComboData?.profile_name ||
+    `${primaryRoleMeta?.nameVn || primaryRoleMeta?.name_vn || primaryRoleKey} + ${secondaryRoleMeta?.nameVn || secondaryRoleMeta?.name_vn || secondaryRoleKey}`
+  const comboNameEn =
+    comboOverrideEn?.name ||
+    `${primaryRoleMeta?.name || primaryRoleMeta?.name_en || primaryRoleKey} + ${secondaryRoleMeta?.name || secondaryRoleMeta?.name_en || secondaryRoleKey}`
   const comboName = isEn ? comboNameEn : comboNameVi
 
   // Clean primary tagline
-  const rawTagline = primaryRoleData.tagline || ''
+  const rawTagline = primaryRoleData?.tagline || ''
   const cleanTagline = rawTagline
     .replace('Con nổi bật ở', isEn ? 'with' : 'với')
     .replace('Con nổi bật', isEn ? 'with' : 'với')
@@ -79,7 +93,7 @@ export default function PowerBlock({
     .trim()
 
   // Subtitle / Secondary combo info
-  const rawComboHeadline = primaryComboData.headline || primaryRoleData.tagline || ''
+  const rawComboHeadline = primaryComboData?.headline || primaryRoleData?.tagline || ''
   const cleanComboTagline = rawComboHeadline
     .replace('Con có', isEn ? 'with' : 'với')
     .replace('Con sở hữu', isEn ? 'with' : 'với')
@@ -131,10 +145,13 @@ export default function PowerBlock({
       .sort((a, b) => b.score - a.score)
 
     rankedRoles = [
-      { ...primaryItem, score: Math.round(result.phase2?.[primaryRoleKey] || 0) },
-      { ...secondaryItem, score: Math.round(result.phase2?.[secondaryRoleKey] || 0) },
+      primaryItem && { ...primaryItem, score: Math.round(result.phase2?.[primaryRoleKey] || 0) },
+      secondaryItem && {
+        ...secondaryItem,
+        score: Math.round(result.phase2?.[secondaryRoleKey] || 0),
+      },
       ...othersScored,
-    ]
+    ].filter(Boolean)
   } else {
     // Sort strictly by score descending
     rankedRoles = ROLE_RANKING_CONFIG.map((rc) => ({
@@ -143,89 +160,48 @@ export default function PowerBlock({
     })).sort((a, b) => b.score - a.score)
   }
 
-  // Cards content blocks based on block mode
+  // 3. Bullets for Parent Empathy & Portrait
   let empathyBullets = []
   let portraitBullets = []
   let environmentText = ''
 
-  if (isSecondary) {
-    // Combination block
-    if (isEn && comboOverrideEn) {
-      empathyBullets = comboOverrideEn.parent_empathy
-      portraitBullets = comboOverrideEn.portrait
-      environmentText = comboOverrideEn.environment
-    } else {
-      const rawEmpathy = primaryComboData.parent_empathy || ''
-      // Clean and split by comma to render nice short combination bullets
-      empathyBullets = rawEmpathy
-        .replace('Nếu bố mẹ thấy con ', '')
-        .replace('đó là biểu hiện của Connector + Communicator', '')
-        .split(',')
-        .map((s) => s.trim())
-        .filter((s) => s.length > 2)
-
-      portraitBullets = parseBullets(primaryComboData.portrait || '')
-      environmentText = primaryComboData.best_environment || ''
-    }
+  if (isSecondary && comboOverrideEn) {
+    empathyBullets = comboOverrideEn.parent_empathy || []
+    portraitBullets = comboOverrideEn.portrait || []
+    environmentText = comboOverrideEn.environment || ''
+  } else if (isSecondary && primaryComboData?.profile_name) {
+    empathyBullets = parseBullets(primaryComboData.parent_empathy || '')
+    portraitBullets = parseBullets(primaryComboData.portrait || primaryComboData.strengths || '')
+    environmentText = primaryComboData.best_environment || primaryComboData.natural_behaviors || ''
   } else {
-    // Primary block
-    if (primaryRoleKey === 'connector' && secondaryRoleKey === 'communicator' && !isEn) {
-      // Force match mockup content for connector/communicator run
-      empathyBullets = [
-        'Kể lại chuyện ở lớp',
-        'Thích giải thích vì sao một việc xảy ra',
-        'Thường để ý cảm xúc của bạn bè',
-      ]
-      portraitBullets = [
-        'Làm việc trong môi trường có nhiều tương tác con người',
-        'Nơi cần giải thích ý tưởng',
-        'Kết nối các bên và tạo sự đồng thuận',
-      ]
+    if (isEn && primaryRoleData.summaryEn) {
+      empathyBullets = parseBullets(primaryRoleData.summaryEn)
+      portraitBullets = parseBullets(primaryRoleData.strengthsEn || '')
     } else {
       const rawEmpathy = primaryRoleData.parent_empathy || ''
       empathyBullets = parseBullets(rawEmpathy)
-      portraitBullets = parseBullets(primaryRoleData.strengths || '')
+      portraitBullets = parseBullets(primaryRoleData.strengths || primaryRoleData.portrait || '')
     }
-    environmentText = primaryRoleData.natural_behaviors || ''
+    environmentText = primaryRoleData.natural_behaviors || primaryRoleData.best_environment || ''
   }
 
+  // Format environment text with space after periods
+  const formattedEnvironmentText = (environmentText || '').replace(/\.([A-Za-zÀ-Ỹ])/g, '. $1')
+
   return (
-    <div
-      className="print-card"
-      style={{
-        backgroundColor: '#FFFFFF',
-        borderRadius: '24px',
-        border: '1.5px solid #F1F5F9',
-        padding: '32px',
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.02)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '28px',
-        pageBreakInside: 'avoid',
-      }}
-    >
+    <section className="report-section print-card power-block-section">
       {/* 1. Top Banner (Hero Card) */}
-      <div
-        style={{
-          backgroundColor: '#FAF5FF',
-          border: '1.5px solid #E9D5FF',
-          borderRadius: '24px',
-          padding: '32px 24px',
-          color: '#1F2937',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
-        <div style={{ zIndex: 1, flex: 1, paddingRight: '120px' }}>
+      <div className="power-block-banner">
+        <div
+          className="power-block-banner-text"
+          style={{ zIndex: 1, flex: 1, paddingRight: isMobile ? '0' : '120px' }}
+        >
           <h2
             style={{
-              fontSize: '22px',
-              fontWeight: 600,
+              fontSize: 'var(--text-xl)',
+              fontWeight: 700,
               margin: 0,
-              lineHeight: 1.5,
+              lineHeight: 1.4,
               color: '#1F2937',
             }}
           >
@@ -234,8 +210,8 @@ export default function PowerBlock({
 
           <p
             style={{
-              margin: '12px 0 0 0',
-              fontSize: '14.5px',
+              margin: '10px 0 0 0',
+              fontSize: 'var(--text-base)',
               color: '#475569',
               fontWeight: 500,
               lineHeight: 1.5,
@@ -246,47 +222,32 @@ export default function PowerBlock({
         </div>
 
         {/* Faint Medal Ribbon badge in background */}
-        <Icon
-          icon="mdi:medal-outline"
-          width={92}
-          height={92}
-          style={{
-            color: '#E9D5FF',
-            opacity: 0.55,
-            position: 'absolute',
-            right: '24px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-          }}
-        />
+        {!isMobile && (
+          <Icon
+            icon="mdi:medal-outline"
+            width={92}
+            height={92}
+            style={{
+              color: '#E9D5FF',
+              opacity: 0.55,
+              position: 'absolute',
+              right: '24px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+            }}
+          />
+        )}
       </div>
 
       {/* 2. Middle Row: Radar chart (left) & Rank bars (right) */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap: '40px',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-        }}
-      >
+      <div className="power-block-radar-row">
         {/* Radar Chart Column */}
-        <div style={{ flex: 1, minWidth: '280px', display: 'flex', justifyContent: 'center' }}>
-          <SummaryRadar scores={result.phase2} size={320} />
+        <div className="power-block-radar-col">
+          <SummaryRadar scores={result.phase2} size={isMobile ? 200 : 300} />
         </div>
 
         {/* Roles Ranked Bars Column */}
-        <div
-          style={{
-            flex: 1.2,
-            minWidth: '320px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '12px',
-          }}
-        >
+        <div className="power-block-ranks-col">
           {rankedRoles.map((role, idx) => {
             return (
               <div
@@ -300,7 +261,7 @@ export default function PowerBlock({
                   justifyContent: 'space-between',
                   alignItems: 'center',
                   fontWeight: 700,
-                  fontSize: '14px',
+                  fontSize: 'var(--text-sm)',
                   boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
                 }}
               >
@@ -315,20 +276,27 @@ export default function PowerBlock({
       </div>
 
       {/* 3. Bottom Grid: Parent Empathy & Child Shines cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+      <div
+        className="power-block-cards-grid"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+          gap: '20px',
+        }}
+      >
         {/* Parent Empathy Card */}
         <div
           style={{
-            backgroundColor: '#FFFFFF',
-            border: '1.5px solid #E9D5FF',
+            backgroundColor: '#F8FAFC',
+            border: '1px solid #E2E8F0',
             borderRadius: '16px',
-            padding: '24px',
+            padding: isMobile ? '20px 16px' : '24px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '16px',
+            gap: '14px',
           }}
         >
-          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#1F2937' }}>
+          <h4 style={{ margin: 0, fontSize: 'var(--text-md)', fontWeight: 800, color: '#1F2937' }}>
             {t('report.parent_notice_when')}
           </h4>
 
@@ -346,7 +314,7 @@ export default function PowerBlock({
               <li
                 key={idx}
                 style={{
-                  fontSize: '14.5px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: 600,
                   color: BULLET_COLORS[idx % BULLET_COLORS.length],
                   position: 'relative',
@@ -361,7 +329,12 @@ export default function PowerBlock({
           </ul>
 
           <p
-            style={{ margin: '4px 0 0 0', fontSize: '13px', color: '#70707A', fontStyle: 'italic' }}
+            style={{
+              margin: '4px 0 0 0',
+              fontSize: 'var(--text-xs)',
+              color: '#64748B',
+              fontStyle: 'italic',
+            }}
           >
             {isEn
               ? `These are natural expressions of the ${isSecondary ? comboName : primaryName} profile.`
@@ -372,16 +345,16 @@ export default function PowerBlock({
         {/* Child Shines Card */}
         <div
           style={{
-            backgroundColor: '#FFFFFF',
-            border: '1.5px solid #E9D5FF',
+            backgroundColor: '#F8FAFC',
+            border: '1px solid #E2E8F0',
             borderRadius: '16px',
-            padding: '24px',
+            padding: isMobile ? '20px 16px' : '24px',
             display: 'flex',
             flexDirection: 'column',
-            gap: '16px',
+            gap: '14px',
           }}
         >
-          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#1F2937' }}>
+          <h4 style={{ margin: 0, fontSize: 'var(--text-md)', fontWeight: 800, color: '#1F2937' }}>
             {t('report.child_shines_when')}
           </h4>
 
@@ -399,7 +372,7 @@ export default function PowerBlock({
               <li
                 key={idx}
                 style={{
-                  fontSize: '14.5px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: 600,
                   color: BULLET_COLORS[idx % BULLET_COLORS.length],
                   position: 'relative',
@@ -419,12 +392,13 @@ export default function PowerBlock({
       <div
         style={{
           backgroundColor: '#FAF5FF',
-          border: '1.5px solid #E9D5FF',
-          borderRadius: '12px',
-          padding: '12px 20px',
+          border: '1px solid #E9D5FF',
+          borderRadius: '14px',
+          padding: '14px 20px',
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'flex-start',
           gap: '12px',
+          marginTop: '4px',
         }}
       >
         <div
@@ -442,13 +416,13 @@ export default function PowerBlock({
           <Icon icon="mdi:compass-rose" color="#70707A" width={18} height={18} />
         </div>
 
-        <div style={{ fontSize: '14.5px', color: '#1F2937', lineHeight: 1.5 }}>
+        <div style={{ fontSize: 'var(--text-sm)', color: '#1F2937', lineHeight: 1.5 }}>
           <strong style={{ color: '#8B2FA9', fontWeight: 700 }}>
             {t('report.suitable_environment')}{' '}
           </strong>
-          <span style={{ fontWeight: 600 }}>{environmentText}</span>
+          <span style={{ fontWeight: 600 }}>{formattedEnvironmentText}</span>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
