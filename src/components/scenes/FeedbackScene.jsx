@@ -489,8 +489,8 @@ export default function FeedbackScene() {
                 <button
                   key={opt.key}
                   type="button"
+                  aria-pressed={isSelected}
                   onClick={() => handleSelectChoice(opt.value)}
-                  style={{
                     width: '100%',
                     padding: '20px 24px',
                     borderRadius: '16px',
