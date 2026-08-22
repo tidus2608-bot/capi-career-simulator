@@ -935,11 +935,16 @@ export default function HistoryScene() {
   }, [runs, selectedRoleFilter, sortOrder])
 
   // Pagination
-  const totalPages = Math.ceil(filteredRuns.length / ITEMS_PER_PAGE) || 1
-  const paginatedRuns = useMemo(() => {
-    const start = (currentPage - 1) * ITEMS_PER_PAGE
-    return filteredRuns.slice(start, start + ITEMS_PER_PAGE)
-  }, [filteredRuns, currentPage])
+const totalPages = Math.ceil(filteredRuns.length / ITEMS_PER_PAGE) || 1
+
+useEffect(() => {
+  setCurrentPage((p) => Math.min(Math.max(1, p), totalPages))
+}, [totalPages])
+
+const paginatedRuns = useMemo(() => {
+  const start = (currentPage - 1) * ITEMS_PER_PAGE
+  return filteredRuns.slice(start, start + ITEMS_PER_PAGE)
+}, [filteredRuns, currentPage])
 
   // User avatar resolution
   const userAvatar = user?.user_metadata?.avatar_url || user?.user_metadata?.picture || null
