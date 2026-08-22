@@ -3,14 +3,21 @@ export default function SceneShell({ children, className = '', light = false }) 
     return (
       <div
         className={`fade-in ${className}`}
-        style={{ position: 'absolute', inset: 0, background: '#F5F6FA', overflowY: 'auto' }}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: '#F5F6FA',
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          WebkitOverflowScrolling: 'touch',
+          overscrollBehaviorY: 'contain',
+        }}
       >
         {children}
       </div>
     )
   }
 
-  // Legacy dark shell (kept for backward compat during migration)
   return (
     <div style={{ position: 'absolute', inset: 0, background: '#F5F6FA', overflow: 'hidden' }}>
       <div
@@ -21,6 +28,8 @@ export default function SceneShell({ children, className = '', light = false }) 
           height: '100%',
           width: '100%',
           overflowY: 'auto',
+          overflowX: 'hidden',
+          WebkitOverflowScrolling: 'touch',
         }}
       >
         {children}

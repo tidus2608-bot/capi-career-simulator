@@ -77,19 +77,23 @@ body {
   background: #f5f6fa;
   color: #1a1a2e;
   font-family: var(--font-body);
-  overflow: hidden;
   -webkit-font-smoothing: antialiased;
+  min-height: 100%;
 }
 
 body {
-  height: 100vh;
-  height: 100dvh;
-  width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
+#root,
 #app {
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
 }
 
 button {
@@ -1071,19 +1075,15 @@ button:focus-visible {
 .p2-new-layout {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  padding: 48px 36px 36px;
-  max-width: 1240px;
+  min-height: 100%;
+  padding: clamp(24px, 4vh, 48px) clamp(20px, 3vw, 48px);
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   align-items: center;
-  justify-content: center;
-  gap: clamp(24px, 3.5vh, 40px);
+  justify-content: flex-start;
+  gap: clamp(20px, 3vh, 36px);
   box-sizing: border-box;
-}
-
-.theme-select-layout {
-  max-width: 1240px;
 }
 
 .p2-new-header {
@@ -2090,32 +2090,34 @@ button:focus-visible {
 }
 
 .no-scroll-shell {
-  overflow-y: hidden !important;
+  overflow-y: auto !important;
 }
 
-/* ── Phase 1 Redesign ── */
 .p1-split-layout {
   display: flex;
   gap: clamp(16px, 2.5vw, 32px);
   width: 100%;
   max-width: 1200px;
   flex: 1;
-  align-items: center;
+  align-items: flex-start;
   min-height: 0;
+  margin: auto 0;
 }
 
 .p1-left-illustration {
-  flex: 1.4;
+  flex: 1.2;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  position: sticky;
+  top: 24px;
+  max-height: calc(100vh - 100px);
   min-height: 0;
 }
 
 .p1-left-illustration img {
   max-width: 100%;
-  max-height: 100%;
+  max-height: calc(100vh - 120px);
   width: auto;
   height: auto;
   object-fit: contain;
@@ -2124,13 +2126,44 @@ button:focus-visible {
 }
 
 .p1-right-content {
-  flex: 1.1;
+  flex: 1.2;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  min-height: 0;
-  justify-content: space-between;
-  gap: clamp(16px, 2.5vh, 28px);
+  width: 100%;
+  min-height: auto;
+  justify-content: flex-start;
+  gap: clamp(16px, 2.5vh, 24px);
+}
+
+@media (max-width: 960px), (max-height: 720px) {
+  .p1-split-layout {
+    flex-direction: column;
+    height: auto !important;
+    min-height: auto;
+    margin: 0;
+    gap: 16px;
+    align-items: stretch;
+  }
+  .p1-left-illustration {
+    flex: none;
+    position: static;
+    max-height: 180px;
+    width: 100%;
+  }
+  .p1-left-illustration img {
+    max-height: 180px;
+  }
+  .p1-right-content {
+    flex: none;
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    gap: 16px;
+  }
+  .p2-new-layout {
+    padding: 24px 20px 40px !important;
+    gap: 16px;
+  }
 }
 
 .p1-progress-bar-container {
