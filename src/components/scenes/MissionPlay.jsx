@@ -124,18 +124,10 @@ export default function MissionPlayScene() {
 
   return (
     <SceneShell light>
-      <div
-        className="p2-new-layout qa-page-layout"
-        style={{
-          minHeight: '100%',
-          padding: 'clamp(20px, 3.5vh, 40px) clamp(20px, 3vw, 48px) clamp(24px, 4vh, 48px)',
-          boxSizing: 'border-box',
-          maxWidth: '1200px',
-        }}
-      >
+      <div className="p2-new-layout qa-page-layout">
         {/* Split Layout */}
         <div className="p1-split-layout">
-          <div className="p1-left-illustration">
+          <div className="p1-left-illustration p1-left-illustration--cover">
             <img
               src={illoSrc}
               alt=""

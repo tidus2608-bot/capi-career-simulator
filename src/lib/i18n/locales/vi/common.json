@@ -315,7 +315,7 @@
     "modal_btn_survey": "Làm khảo sát",
     "header_title": "Chia sẻ trải nghiệm của bạn",
     "header_subtitle": "Ý kiến của bạn sẽ giúp Capi và đội ngũ cải thiện Job Simulator tốt hơn.",
-    "progress_question": "Question {{current}} of {{total}}",
+    "progress_question": "Câu hỏi {{current}} / {{total}}",
     "progress_percent": "{{percent}}% Hoàn thiện",
     "btn_back": "Quay lại",
     "btn_next": "Tiếp tục",

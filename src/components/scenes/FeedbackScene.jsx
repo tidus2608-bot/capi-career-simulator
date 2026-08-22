@@ -231,84 +231,27 @@ export default function FeedbackScene() {
 
   if (isSubmitted) {
     return (
-      <div
-        style={{
-          minHeight: '100vh',
-          backgroundColor: '#FEFEFF',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '40px 24px',
-          fontFamily: "'Quicksand', 'Plus Jakarta Sans', sans-serif",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: '640px',
-            width: '100%',
-            backgroundColor: '#FFFFFF',
-            borderRadius: '24px',
-            padding: '48px 32px',
-            textAlign: 'center',
-            boxShadow: '0 12px 36px rgba(0, 0, 0, 0.06)',
-            border: '1px solid #E5E7EB',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '24px',
-          }}
-        >
+      <div className="feedback-thankyou-shell">
+        <div className="feedback-thankyou-card">
           <img
             src="/images/capi-survey.png"
             alt="Capi Thank You"
-            style={{ width: '120px', height: 'auto', objectFit: 'contain' }}
+            className="feedback-thankyou-mascot"
           />
 
-          <h1
-            style={{
-              margin: 0,
-              fontSize: '28px',
-              fontWeight: 700,
-              color: '#1A1A1A',
-            }}
-          >
-            {t('feedback.thank_you_title')}
-          </h1>
+          <h1 className="feedback-thankyou-title">{t('feedback.thank_you_title')}</h1>
 
-          <p
-            style={{
-              margin: 0,
-              fontSize: '16px',
-              lineHeight: 1.6,
-              color: '#4B5563',
-              fontWeight: 500,
-            }}
-          >
-            {t('feedback.thank_you_desc')}
-          </p>
+          <p className="feedback-thankyou-desc">{t('feedback.thank_you_desc')}</p>
 
-          <div
-            style={{
-              display: 'flex',
-              gap: '16px',
-              width: '100%',
-              marginTop: '12px',
-            }}
-          >
+          <div className="feedback-thankyou-actions">
             <button
               type="button"
               onClick={() => navigate('/')}
+              className="feedback-action-btn"
               style={{
-                flex: 1,
-                padding: '14px 20px',
-                borderRadius: '12px',
                 border: '1.5px solid #843497',
                 backgroundColor: '#FFFFFF',
                 color: '#843497',
-                fontSize: '16px',
-                fontWeight: 600,
-                cursor: 'pointer',
               }}
             >
               {t('feedback.btn_back_home')}
@@ -316,16 +259,11 @@ export default function FeedbackScene() {
             <button
               type="button"
               onClick={() => window.close()}
+              className="feedback-action-btn"
               style={{
-                flex: 1,
-                padding: '14px 20px',
-                borderRadius: '12px',
                 border: 'none',
                 backgroundColor: '#843497',
                 color: '#FFFFFF',
-                fontSize: '16px',
-                fontWeight: 600,
-                cursor: 'pointer',
                 boxShadow: '0 4px 12px rgba(132, 52, 151, 0.25)',
               }}
             >
@@ -338,73 +276,18 @@ export default function FeedbackScene() {
   }
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        backgroundColor: '#FEFEFF',
-        padding: '24px 20px 60px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        fontFamily: "'Quicksand', 'Plus Jakarta Sans', sans-serif",
-      }}
-    >
+    <div className="feedback-scene-shell">
       {/* Header Banner */}
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '1200px',
-          backgroundColor: '#F2F2F2',
-          borderRadius: '100px',
-          padding: '16px 36px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '24px',
-          marginBottom: '40px',
-          boxSizing: 'border-box',
-        }}
-      >
-        <img
-          src="/images/capi-survey.png"
-          alt="Capi"
-          style={{ width: '64px', height: '60px', objectFit: 'contain', flexShrink: 0 }}
-        />
+      <div className="feedback-header-banner">
+        <img src="/images/capi-survey.png" alt="Capi" className="feedback-header-mascot" />
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-          <h1
-            style={{
-              margin: 0,
-              fontSize: '22px',
-              fontWeight: 700,
-              color: '#1A1A1A',
-              lineHeight: 1.3,
-            }}
-          >
-            {t('feedback.header_title')}
-          </h1>
-          <p
-            style={{
-              margin: 0,
-              fontSize: '14px',
-              fontWeight: 500,
-              color: '#808080',
-              lineHeight: 1.3,
-            }}
-          >
-            {t('feedback.header_subtitle')}
-          </p>
+          <h1 className="feedback-header-title">{t('feedback.header_title')}</h1>
+          <p className="feedback-header-subtitle">{t('feedback.header_subtitle')}</p>
         </div>
       </div>
 
       {/* Main Survey Container */}
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '800px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '28px',
-        }}
-      >
+      <div className="feedback-main-container">
         {/* Progress Section */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div
@@ -414,22 +297,10 @@ export default function FeedbackScene() {
               justifyContent: 'space-between',
             }}
           >
-            <span
-              style={{
-                fontSize: '22px',
-                fontWeight: 700,
-                color: '#1A1A1A',
-              }}
-            >
+            <span className="feedback-progress-title">
               {t('feedback.progress_question', { current: progressNum, total: totalNum })}
             </span>
-            <span
-              style={{
-                fontSize: '18px',
-                fontWeight: 600,
-                color: '#843497',
-              }}
-            >
+            <span className="feedback-progress-pct">
               {t('feedback.progress_percent', { percent })}
             </span>
           </div>
@@ -458,12 +329,8 @@ export default function FeedbackScene() {
 
         {/* Question Title */}
         <h2
+          className="feedback-question-title"
           style={{
-            margin: '8px 0 0',
-            fontSize: '24px',
-            fontWeight: 700,
-            color: '#1A1A1A',
-            lineHeight: 1.4,
             textAlign: currentQ.type === 'rating' ? 'center' : 'left',
           }}
         >
@@ -487,18 +354,12 @@ export default function FeedbackScene() {
                   type="button"
                   aria-pressed={isSelected}
                   onClick={() => handleSelectChoice(opt.value)}
+                  className="feedback-choice-btn"
                   style={{
-                    width: '100%',
-                    padding: '20px 24px',
-                    borderRadius: '16px',
                     backgroundColor: isSelected ? '#F6ECFB' : '#F5F6FA',
                     border: isSelected ? '1.5px solid #843497' : '1.5px solid transparent',
                     color: isSelected ? '#843497' : '#1A1A1A',
-                    fontSize: '17px',
                     fontWeight: isSelected ? 700 : 600,
-                    cursor: 'pointer',
-                    textAlign: 'center',
-                    transition: 'all 0.18s ease',
                     boxShadow: isSelected ? '0 4px 12px rgba(132, 52, 151, 0.1)' : 'none',
                   }}
                   onMouseEnter={(e) => {
@@ -524,14 +385,7 @@ export default function FeedbackScene() {
               gap: '20px',
             }}
           >
-            <div
-              style={{
-                display: 'flex',
-                gap: '16px',
-                width: '100%',
-                justifyContent: 'center',
-              }}
-            >
+            <div className="feedback-rating-grid">
               {[1, 2, 3, 4, 5].map((val) => {
                 const isSelected = currentAnswer === val
                 return (
@@ -540,21 +394,10 @@ export default function FeedbackScene() {
                     type="button"
                     aria-pressed={isSelected}
                     onClick={() => handleSelectChoice(val)}
+                    className="feedback-rating-btn"
                     style={{
-                      flex: 1,
-                      maxWidth: '140px',
-                      height: '130px',
-                      borderRadius: '20px',
                       backgroundColor: isSelected ? '#843497' : '#E5E5E5',
                       color: isSelected ? '#FFFFFF' : '#1A1A1A',
-                      fontSize: '36px',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      border: 'none',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      transition: 'all 0.18s ease',
                       boxShadow: isSelected ? '0 8px 24px rgba(132, 52, 151, 0.3)' : 'none',
                     }}
                     onMouseEnter={(e) => {
@@ -593,38 +436,9 @@ export default function FeedbackScene() {
               value={currentAnswer || ''}
               onChange={handleTextChange}
               placeholder={t(currentQ.placeholderKey)}
-              style={{
-                width: '100%',
-                padding: '20px',
-                borderRadius: '16px',
-                backgroundColor: '#F5F6FA',
-                border: '1.5px solid #E5E5E5',
-                fontSize: '16px',
-                fontFamily: 'inherit',
-                color: '#1A1A1A',
-                outline: 'none',
-                resize: 'vertical',
-                boxSizing: 'border-box',
-                lineHeight: 1.5,
-              }}
-              onFocus={(e) => {
-                e.currentTarget.style.borderColor = '#843497'
-                e.currentTarget.style.backgroundColor = '#FFFFFF'
-              }}
-              onBlur={(e) => {
-                e.currentTarget.style.borderColor = '#E5E5E5'
-                e.currentTarget.style.backgroundColor = '#F5F6FA'
-              }}
+              className="feedback-textarea"
             />
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                fontSize: '13px',
-                color: '#808080',
-                fontWeight: 500,
-              }}
-            >
+            <div className="feedback-word-counter">
               <span>{t('feedback.max_words_hint')}</span>
               <span>{t('feedback.word_count', { count: getWordCount(currentAnswer) })}</span>
             </div>
@@ -644,18 +458,10 @@ export default function FeedbackScene() {
                     role="checkbox"
                     aria-checked={isChecked}
                     onClick={() => handleToggleBug(opt.value)}
+                    className="feedback-checkbox-btn"
                     style={{
-                      width: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '18px 24px',
-                      borderRadius: '16px',
                       backgroundColor: isChecked ? '#F6ECFB' : '#F5F6FA',
                       border: isChecked ? '1.5px solid #843497' : '1.5px solid transparent',
-                      cursor: 'pointer',
-                      transition: 'all 0.15s ease',
-                      textAlign: 'left',
                     }}
                   >
                     <span
@@ -668,16 +474,10 @@ export default function FeedbackScene() {
                       {t(opt.labelKey)}
                     </span>
                     <div
+                      className="feedback-checkbox-box"
                       style={{
-                        width: '20px',
-                        height: '20px',
-                        borderRadius: '4px',
                         border: isChecked ? 'none' : '1.5px solid #808080',
                         backgroundColor: isChecked ? '#843497' : 'transparent',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#FFFFFF',
                       }}
                     >
                       {isChecked && <Icon icon="mdi:check" width={16} height={16} />}
@@ -692,32 +492,15 @@ export default function FeedbackScene() {
               role="checkbox"
               aria-checked={consentGiven}
               onClick={() => setConsentGiven((c) => !c)}
-              style={{
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                padding: '14px 16px',
-                backgroundColor: '#F9FAFB',
-                borderRadius: '12px',
-                border: '1px solid #E5E7EB',
-                cursor: 'pointer',
-                userSelect: 'none',
-                textAlign: 'left',
-              }}
+              className="feedback-consent-card"
             >
               <div
+                className="feedback-checkbox-box"
                 style={{
-                  width: '18px',
-                  height: '18px',
-                  borderRadius: '4px',
                   border: consentGiven ? 'none' : '1.5px solid #808080',
                   backgroundColor: consentGiven ? '#843497' : 'transparent',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#FFFFFF',
-                  flexShrink: 0,
+                  width: '18px',
+                  height: '18px',
                 }}
               >
                 {consentGiven && <Icon icon="mdi:check" width={14} height={14} />}
@@ -731,51 +514,21 @@ export default function FeedbackScene() {
           </div>
         )}
 
-        {submitError && (
-          <div
-            style={{
-              padding: '12px 16px',
-              backgroundColor: '#FEF2F2',
-              color: '#DC2626',
-              borderRadius: '8px',
-              fontSize: '14px',
-              fontWeight: 500,
-            }}
-          >
-            {submitError}
-          </div>
-        )}
+        {submitError && <div className="feedback-error-banner">{submitError}</div>}
 
         {/* Buttons Nav */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '20px',
-            marginTop: '16px',
-          }}
-        >
+        <div className="feedback-actions-row">
           <button
             type="button"
             disabled={currentIndex === 0}
             onClick={handlePrev}
+            className="feedback-action-btn"
             style={{
-              flex: 1,
-              padding: '14px 24px',
-              borderRadius: '12px',
               border: '1.5px solid #843497',
               backgroundColor: '#FFFFFF',
               color: '#843497',
-              fontSize: '16px',
-              fontWeight: 600,
               cursor: currentIndex === 0 ? 'not-allowed' : 'pointer',
               opacity: currentIndex === 0 ? 0.35 : 1,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px',
-              transition: 'all 0.18s ease',
             }}
           >
             <Icon icon="mdi:arrow-left" width={18} height={18} />
@@ -787,21 +540,12 @@ export default function FeedbackScene() {
               type="button"
               disabled={!isCurrentValid()}
               onClick={handleNext}
+              className="feedback-action-btn"
               style={{
-                flex: 1,
-                padding: '14px 24px',
-                borderRadius: '12px',
                 border: 'none',
                 backgroundColor: isCurrentValid() ? '#843497' : '#E5E5E5',
                 color: isCurrentValid() ? '#FFFFFF' : '#808080',
-                fontSize: '16px',
-                fontWeight: 600,
                 cursor: isCurrentValid() ? 'pointer' : 'not-allowed',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                transition: 'all 0.18s ease',
                 boxShadow: isCurrentValid() ? '0 4px 12px rgba(132, 52, 151, 0.25)' : 'none',
               }}
             >
@@ -813,21 +557,12 @@ export default function FeedbackScene() {
               type="button"
               disabled={!isCurrentValid() || isSubmitting}
               onClick={handleSubmit}
+              className="feedback-action-btn"
               style={{
-                flex: 1,
-                padding: '14px 24px',
-                borderRadius: '12px',
                 border: 'none',
                 backgroundColor: isCurrentValid() && !isSubmitting ? '#843497' : '#E5E5E5',
                 color: isCurrentValid() && !isSubmitting ? '#FFFFFF' : '#808080',
-                fontSize: '16px',
-                fontWeight: 600,
                 cursor: isCurrentValid() && !isSubmitting ? 'pointer' : 'not-allowed',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                transition: 'all 0.18s ease',
                 boxShadow: isCurrentValid() ? '0 4px 12px rgba(132, 52, 151, 0.25)' : 'none',
               }}
             >
