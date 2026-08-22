@@ -186,7 +186,7 @@ export default function PowerBlock({
   }
 
   // Format environment text with space after periods
-  const formattedEnvironmentText = (environmentText || '').replace(/\.([A-ZÀ-Ỹa-zA-Z])/g, '. $1')
+  const formattedEnvironmentText = (environmentText || '').replace(/\.([A-Za-zÀ-Ỹ])/g, '. $1')
 
   return (
     <section className="report-section print-card power-block-section">
