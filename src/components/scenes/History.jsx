@@ -225,11 +225,12 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
       }}
     >
       {/* Invisible backdrop button for click-outside dismissal */}
-      <button
-        type="button"
-        aria-label={t('common.cancel', 'Đóng')}
-        onClick={onClose}
-        style={{
+<button
+  type="button"
+  aria-hidden="true"
+  tabIndex={-1}
+  onClick={onClose}
+  style={{
           position: 'absolute',
           inset: 0,
           background: 'transparent',
