@@ -81,7 +81,7 @@ export default function ReportDetails() {
     markPrompted()
     setShowFeedbackModal(false)
     const runQuery = savedRunId ? `?run=${encodeURIComponent(savedRunId)}` : ''
-    window.open(`/feedback${runQuery}`, '_blank')
+    window.open(`/feedback${runQuery}`, '_blank', 'noopener,noreferrer')
   }
 
   if (!result || !certCopy) return null
