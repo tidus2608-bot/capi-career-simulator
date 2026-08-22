@@ -71,13 +71,6 @@ export default function ReflectionScene() {
       onNext={next}
       nextDisabled={currentValue === null}
       isFinished={idx + 1 >= PHASE3_QUESTIONS.length}
-      imageStyle={{
-        objectFit: 'cover',
-        width: 'auto',
-        height: '100%',
-        maxWidth: '100%',
-        maxHeight: '100%',
-      }}
     />
   )
 }

@@ -82,15 +82,16 @@ export function WizardProvider({ children }) {
   const [phase1Answers, setPhase1Answers] = useLocalStorageState(
     'phase1Answers',
     { selfPerception: {}, confidence: {} },
-(v) =>
-  v &&
-  typeof v === 'object' &&
-  v.selfPerception &&
-  typeof v.selfPerception === 'object' &&
-  !Array.isArray(v.selfPerception) &&
-  v.confidence &&
-  typeof v.confidence === 'object' &&
-  !Array.isArray(v.confidence),
+    (v) =>
+      v &&
+      typeof v === 'object' &&
+      v.selfPerception &&
+      typeof v.selfPerception === 'object' &&
+      !Array.isArray(v.selfPerception) &&
+      v.confidence &&
+      typeof v.confidence === 'object' &&
+      !Array.isArray(v.confidence),
+  )
   const [phase1TopRole, setPhase1TopRole] = useLocalStorageState(
     'phase1TopRole',
     null,

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
-import './i18n/index.js'
+import './lib/i18n/index.js'
 import './styles.css'
 
 import { WizardProvider } from './contexts/WizardContext.jsx'
@@ -51,6 +51,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: 'history', element: <HistoryScene /> },
+      { path: 'feedback', element: <FeedbackScene /> },
     ],
   },
   {

@@ -18,7 +18,6 @@ export default function QAPageLayout({
   nextText,
   nextDisabled,
   isFinished,
-  imageStyle,
 }) {
   const { t } = useTranslation()
 
@@ -35,8 +34,8 @@ export default function QAPageLayout({
       >
         {/* Dynamic Split Layout */}
         <div className="p1-split-layout">
-          <div className="p1-left-illustration" style={{ position: 'relative', height: '100%' }}>
-            <img src={imageSrc} alt="" style={imageStyle} />
+          <div className="p1-left-illustration">
+            <img src={imageSrc} alt="" />
           </div>
 
           <div className="p1-right-content">

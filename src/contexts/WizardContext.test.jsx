@@ -46,6 +46,7 @@ describe('WizardContext Client State Integrity', () => {
   })
 
   it('recovers gracefully from corrupted JSON in localStorage', () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
     window.localStorage.setItem('selectedMission', '{invalid json syntax...')
     window.localStorage.setItem('phase1Answers', 'not-an-object')
 
@@ -59,6 +60,7 @@ describe('WizardContext Client State Integrity', () => {
     expect(screen.getByTestId('p1-answers').textContent).toBe(
       JSON.stringify({ selfPerception: {}, confidence: {} }),
     )
+    warnSpy.mockRestore()
   })
 
   it('discards invalid/nonexistent mission IDs and themes from localStorage', () => {

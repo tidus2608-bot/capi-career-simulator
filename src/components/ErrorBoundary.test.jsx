@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import i18n from '../i18n/index.js'
+import i18n from '../lib/i18n/index.js'
 import ErrorBoundary from './ErrorBoundary.jsx'
 
 function Boom() {
