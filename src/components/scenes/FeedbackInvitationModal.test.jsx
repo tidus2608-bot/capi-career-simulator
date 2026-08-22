@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import FeedbackInvitationModal from './FeedbackInvitationModal.jsx'
-import '../../i18n/index.js'
+import '../../lib/i18n/index.js'
 
 describe('FeedbackInvitationModal', () => {
   it('does not render when isOpen is false', () => {

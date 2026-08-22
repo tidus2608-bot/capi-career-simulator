@@ -38,6 +38,7 @@ export default function HeaderControls({ muted, toggleMute }) {
     '/certificate/summary',
     '/certificate/details',
     '/history',
+    '/feedback',
   ])
 
   const showLanguage = TRANSLATED_PATHS.has(path)
@@ -47,6 +48,7 @@ export default function HeaderControls({ muted, toggleMute }) {
     path !== '/' &&
     path !== '/capi-gene-info' &&
     path !== '/history' &&
+    path !== '/feedback' &&
     !path.startsWith('/certificate')
 
   const [showConfirmModal, setShowConfirmModal] = useState(false)

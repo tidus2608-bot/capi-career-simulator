@@ -17,18 +17,18 @@ class CapiAudio {
     }
   }
 
-subscribe(listener) {
-  this._listeners.add(listener)
-  try {
-    listener(this.muted)
-  } catch (e) {
-    console.warn('Audio listener error:', e)
-    this._listeners.delete(listener)
+  subscribe(listener) {
+    this._listeners.add(listener)
+    try {
+      listener(this.muted)
+    } catch (e) {
+      console.warn('Audio listener error:', e)
+      this._listeners.delete(listener)
+    }
+    return () => {
+      this._listeners.delete(listener)
+    }
   }
-  return () => {
-    this._listeners.delete(listener)
-  }
-}
 
   _notify() {
     for (const listener of this._listeners) {

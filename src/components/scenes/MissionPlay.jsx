@@ -135,7 +135,7 @@ export default function MissionPlayScene() {
       >
         {/* Split Layout */}
         <div className="p1-split-layout">
-          <div className="p1-left-illustration" style={{ position: 'relative' }}>
+          <div className="p1-left-illustration">
             <img
               src={illoSrc}
               alt=""

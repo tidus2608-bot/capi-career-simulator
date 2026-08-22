@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { SUPPORTED_LANGS } from '../i18n/index.js'
+import { SUPPORTED_LANGS } from '../lib/i18n/index.js'
 import Button from './Button.jsx'
 
 const LANG_LABELS = {

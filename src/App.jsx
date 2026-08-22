@@ -101,7 +101,14 @@ export default function AppLayout() {
 
   // Route Guards
   useEffect(() => {
-    if (path === '/' || path === '/capi-gene-info' || path === '/scan') return
+    if (
+      path === '/' ||
+      path === '/capi-gene-info' ||
+      path === '/scan' ||
+      path === '/history' ||
+      path === '/feedback'
+    )
+      return
 
     // If we have an active scoring result and are navigating to the certificate, bypass intermediate guards
     if (scoringResult && path.startsWith('/certificate')) return
@@ -346,6 +353,15 @@ export default function AppLayout() {
             }}
           >
             → History
+          </button>
+          <button
+            className="btn btn-ghost"
+            style={{ padding: '8px 10px', fontSize: 12 }}
+            onClick={() => {
+              navigate('/feedback')
+            }}
+          >
+            → Feedback
           </button>
           <button
             className="btn btn-ghost"

@@ -13,6 +13,8 @@ import { useWizard } from '../../contexts/WizardContext.jsx'
 import { supabase } from '../../lib/supabase.js'
 import SceneShell from './SceneShell.jsx'
 import Button from '../Button.jsx'
+import Pagination from '../Pagination.jsx'
+import { formatDateTime } from '../../lib/format.js'
 
 const ITEMS_PER_PAGE = 6
 
@@ -65,18 +67,6 @@ function getRoleConfig(roleKey) {
       icon: 'mdi:compass-outline',
     }
   )
-}
-
-function formatRunDateTime(dateStr) {
-  if (!dateStr) return ''
-  const d = new Date(dateStr)
-  const pad = (n) => String(n).padStart(2, '0')
-  const day = pad(d.getDate())
-  const month = pad(d.getMonth() + 1)
-  const year = d.getFullYear()
-  const hours = pad(d.getHours())
-  const minutes = pad(d.getMinutes())
-  return `${day}/${month}/${year} . ${hours}:${minutes}`
 }
 
 function getMissionTitle(run, t) {
@@ -225,12 +215,12 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
       }}
     >
       {/* Invisible backdrop button for click-outside dismissal */}
-<button
-  type="button"
-  aria-hidden="true"
-  tabIndex={-1}
-  onClick={onClose}
-  style={{
+      <button
+        type="button"
+        aria-hidden="true"
+        tabIndex={-1}
+        onClick={onClose}
+        style={{
           position: 'absolute',
           inset: 0,
           background: 'transparent',
@@ -238,12 +228,12 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
           cursor: 'default',
         }}
       />
-<div
-  className="glass"
-  role="dialog"
-  aria-modal="true"
-  aria-label={t('history.answers_modal_title', 'Chi tiết câu trả lời')}
-  style={{
+      <div
+        className="glass"
+        role="dialog"
+        aria-modal="true"
+        aria-label={t('history.answers_modal_title', 'Chi tiết câu trả lời')}
+        style={{
           position: 'relative',
           zIndex: 1,
           backgroundColor: '#FFFFFF',
@@ -281,7 +271,7 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
               {t('history.answers_modal_title', 'Chi tiết câu trả lời')}
             </h3>
             <div style={{ fontSize: 13, color: '#64748B', marginTop: 4 }}>
-              {missionTitle} • {formatRunDateTime(run.created_at)}
+              {missionTitle} • {formatDateTime(run.created_at)}
             </div>
           </div>
           <button
@@ -650,7 +640,7 @@ function HistoryCard({ run, onOpenAnswers, onOpenReport, t }) {
   const roleConfig = getRoleConfig(run.primary_role)
   const title = getMissionTitle(run, t)
   const previewImg = getMissionPreviewImg(run)
-  const formattedDate = formatRunDateTime(run.created_at)
+  const formattedDate = formatDateTime(run.created_at)
 
   return (
     <div
@@ -939,16 +929,13 @@ export default function HistoryScene() {
   }, [runs, selectedRoleFilter, sortOrder])
 
   // Pagination
-const totalPages = Math.ceil(filteredRuns.length / ITEMS_PER_PAGE) || 1
+  const totalPages = Math.ceil(filteredRuns.length / ITEMS_PER_PAGE) || 1
+  const validCurrentPage = Math.min(Math.max(1, currentPage), totalPages)
 
-useEffect(() => {
-  setCurrentPage((p) => Math.min(Math.max(1, p), totalPages))
-}, [totalPages])
-
-const paginatedRuns = useMemo(() => {
-  const start = (currentPage - 1) * ITEMS_PER_PAGE
-  return filteredRuns.slice(start, start + ITEMS_PER_PAGE)
-}, [filteredRuns, currentPage])
+  const paginatedRuns = useMemo(() => {
+    const start = (validCurrentPage - 1) * ITEMS_PER_PAGE
+    return filteredRuns.slice(start, start + ITEMS_PER_PAGE)
+  }, [filteredRuns, validCurrentPage])
 
   // User avatar resolution
   const userAvatar = user?.user_metadata?.avatar_url || user?.user_metadata?.picture || null
@@ -1437,124 +1424,11 @@ const paginatedRuns = useMemo(() => {
                     })}
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    {/* Double Left (First Page) */}
-                    <button
-                      onClick={() => setCurrentPage(1)}
-                      disabled={currentPage === 1}
-                      aria-label="First page"
-                      style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: '50%',
-                        backgroundColor: '#475569',
-                        color: '#FFFFFF',
-                        border: 'none',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
-                        opacity: currentPage === 1 ? 0.35 : 1,
-                        transition: 'all 0.15s ease',
-                      }}
-                    >
-                      <Icon icon="mdi:chevron-double-left" width={18} height={18} />
-                    </button>
-
-                    {/* Single Left (Prev Page) */}
-                    <button
-                      onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                      disabled={currentPage === 1}
-                      aria-label="Previous page"
-                      style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: '50%',
-                        backgroundColor: '#475569',
-                        color: '#FFFFFF',
-                        border: 'none',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
-                        opacity: currentPage === 1 ? 0.35 : 1,
-                        transition: 'all 0.15s ease',
-                      }}
-                    >
-                      <Icon icon="mdi:chevron-left" width={18} height={18} />
-                    </button>
-
-                    {/* Page Numbers */}
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => {
-                      const isActive = currentPage === pageNum
-                      return (
-                        <button
-                          key={pageNum}
-                          onClick={() => setCurrentPage(pageNum)}
-                          style={{
-                            minWidth: 32,
-                            height: 32,
-                            padding: '0 4px',
-                            fontSize: 14,
-                            fontWeight: isActive ? 800 : 500,
-                            color: isActive ? '#843497' : '#64748B',
-                            backgroundColor: 'transparent',
-                            border: 'none',
-                            cursor: 'pointer',
-                            borderRadius: 6,
-                          }}
-                        >
-                          {String(pageNum).padStart(2, '0')}
-                        </button>
-                      )
-                    })}
-
-                    {/* Single Right (Next Page) */}
-                    <button
-                      onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                      disabled={currentPage === totalPages}
-                      aria-label="Next page"
-                      style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: '50%',
-                        backgroundColor: '#843497',
-                        color: '#FFFFFF',
-                        border: 'none',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
-                        opacity: currentPage === totalPages ? 0.35 : 1,
-                        transition: 'all 0.15s ease',
-                      }}
-                    >
-                      <Icon icon="mdi:chevron-right" width={18} height={18} />
-                    </button>
-
-                    {/* Double Right (Last Page) */}
-                    <button
-                      onClick={() => setCurrentPage(totalPages)}
-                      disabled={currentPage === totalPages}
-                      aria-label="Last page"
-                      style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: '50%',
-                        backgroundColor: '#843497',
-                        color: '#FFFFFF',
-                        border: 'none',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
-                        opacity: currentPage === totalPages ? 0.35 : 1,
-                        transition: 'all 0.15s ease',
-                      }}
-                    >
-                      <Icon icon="mdi:chevron-double-right" width={18} height={18} />
-                    </button>
-                  </div>
+                  <Pagination
+                    current={validCurrentPage}
+                    total={totalPages}
+                    onChange={setCurrentPage}
+                  />
                 </div>
               )}
             </div>

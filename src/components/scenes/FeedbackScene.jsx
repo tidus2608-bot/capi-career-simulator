@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '@iconify/react'
 import { supabase } from '../../lib/supabase.js'
+import { getWordCount } from '../../lib/format.js'
 
 const TOTAL_QUESTIONS = 13
 const PROGRESS_PERCENT = Array.from({ length: TOTAL_QUESTIONS }, (_, i) =>
@@ -174,11 +175,6 @@ export default function FeedbackScene() {
     if (words.length <= 500) {
       setAnswers((prev) => ({ ...prev, [currentQ.id]: val }))
     }
-  }
-
-  const getWordCount = (str) => {
-    if (!str || typeof str !== 'string') return 0
-    return str.trim().split(/\s+/).filter(Boolean).length
   }
 
   const handleNext = () => {
@@ -491,6 +487,7 @@ export default function FeedbackScene() {
                   type="button"
                   aria-pressed={isSelected}
                   onClick={() => handleSelectChoice(opt.value)}
+                  style={{
                     width: '100%',
                     padding: '20px 24px',
                     borderRadius: '16px',
@@ -543,6 +540,7 @@ export default function FeedbackScene() {
                     type="button"
                     aria-pressed={isSelected}
                     onClick={() => handleSelectChoice(val)}
+                    style={{
                       flex: 1,
                       maxWidth: '140px',
                       height: '130px',
