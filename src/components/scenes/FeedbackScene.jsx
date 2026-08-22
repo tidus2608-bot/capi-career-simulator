@@ -4,7 +4,10 @@ import { useTranslation } from 'react-i18next'
 import { Icon } from '@iconify/react'
 import { supabase } from '../../lib/supabase.js'
 
-const PROGRESS_PERCENT = [0, 7, 15, 22, 29, 36, 42, 49, 56, 63, 70, 77, 84]
+const TOTAL_QUESTIONS = 13
+const PROGRESS_PERCENT = Array.from({ length: TOTAL_QUESTIONS }, (_, i) =>
+  Math.round((i / (TOTAL_QUESTIONS - 1)) * 100),
+)
 
 export default function FeedbackScene() {
   const { t } = useTranslation()
