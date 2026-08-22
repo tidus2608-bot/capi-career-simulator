@@ -238,9 +238,12 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
           cursor: 'default',
         }}
       />
-      <div
-        className="glass"
-        style={{
+<div
+  className="glass"
+  role="dialog"
+  aria-modal="true"
+  aria-label={t('history.answers_modal_title', 'Chi tiết câu trả lời')}
+  style={{
           position: 'relative',
           zIndex: 1,
           backgroundColor: '#FFFFFF',
