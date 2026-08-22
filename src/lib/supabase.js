@@ -1,7 +1,11 @@
 import { createClient } from '@supabase/supabase-js'
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
-const SUPABASE_ANON = import.meta.env.VITE_SUPABASE_ANON_KEY
+const SUPABASE_URL =
+  import.meta.env.VITE_SUPABASE_URL ||
+  (import.meta.env.MODE === 'test' ? 'https://mock.supabase.co' : undefined)
+const SUPABASE_ANON =
+  import.meta.env.VITE_SUPABASE_ANON_KEY ||
+  (import.meta.env.MODE === 'test' ? 'mock-anon-key' : undefined)
 
 if (!SUPABASE_URL || !SUPABASE_ANON) {
   throw new Error(
