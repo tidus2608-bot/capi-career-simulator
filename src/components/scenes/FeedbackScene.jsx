@@ -541,8 +541,8 @@ export default function FeedbackScene() {
                   <button
                     key={val}
                     type="button"
+                    aria-pressed={isSelected}
                     onClick={() => handleSelectChoice(val)}
-                    style={{
                       flex: 1,
                       maxWidth: '140px',
                       height: '130px',
