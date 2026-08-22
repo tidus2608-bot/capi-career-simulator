@@ -24,10 +24,19 @@ create index if not exists idx_feedback_run_id
 alter table public.feedback_responses enable row level security;
 
 -- Allow anyone (guest or authenticated) to submit a feedback response.
+-- Require consent, prevent authenticated users from spoofing another user/run.
 drop policy if exists "feedback_insert_anyone" on public.feedback_responses;
 create policy "feedback_insert_anyone"
   on public.feedback_responses for insert
   to public
-  with check (true);
+  with check (
+    consent_given = true
+    and (user_id is null or user_id = auth.uid())
+    and (
+      run_id is null
+      or auth.uid() is null
+      or exists (select 1 from public.runs r where r.id = run_id and r.user_id = auth.uid())
+    )
+  );
 
 -- No public select/update/delete. Admin reads via service-role key in Cloudflare Functions.
