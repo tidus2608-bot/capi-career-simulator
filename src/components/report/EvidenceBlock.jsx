@@ -151,7 +151,8 @@ export default function EvidenceBlock({
   secondaryRoleMeta,
 }) {
   const { t } = useTranslation()
-  const activeMissionSlug = MISSION_SLUG_MAP[result.missionId || selectedMission] || 'river_rescue'
+  const activeMissionSlug =
+    MISSION_SLUG_MAP[result?.missionId || selectedMission || 1] || 'river_rescue'
 
   // Card 1 mission slug: uses active mission
   const missionSlug1 = activeMissionSlug
@@ -207,6 +208,7 @@ export default function EvidenceBlock({
 
     return (
       <div
+        className="evidence-card"
         style={{
           border: `1.5px solid ${theme.borderColor}`,
           backgroundColor: theme.bgColor,
@@ -216,34 +218,15 @@ export default function EvidenceBlock({
           flexDirection: 'row',
           gap: '20px',
           alignItems: 'flex-start',
-          position: 'relative',
         }}
       >
-        {/* Role Badge Indicator */}
-        <span
-          style={{
-            position: 'absolute',
-            top: '12px',
-            right: '12px',
-            backgroundColor:
-              roleKey === 'explorer' || roleKey === primaryRoleKey ? '#FBCFE8' : '#CFFAFE',
-            color: roleKey === 'explorer' || roleKey === primaryRoleKey ? '#BE185D' : '#0891B2',
-            fontSize: '11px',
-            fontWeight: 700,
-            borderRadius: '9999px',
-            padding: '2px 8px',
-          }}
-        >
-          {t(labelKey)}
-        </span>
-
         {/* Icon Badge Block */}
         <div
           style={{
             backgroundColor: theme.badgeBg,
             color: '#FFFFFF',
-            width: '52px',
-            height: '52px',
+            width: '48px',
+            height: '48px',
             borderRadius: '12px',
             display: 'flex',
             alignItems: 'center',
@@ -251,7 +234,7 @@ export default function EvidenceBlock({
             flexShrink: 0,
           }}
         >
-          <Icon icon={theme.icon} width={28} height={28} />
+          <Icon icon={theme.icon} width={26} height={26} />
         </div>
 
         {/* Content Column */}
@@ -261,17 +244,49 @@ export default function EvidenceBlock({
             flexDirection: 'column',
             gap: '8px',
             flex: 1,
-            paddingRight: '70px',
+            width: '100%',
           }}
         >
-          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: theme.titleColor }}>
-            {isEn ? theme.titleEn : theme.titleVi}
-          </h4>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              gap: '8px',
+              flexWrap: 'wrap',
+            }}
+          >
+            <h4
+              style={{
+                margin: 0,
+                fontSize: 'var(--text-lg)',
+                fontWeight: 800,
+                color: theme.titleColor,
+              }}
+            >
+              {isEn ? theme.titleEn : theme.titleVi}
+            </h4>
+            <span
+              style={{
+                backgroundColor:
+                  roleKey === 'explorer' || roleKey === primaryRoleKey ? '#FBCFE8' : '#CFFAFE',
+                color: roleKey === 'explorer' || roleKey === primaryRoleKey ? '#BE185D' : '#0891B2',
+                fontSize: 'var(--text-2xs)',
+                fontWeight: 700,
+                borderRadius: '9999px',
+                padding: '2px 8px',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+              }}
+            >
+              {t(labelKey)}
+            </span>
+          </div>
 
           <div
             style={{
               margin: 0,
-              fontSize: '14.5px',
+              fontSize: 'var(--text-base)',
               color: '#1F2937',
               lineHeight: 1.6,
               whiteSpace: 'pre-line',
@@ -285,26 +300,13 @@ export default function EvidenceBlock({
   }
 
   return (
-    <div
-      className="print-card"
-      style={{
-        backgroundColor: '#FFFFFF',
-        borderRadius: '24px',
-        border: '1.5px solid #F1F5F9',
-        padding: '32px',
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.02)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '24px',
-        pageBreakBefore: 'always',
-      }}
-    >
+    <section className="report-section print-card evidence-section">
       {/* Header Row with Purple Line */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
         <h3
           style={{
             margin: 0,
-            fontSize: '22px',
+            fontSize: 'var(--text-xl)',
             fontWeight: 800,
             color: '#A855F7',
             whiteSpace: 'nowrap',
@@ -315,7 +317,7 @@ export default function EvidenceBlock({
         <div style={{ flex: 1, height: '2px', backgroundColor: '#E9D5FF' }} />
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {/* Card 1: Primary Evidence */}
         {renderCard(primaryRoleKey, primaryRoleMeta, missionSlug1, 'report.evidence_primary_role')}
 
@@ -327,6 +329,6 @@ export default function EvidenceBlock({
           'report.evidence_secondary_role',
         )}
       </div>
-    </div>
+    </section>
   )
 }

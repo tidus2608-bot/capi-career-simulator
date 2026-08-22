@@ -8,12 +8,39 @@ class CapiAudio {
     this.currentPad = null
     this.bgBuffer = null
     this.bgLoading = false
+    this._listeners = new Set()
+
+    if (typeof window !== 'undefined') {
+      const unlock = () => this.resume()
+      window.addEventListener('pointerdown', unlock, { passive: true })
+      window.addEventListener('keydown', unlock, { passive: true })
+    }
+  }
+
+  subscribe(listener) {
+    this._listeners.add(listener)
+    listener(this.muted)
+    return () => {
+      this._listeners.delete(listener)
+    }
+  }
+
+  _notify() {
+    for (const listener of this._listeners) {
+      try {
+        listener(this.muted)
+      } catch (e) {
+        console.warn('Audio listener error:', e)
+      }
+    }
   }
 
   _ensure() {
     if (this.ctx) return
     try {
-      this.ctx = new (window.AudioContext || window.webkitAudioContext)()
+      const AudioCtx = window.AudioContext || window.webkitAudioContext
+      if (!AudioCtx) return
+      this.ctx = new AudioCtx()
       this.master = this.ctx.createGain()
       this.master.gain.value = this.muted ? 0 : 0.22
       this.master.connect(this.ctx.destination)
@@ -42,14 +69,22 @@ class CapiAudio {
   }
 
   setMuted(m) {
-    this.muted = m
+    this.muted = Boolean(m)
     try {
-      localStorage.setItem('capi_muted', m ? '1' : '0')
+      localStorage.setItem('capi_muted', this.muted ? '1' : '0')
     } catch {
       /* noop */
     }
-    if (this.master)
-      this.master.gain.linearRampToValueAtTime(m ? 0 : 0.22, this.ctx.currentTime + 0.2)
+    this._ensure()
+    if (this.master && this.ctx) {
+      try {
+        this.master.gain.cancelScheduledValues(this.ctx.currentTime)
+        this.master.gain.linearRampToValueAtTime(this.muted ? 0 : 0.22, this.ctx.currentTime + 0.1)
+      } catch {
+        this.master.gain.value = this.muted ? 0 : 0.22
+      }
+    }
+    this._notify()
   }
 
   toggle() {

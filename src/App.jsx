@@ -6,7 +6,7 @@ import ErrorBoundary from './components/ErrorBoundary.jsx'
 import HeaderControls from './components/HeaderControls.jsx'
 import { Transition } from './components/scenes/index.js'
 import { calculateScore, buildCertificateCopy } from './lib/scoring.js'
-import { CAPI_MISSIONS } from './data.js'
+import { CAPI_MISSIONS, CAPI_THEMES } from './data.js'
 
 const TWEAK_DEFAULTS = { fullPlay: true }
 
@@ -39,6 +39,10 @@ export default function AppLayout() {
   const [tweaksOpen, setTweaksOpen] = useState(false)
   const [muted, setMuted] = useState(capiAudio.muted)
 
+  useEffect(() => {
+    return capiAudio.subscribe((m) => setMuted(m))
+  }, [])
+
   // Dev keyboard shortcut
   useEffect(() => {
     const onKey = (e) => {
@@ -51,17 +55,6 @@ export default function AppLayout() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  // Resume AudioContext
-  useEffect(() => {
-    const resume = () => capiAudio.resume()
-    window.addEventListener('pointerdown', resume, { once: true })
-    window.addEventListener('keydown', resume, { once: true })
-    return () => {
-      window.removeEventListener('pointerdown', resume)
-      window.removeEventListener('keydown', resume)
-    }
-  }, [])
-
   const toggleMute = () => {
     const m = capiAudio.toggle()
     setMuted(m)
@@ -70,7 +63,7 @@ export default function AppLayout() {
   const path = location.pathname
   const hasResumedRef = useRef(false)
 
-  // Initial Hydration Auto-Resume on Mount
+  // Initial Hydration Auto-Resume on Mount with integrity checks
   useEffect(() => {
     if (authLoading) return
     if (hasResumedRef.current) return
@@ -78,16 +71,16 @@ export default function AppLayout() {
 
     if (path !== '/') return
 
-    if (selectedMission) {
+    if (selectedMission && CAPI_MISSIONS[selectedMission]) {
       const m = CAPI_MISSIONS[selectedMission]
-      const totalQs = m ? m.questions.length : 0
+      const totalQs = m && m.questions ? m.questions.length : 0
       const answeredCount = Object.keys(phase2Answers || {}).length
       if (totalQs > 0 && answeredCount >= totalQs) {
         navigate('/reflect', { replace: true })
       } else {
         navigate('/mission-play', { replace: true })
       }
-    } else if (selectedTheme) {
+    } else if (selectedTheme && CAPI_THEMES[selectedTheme]) {
       navigate('/mission-pick', { replace: true })
     } else if (phase1TopRole) {
       navigate('/theme', { replace: true })
@@ -113,13 +106,20 @@ export default function AppLayout() {
     // If we have an active scoring result and are navigating to the certificate, bypass intermediate guards
     if (scoringResult && path.startsWith('/certificate')) return
 
-    if (path === '/role-reveal' || path === '/theme' || path === '/mission-pick') {
+    if (path === '/role-reveal' || path === '/theme') {
       if (!phase1TopRole && !scoringResult) navigate('/', { replace: true })
       return
     }
 
+    if (path === '/mission-pick') {
+      if (!selectedTheme || !CAPI_THEMES[selectedTheme]) navigate('/theme', { replace: true })
+      return
+    }
+
     if (path === '/mission-play' || path === '/reflect') {
-      if (!selectedMission && !scoringResult) navigate('/theme', { replace: true })
+      if ((!selectedMission || !CAPI_MISSIONS[selectedMission]) && !scoringResult) {
+        navigate('/theme', { replace: true })
+      }
       return
     }
 
@@ -127,7 +127,7 @@ export default function AppLayout() {
       if (!scoringResult) navigate('/', { replace: true })
       return
     }
-  }, [path, phase1TopRole, selectedMission, scoringResult, user, navigate])
+  }, [path, phase1TopRole, selectedTheme, selectedMission, scoringResult, user, navigate])
 
   const handleRestart = () => {
     onRestart()

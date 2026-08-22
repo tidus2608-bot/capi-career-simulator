@@ -14,6 +14,15 @@ export default function ReportSummary() {
   const isEn = i18n.language === 'en'
   const { result, certCopy, certId } = useOutletContext()
   const [mounted, setMounted] = useState(false)
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth <= 768,
+  )
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     const timer = setTimeout(() => setMounted(true), 50)
@@ -64,43 +73,14 @@ export default function ReportSummary() {
   })
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        width: '100vw',
-        backgroundColor: '#F8FAFC',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '110px 24px 40px 24px',
-        boxSizing: 'border-box',
-        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      }}
-    >
-      {/* MAIN 2-COLUMN ROW (FLEXBOX, CENTRED MAX WIDTH) */}
-      <main
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap: '24px',
-          width: '100%',
-          maxWidth: '1200px',
-          boxSizing: 'border-box',
-        }}
-      >
+    <div className="report-summary-shell">
+      {/* MAIN 2-COLUMN ROW (RESPONSIVE FLEXBOX) */}
+      <main className="report-summary-main">
         {/* LEFT COLUMN: Summary Cards & Mascot */}
-        <div
-          style={{
-            flex: 42,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-            boxSizing: 'border-box',
-          }}
-        >
+        <div className="report-summary-left">
           {/* Top Mascot + Speech Bubble */}
           <div
+            className="report-summary-mascot-row"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -129,7 +109,7 @@ export default function ReportSummary() {
               <div
                 style={{
                   fontWeight: 700,
-                  fontSize: '16px',
+                  fontSize: 'var(--text-md)',
                   color: '#0F172A',
                   marginBottom: '2px',
                 }}
@@ -138,7 +118,7 @@ export default function ReportSummary() {
               </div>
               <div
                 style={{
-                  fontSize: '13px',
+                  fontSize: 'var(--text-xs)',
                   color: '#64748B',
                   lineHeight: '1.4',
                 }}
@@ -154,7 +134,7 @@ export default function ReportSummary() {
               style={{
                 backgroundColor: '#F59E0B',
                 color: '#FFFFFF',
-                fontSize: '12px',
+                fontSize: 'var(--text-xs)',
                 fontWeight: 700,
                 borderRadius: '9999px',
                 padding: '4px 14px',
@@ -166,11 +146,18 @@ export default function ReportSummary() {
               {t('report.card_strength')}
             </span>
             <h4
-              style={{ margin: '2px 0 2px 0', fontSize: '17px', fontWeight: 700, color: '#1E293B' }}
+              style={{
+                margin: '2px 0 2px 0',
+                fontSize: 'var(--text-md)',
+                fontWeight: 700,
+                color: '#1E293B',
+              }}
             >
               {strengthsHeadline}
             </h4>
-            <p style={{ margin: 0, fontSize: '14px', color: '#475569', lineHeight: '1.4' }}>
+            <p
+              style={{ margin: 0, fontSize: 'var(--text-sm)', color: '#475569', lineHeight: '1.4' }}
+            >
               {strengthsDesc}
             </p>
           </div>
@@ -181,7 +168,7 @@ export default function ReportSummary() {
               style={{
                 backgroundColor: '#3B82F6',
                 color: '#FFFFFF',
-                fontSize: '12px',
+                fontSize: 'var(--text-xs)',
                 fontWeight: 700,
                 borderRadius: '9999px',
                 padding: '4px 14px',
@@ -193,11 +180,18 @@ export default function ReportSummary() {
               {t('report.card_style')}
             </span>
             <h4
-              style={{ margin: '2px 0 2px 0', fontSize: '17px', fontWeight: 700, color: '#1E293B' }}
+              style={{
+                margin: '2px 0 2px 0',
+                fontSize: 'var(--text-md)',
+                fontWeight: 700,
+                color: '#1E293B',
+              }}
             >
               {isEn ? 'Natural Behaviors' : 'Xu hướng hành vi'}
             </h4>
-            <p style={{ margin: 0, fontSize: '14px', color: '#475569', lineHeight: '1.4' }}>
+            <p
+              style={{ margin: 0, fontSize: 'var(--text-sm)', color: '#475569', lineHeight: '1.4' }}
+            >
               {isEn
                 ? certCopy.workingStyleHeadlineEn || certCopy.workingStyleHeadlineVn
                 : certCopy.workingStyleHeadlineVn}
@@ -210,7 +204,7 @@ export default function ReportSummary() {
               style={{
                 backgroundColor: '#22C55E',
                 color: '#FFFFFF',
-                fontSize: '12px',
+                fontSize: 'var(--text-xs)',
                 fontWeight: 700,
                 borderRadius: '9999px',
                 padding: '4px 14px',
@@ -222,11 +216,18 @@ export default function ReportSummary() {
               {t('report.card_growth')}
             </span>
             <h4
-              style={{ margin: '2px 0 2px 0', fontSize: '17px', fontWeight: 700, color: '#1E293B' }}
+              style={{
+                margin: '2px 0 2px 0',
+                fontSize: 'var(--text-md)',
+                fontWeight: 700,
+                color: '#1E293B',
+              }}
             >
               {isEn ? certCopy.growthHeadlineEn || growthHeadline : growthHeadline}
             </h4>
-            <p style={{ margin: 0, fontSize: '14px', color: '#475569', lineHeight: '1.4' }}>
+            <p
+              style={{ margin: 0, fontSize: 'var(--text-sm)', color: '#475569', lineHeight: '1.4' }}
+            >
               {isEn ? certCopy.areasOfImprovementEn || growthDesc : growthDesc}
             </p>
           </div>
@@ -239,15 +240,19 @@ export default function ReportSummary() {
               navigate('/')
             }}
             style={{
-              flex: 'none',
-              borderRadius: '9999px',
-              width: '100%',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#7E22CE',
-              borderColor: '#E9D5FF',
-              marginTop: 'auto',
+              gap: '8px',
+              height: '44px',
+              borderRadius: '12px',
+              fontSize: 'var(--text-sm)',
+              fontWeight: 600,
+              cursor: 'pointer',
+              border: '1.5px solid #843497',
+              backgroundColor: '#FFFFFF',
+              color: '#843497',
+              marginTop: '4px',
             }}
           >
             ← {t('report.btn_back_to_home')}
@@ -256,24 +261,11 @@ export default function ReportSummary() {
 
         {/* RIGHT COLUMN: Certificate Card */}
         <div
+          className="report-summary-right"
           style={{
-            flex: 58,
-            backgroundColor: '#FFFFFF',
-            borderRadius: '24px',
-            border: '1.5px solid #F1F5F9',
-            padding: '24px 32px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            position: 'relative',
-            boxShadow: '0 10px 30px rgba(147, 51, 234, 0.05)',
-            boxSizing: 'border-box',
             opacity: mounted ? 1 : 0,
             transform: mounted ? 'scale(1)' : 'scale(0.97)',
             transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
-            minHeight: 0,
-            overflow: 'hidden',
           }}
         >
           {/* Watermark Award Icon Top Right */}
@@ -299,7 +291,7 @@ export default function ReportSummary() {
               color: '#FFFFFF',
               borderRadius: '9999px',
               padding: '4px 16px',
-              fontSize: '11px',
+              fontSize: 'var(--text-2xs)',
               fontWeight: 600,
               fontFamily: 'monospace',
               letterSpacing: '0.5px',
@@ -314,7 +306,7 @@ export default function ReportSummary() {
             <h2
               style={{
                 margin: 0,
-                fontSize: '28px',
+                fontSize: 'var(--text-2xl)',
                 fontWeight: 800,
                 color: '#1E1B4B',
                 fontFamily: 'var(--font-display, sans-serif)',
@@ -323,7 +315,7 @@ export default function ReportSummary() {
             >
               {t('report.cert_title')}
             </h2>
-            <p style={{ margin: '3px 0 0 0', fontSize: '13px', color: '#64748B' }}>
+            <p style={{ margin: '3px 0 0 0', fontSize: 'var(--text-xs)', color: '#64748B' }}>
               {t('report.cert_subtitle')}
             </p>
           </div>
@@ -344,7 +336,7 @@ export default function ReportSummary() {
             <h3
               style={{
                 margin: '0 0 4px 0',
-                fontSize: '24px',
+                fontSize: 'var(--text-xl)',
                 fontWeight: 800,
                 color: '#7E22CE',
                 fontFamily: 'var(--font-display, sans-serif)',
@@ -352,7 +344,9 @@ export default function ReportSummary() {
             >
               {isEn ? primary.name || 'Communicator' : primary.nameVn || 'Nhà Truyền thông'}
             </h3>
-            <p style={{ margin: 0, fontSize: '14px', color: '#6B21A8', lineHeight: '1.4' }}>
+            <p
+              style={{ margin: 0, fontSize: 'var(--text-sm)', color: '#6B21A8', lineHeight: '1.4' }}
+            >
               {t(`common.roles.${result.primaryRole}.tagline`) ||
                 certCopy.workingStyleHeadlineVn ||
                 'Bạn nổi bật ở khả năng truyền đạt ý tưởng và giúp mọi người nhìn thấy ý nghĩa chung.'}
@@ -370,21 +364,26 @@ export default function ReportSummary() {
               minHeight: 0,
             }}
           >
-            <SummaryRadar scores={radarScores} size={280} />
+            <SummaryRadar scores={radarScores} size={isMobile ? 220 : 280} />
           </div>
 
-          {/* Bottom Action Buttons Row (Default Sizing, Reused Iconify Icons) */}
-          <div style={{ display: 'flex', gap: '16px', width: '100%', marginTop: '12px' }}>
+          {/* Bottom Action Buttons Row */}
+          <div className="report-summary-actions">
             {/* Primary Button */}
             <Button
               variant="solid"
               active={true}
               onClick={() => navigate('/certificate/details')}
+              className="report-summary-btn-primary"
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '8px',
+                minHeight: '48px',
+                borderRadius: '14px',
+                fontSize: 'var(--text-base)',
+                fontWeight: 600,
               }}
             >
               <Icon icon="mdi:eye-outline" width={20} height={20} />
@@ -395,11 +394,16 @@ export default function ReportSummary() {
             <Button
               variant="outline"
               onClick={() => navigate('/certificate/details?print=true')}
+              className="report-summary-btn-secondary"
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '8px',
+                minHeight: '48px',
+                borderRadius: '14px',
+                fontSize: 'var(--text-base)',
+                fontWeight: 600,
               }}
             >
               <Icon icon="mdi:download-outline" width={20} height={20} />

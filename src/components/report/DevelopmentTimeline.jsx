@@ -3,33 +3,21 @@ import { useTranslation } from 'react-i18next'
 
 export default function DevelopmentTimeline({
   isEn,
-  primaryActivities,
-  missingRoleMeta,
-  missingPieceData,
-  primarySkills,
+  primaryActivities = [],
+  missingRoleMeta = {},
+  missingPieceData = {},
+  primarySkills = [],
 }) {
   const { t } = useTranslation()
 
   return (
-    <div
-      className="print-card"
-      style={{
-        backgroundColor: '#FFFFFF',
-        borderRadius: '24px',
-        border: '1.5px solid #F1F5F9',
-        padding: '32px',
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.02)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '32px',
-      }}
-    >
+    <section className="report-section print-card dev-timeline-section">
       {/* Header Row with Horizontal Line */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
         <h3
           style={{
             margin: 0,
-            fontSize: '22px',
+            fontSize: 'var(--text-xl)',
             fontWeight: 800,
             color: '#A855F7',
             whiteSpace: 'nowrap',
@@ -40,16 +28,7 @@ export default function DevelopmentTimeline({
         <div style={{ flex: 1, height: '2px', backgroundColor: '#E9D5FF' }} />
       </div>
 
-      <div
-        style={{
-          position: 'relative',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '24px',
-          minHeight: '560px',
-          paddingBottom: '20px',
-        }}
-      >
+      <div className="dev-timeline-grid">
         {/* Background SVG Curve mathematically anchored to 1000x600 grid */}
         <svg
           viewBox="0 0 1000 600"
@@ -64,7 +43,7 @@ export default function DevelopmentTimeline({
             overflow: 'visible',
             zIndex: 0,
           }}
-          className="no-print"
+          className="dev-timeline-curve no-print"
         >
           {/* Curve 1: From Card 1 top (210, 0) up and into Card 2 top center (500, 80) */}
           <path
@@ -87,23 +66,7 @@ export default function DevelopmentTimeline({
         </svg>
 
         {/* Column 1 / Step 1 */}
-        <div
-          style={{
-            border: '1.5px solid #E9D5FF',
-            borderRadius: '20px',
-            padding: '32px 20px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-            backgroundColor: '#FFFFFF',
-            zIndex: 1,
-            alignSelf: 'flex-start',
-            height: '380px',
-            boxSizing: 'border-box',
-            boxShadow: '0 4px 12px rgba(168, 85, 247, 0.04)',
-          }}
-        >
+        <div className="dev-timeline-step-card dev-timeline-step-1">
           <div
             style={{
               backgroundColor: '#D8B4FE',
@@ -115,7 +78,7 @@ export default function DevelopmentTimeline({
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 800,
-              fontSize: '20px',
+              fontSize: 'var(--text-lg)',
               marginBottom: '16px',
               flexShrink: 0,
             }}
@@ -126,7 +89,7 @@ export default function DevelopmentTimeline({
           <h4
             style={{
               margin: '0 0 16px 0',
-              fontSize: '19px',
+              fontSize: 'var(--text-md)',
               fontWeight: 800,
               color: '#C084FC',
               flexShrink: 0,
@@ -140,7 +103,7 @@ export default function DevelopmentTimeline({
               display: 'flex',
               flexDirection: 'column',
               gap: '10px',
-              fontSize: '13.5px',
+              fontSize: 'var(--text-sm)',
               color: '#334155',
               lineHeight: 1.5,
               fontWeight: 500,
@@ -155,24 +118,7 @@ export default function DevelopmentTimeline({
         </div>
 
         {/* Column 2 / Step 2 */}
-        <div
-          style={{
-            border: '1.5px solid #E9D5FF',
-            borderRadius: '20px',
-            padding: '32px 20px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-            backgroundColor: '#FFFFFF',
-            zIndex: 1,
-            alignSelf: 'flex-start',
-            marginTop: '80px',
-            height: '380px',
-            boxSizing: 'border-box',
-            boxShadow: '0 4px 12px rgba(168, 85, 247, 0.04)',
-          }}
-        >
+        <div className="dev-timeline-step-card dev-timeline-step-2">
           <div
             style={{
               backgroundColor: '#D8B4FE',
@@ -184,7 +130,7 @@ export default function DevelopmentTimeline({
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 800,
-              fontSize: '20px',
+              fontSize: 'var(--text-lg)',
               marginBottom: '16px',
               flexShrink: 0,
             }}
@@ -195,7 +141,7 @@ export default function DevelopmentTimeline({
           <h4
             style={{
               margin: '0 0 10px 0',
-              fontSize: '19px',
+              fontSize: 'var(--text-md)',
               fontWeight: 800,
               color: '#C084FC',
               flexShrink: 0,
@@ -206,7 +152,7 @@ export default function DevelopmentTimeline({
 
           <div
             style={{
-              fontSize: '14.5px',
+              fontSize: 'var(--text-base)',
               fontWeight: 700,
               color: '#1E293B',
               marginBottom: '10px',
@@ -223,7 +169,7 @@ export default function DevelopmentTimeline({
               display: 'flex',
               flexDirection: 'column',
               gap: '8px',
-              fontSize: '13.5px',
+              fontSize: 'var(--text-sm)',
               color: '#334155',
               lineHeight: 1.45,
               fontWeight: 500,
@@ -244,24 +190,7 @@ export default function DevelopmentTimeline({
         </div>
 
         {/* Column 3 / Step 3 */}
-        <div
-          style={{
-            border: '1.5px solid #E9D5FF',
-            borderRadius: '20px',
-            padding: '32px 20px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-            backgroundColor: '#FFFFFF',
-            zIndex: 1,
-            alignSelf: 'flex-start',
-            marginTop: '160px',
-            height: '380px',
-            boxSizing: 'border-box',
-            boxShadow: '0 4px 12px rgba(168, 85, 247, 0.04)',
-          }}
-        >
+        <div className="dev-timeline-step-card dev-timeline-step-3">
           <div
             style={{
               backgroundColor: '#D8B4FE',
@@ -273,7 +202,7 @@ export default function DevelopmentTimeline({
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 800,
-              fontSize: '20px',
+              fontSize: 'var(--text-lg)',
               marginBottom: '16px',
               flexShrink: 0,
             }}
@@ -284,7 +213,7 @@ export default function DevelopmentTimeline({
           <h4
             style={{
               margin: '0 0 16px 0',
-              fontSize: '19px',
+              fontSize: 'var(--text-md)',
               fontWeight: 800,
               color: '#C084FC',
               flexShrink: 0,
@@ -298,7 +227,7 @@ export default function DevelopmentTimeline({
               display: 'flex',
               flexDirection: 'column',
               gap: '10px',
-              fontSize: '13.5px',
+              fontSize: 'var(--text-sm)',
               color: '#334155',
               lineHeight: 1.5,
               fontWeight: 500,
@@ -312,6 +241,6 @@ export default function DevelopmentTimeline({
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

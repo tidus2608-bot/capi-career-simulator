@@ -50,12 +50,12 @@ const SKILL_STYLE_OVERRIDES = {
   },
 }
 
-export default function AccordionSkills({ isEn, primarySkills }) {
+export default function AccordionSkills({ isEn, primarySkills = [] }) {
   const { t } = useTranslation()
 
   // Keep track of expanded state for each accordion card individually, default all to expanded (true)
   const [expandedStates, setExpandedStates] = useState(
-    primarySkills.reduce((acc, _, idx) => {
+    (primarySkills || []).reduce((acc, _, idx) => {
       acc[idx] = true
       return acc
     }, {}),
@@ -69,25 +69,13 @@ export default function AccordionSkills({ isEn, primarySkills }) {
   }
 
   return (
-    <div
-      className="print-card"
-      style={{
-        backgroundColor: '#FFFFFF',
-        borderRadius: '24px',
-        border: '1.5px solid #F1F5F9',
-        padding: '32px',
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.02)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '24px',
-      }}
-    >
+    <section className="report-section print-card accordion-section">
       {/* Section Title Header with Purple Rule */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
         <h3
           style={{
             margin: 0,
-            fontSize: '22px',
+            fontSize: 'var(--text-xl)',
             fontWeight: 800,
             color: '#A855F7',
             whiteSpace: 'nowrap',
@@ -98,14 +86,8 @@ export default function AccordionSkills({ isEn, primarySkills }) {
         <div style={{ flex: 1, height: '2px', backgroundColor: '#E9D5FF' }} />
       </div>
 
-      {/* Accordions in 2-column grid layout */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '20px',
-        }}
-      >
+      {/* Accordions in responsive grid layout */}
+      <div className="accordion-skills-grid">
         {primarySkills.map((sk, idx) => {
           const key = sk.name.toLowerCase().trim()
           const override = SKILL_STYLE_OVERRIDES[key]
@@ -143,6 +125,7 @@ export default function AccordionSkills({ isEn, primarySkills }) {
           return (
             <div
               key={idx}
+              className="accordion-skill-card"
               style={{
                 border: '1.5px solid #E9D5FF',
                 borderRadius: '16px',
@@ -172,7 +155,7 @@ export default function AccordionSkills({ isEn, primarySkills }) {
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <Icon icon={iconName} width={22} height={22} color="#FFFFFF" />
-                  <span style={{ fontSize: '16px', fontWeight: 700 }}>{skillName}</span>
+                  <span style={{ fontSize: 'var(--text-base)', fontWeight: 700 }}>{skillName}</span>
                 </div>
 
                 <Icon
@@ -202,14 +185,14 @@ export default function AccordionSkills({ isEn, primarySkills }) {
                       alignItems: 'center',
                     }}
                   >
-                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#1F2937' }}>
+                    <span style={{ fontSize: 'var(--text-sm)', fontWeight: 700, color: '#1F2937' }}>
                       {isEn ? 'Level:' : 'Cấp độ:'}
                     </span>
                     <span
                       style={{
                         backgroundColor: lvlBg,
                         color: lvlColor,
-                        fontSize: '12px',
+                        fontSize: 'var(--text-xs)',
                         fontWeight: 700,
                         borderRadius: '6px',
                         padding: '4px 12px',
@@ -224,34 +207,38 @@ export default function AccordionSkills({ isEn, primarySkills }) {
                   </div>
 
                   {/* Why recommended block */}
-                  <div style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '4px',
+                      alignItems: 'flex-start',
+                    }}
+                  >
                     <span
                       style={{
-                        fontSize: '14px',
+                        fontSize: 'var(--text-sm)',
                         fontWeight: 700,
                         color: '#1F2937',
-                        whiteSpace: 'nowrap',
                       }}
                     >
                       {t('report.training_why_rec')}
                     </span>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      <span style={{ fontSize: '14px', color: '#475569', lineHeight: 1.5 }}>
-                        {whyRec}
+                    <span style={{ fontSize: 'var(--text-sm)', color: '#475569', lineHeight: 1.5 }}>
+                      {whyRec}
+                    </span>
+                    {skillArea && (
+                      <span
+                        style={{
+                          fontSize: 'var(--text-xs)',
+                          color: '#64748B',
+                          lineHeight: 1.4,
+                          marginTop: '2px',
+                        }}
+                      >
+                        {skillArea}
                       </span>
-                      {skillArea && (
-                        <span
-                          style={{
-                            fontSize: '13px',
-                            color: '#64748B',
-                            lineHeight: 1.4,
-                            marginTop: '2px',
-                          }}
-                        >
-                          {skillArea}
-                        </span>
-                      )}
-                    </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -259,6 +246,6 @@ export default function AccordionSkills({ isEn, primarySkills }) {
           )
         })}
       </div>
-    </div>
+    </section>
   )
 }

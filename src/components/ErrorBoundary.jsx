@@ -47,14 +47,35 @@ function Fallback({ message }) {
             {message}
           </pre>
         )}
-        <Button
-          variant="solid"
-          active
-          onClick={() => window.location.reload()}
-          style={{ padding: '12px 28px', fontSize: 14 }}
-        >
-          {t('error_boundary.btn_restart')}
-        </Button>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Button
+            variant="solid"
+            active
+            onClick={() => window.location.reload()}
+            style={{ padding: '12px 28px', fontSize: 14 }}
+          >
+            {t('error_boundary.btn_restart', 'Khởi động lại')}
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              try {
+                localStorage.clear()
+              } catch (e) {
+                console.warn(e)
+              }
+              window.location.href = '/'
+            }}
+            style={{
+              padding: '12px 24px',
+              fontSize: 14,
+              borderColor: 'rgba(255,255,255,0.2)',
+              color: '#cbd5e1',
+            }}
+          >
+            {t('error_boundary.btn_reset_cache', 'Xóa bộ nhớ đệm & Bắt đầu lại')}
+          </Button>
+        </div>
       </div>
     </div>
   )

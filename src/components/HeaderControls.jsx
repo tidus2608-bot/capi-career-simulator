@@ -85,37 +85,15 @@ export default function HeaderControls({ muted, toggleMute }) {
 
   if (isHome || isSummary || isDetails) {
     return (
-      <div
-        className="no-print"
-        style={{
-          position: 'fixed',
-          top: 24,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: 'calc(100% - 48px)',
-          maxWidth: 1200,
-          height: 72,
-          background: '#fff',
-          borderRadius: 36,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0 16px 0 32px',
-          zIndex: 100,
-          boxShadow: '0 4px 24px rgba(0,0,0,0.1)',
-        }}
-      >
-        <div
-          style={{
-            fontSize: 22,
-            fontFamily: 'var(--font-display)',
-            fontWeight: 600,
-            color: '#1a1a2e',
-          }}
-        >
-          Capi Career Path Simulator
+      <header className="intro-navbar no-print">
+        <div className="intro-navbar-title">
+          <span className="intro-navbar-brand--full">Capi Career Path Simulator</span>
+          <span className="intro-navbar-brand--short">Capi Career</span>
         </div>
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+        <div
+          className="intro-navbar-controls"
+          style={{ display: 'flex', gap: 8, alignItems: 'center' }}
+        >
           {isSummary || isDetails ? (
             <>
               <LanguageSwitch />
@@ -146,13 +124,19 @@ export default function HeaderControls({ muted, toggleMute }) {
               </Button>
               <Button
                 variant="outline"
+                className="hide-on-mobile-sm"
                 style={circleButtonStyle}
                 onClick={handleShare}
                 title={t('common.share') || 'Chia sẻ'}
               >
                 <Icon icon="mdi:share-variant-outline" width={20} height={20} />
               </Button>
-              <Button variant="outline" style={circleButtonStyle} title={t('common.save') || 'Lưu'}>
+              <Button
+                variant="outline"
+                className="hide-on-mobile-sm"
+                style={circleButtonStyle}
+                title={t('common.save') || 'Lưu'}
+              >
                 <Icon icon="mdi:bookmark-outline" width={20} height={20} />
               </Button>
             </>
@@ -184,7 +168,7 @@ export default function HeaderControls({ muted, toggleMute }) {
             </>
           )}
         </div>
-      </div>
+      </header>
     )
   }
 
@@ -269,37 +253,46 @@ export default function HeaderControls({ muted, toggleMute }) {
             }}
           >
             {/* Warning Icon */}
-            <div style={{
-              width: 56,
-              height: 56,
-              borderRadius: '50%',
-              backgroundColor: '#FEF2F2',
-              color: '#EF4444',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
+            <div
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: '50%',
+                backgroundColor: '#FEF2F2',
+                color: '#EF4444',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
               <Icon icon="mdi:alert-circle-outline" width={28} height={28} />
             </div>
 
             {/* Content */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <h3 style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 22,
-                fontWeight: 700,
-                color: '#0F172A',
-                margin: 0,
-              }}>
+              <h3
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 22,
+                  fontWeight: 700,
+                  color: '#0F172A',
+                  margin: 0,
+                }}
+              >
                 {t('confirm_exit.title', 'Dừng tiến trình?')}
               </h3>
-              <p style={{
-                fontSize: 15,
-                color: '#64748B',
-                margin: 0,
-                lineHeight: 1.5,
-              }}>
-                {t('confirm_exit.desc', 'Tiến trình làm bài hiện tại của bạn sẽ bị hủy và không được lưu lại. Bạn có chắc chắn muốn quay về trang chủ?')}
+              <p
+                style={{
+                  fontSize: 15,
+                  color: '#64748B',
+                  margin: 0,
+                  lineHeight: 1.5,
+                }}
+              >
+                {t(
+                  'confirm_exit.desc',
+                  'Tiến trình làm bài hiện tại của bạn sẽ bị hủy và không được lưu lại. Bạn có chắc chắn muốn quay về trang chủ?',
+                )}
               </p>
             </div>
 

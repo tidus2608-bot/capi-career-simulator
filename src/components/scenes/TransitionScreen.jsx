@@ -22,39 +22,41 @@ export default function TransitionScreen({ imageSrc, onNext, onBack }) {
   return (
     <SceneShell light className="no-scroll-shell">
       <div
+        className="transition-screen-layout"
         style={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           height: '100%',
+          minHeight: '100%',
           width: '100%',
           boxSizing: 'border-box',
-          padding: 'clamp(20px, 4vh, 40px) 24px clamp(16px, 3vh, 32px)',
+          padding: 'clamp(20px, 3.5vh, 40px) clamp(16px, 3vw, 32px)',
         }}
       >
-        {/* Dynamic Wrapper that shrink-wraps to the card's calculated width */}
         <div
+          className="transition-screen-wrapper"
           style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'stretch',
-            width: 'fit-content',
-            maxWidth: '100%',
-            height: '100%',
-            maxHeight: '100%',
+            width: '100%',
+            maxWidth: 'min(820px, calc((100dvh - 180px) * 45 / 32))',
+            margin: 'auto',
             boxSizing: 'border-box',
           }}
         >
           {/* Widescreen Illustration Card Container */}
           <div
+            className="transition-screen-card"
             style={{
-              height: 'min(calc(100% - 72px), calc((100vw - 48px) * 32 / 45))',
-              maxWidth: '100%',
+              width: '100%',
               aspectRatio: '45 / 32',
+              maxHeight: 'calc(100dvh - 180px)',
               borderRadius: '24px',
               overflow: 'hidden',
-              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
+              boxShadow: '0 12px 36px rgba(0, 0, 0, 0.1)',
               border: '1px solid #E2E8F0',
               backgroundColor: '#0a1030',
               position: 'relative',
@@ -68,6 +70,7 @@ export default function TransitionScreen({ imageSrc, onNext, onBack }) {
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
+                display: 'block',
               }}
               onError={(e) => {
                 e.currentTarget.style.display = 'none'
@@ -81,7 +84,7 @@ export default function TransitionScreen({ imageSrc, onNext, onBack }) {
               display: 'flex',
               gap: '16px',
               width: '100%',
-              marginTop: '24px',
+              marginTop: 'clamp(16px, 2.5vh, 24px)',
               flexShrink: 0,
             }}
           >
@@ -90,7 +93,7 @@ export default function TransitionScreen({ imageSrc, onNext, onBack }) {
               onClick={handleBack}
               style={{
                 flex: 1,
-                height: '48px',
+                minHeight: '48px',
                 borderRadius: '12px',
                 display: 'flex',
                 alignItems: 'center',
@@ -114,7 +117,7 @@ export default function TransitionScreen({ imageSrc, onNext, onBack }) {
               onClick={handleNext}
               style={{
                 flex: 1,
-                height: '48px',
+                minHeight: '48px',
                 borderRadius: '12px',
                 display: 'flex',
                 alignItems: 'center',
