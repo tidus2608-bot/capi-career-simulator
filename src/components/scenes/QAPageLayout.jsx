@@ -18,6 +18,7 @@ export default function QAPageLayout({
   nextText,
   nextDisabled,
   isFinished,
+  coverImage = false,
 }) {
   const { t } = useTranslation()
 
@@ -26,7 +27,9 @@ export default function QAPageLayout({
       <div className="p2-new-layout qa-page-layout">
         {/* Dynamic Split Layout */}
         <div className="p1-split-layout">
-          <div className="p1-left-illustration">
+          <div
+            className={`p1-left-illustration ${coverImage ? 'p1-left-illustration--cover' : ''}`}
+          >
             <img src={imageSrc} alt="" />
           </div>
 

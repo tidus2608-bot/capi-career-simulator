@@ -12,21 +12,7 @@ export default function LanguageSwitch({ style = {} }) {
   const current = i18n.resolvedLanguage || i18n.language || 'vi'
 
   return (
-    <div
-      role="group"
-      aria-label="Language"
-      className="lang-switch"
-      style={{
-        display: 'inline-flex',
-        gap: 4,
-        padding: 4,
-        border: '1px solid var(--line)',
-        borderRadius: 999,
-        background: 'rgba(10,16,48,0.5)',
-        backdropFilter: 'blur(8px)',
-        ...style,
-      }}
-    >
+    <div role="group" aria-label="Language" className="lang-switch" style={style}>
       {SUPPORTED_LANGS.map((lng) => {
         const active = current === lng
         return (
@@ -38,19 +24,7 @@ export default function LanguageSwitch({ style = {} }) {
             aria-pressed={active}
             aria-label={t(`lang.${lng}`)}
             title={t(`lang.${lng}`)}
-            style={{
-              padding: '4px 10px',
-              borderRadius: 999,
-              fontSize: 12,
-              fontFamily: 'var(--font-mono)',
-              letterSpacing: '0.1em',
-              fontWeight: 600,
-              background: active ? 'var(--cyan)' : 'transparent',
-              color: active ? '#021820' : '#c8d2ff',
-              border: 'none',
-              cursor: active ? 'default' : 'pointer',
-              transition: 'all 0.15s ease',
-            }}
+            className={`lang-switch-btn ${active ? 'active' : ''}`}
           >
             {LANG_LABELS[lng]}
           </Button>

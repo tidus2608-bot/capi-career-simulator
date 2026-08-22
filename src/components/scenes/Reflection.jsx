@@ -71,6 +71,7 @@ export default function ReflectionScene() {
       onNext={next}
       nextDisabled={currentValue === null}
       isFinished={idx + 1 >= PHASE3_QUESTIONS.length}
+      coverImage
     />
   )
 }

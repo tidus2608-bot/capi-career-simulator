@@ -127,7 +127,7 @@ export default function MissionPlayScene() {
       <div className="p2-new-layout qa-page-layout">
         {/* Split Layout */}
         <div className="p1-split-layout">
-          <div className="p1-left-illustration">
+          <div className="p1-left-illustration p1-left-illustration--cover">
             <img
               src={illoSrc}
               alt=""
