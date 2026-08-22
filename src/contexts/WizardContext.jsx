@@ -1,30 +1,67 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { supabase } from '../lib/supabase.js'
-import { topRole, PHASE1_QUESTIONS } from '../data.js'
+import { topRole, PHASE1_QUESTIONS, CAPI_MISSIONS, CAPI_THEMES } from '../data.js'
 import { calculateScore, buildCertificateCopy } from '../lib/scoring.js'
 
 const WizardContext = createContext(null)
 
 const SAVE_TIMEOUT_MS = 10_000
 
-function useLocalStorageState(key, defaultValue) {
+export const APP_STORAGE_KEYS = [
+  'scanIntroActive',
+  'phase1Answers',
+  'phase1TopRole',
+  'selectedTheme',
+  'selectedMission',
+  'phase2Answers',
+  'phase3Answers',
+  'scoringResult',
+  'certCopy',
+  'startedAt',
+  'savedRunId',
+  'pendingRunRow',
+  'scanIndex',
+  'missionPlayIndices',
+  'reflectIndex',
+  'scanQuestions',
+  'capi_muted',
+]
+
+export function clearAppStorage() {
+  try {
+    for (const k of APP_STORAGE_KEYS) {
+      window.localStorage.removeItem(k)
+    }
+  } catch (e) {
+    console.warn('Failed to clear app storage:', e)
+  }
+}
+
+export function useLocalStorageState(key, defaultValue, validator) {
   const [state, setState] = useState(() => {
     try {
       const saved = window.localStorage.getItem(key)
       if (saved !== null) {
-        return JSON.parse(saved)
+        const parsed = JSON.parse(saved)
+        if (!validator || validator(parsed)) {
+          return parsed
+        }
       }
     } catch (e) {
-      console.warn('Failed to load state from localStorage:', e)
+      console.warn(`Failed to load state for ${key} from localStorage:`, e)
     }
     return typeof defaultValue === 'function' ? defaultValue() : defaultValue
   })
 
   useEffect(() => {
     try {
-      window.localStorage.setItem(key, JSON.stringify(state))
+      if (state === undefined) {
+        window.localStorage.removeItem(key)
+      } else {
+        window.localStorage.setItem(key, JSON.stringify(state))
+      }
     } catch (e) {
-      console.warn('Failed to save state to localStorage:', e)
+      console.warn(`Failed to save state for ${key} to localStorage:`, e)
     }
   }, [key, state])
 
@@ -36,30 +73,98 @@ export function WizardProvider({ children }) {
   const [session, setSession] = useState(null)
   const [authLoading, setAuthLoading] = useState(true)
 
-  // Persistent States
-  const [scanIntroActive, setScanIntroActive] = useLocalStorageState('scanIntroActive', true)
-  const [phase1Answers, setPhase1Answers] = useLocalStorageState('phase1Answers', {
-    selfPerception: {},
-    confidence: {},
-  })
-  const [phase1TopRole, setPhase1TopRole] = useLocalStorageState('phase1TopRole', null)
-  const [selectedTheme, setSelectedTheme] = useLocalStorageState('selectedTheme', null)
-  const [selectedMission, setSelectedMission] = useLocalStorageState('selectedMission', null)
-  const [phase2Answers, setPhase2Answers] = useLocalStorageState('phase2Answers', {})
-  const [phase3Answers, setPhase3Answers] = useLocalStorageState('phase3Answers', {})
+  // Persistent States with integrity validators
+  const [scanIntroActive, setScanIntroActive] = useLocalStorageState(
+    'scanIntroActive',
+    true,
+    (v) => typeof v === 'boolean',
+  )
+  const [phase1Answers, setPhase1Answers] = useLocalStorageState(
+    'phase1Answers',
+    { selfPerception: {}, confidence: {} },
+(v) =>
+  v &&
+  typeof v === 'object' &&
+  v.selfPerception &&
+  typeof v.selfPerception === 'object' &&
+  !Array.isArray(v.selfPerception) &&
+  v.confidence &&
+  typeof v.confidence === 'object' &&
+  !Array.isArray(v.confidence),
+  const [phase1TopRole, setPhase1TopRole] = useLocalStorageState(
+    'phase1TopRole',
+    null,
+    (v) => v === null || typeof v === 'string',
+  )
+  const [selectedTheme, setSelectedTheme] = useLocalStorageState(
+    'selectedTheme',
+    null,
+    (v) => v === null || Boolean(CAPI_THEMES[v]),
+  )
+  const [selectedMission, setSelectedMission] = useLocalStorageState(
+    'selectedMission',
+    null,
+    (v) => v === null || Boolean(CAPI_MISSIONS[v]) || Boolean(CAPI_MISSIONS[Number(v)]),
+  )
+  const [phase2Answers, setPhase2Answers] = useLocalStorageState(
+    'phase2Answers',
+    {},
+    (v) => v && typeof v === 'object',
+  )
+  const [phase3Answers, setPhase3Answers] = useLocalStorageState(
+    'phase3Answers',
+    {},
+    (v) => v && typeof v === 'object',
+  )
 
   // Computed results & progress
-  const [scoringResult, setScoringResult] = useLocalStorageState('scoringResult', null)
-  const [certCopy, setCertCopy] = useLocalStorageState('certCopy', null)
-  const [startedAt, setStartedAt] = useLocalStorageState('startedAt', null)
-  const [savedRunId, setSavedRunId] = useLocalStorageState('savedRunId', null)
-  const [pendingRunRow, setPendingRunRow] = useLocalStorageState('pendingRunRow', null)
+  const [scoringResult, setScoringResult] = useLocalStorageState(
+    'scoringResult',
+    null,
+    (v) => v === null || (typeof v === 'object' && v.final && v.primaryRole),
+  )
+  const [certCopy, setCertCopy] = useLocalStorageState(
+    'certCopy',
+    null,
+    (v) => v === null || typeof v === 'object',
+  )
+  const [startedAt, setStartedAt] = useLocalStorageState(
+    'startedAt',
+    null,
+    (v) => v === null || typeof v === 'string',
+  )
+  const [savedRunId, setSavedRunId] = useLocalStorageState(
+    'savedRunId',
+    null,
+    (v) => v === null || typeof v === 'string',
+  )
+  const [pendingRunRow, setPendingRunRow] = useLocalStorageState(
+    'pendingRunRow',
+    null,
+    (v) => v === null || typeof v === 'object',
+  )
 
   // Exact question indexes
-  const [scanIndex, setScanIndex] = useLocalStorageState('scanIndex', 0)
-  const [missionPlayIndices, setMissionPlayIndices] = useLocalStorageState('missionPlayIndices', {})
-  const [reflectIndex, setReflectIndex] = useLocalStorageState('reflectIndex', 0)
-  const [scanQuestions, setScanQuestions] = useLocalStorageState('scanQuestions', null)
+  const [scanIndex, setScanIndex] = useLocalStorageState(
+    'scanIndex',
+    0,
+    (v) => typeof v === 'number' && v >= 0,
+  )
+  const [missionPlayIndices, setMissionPlayIndices] = useLocalStorageState(
+    'missionPlayIndices',
+    {},
+    (v) => v && typeof v === 'object',
+  )
+  const [reflectIndex, setReflectIndex] = useLocalStorageState(
+    'reflectIndex',
+    0,
+    (v) => typeof v === 'number' && v >= 0,
+  )
+  const [scanQuestions, setScanQuestions] = useLocalStorageState(
+    'scanQuestions',
+    null,
+    (v) => v === null || Array.isArray(v),
+  )
 
   // Transient Save status
   const [saveStatus, setSaveStatus] = useState('idle') // 'idle' | 'saving' | 'success' | 'error' | 'skipped'
@@ -310,6 +415,7 @@ export function WizardProvider({ children }) {
         retrySave,
         loadRun,
         onRestart,
+        clearAppStorage,
       }}
     >
       {children}

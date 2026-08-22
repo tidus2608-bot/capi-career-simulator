@@ -113,30 +113,51 @@ export default function ScanningScene() {
       <SceneShell light>
         <div style={{ display: 'grid', placeItems: 'center', minHeight: '100%', padding: 24 }}>
           <div
-            className="glass fade-up"
+            className="scanning-intro-card fade-up"
             style={{
-              maxWidth: 600,
-              padding: '32px 36px',
+              background: '#FFFFFF',
+              border: '1px solid #E2E8F0',
+              borderRadius: '24px',
+              boxShadow: '0 12px 36px rgba(0, 0, 0, 0.06)',
+              maxWidth: 580,
+              width: '100%',
+              padding: '36px 40px',
               textAlign: 'center',
               display: 'flex',
               flexDirection: 'column',
               gap: 20,
               alignItems: 'center',
+              boxSizing: 'border-box',
             }}
           >
-            <div className="mono" style={{ color: '#843497' }}>
+            <div
+              className="mono"
+              style={{ color: '#843497', fontWeight: 700, fontSize: 'var(--text-sm)' }}
+            >
               {t('intro.scan_intro_title')}
             </div>
             <p
-              style={{ color: '#6b7280', fontSize: 14, lineHeight: 1.65, margin: 0 }}
+              style={{
+                color: '#475569',
+                fontSize: 'var(--text-base)',
+                lineHeight: 1.65,
+                margin: 0,
+              }}
               dangerouslySetInnerHTML={{ __html: t('intro.scan_intro_blurb') }}
             />
-            <div style={{ display: 'flex', gap: 16, width: '100%' }}>
+            <div className="scanning-intro-actions">
               <Button
                 variant="outline"
                 onClick={() => {
                   capiAudio.sfx('click')
                   navigate('/')
+                }}
+                className="scanning-intro-btn-back"
+                style={{
+                  height: 48,
+                  borderRadius: 12,
+                  fontSize: 'var(--text-base)',
+                  fontWeight: 600,
                 }}
               >
                 {t('common.back_btn')}
@@ -147,6 +168,13 @@ export default function ScanningScene() {
                 onClick={() => {
                   capiAudio.sfx('click')
                   setShowIntro(false)
+                }}
+                className="scanning-intro-btn-start"
+                style={{
+                  height: 48,
+                  borderRadius: 12,
+                  fontSize: 'var(--text-base)',
+                  fontWeight: 700,
                 }}
               >
                 {t('intro.scan_intro_btn')}

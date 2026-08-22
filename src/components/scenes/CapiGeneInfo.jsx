@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { capiAudio } from '../../audio.js'
@@ -18,42 +18,38 @@ export default function CapiGeneInfoScene() {
   const roles = missionsData.roles
   const activeRole = roles[activeIdx]
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     capiAudio.sfx('click')
     setActiveIdx((prev) => (prev === 0 ? roles.length - 1 : prev - 1))
-  }
+  }, [roles.length])
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     capiAudio.sfx('click')
     setActiveIdx((prev) => (prev === roles.length - 1 ? 0 : prev + 1))
-  }
+  }, [roles.length])
+
+  // Keyboard navigation
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'ArrowLeft') handlePrev()
+      if (e.key === 'ArrowRight') handleNext()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [handleNext, handlePrev])
 
   return (
     <SceneShell light className="no-scroll-shell">
-      <div
-        className="p2-new-layout"
-        style={{
-          padding: 'clamp(16px, 2.5vh, 28px) 24px clamp(12px, 2vh, 24px)',
-          height: '100%',
-          justifyContent: 'space-between',
-        }}
-      >
+      <div className="p2-new-layout capi-gene-info-layout">
         <h2 className="p2-new-header">{t('common.capi_gene_info_title')}</h2>
 
         <div className="role-carousel-wrapper">
           <button
-            className="role-carousel-btn"
+            className="role-carousel-btn role-carousel-btn-prev"
             onClick={handlePrev}
-            style={{
-              background: 'rgba(0,0,0,0.05)',
-              color: '#1a1a2e',
-              borderColor: 'rgba(0,0,0,0.1)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+            aria-label="Previous role"
           >
-            <Icon icon="mdi:chevron-left" width="24" height="24" />
+            <Icon icon="mdi:chevron-left" width="28" height="28" />
           </button>
 
           <div className="info-carousel-container">
@@ -95,19 +91,36 @@ export default function CapiGeneInfoScene() {
           </div>
 
           <button
-            className="role-carousel-btn"
+            className="role-carousel-btn role-carousel-btn-next"
             onClick={handleNext}
-            style={{
-              background: 'rgba(0,0,0,0.05)',
-              color: '#1a1a2e',
-              borderColor: 'rgba(0,0,0,0.1)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+            aria-label="Next role"
           >
-            <Icon icon="mdi:chevron-right" width="24" height="24" />
+            <Icon icon="mdi:chevron-right" width="28" height="28" />
           </button>
+        </div>
+
+        {/* Carousel Pagination Dots */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 8, margin: '-8px 0 8px' }}>
+          {roles.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => {
+                capiAudio.sfx('click')
+                setActiveIdx(idx)
+              }}
+              style={{
+                width: idx === activeIdx ? 24 : 8,
+                height: 8,
+                borderRadius: 4,
+                background: idx === activeIdx ? '#843497' : '#cbd5e1',
+                border: 'none',
+                padding: 0,
+                cursor: 'pointer',
+                transition: 'all 0.25s ease',
+              }}
+              aria-label={`Go to role ${idx + 1}`}
+            />
+          ))}
         </div>
 
         {/* Permanent details box below the active card */}
@@ -129,7 +142,7 @@ export default function CapiGeneInfoScene() {
               </div>
               {t('common.role_description')}
             </div>
-            <p className="p2-info-details-text">
+            <p className="p2-info-details-text" style={{ whiteSpace: 'pre-line', lineHeight: 1.6 }}>
               {isEn ? activeRole.short_description_en : activeRole.short_description_vn}
             </p>
           </div>
@@ -161,12 +174,19 @@ export default function CapiGeneInfoScene() {
           </div>
         </div>
 
-        <div className="p2-new-actions" style={{ width: '100%', maxWidth: 960 }}>
+        <div className="p2-new-actions" style={{ width: '100%', maxWidth: 1100 }}>
           <Button
             variant="outline"
             onClick={() => {
               capiAudio.sfx('click')
               navigate('/')
+            }}
+            style={{
+              flex: 1,
+              height: 50,
+              borderRadius: 14,
+              fontSize: 'var(--text-base)',
+              fontWeight: 600,
             }}
           >
             {t('common.back_btn')}
@@ -180,6 +200,13 @@ export default function CapiGeneInfoScene() {
               setStartedAt(new Date().toISOString())
               setScanIntroActive(true)
               navigate('/scan')
+            }}
+            style={{
+              flex: 1.2,
+              height: 50,
+              borderRadius: 14,
+              fontSize: 'var(--text-base)',
+              fontWeight: 700,
             }}
           >
             {t('intro.btn_scan_gene')}

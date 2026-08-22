@@ -15,11 +15,11 @@ export default function ThemeScene() {
   const themes = Object.values(CAPI_THEMES)
 
   return (
-    <div className="p2-shell" style={{ overflowY: 'auto' }}>
-      <div className="p2-new-layout">
+    <div className="p2-shell" style={{ overflowY: 'auto', WebkitOverflowScrolling: 'touch' }}>
+      <div className="p2-new-layout theme-select-layout">
         <h2 className="p2-new-header">{t('common.select_challenge')}</h2>
 
-        <div className="p2-new-grid">
+        <div className="p2-new-grid theme-grid">
           {themes.map((tData) => (
             <div
               key={tData.id}

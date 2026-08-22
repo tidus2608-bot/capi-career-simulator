@@ -105,7 +105,11 @@ export default function ReportDetails() {
         dangerouslySetInnerHTML={{
           __html: `
           @media print {
-            body {
+            html, body, #app, #root, .fade-in {
+              position: static !important;
+              height: auto !important;
+              min-height: auto !important;
+              overflow: visible !important;
               background-color: #FFFFFF !important;
               color: #000000 !important;
             }
@@ -116,46 +120,29 @@ export default function ReportDetails() {
               padding: 0 !important;
               max-width: 100% !important;
               margin: 0 !important;
+              display: block !important;
             }
             .print-card {
               box-shadow: none !important;
               border: 1px solid #E2E8F0 !important;
-              page-break-inside: avoid;
-              margin-bottom: 20px;
+              break-inside: avoid !important;
+              page-break-inside: avoid !important;
+              margin-bottom: 24px !important;
             }
             .page-break {
-              page-break-before: always;
+              break-before: page !important;
+              page-break-before: always !important;
             }
           }
         `,
         }}
       />
       {/* Main Report Container */}
-      <div
-        className="print-container"
-        style={{
-          maxWidth: '1000px',
-          margin: '0 auto',
-          padding: '120px 24px 40px 24px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '32px',
-        }}
-      >
+      <div className="print-container report-details-container">
         {/* Title Block 1 */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-end',
-            borderBottom: '2px solid #E2E8F0',
-            paddingBottom: '16px',
-          }}
-        >
+        <div className="report-details-header">
           <div>
-            <h1 style={{ fontSize: '32px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-              {t('report.details_title_main')}
-            </h1>
+            <h1 className="report-details-title">{t('report.details_title_main')}</h1>
             <span
               style={{
                 fontSize: '13px',

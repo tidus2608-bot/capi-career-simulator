@@ -25,7 +25,7 @@ export default function QAPageLayout({
   return (
     <SceneShell light className="no-scroll-shell">
       <div
-        className="p2-new-layout"
+        className="p2-new-layout qa-page-layout"
         style={{
           height: '100%',
           padding: 'clamp(20px, 3.5vh, 40px) 48px clamp(16px, 2.5vh, 32px)',
@@ -36,38 +36,47 @@ export default function QAPageLayout({
       >
         {/* Dynamic Split Layout */}
         <div className="p1-split-layout">
-          <div className="p1-left-illustration">
+          <div className="p1-left-illustration" style={{ position: 'relative', height: '100%' }}>
             <img src={imageSrc} alt="" style={imageStyle} />
           </div>
 
           <div className="p1-right-content">
-            {/* Progress Bar Container */}
-            <div className="p1-progress-bar-container">
-              <div className="p1-progress-labels">
-                <span>
-                  {t('common.question_progress', {
-                    num: String(idx + 1).padStart(2, '0'),
-                    total: String(total).padStart(2, '0'),
-                  })}
-                </span>
-                <span>
-                  {t('common.percent_completed', { percent: Math.round((idx / total) * 100) })}
-                </span>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'clamp(14px, 2vh, 20px)',
+                width: '100%',
+              }}
+            >
+              {/* Progress Bar Container */}
+              <div className="p1-progress-bar-container">
+                <div className="p1-progress-labels">
+                  <span>
+                    {t('common.question_progress', {
+                      num: String(idx + 1).padStart(2, '0'),
+                      total: String(total).padStart(2, '0'),
+                    })}
+                  </span>
+                  <span>
+                    {t('common.percent_completed', { percent: Math.round((idx / total) * 100) })}
+                  </span>
+                </div>
+                <div className="p1-progress-outer">
+                  <div className="p1-progress-inner" style={{ width: `${(idx / total) * 100}%` }} />
+                </div>
               </div>
-              <div className="p1-progress-outer">
-                <div className="p1-progress-inner" style={{ width: `${(idx / total) * 100}%` }} />
-              </div>
+
+              <QASection
+                key={idx}
+                questionText={questionText}
+                options={options}
+                selectedValue={selectedValue}
+                onSelect={onSelect}
+              />
             </div>
 
-            <QASection
-              key={idx}
-              questionText={questionText}
-              options={options}
-              selectedValue={selectedValue}
-              onSelect={onSelect}
-            />
-
-            <div className="p2-new-actions" style={{ width: '100%' }}>
+            <div className="p2-new-actions" style={{ width: '100%', marginTop: 'auto' }}>
               <Button variant="outline" onClick={onBack}>
                 {backText || t('common.back_btn') || '← Quay lại'}
               </Button>

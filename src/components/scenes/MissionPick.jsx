@@ -18,7 +18,7 @@ export default function MissionPickScene() {
   return (
     <SceneShell light className="no-scroll-shell">
       <div
-        className="p2-new-layout"
+        className="p2-new-layout mission-pick-layout"
         style={{
           height: '100%',
           padding: 'clamp(20px, 3.5vh, 40px) 48px clamp(16px, 2.5vh, 32px)',
