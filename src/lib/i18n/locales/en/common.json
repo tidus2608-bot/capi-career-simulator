@@ -122,7 +122,9 @@
     "career_fit_title": "Matching Career",
     "best_env_title": "Optimal Environment",
     "activities_try_title": "Activities to Try",
+    "major_label": "Suggested Major",
     "reason_label": "Rationale",
+    "default_activity": "Participate in hands-on maker projects and study clubs.",
     "no_data_title": "No Comparison Data Found",
     "no_data_desc": "Please return to the history page and select 2 attempts to compare."
   },

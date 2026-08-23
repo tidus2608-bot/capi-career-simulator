@@ -122,7 +122,9 @@
     "career_fit_title": "Nghề nghiệp phù hợp",
     "best_env_title": "Môi trường phù hợp",
     "activities_try_title": "Con có thể thử",
+    "major_label": "Chuyên ngành",
     "reason_label": "Lý do",
+    "default_activity": "Tham gia các dự án thực tế và câu lạc bộ học tập.",
     "no_data_title": "Không tìm thấy dữ liệu so sánh",
     "no_data_desc": "Vui lòng quay lại trang lịch sử và chọn đủ 2 lượt làm bài để đối chiếu."
   },

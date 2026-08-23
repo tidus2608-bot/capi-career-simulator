@@ -133,10 +133,10 @@ function ComparisonColumn({ run, index, isEn, t }) {
         backgroundColor: '#FFFFFF',
         borderRadius: 24,
         border: `1.5px solid ${accentBorder}`,
-        padding: '24px 22px',
+        padding: '28px 24px',
         display: 'flex',
         flexDirection: 'column',
-        gap: 22,
+        gap: 24,
         boxShadow: '0 8px 30px rgba(0, 0, 0, 0.04)',
       }}
     >
@@ -147,21 +147,22 @@ function ComparisonColumn({ run, index, isEn, t }) {
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
-          gap: 10,
-          paddingBottom: 16,
+          gap: 12,
+          paddingBottom: 18,
           borderBottom: '1px solid #F1F5F9',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span
             style={{
-              width: 26,
-              height: 26,
+              width: 28,
+              height: 28,
               borderRadius: '50%',
               backgroundColor: accentColor,
               color: '#FFFFFF',
               fontWeight: 800,
-              fontSize: 13,
+              fontSize: 14,
+              fontFamily: 'var(--font-display)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -171,7 +172,7 @@ function ComparisonColumn({ run, index, isEn, t }) {
           </span>
           <span
             style={{
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: 800,
               color: '#0F172A',
               fontFamily: 'var(--font-display)',
@@ -184,17 +185,27 @@ function ComparisonColumn({ run, index, isEn, t }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
           <span
             style={{
-              fontSize: 12,
+              fontSize: 13,
               fontWeight: 700,
+              fontFamily: 'var(--font-display)',
               backgroundColor: '#F1F5F9',
-              color: '#475569',
-              padding: '4px 10px',
+              color: '#334155',
+              padding: '4px 12px',
               borderRadius: 9999,
             }}
           >
             {missionTitle}
           </span>
-          <span style={{ fontSize: 12, color: '#94A3B8', fontWeight: 500 }}>{formattedDate}</span>
+          <span
+            style={{
+              fontSize: 13.5,
+              color: '#64748B',
+              fontWeight: 500,
+              fontFamily: 'var(--font-body)',
+            }}
+          >
+            {formattedDate}
+          </span>
         </div>
       </div>
 
@@ -204,28 +215,28 @@ function ComparisonColumn({ run, index, isEn, t }) {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: 12,
+          gap: 14,
           padding: '8px 0',
         }}
       >
-        <SummaryRadar scores={run.scores?.phase2 || run.scores?.final} size={230} />
+        <SummaryRadar scores={run.scores?.phase2 || run.scores?.final} size={260} />
 
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 10,
+            gap: 12,
             backgroundColor: roleConfig.bg,
-            padding: '8px 16px',
-            borderRadius: 14,
-            border: `1px solid ${roleConfig.color}20`,
+            padding: '10px 20px',
+            borderRadius: 16,
+            border: `1px solid ${roleConfig.color}25`,
           }}
         >
           <div
             style={{
-              width: 32,
-              height: 32,
-              borderRadius: 8,
+              width: 36,
+              height: 36,
+              borderRadius: 10,
               backgroundColor: '#FFFFFF',
               color: roleConfig.color,
               display: 'flex',
@@ -234,21 +245,29 @@ function ComparisonColumn({ run, index, isEn, t }) {
               boxShadow: '0 2px 6px rgba(0,0,0,0.06)',
             }}
           >
-            <Icon icon={roleConfig.icon} width={18} height={18} />
+            <Icon icon={roleConfig.icon} width={22} height={22} />
           </div>
           <div>
             <div
               style={{
-                fontSize: 15,
+                fontSize: 18,
                 fontWeight: 800,
                 color: '#0F172A',
                 fontFamily: 'var(--font-display)',
-                lineHeight: 1.2,
+                lineHeight: 1.25,
               }}
             >
               {roleName}
             </div>
-            <div style={{ fontSize: 11, color: '#64748B', fontWeight: 600 }}>
+            <div
+              style={{
+                fontSize: 12.5,
+                color: '#64748B',
+                fontWeight: 700,
+                fontFamily: 'var(--font-display)',
+                marginTop: 1,
+              }}
+            >
               {t('history.primary_role_badge', 'Vai trò chính')}
             </div>
           </div>
@@ -259,18 +278,18 @@ function ComparisonColumn({ run, index, isEn, t }) {
       <div
         style={{
           borderTop: '1px solid #F1F5F9',
-          paddingTop: 16,
+          paddingTop: 18,
           display: 'flex',
           flexDirection: 'column',
-          gap: 10,
+          gap: 12,
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <Icon icon="mdi:creation-outline" width={18} height={18} color="#843497" />
+          <Icon icon="mdi:creation-outline" width={20} height={20} color="#843497" />
           <h4
             style={{
               margin: 0,
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: 800,
               color: '#0F172A',
               fontFamily: 'var(--font-display)',
@@ -286,7 +305,7 @@ function ComparisonColumn({ run, index, isEn, t }) {
             listStyle: 'none',
             display: 'flex',
             flexDirection: 'column',
-            gap: 8,
+            gap: 10,
           }}
         >
           {naturalBehaviors.length > 0 ? (
@@ -296,18 +315,36 @@ function ComparisonColumn({ run, index, isEn, t }) {
                 style={{
                   display: 'flex',
                   alignItems: 'flex-start',
-                  gap: 8,
-                  fontSize: 13,
-                  lineHeight: 1.45,
+                  gap: 10,
+                  fontSize: 14.5,
+                  lineHeight: 1.6,
                   color: '#334155',
+                  fontFamily: 'var(--font-body)',
                 }}
               >
-                <span style={{ color: roleConfig.color, fontWeight: 800, marginTop: -1 }}>•</span>
+                <span
+                  style={{
+                    color: roleConfig.color,
+                    fontWeight: 800,
+                    fontSize: 18,
+                    lineHeight: 1,
+                    marginTop: 1,
+                  }}
+                >
+                  •
+                </span>
                 <span>{item}</span>
               </li>
             ))
           ) : (
-            <li style={{ fontSize: 13, color: '#64748B' }}>
+            <li
+              style={{
+                fontSize: 14.5,
+                color: '#64748B',
+                fontFamily: 'var(--font-body)',
+                lineHeight: 1.6,
+              }}
+            >
               {roleCatalog.tagline || roleCatalog.subtitle || ''}
             </li>
           )}
@@ -319,10 +356,10 @@ function ComparisonColumn({ run, index, isEn, t }) {
         <div
           style={{
             borderTop: '1px solid #F1F5F9',
-            paddingTop: 16,
+            paddingTop: 18,
             display: 'flex',
             flexDirection: 'column',
-            gap: 8,
+            gap: 10,
           }}
         >
           <div
@@ -335,11 +372,11 @@ function ComparisonColumn({ run, index, isEn, t }) {
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <Icon icon="mdi:briefcase-outline" width={18} height={18} color="#843497" />
+              <Icon icon="mdi:briefcase-outline" width={20} height={20} color="#843497" />
               <h4
                 style={{
                   margin: 0,
-                  fontSize: 14,
+                  fontSize: 16,
                   fontWeight: 800,
                   color: '#0F172A',
                   fontFamily: 'var(--font-display)',
@@ -352,12 +389,13 @@ function ComparisonColumn({ run, index, isEn, t }) {
             {singleCareer.domain && (
               <span
                 style={{
-                  fontSize: 11,
+                  fontSize: 12.5,
                   fontWeight: 700,
+                  fontFamily: 'var(--font-display)',
                   backgroundColor: '#EFF6FF',
                   color: '#2563EB',
-                  padding: '2px 8px',
-                  borderRadius: 6,
+                  padding: '3px 10px',
+                  borderRadius: 8,
                 }}
               >
                 {singleCareer.domain}
@@ -368,10 +406,11 @@ function ComparisonColumn({ run, index, isEn, t }) {
           {/* Career Name */}
           <div
             style={{
-              fontSize: 15,
+              fontSize: 17,
               fontWeight: 800,
               color: '#0F172A',
               fontFamily: 'var(--font-display)',
+              marginTop: 2,
             }}
           >
             {singleCareer.career || singleCareer.name}
@@ -379,16 +418,34 @@ function ComparisonColumn({ run, index, isEn, t }) {
 
           {/* Suggested Major */}
           {singleCareer.suggested_major && (
-            <div style={{ fontSize: 12.5, color: '#475569', lineHeight: 1.45 }}>
-              <strong style={{ color: '#0F172A' }}>Chuyên ngành:</strong>{' '}
+            <div
+              style={{
+                fontSize: 14.5,
+                color: '#334155',
+                lineHeight: 1.6,
+                fontFamily: 'var(--font-body)',
+              }}
+            >
+              <strong style={{ color: '#0F172A', fontWeight: 700 }}>
+                {t('compare.major_label', 'Chuyên ngành')}:
+              </strong>{' '}
               {singleCareer.suggested_major}
             </div>
           )}
 
           {/* Rationale / Why fit */}
           {singleCareer.why_fit && (
-            <div style={{ fontSize: 12.5, color: '#64748B', lineHeight: 1.45 }}>
-              <strong style={{ color: '#334155' }}>{t('compare.reason_label', 'Lý do')}:</strong>{' '}
+            <div
+              style={{
+                fontSize: 14,
+                color: '#475569',
+                lineHeight: 1.6,
+                fontFamily: 'var(--font-body)',
+              }}
+            >
+              <strong style={{ color: '#1E293B', fontWeight: 700 }}>
+                {t('compare.reason_label', 'Lý do')}:
+              </strong>{' '}
               {singleCareer.why_fit}
             </div>
           )}
@@ -399,18 +456,18 @@ function ComparisonColumn({ run, index, isEn, t }) {
       <div
         style={{
           borderTop: '1px solid #F1F5F9',
-          paddingTop: 16,
+          paddingTop: 18,
           display: 'flex',
           flexDirection: 'column',
-          gap: 6,
+          gap: 8,
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <Icon icon="mdi:domain" width={18} height={18} color="#843497" />
+          <Icon icon="mdi:domain" width={20} height={20} color="#843497" />
           <h4
             style={{
               margin: 0,
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: 800,
               color: '#0F172A',
               fontFamily: 'var(--font-display)',
@@ -422,10 +479,11 @@ function ComparisonColumn({ run, index, isEn, t }) {
         <p
           style={{
             margin: 0,
-            fontSize: 13,
-            lineHeight: 1.45,
-            color: '#475569',
+            fontSize: 14.5,
+            lineHeight: 1.6,
+            color: '#334155',
             fontWeight: 500,
+            fontFamily: 'var(--font-body)',
           }}
         >
           {bestEnvironment}
@@ -436,18 +494,18 @@ function ComparisonColumn({ run, index, isEn, t }) {
       <div
         style={{
           borderTop: '1px solid #F1F5F9',
-          paddingTop: 16,
+          paddingTop: 18,
           display: 'flex',
           flexDirection: 'column',
-          gap: 10,
+          gap: 12,
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <Icon icon="mdi:rocket-launch-outline" width={18} height={18} color="#843497" />
+          <Icon icon="mdi:rocket-launch-outline" width={20} height={20} color="#843497" />
           <h4
             style={{
               margin: 0,
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: 800,
               color: '#0F172A',
               fontFamily: 'var(--font-display)',
@@ -463,7 +521,7 @@ function ComparisonColumn({ run, index, isEn, t }) {
             listStyle: 'none',
             display: 'flex',
             flexDirection: 'column',
-            gap: 6,
+            gap: 8,
           }}
         >
           {activitiesList.length > 0 ? (
@@ -473,19 +531,30 @@ function ComparisonColumn({ run, index, isEn, t }) {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 8,
-                  fontSize: 12.5,
+                  gap: 10,
+                  fontSize: 14,
                   fontWeight: 600,
                   color: '#1E293B',
+                  fontFamily: 'var(--font-body)',
+                  lineHeight: 1.5,
                 }}
               >
-                <span style={{ color: '#843497', fontSize: 13 }}>✦</span>
+                <span style={{ color: '#843497', fontSize: 14 }}>✦</span>
                 <span>{act.activity_name}</span>
               </li>
             ))
           ) : (
-            <li style={{ fontSize: 12.5, color: '#64748B' }}>
-              Tham gia các dự án thực tế và câu lạc bộ học tập.
+            <li
+              style={{
+                fontSize: 14,
+                color: '#64748B',
+                fontFamily: 'var(--font-body)',
+              }}
+            >
+              {t(
+                'compare.default_activity',
+                'Tham gia các dự án thực tế và câu lạc bộ học tập.',
+              )}
             </li>
           )}
         </ul>
@@ -561,7 +630,7 @@ export default function CompareResultsScene() {
           <div>
             <h1
               style={{
-                fontSize: 24,
+                fontSize: 26,
                 fontWeight: 800,
                 color: '#0F172A',
                 margin: 0,
@@ -573,9 +642,11 @@ export default function CompareResultsScene() {
             </h1>
             <p
               style={{
-                fontSize: 14,
+                fontSize: 15,
                 color: '#64748B',
-                margin: '4px 0 0 0',
+                margin: '6px 0 0 0',
+                fontFamily: 'var(--font-body)',
+                lineHeight: 1.5,
               }}
             >
               {t(
@@ -591,8 +662,8 @@ export default function CompareResultsScene() {
                 src={userAvatar}
                 alt={user?.email || 'User'}
                 style={{
-                  width: 44,
-                  height: 44,
+                  width: 48,
+                  height: 48,
                   borderRadius: '50%',
                   objectFit: 'cover',
                   border: '2px solid #E2E8F0',
@@ -601,8 +672,8 @@ export default function CompareResultsScene() {
             ) : (
               <div
                 style={{
-                  width: 44,
-                  height: 44,
+                  width: 48,
+                  height: 48,
                   borderRadius: '50%',
                   backgroundColor: '#F1F5F9',
                   display: 'flex',
@@ -612,7 +683,7 @@ export default function CompareResultsScene() {
                   border: '2px solid #E2E8F0',
                 }}
               >
-                <Icon icon="mdi:account" width={24} height={24} />
+                <Icon icon="mdi:account" width={26} height={26} />
               </div>
             )}
           </div>
@@ -625,8 +696,10 @@ export default function CompareResultsScene() {
             display: 'flex',
             alignItems: 'center',
             gap: 8,
-            fontSize: 13,
+            fontSize: 14,
+            fontWeight: 500,
             color: '#64748B',
+            fontFamily: 'var(--font-body)',
             marginTop: -8,
             flexWrap: 'wrap',
           }}
@@ -686,12 +759,12 @@ export default function CompareResultsScene() {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 4,
+            gap: 6,
           }}
         >
           <h2
             style={{
-              fontSize: 24,
+              fontSize: 26,
               fontWeight: 800,
               color: '#0F172A',
               margin: 0,
@@ -700,7 +773,15 @@ export default function CompareResultsScene() {
           >
             {t('compare.title', 'So sánh kết quả')}
           </h2>
-          <p style={{ margin: 0, fontSize: 14, color: '#64748B' }}>
+          <p
+            style={{
+              margin: 0,
+              fontSize: 15,
+              color: '#64748B',
+              fontFamily: 'var(--font-body)',
+              lineHeight: 1.5,
+            }}
+          >
             {t(
               'compare.desc',
               'Đối chiếu chi tiết giữa 2 lần làm bài để thấy sự thay đổi về điểm mạnh, tiềm năng và định hướng.',

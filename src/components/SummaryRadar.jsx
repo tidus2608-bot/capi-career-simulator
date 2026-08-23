@@ -132,14 +132,15 @@ export default function SummaryRadar({ scores, size = 250 }) {
                 backgroundColor: rc.color,
                 color: rc.key === 'communicator' ? '#1F2937' : '#FFFFFF',
                 borderRadius: '50%',
-                width: isSmall ? '26px' : '30px',
-                height: isSmall ? '26px' : '30px',
+                width: isSmall ? '28px' : '32px',
+                height: isSmall ? '28px' : '32px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: isSmall ? '9px' : '10px',
+                fontSize: isSmall ? '10px' : '11.5px',
                 fontWeight: 800,
-                boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+                fontFamily: 'var(--font-display)',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
                 flexShrink: 0,
               }}
             >
@@ -147,10 +148,11 @@ export default function SummaryRadar({ scores, size = 250 }) {
             </div>
             <span
               style={{
-                fontSize: isSmall ? '9px' : '10px',
+                fontSize: isSmall ? '10.5px' : '12px',
                 fontWeight: 700,
-                color: '#1E293B',
-                lineHeight: 1.2,
+                fontFamily: 'var(--font-display)',
+                color: '#0F172A',
+                lineHeight: 1.25,
                 whiteSpace: 'normal',
                 wordBreak: 'keep-all',
               }}
