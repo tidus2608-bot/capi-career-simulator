@@ -1,7 +1,7 @@
 // Capi Career Path Simulator — UI data layer
 // Role display config (colors/icons; canonical data lives in missions.json)
 
-import missionsData from './data/missions.json'
+import missionsData from './data/assessment_matrix.json'
 
 export const CAPI_ROLES = {
   explorer: {
@@ -102,12 +102,8 @@ export const MISSION_BG = {
 export const PHASE1_QUESTIONS = missionsData.phase1.questions
 export const CONFIDENCE_CHECKS = missionsData.phase1.confidence_checks
 
-// Phase 1 Likert labels
-export const LIKERT_AGREE = missionsData.phase1.likert_labels_vn
-
 // Phase 3 reflection questions (1 per role)
 export const PHASE3_QUESTIONS = missionsData.phase3.questions
-export const LIKERT_FIT = missionsData.phase3.likert_labels_vn
 
 // Score band helpers
 export function getScoreBand(score) {
@@ -121,9 +117,4 @@ export function getScoreBand(score) {
 export function topRole(scores) {
   if (!scores || !Object.keys(scores).length) return null
   return Object.entries(scores).sort((a, b) => b[1] - a[1])[0]?.[0] ?? null
-}
-
-// Bump a role by amount (legacy helper kept for compatibility)
-export function bumpRole(scores, role, amount = 1) {
-  return { ...scores, [role]: (scores[role] || 0) + amount }
 }

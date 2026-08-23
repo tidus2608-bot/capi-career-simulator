@@ -1,0 +1,209 @@
+{
+  "roles": {
+    "explorer": {
+      "name": "Nhà Khám Phá",
+      "tagline": "sự tò mò, thích đặt câu hỏi và tìm hướng đi mới",
+      "subtitle": "Con nổi bật ở sự tò mò, thích đặt câu hỏi và tìm hướng đi mới.",
+      "formal_role": "Khám phá vấn đề (Problem Discovery)",
+      "in_game_behavior": "Hỏi - phân tích - hiểu vấn đề",
+      "short_description": "Hiểu vấn đề, bối cảnh và nhu cầu thực tế trước khi xây dựng giải pháp.",
+      "best_fit_for": "Người tò mò, tư duy phân tích, nhìn tổng thể và đặt câu hỏi đúng",
+      "core_description": "Explorer là nhóm học sinh có năng lượng khám phá mạnh. Con thường muốn hiểu vì sao, còn cách nào khác không, hoặc nếu thử hướng mới thì sao.",
+      "natural_behaviors": [
+        "Đặt nhiều câu hỏi để hiểu vấn đề sâu hơn.",
+        "Thích tìm hiểu nguyên nhân, bối cảnh và các khả năng khác nhau.",
+        "Dễ phát hiện vấn đề hoặc cơ hội mới.",
+        "Thường muốn thử hướng tiếp cận mới thay vì làm ngay theo cách quen thuộc.",
+        "Thích brainstorming, nghiên cứu, quan sát và khám phá."
+      ],
+      "parent_empathy": [
+        "Nếu bố mẹ thấy con hay hỏi tại sao?, thích tháo mở đồ vật để xem bên trong có gì, đó là biểu hiện tự nhiên của một Explorer.",
+        "Nếu đôi khi con có vẻ chưa chịu làm ngay vì còn muốn tìm hiểu thêm, con đang cần không gian để khám phá trước khi chọn hướng đi."
+      ],
+      "strengths": [
+        "Tò mò và ham học hỏi.",
+        "Nhìn vấn đề từ nhiều góc độ.",
+        "Dễ phát hiện insight mới.",
+        "Có khả năng đặt câu hỏi tốt.",
+        "Thích tìm hiểu công nghệ, ý tưởng hoặc lĩnh vực mới."
+      ],
+      "watchouts": [
+        "Có thể bị phân tán nếu có quá nhiều ý tưởng cùng lúc.",
+        "Có thể chậm ra quyết định vì muốn tìm hiểu thêm.",
+        "Cần học cách biến câu hỏi thành kế hoạch hành động cụ thể."
+      ],
+      "qualifications": [
+        "Tư duy phản biện & phân tích",
+        "Nghiên cứu thị trường & người dùng",
+        "Thiết kế thí nghiệm",
+        "Nhìn tổng thể hệ thống",
+        "Đặt câu hỏi trúng vấn đề"
+      ],
+      "best_environment": "Nghiên cứu khoa học, phân tích dữ liệu, khảo sát thực địa, giải quyết vấn đề mới và khám phá công nghệ mới."
+    },
+    "builder": {
+      "name": "Nhà Kiến Tạo",
+      "tagline": "khả năng biến ý tưởng thành sản phẩm thử nghiệm",
+      "subtitle": "Con nổi bật ở khả năng biến ý tưởng thành sản phẩm thử nghiệm.",
+      "formal_role": "Xây dựng giải pháp (Solution Building)",
+      "in_game_behavior": "Thiết kế - tạo - thử nghiệm",
+      "short_description": "Thiết kế và xây dựng giải pháp kỹ thuật, biến ý tưởng thành hệ thống hoạt động.",
+      "best_fit_for": "Người thích tạo ra sản phẩm, kỹ sư, người giải quyết vấn đề bằng thực hành",
+      "core_description": "Builder là nhóm học sinh học tốt thông qua việc làm ra thứ gì đó cụ thể. Con thường thích thử, lắp ráp, xây dựng, chỉnh sửa và nhìn thấy kết quả bằng mắt.",
+      "natural_behaviors": [
+        "Chủ động bắt tay vào làm để kiểm tra ý tưởng.",
+        "Thích lắp ghép, viết code, vẽ thiết kế, tạo demo hoặc mô hình.",
+        "Học tốt qua vòng lặp: làm thử, kiểm tra, sửa lỗi, thử lại.",
+        "Quan tâm đến việc ý tưởng này có chạy được không?",
+        "Thường tin vào bằng chứng từ thực tế hơn là chỉ thảo luận lý thuyết."
+      ],
+      "parent_empathy": [
+        "Nếu bố mẹ thấy con thích lắp Lego, robot, mô hình, chỉnh sửa đồ vật, đó là biểu hiện tự nhiên của một Builder.",
+        "Nếu con hay nói để con thử hoặc thích cầm nắm, tháo lắp hơn là chỉ nghe giải thích, con học rất tốt qua hành động."
+      ],
+      "strengths": [
+        "Chủ động hành động.",
+        "Có khả năng tạo mẫu và thử nghiệm nhanh.",
+        "Kiên trì sửa lỗi khi sản phẩm chưa hoạt động.",
+        "Thích học qua trải nghiệm thực tế.",
+        "Có tư duy cải tiến qua từng phiên bản."
+      ],
+      "watchouts": [
+        "Có thể làm quá nhanh trước khi hiểu rõ vấn đề.",
+        "Có thể bỏ qua nhu cầu người dùng nếu quá tập trung vào sản phẩm.",
+        "Cần học cách lập kế hoạch và truyền đạt ý tưởng cho nhóm."
+      ],
+      "qualifications": [
+        "Kỹ năng thực hành chế tạo (cơ khí, điện tử)",
+        "Thiết kế CAD / 3D (SolidWorks, Fusion 360)",
+        "Lập trình nhúng / Arduino",
+        "Hiểu về cảm biến, mạch, động cơ",
+        "Khắc phục sự cố & sửa lỗi thực tế"
+      ],
+      "best_environment": "Maker space, phòng lab chế tạo, robotics challenge, hackathon, phát triển phần cứng và lập trình giải pháp."
+    },
+    "operator": {
+      "name": "Nhà Vận Hành",
+      "tagline": "khả năng tổ chức, theo dõi và đưa việc đến kết quả",
+      "subtitle": "Con nổi bật ở khả năng tổ chức, theo dõi và đưa việc đến kết quả.",
+      "formal_role": "Vận hành & Quy trình (Operations & Process)",
+      "in_game_behavior": "Lập kế hoạch - kiểm tra - tối ưu",
+      "short_description": "Đảm bảo kế hoạch được thực thi chính xác, an toàn và đạt tiêu chuẩn chất lượng.",
+      "best_fit_for": "Người có tổ chức, cẩn thận, quản lý dự án và chú ý đến quy trình",
+      "core_description": "Operator là nhóm học sinh mạnh ở khả năng biến mục tiêu thành các bước thực hiện rõ ràng. Con thường chú ý đến thứ tự, deadline, tiêu chuẩn và kiểm soát rủi ro.",
+      "natural_behaviors": [
+        "Chú ý xem nhóm đã có kế hoạch chưa, ai làm việc gì và khi nào cần hoàn thành.",
+        "Thích chia nhỏ nhiệm vụ thành các bước rõ ràng.",
+        "Hay kiểm tra lỗi, tiến độ, tiêu chí và yêu cầu đề bài.",
+        "Giúp nhóm giữ nhịp làm việc ổn định.",
+        "Thường quan tâm đến việc làm sao cho đúng, đủ và đúng hạn."
+      ],
+      "parent_empathy": [
+        "Nếu bố mẹ thấy con thích sắp xếp đồ đạc, làm theo checklist, đó là biểu hiện tự nhiên của một Operator.",
+        "Nếu con cảm thấy khó chịu khi mọi việc quá lộn xộn, con đang cần cấu trúc để phát huy tốt nhất."
+      ],
+      "strengths": [
+        "Có tổ chức và đáng tin cậy.",
+        "Chú ý chi tiết, deadline và tiêu chuẩn.",
+        "Có khả năng theo dõi tiến độ.",
+        "Biết giảm thiểu rủi ro và kiểm tra lỗi.",
+        "Giúp nhóm hoàn thành nhiệm vụ ổn định hơn."
+      ],
+      "watchouts": [
+        "Có thể ngại thử hướng mới nếu chưa thấy chắc chắn.",
+        "Có thể căng thẳng khi kế hoạch thay đổi bất ngờ.",
+        "Cần học cách linh hoạt và chấp nhận thử nghiệm khi cần."
+      ],
+      "qualifications": [
+        "Tư duy hệ thống",
+        "Quản lý quy trình (SOP)",
+        "Giám sát & tối ưu",
+        "Logistics / chuỗi cung ứng",
+        "Tỉ mỉ, chi tiết"
+      ],
+      "best_environment": "Quản lý dự án, điều phối chuỗi cung ứng/logistics, kiểm thử chất lượng (QA), tối ưu hóa quy trình và vận hành hệ thống."
+    },
+    "connector": {
+      "name": "Người Kết Nối",
+      "tagline": "khả năng thấu hiểu con người và kết nối các bên với nhau",
+      "subtitle": "Con nổi bật ở khả năng thấu hiểu con người và kết nối các bên với nhau.",
+      "formal_role": "Kết nối & Đồng đội (Team Connection & Empathy)",
+      "in_game_behavior": "Lắng nghe - thấu hiểu - gắn kết",
+      "short_description": "Hiểu nhu cầu con người, lắng nghe đồng đội và tạo cầu nối hợp tác hài hòa.",
+      "best_fit_for": "Người thấu cảm, gắn kết cộng đồng, làm việc nhóm và giao tiếp giữa các bên",
+      "core_description": "Connector là nhóm học sinh mạnh ở khả năng hiểu người khác và tạo cầu nối giữa các thành viên, người dùng hoặc các bên liên quan.",
+      "natural_behaviors": [
+        "Để ý xem mọi người có được lắng nghe không.",
+        "Quan tâm ai đang gặp khó khăn hoặc nhóm có đang hiểu nhau không.",
+        "Giúp giảm căng thẳng và kết nối các ý kiến khác nhau.",
+        "Thường bắt đầu từ câu hỏi: ai bị ảnh hưởng, họ cần gì?",
+        "Thích làm việc nhóm, phỏng vấn, điều phối hoặc hỗ trợ người khác."
+      ],
+      "parent_empathy": [
+        "Nếu bố mẹ thấy con hay quan tâm đến bạn bè, dễ nhận ra khi ai đó buồn, đó là biểu hiện tự nhiên của một Connector.",
+        "Nếu con hay hỏi bạn đó có ổn không?, con có năng lực xã hội và sự thấu cảm rất tốt."
+      ],
+      "strengths": [
+        "Có khả năng lắng nghe và thấu cảm.",
+        "Nhìn thấy nhu cầu của người dùng hoặc cộng đồng.",
+        "Giúp nhóm hợp tác hài hòa hơn.",
+        "Kết nối nhiều quan điểm khác nhau.",
+        "Giúp công nghệ trở nên gần gũi và hữu ích với con người."
+      ],
+      "watchouts": [
+        "Có thể quá quan tâm đến cảm xúc người khác mà quên mục tiêu chính.",
+        "Có thể ngại quyết định nếu sợ làm ai đó không hài lòng.",
+        "Cần rèn thêm sự rõ ràng, dứt khoát và khả năng ưu tiên."
+      ],
+      "qualifications": [
+        "Giao tiếp & thuyết trình",
+        "Làm việc nhóm",
+        "Quản lý stakeholder",
+        "Marketing & storytelling",
+        "Hiểu cơ bản về công nghệ"
+      ],
+      "best_environment": "Điều phối dự án liên ngành, quản lý sự kiện, kết nối cộng đồng, làm việc nhóm đa chức năng và phát triển đối tác."
+    },
+    "communicator": {
+      "name": "Người Truyền Đạt",
+      "tagline": "khả năng diễn đạt, kể chuyện và giúp người khác hiểu ý tưởng",
+      "subtitle": "Con nổi bật ở khả năng diễn đạt, kể chuyện và giúp người khác hiểu ý tưởng.",
+      "formal_role": "Truyền thông & Diễn đạt (Communication & Storytelling)",
+      "in_game_behavior": "Diễn giải - truyền cảm hứng - thuyết phục",
+      "short_description": "Biến các ý tưởng công nghệ phức tạp thành câu chuyện dễ hiểu, truyền cảm hứng.",
+      "best_fit_for": "Người thích thuyết trình, viết lách, truyền thông và giải thích công nghệ",
+      "core_description": "Communicator là nhóm học sinh mạnh ở khả năng diễn đạt. Con thường thích nói ra suy nghĩ, kể lại điều mình học được và giúp người khác hiểu vấn đề.",
+      "natural_behaviors": [
+        "Thích nói ra ý tưởng, giải thích lại thông tin hoặc trình bày kết quả.",
+        "Có xu hướng làm slide, poster, video, hoặc câu chuyện cho dự án.",
+        "Giúp nhóm biến thông tin phức tạp thành cách nói dễ hiểu hơn.",
+        "Thường xử lý thông tin thông qua ngôn ngữ: nói ra, viết ra hoặc kể lại.",
+        "Quan tâm đến việc người nghe có hiểu và bị thuyết phục không."
+      ],
+      "parent_empathy": [
+        "Nếu bố mẹ thấy con hay kể chuyện ở lớp, thích giải thích lại điều vừa học, đó là biểu hiện tự nhiên của một Communicator.",
+        "Nếu con nói nhiều để hiểu vấn đề, bố mẹ có thể giúp con rèn cách diễn đạt có cấu trúc."
+      ],
+      "strengths": [
+        "Diễn đạt ý tưởng rõ ràng.",
+        "Có khả năng kể chuyện và thuyết phục.",
+        "Giúp người khác hiểu vấn đề phức tạp.",
+        "Tạo sự chú ý và cảm hứng cho nhóm.",
+        "Phù hợp với trình bày, pitching, truyền thông và hướng dẫn."
+      ],
+      "watchouts": [
+        "Có thể nói nhiều hơn làm nếu thiếu kế hoạch hành động.",
+        "Có thể tập trung vào phần trình bày mà quên kiểm chứng sản phẩm.",
+        "Cần học cách diễn đạt ngắn gọn, có bằng chứng và có cấu trúc."
+      ],
+      "qualifications": [
+        "Thuyết trình & diễn đạt ý tưởng",
+        "Viết lách & truyền thông",
+        "Truyền cảm hứng & đào tạo",
+        "Thiết kế nội dung & trực quan hóa",
+        "Giao tiếp thuyết phục"
+      ],
+      "best_environment": "Truyền thông khoa học (STEM communication), thuyết trình dự án, sáng tạo nội dung công nghệ, đào tạo và lan tỏa giá trị cộng đồng."
+    }
+  }
+}

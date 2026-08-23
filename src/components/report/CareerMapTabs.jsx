@@ -62,10 +62,6 @@ const CAREER_STYLE_OVERRIDES = {
     icon: 'mdi:megaphone-outline',
     tags: ['Marketing', 'Business', 'Communication'],
     bullets: ['Storytelling', 'Product Launch'],
-    why_fit_vi:
-      'Phù hợp vì con cần biến tính năng khô khan của sản phẩm thành câu chuyện giá trị cho người dùng.',
-    why_fit_en:
-      'Suitable because you need to transform dry product features into valuable stories for users.',
     domain: 'Tech & Robotics',
   },
   'developer advocate': {
@@ -76,11 +72,7 @@ const CAREER_STYLE_OVERRIDES = {
     tagColor: '#0891B2',
     icon: 'mdi:sitemap-outline',
     tags: ['Computer Science', 'Communication'],
-    bullets: ['Hỗ trợ cộng đồng', 'Viết code & Blog'],
-    why_fit_vi:
-      'Bạn đóng vai trò cầu nối giữa kỹ sư phần mềm và cộng đồng người dùng. Bạn giúp giải thích các công nghệ phức tạp bằng ngôn ngữ dễ hiểu và thu thập phản hồi.',
-    why_fit_en:
-      'You act as a bridge between software engineers and the user community. You help explain complex technologies in simple terms and gather feedback.',
+    bullets: ['Community Support', 'Code & Blog'],
     domain: 'Tech & Robotics',
   },
   'technical writer': {
@@ -92,10 +84,6 @@ const CAREER_STYLE_OVERRIDES = {
     icon: 'mdi:file-document-edit-outline',
     tags: ['Marketing', 'Business', 'Communication'],
     bullets: ['Technical Communication', 'Computer Science'],
-    why_fit_vi:
-      'Sử dụng khả năng ngôn ngữ của mình để tạo ra các hướng dẫn sử dụng, tài liệu kỹ thuật chuyên nghiệp cho các hệ thống robot hoặc phần mềm phức tạp.',
-    why_fit_en:
-      'Use your language skills to create professional user guides and technical documentation for complex robot systems or software.',
     domain: 'Tech & Robotics',
   },
   'science communicator': {
@@ -107,10 +95,6 @@ const CAREER_STYLE_OVERRIDES = {
     icon: 'mdi:flask-outline',
     tags: ['Education', 'Science Communication'],
     bullets: ['Public Speaking', 'Instructional Design'],
-    why_fit_vi:
-      'Phù hợp vì con cần giải thích khái niệm khoa học-công nghệ theo cách dễ hiểu và truyền cảm hứng.',
-    why_fit_en:
-      'Suitable because you need to explain science and technology concepts in an easy-to-understand and inspiring way.',
     domain: 'Tech & Robotics',
   },
   'ui/ux designer': {
@@ -122,10 +106,6 @@ const CAREER_STYLE_OVERRIDES = {
     icon: 'mdi:brush-outline',
     tags: ['Design', 'Human-Computer Interaction'],
     bullets: ['Visual Design', 'User Research'],
-    why_fit_vi:
-      'Phù hợp vì con có khả năng thấu cảm cao, giúp thiết kế những giao diện không chỉ đẹp mà còn dễ sử dụng cho mọi người.',
-    why_fit_en:
-      'Suitable because you have high empathy, helping design interfaces that are not only beautiful but also easy to use for everyone.',
     domain: 'Tech & Robotics',
   },
 }
@@ -164,7 +144,7 @@ const getMappedDomain = (job) => {
   return 'Tech & Robotics'
 }
 
-export default function CareerMapTabs({ isEn, allCareers = [] }) {
+export default function CareerMapTabs({ allCareers = [] }) {
   const [activeDomain, setActiveDomain] = useState('')
   const { t } = useTranslation()
 
@@ -285,21 +265,18 @@ export default function CareerMapTabs({ isEn, allCareers = [] }) {
             const defaultStyle = ROLE_MAP_STYLES[job.role_id] || ROLE_MAP_STYLES.explorer
             const theme = styleOverride || defaultStyle
 
-            const tags = styleOverride
-              ? styleOverride.tags
-              : job.suggested_major
-                ? job.suggested_major.split(',').map((s) => s.trim())
-                : []
+            const tags = Array.isArray(job.tags)
+              ? job.tags
+              : styleOverride?.tags ||
+                (typeof job.suggested_major === 'string'
+                  ? job.suggested_major.split(',').map((s) => s.trim())
+                  : [])
             const bullets = styleOverride
               ? styleOverride.bullets
               : job.robotics_connection
                 ? [job.robotics_connection]
                 : []
-            const whyFitText = styleOverride
-              ? isEn
-                ? styleOverride.why_fit_en
-                : styleOverride.why_fit_vi
-              : job.why_fit
+            const whyFitText = job.why_fit || ''
 
             // Determine if card spans full width (last item in odd list)
             const isFullWidth = idx === filteredJobs.length - 1 && filteredJobs.length % 2 !== 0

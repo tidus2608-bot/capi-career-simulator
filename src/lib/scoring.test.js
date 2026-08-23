@@ -6,7 +6,7 @@ import {
   calculateScore,
   ROLES,
 } from './scoring.js'
-import missionsData from '../data/missions.json'
+import missionsData from '../data/assessment_matrix.json'
 
 const phase1Questions = missionsData.phase1.questions
 const confChecks = missionsData.phase1.confidence_checks
@@ -111,7 +111,7 @@ describe('calculateScore — profile classification', () => {
     const phase3 = { explorer: 3, builder: 5, operator: 2, connector: 2, communicator: 2 }
     const result = calculateScore(1, phase1, phase2, phase3)
     expect(result.scoreBand).toBeDefined()
-    expect(typeof result.scoreBand.label_vn).toBe('string')
+    expect(typeof result.scoreBand.band).toBe('string')
   })
 
   it('secondaryRole differs from primaryRole', () => {

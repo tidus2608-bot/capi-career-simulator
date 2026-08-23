@@ -5,7 +5,6 @@ import { Icon } from '@iconify/react'
 import { capiAudio } from '../../audio.js'
 import SceneShell from './SceneShell.jsx'
 import { CAPI_ROLES } from '../../data.js'
-import reportData from '../../data/reportData.json'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import Button from '../Button.jsx'
 import FeedbackInvitationModal from './FeedbackInvitationModal.jsx'
@@ -48,16 +47,36 @@ export default function ReportDetails() {
       ? `capi_feedback_prompted_${savedRunId}`
       : 'capi_feedback_prompted_latest'
 
+    let alreadyPrompted = false
     try {
-      const alreadyPrompted = localStorage.getItem(storageKey)
-      if (!alreadyPrompted) {
-        const timer = setTimeout(() => {
-          setShowFeedbackModal(true)
-        }, 700)
-        return () => clearTimeout(timer)
-      }
+      alreadyPrompted = !!localStorage.getItem(storageKey)
     } catch (e) {
       console.warn('Failed to access localStorage for feedback prompt:', e)
+    }
+
+    if (alreadyPrompted) return
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop
+      const windowHeight = window.innerHeight
+      const docHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight,
+      )
+
+      if (scrollY + windowHeight >= docHeight - 200) {
+        setShowFeedbackModal(true)
+        window.removeEventListener('scroll', handleScroll)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
     }
   }, [navigate, savedRunId])
 
@@ -100,13 +119,14 @@ export default function ReportDetails() {
     color: '#00e5ff',
   }
 
-  // Fetch data from reportData
-  const primaryRoleData = reportData.rolebank?.[primaryRoleKey] || {}
+  // Fetch data from localized i18n catalogs
+  const reportCatalog = t('report.data', { returnObjects: true }) || {}
+  const primaryRoleData = t(`roles.${primaryRoleKey}`, { returnObjects: true }) || {}
 
   // Combination profiles
   const primaryComboId = `${primaryRoleKey}_${secondaryRoleKey}`
 
-  const primaryComboData = reportData.combinationbank?.[primaryComboId] || {}
+  const primaryComboData = reportCatalog.combinationbank?.[primaryComboId] || {}
 
   // Lowest role for Step 2 Missing Piece
   const sortedRoles = Object.keys(ROLE_COLORS).sort(
@@ -116,12 +136,12 @@ export default function ReportDetails() {
   const missingRoleMeta = CAPI_ROLES[missingRoleKey] || {}
 
   // Find exact pair for missing piece
-  const missingPieceData = (reportData.missingpiece || []).find(
+  const missingPieceData = (reportCatalog.missingpiece || []).find(
     (mp) => mp.primary_role === primaryRoleKey && mp.missing_role === missingRoleKey,
   )
 
   // Setup standard Career domains (Block 11)
-  const allCareers = (reportData.careermap || []).filter(
+  const allCareers = (reportCatalog.careermap || []).filter(
     (c) => c.role_id === primaryRoleKey || c.role_id === secondaryRoleKey,
   )
 
@@ -130,54 +150,17 @@ export default function ReportDetails() {
   }
 
   // Filter activities for Block 8
-  const primaryActivities = (reportData.activities || []).filter(
+  const primaryActivities = (reportCatalog.activities || []).filter(
     (act) => act.role_id === primaryRoleKey,
   )
 
   // Filter resources skills for Step 3
-  const primarySkills = (reportData.resources || []).filter(
+  const primarySkills = (reportCatalog.resources || []).filter(
     (res) => res.role_id === primaryRoleKey && res.resource_type === 'skill',
   )
 
   return (
     <SceneShell light>
-      {/* Global CSS style block for printing & standard page styling overrides */}
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-          @media print {
-            html, body, #app, #root, .fade-in {
-              position: static !important;
-              height: auto !important;
-              min-height: auto !important;
-              overflow: visible !important;
-              background-color: #FFFFFF !important;
-              color: #000000 !important;
-            }
-            .no-print {
-              display: none !important;
-            }
-            .print-container {
-              padding: 0 !important;
-              max-width: 100% !important;
-              margin: 0 !important;
-              display: block !important;
-            }
-            .print-card {
-              box-shadow: none !important;
-              border: 1px solid #E2E8F0 !important;
-              break-inside: avoid !important;
-              page-break-inside: avoid !important;
-              margin-bottom: 24px !important;
-            }
-            .page-break {
-              break-before: page !important;
-              page-break-before: always !important;
-            }
-          }
-        `,
-        }}
-      />
       {/* Main Report Container */}
       <div className="print-container report-details-container">
         {/* Title Block 1 */}
@@ -200,13 +183,22 @@ export default function ReportDetails() {
           <div>
             <Button
               variant="solid"
+              active
               className="no-print"
               onClick={handlePrint}
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '6px',
+                gap: '8px',
                 width: 'fit-content',
+                padding: '10px 18px',
+                borderRadius: '12px',
+                backgroundColor: '#8B2FA9',
+                color: '#FFFFFF',
+                fontWeight: 600,
+                fontSize: '14px',
+                cursor: 'pointer',
+                border: 'none',
               }}
             >
               <Icon icon="mdi:printer" width={18} height={18} />
@@ -302,7 +294,7 @@ export default function ReportDetails() {
             }}
           >
             <Icon icon="mdi:arrow-left" width={18} height={18} />
-            <span>{isEn ? 'Back to Summary' : 'Quay về tổng quát'}</span>
+            <span>{t('report.btn_back_to_summary')}</span>
           </Button>
 
           <Button
@@ -330,7 +322,7 @@ export default function ReportDetails() {
             }}
           >
             <Icon icon="mdi:history" width={18} height={18} />
-            <span>{isEn ? 'Past Runs History' : 'Lịch sử làm bài'}</span>
+            <span>{t('report.btn_past_runs_history')}</span>
           </Button>
         </div>
       </div>

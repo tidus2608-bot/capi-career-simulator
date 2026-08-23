@@ -10,14 +10,14 @@ const ROLES_CONFIG = [
   { key: 'explorer', color: '#22C55E' }, // Top-Left (288 deg)
 ]
 
-export default function SummaryRadar({ scores, size = 260 }) {
+export default function SummaryRadar({ scores, size = 250 }) {
   const { i18n } = useTranslation()
   const isEn = i18n.language === 'en'
   const isSmall = size <= 220
   const cx = size / 2
   const cy = size / 2
-  const r = isSmall ? size / 2 - 36 : size / 2 - 45
-  const badgeOffset = isSmall ? 26 : 34
+  const r = isSmall ? size * 0.24 : size * 0.25
+  const badgeOffset = isSmall ? size * 0.1 : size * 0.11
 
   // Map values to 0-100 scale
   const getScore = (key) => {
@@ -40,7 +40,8 @@ export default function SummaryRadar({ scores, size = 260 }) {
         position: 'relative',
         width: size,
         height: size,
-        margin: isSmall ? '16px auto 28px' : '0 auto',
+        margin: '0 auto',
+        flexShrink: 0,
       }}
     >
       <svg
@@ -120,9 +121,9 @@ export default function SummaryRadar({ scores, size = 260 }) {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: isSmall ? '2px' : '4px',
+              gap: isSmall ? '2px' : '3px',
               zIndex: 10,
-              maxWidth: isSmall ? '80px' : '110px',
+              maxWidth: isSmall ? '60px' : '72px',
               textAlign: 'center',
             }}
           >
@@ -131,12 +132,12 @@ export default function SummaryRadar({ scores, size = 260 }) {
                 backgroundColor: rc.color,
                 color: rc.key === 'communicator' ? '#1F2937' : '#FFFFFF',
                 borderRadius: '50%',
-                width: isSmall ? '30px' : '38px',
-                height: isSmall ? '30px' : '38px',
+                width: isSmall ? '26px' : '30px',
+                height: isSmall ? '26px' : '30px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: isSmall ? '11px' : '12px',
+                fontSize: isSmall ? '9px' : '10px',
                 fontWeight: 800,
                 boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
                 flexShrink: 0,
@@ -146,10 +147,10 @@ export default function SummaryRadar({ scores, size = 260 }) {
             </div>
             <span
               style={{
-                fontSize: isSmall ? '9.5px' : '11px',
+                fontSize: isSmall ? '9px' : '10px',
                 fontWeight: 700,
                 color: '#1E293B',
-                lineHeight: 1.15,
+                lineHeight: 1.2,
                 whiteSpace: 'normal',
                 wordBreak: 'keep-all',
               }}

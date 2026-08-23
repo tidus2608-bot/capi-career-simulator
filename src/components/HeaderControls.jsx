@@ -20,6 +20,7 @@ export default function HeaderControls({ muted, toggleMute }) {
   const isHome = path === '/'
   const isSummary = path === '/certificate/summary'
   const isDetails = path === '/certificate/details'
+  const isCompare = path === '/history/compare' || path === '/compare'
 
   const audioIcon = (
     <Icon icon={muted ? 'mdi:volume-off' : 'mdi:volume-high'} width={20} height={20} />
@@ -39,6 +40,8 @@ export default function HeaderControls({ muted, toggleMute }) {
     '/certificate/summary',
     '/certificate/details',
     '/history',
+    '/history/compare',
+    '/compare',
     '/feedback',
   ])
 
@@ -49,6 +52,7 @@ export default function HeaderControls({ muted, toggleMute }) {
     path !== '/' &&
     path !== '/capi-gene-info' &&
     path !== '/history' &&
+    !isCompare &&
     path !== '/feedback' &&
     !path.startsWith('/certificate')
 
@@ -61,13 +65,6 @@ export default function HeaderControls({ muted, toggleMute }) {
     } else {
       onRestart()
       navigate('/')
-    }
-  }
-
-  const handleShare = () => {
-    capiAudio.sfx('click')
-    if (navigator.share) {
-      navigator.share({ title: 'Mật mã Capi-Gene', url: window.location.href })
     }
   }
 
@@ -106,24 +103,9 @@ export default function HeaderControls({ muted, toggleMute }) {
                 variant="outline"
                 className="header-circle-btn"
                 onClick={handleHomeClick}
-                title={t('common.back_to_home') || 'Về trang chủ'}
+                title={t('common.back_to_home')}
               >
                 <Icon icon="mdi:home-outline" width={20} height={20} />
-              </Button>
-              <Button
-                variant="outline"
-                className="header-circle-btn hide-on-mobile-sm"
-                onClick={handleShare}
-                title={t('common.share') || 'Chia sẻ'}
-              >
-                <Icon icon="mdi:share-variant-outline" width={20} height={20} />
-              </Button>
-              <Button
-                variant="outline"
-                className="header-circle-btn hide-on-mobile-sm"
-                title={t('common.save') || 'Lưu'}
-              >
-                <Icon icon="mdi:bookmark-outline" width={20} height={20} />
               </Button>
             </>
           ) : (
@@ -172,12 +154,26 @@ export default function HeaderControls({ muted, toggleMute }) {
           alignItems: 'center',
         }}
       >
+        {isCompare && (
+          <Button
+            variant="outline"
+            className="header-circle-btn"
+            onClick={() => {
+              capiAudio.sfx('click')
+              navigate('/history')
+            }}
+            title={t('common.back_to_history', 'Quay lại lịch sử')}
+            aria-label={t('common.back_to_history', 'Quay lại lịch sử')}
+          >
+            <Icon icon="mdi:arrow-left" width={20} height={20} />
+          </Button>
+        )}
         {showHome && (
           <Button
             variant="outline"
             className="header-circle-btn"
             onClick={handleHomeClick}
-            title={t('common.back_to_home') || 'Về trang chủ'}
+            title={t('common.back_to_home')}
           >
             <Icon icon="mdi:home-outline" width={20} height={20} />
           </Button>
@@ -203,14 +199,11 @@ export default function HeaderControls({ muted, toggleMute }) {
           capiAudio.sfx('click')
           setShowConfirmModal(false)
         }}
-        title={t('confirm_exit.title', 'Dừng tiến trình?')}
-        description={t(
-          'confirm_exit.desc',
-          'Tiến trình làm bài hiện tại của bạn sẽ bị hủy và không được lưu lại. Bạn có chắc chắn muốn quay về trang chủ?',
-        )}
+        title={t('confirm_exit.title')}
+        description={t('confirm_exit.message')}
         icon="mdi:alert-circle-outline"
-        cancelText={t('common.cancel', 'Hủy')}
-        confirmText={t('confirm_exit.confirm_btn', 'Dừng chơi')}
+        cancelText={t('confirm_exit.cancel_btn')}
+        confirmText={t('confirm_exit.confirm_btn')}
         confirmVariant="danger"
         onConfirm={() => {
           capiAudio.sfx('click')

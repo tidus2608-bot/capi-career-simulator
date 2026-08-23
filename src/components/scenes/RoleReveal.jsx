@@ -18,10 +18,9 @@ const ROLE_BADGE_STYLES = {
 }
 
 export default function RoleRevealScene() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const { phase1TopRole } = useWizard()
-  const isEn = i18n.language === 'en'
   const r = phase1TopRole ? CAPI_ROLES[phase1TopRole] || CAPI_ROLES.explorer : CAPI_ROLES.explorer
   const badgeStyle = ROLE_BADGE_STYLES[r.key] || { bg: '#ffd6df', color: '#f42d55' }
 
@@ -87,7 +86,7 @@ export default function RoleRevealScene() {
               fontFamily: 'var(--font-body)',
             }}
           >
-            {t('common.phase1_completed')}
+            {t('reveal.phase1_completed')}
           </div>
 
           {/* Icon Badge Circle */}
@@ -115,7 +114,7 @@ export default function RoleRevealScene() {
                 color: '#1c1c24',
               }}
             >
-              {r.name}
+              {t(`roles.${r.key}.name`)}
             </h2>
             <div
               style={{
@@ -124,7 +123,7 @@ export default function RoleRevealScene() {
                 color: '#23232c',
               }}
             >
-              {t(`common.roles.${r.key}.tagline`)}
+              {t(`roles.${r.key}.tagline`)}
             </div>
           </div>
 
@@ -147,7 +146,7 @@ export default function RoleRevealScene() {
               }}
             >
               {t('reveal.capi_dialogue_prefix')}
-              {isEn ? r.name.toLowerCase() : r.nameVn}
+              <strong style={{ color: '#1c1c24' }}>{t(`roles.${r.key}.name`)}</strong>
               {t('reveal.capi_dialogue_suffix')}
             </div>
           </div>

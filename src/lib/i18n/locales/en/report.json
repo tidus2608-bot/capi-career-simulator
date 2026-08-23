@@ -1,0 +1,1252 @@
+{
+  "report": {
+    "loading_title": "Synthesizing data...",
+    "loading_subtitle": "Analyzing and decoding Capi-Gene...",
+    "mascot_title": "Done! Here is your Career Code.",
+    "mascot_desc": "I have synthesized signals from your scan, simulation mission, and reflection.",
+    "card_strength": "Key Strengths",
+    "card_style": "Working Style",
+    "card_growth": "Points to Note",
+    "btn_restart": "Try another mission",
+    "btn_back_to_home": "Back to Home",
+    "cert_title": "CAPI-GENE Certificate",
+    "cert_subtitle": "Decoded by Capi Research Institute",
+    "btn_details": "View detailed report",
+    "btn_pdf": "Download PDF Report",
+    "scanning_behavior_data": "Scanning behavior data...",
+    "details_title": "Decoder Details",
+    "details_back": "Back to summary",
+    "details_strength": "STRENGTHS",
+    "details_growth": "POINTS TO NOTE",
+    "details_compatibility": "COMPATIBILITY",
+    "details_career": "CAREER OPPORTUNITIES",
+    "details_nuance": "DEEPER NUANCE",
+    "details_title_main": "Detailed Report",
+    "primary_best_suited": "You are best suited to be a {{name}} with {{tagline}}",
+    "secondary_also_a": "You are also a {{name}} with {{tagline}}",
+    "primary_title_template": "You are best suited as an <highlight>{{name}}</highlight> with {{tagline}}",
+    "secondary_title_template": "You are also a <highlight>{{name}}</highlight> with {{tagline}}",
+    "primary_highest_score": "Student with the highest actual behavior capability score in the {{role}} role ({{score}}%)",
+    "secondary_high_score": "Student with high actual behavior capability score in the {{role}} role ({{score}}%)",
+    "parent_notice_when": "Parents may notice this when the child...",
+    "child_shines_when": "The child shines when...",
+    "parent_expressions_note": "These are natural expressions of the {{role}} profile.",
+    "suitable_environment": "Suitable Environment: ",
+    "radar_ranking_title": "Role Breakdown & Strength Level",
+    "evidence_simulation_title": "Evidence from Simulation Lab",
+    "evidence_activity_record": "Simulation Activity Record",
+    "evidence_primary_role": "Primary Role",
+    "evidence_secondary_role": "Secondary Role",
+    "dev_path_title": "Development Roadmap",
+    "dev_step1_try": "Activities to Try",
+    "dev_step2_balance": "Areas to Strengthen",
+    "dev_step3_skills": "Recommended Skills",
+    "dev_balance_with": "Practice process and organization capabilities",
+    "training_accordion_title": "Detailed Training Program & Skill Levels",
+    "training_skill_area": "Skill Area: ",
+    "training_why_rec": "Why recommended: ",
+    "training_level_label": "Level:",
+    "training_level_beginner": "Beginner",
+    "training_level_intermediate": "Intermediate",
+    "career_map_title": "Career Map",
+    "career_domain_label": "Domain: ",
+    "career_why_fit": "Why Fit: ",
+    "btn_back_to_summary": "Back to Summary",
+    "btn_past_runs_history": "Past Runs History",
+    "data": {
+      "evidence": [
+        {
+          "mission_id": "river_rescue",
+          "role_id": "explorer",
+          "evidence_template": "During the River Rescue mission, you showed a tendency to question the rescue context, river currents, and potential hazards before selecting a solution."
+        },
+        {
+          "mission_id": "river_rescue",
+          "role_id": "builder",
+          "evidence_template": "During the River Rescue mission, you actively experimented with physical prototypes and mechanism designs to navigate rapid river currents."
+        },
+        {
+          "mission_id": "river_rescue",
+          "role_id": "operator",
+          "evidence_template": "During the River Rescue mission, you focused on execution sequences, safety checklists, and reliable mission workflows."
+        },
+        {
+          "mission_id": "river_rescue",
+          "role_id": "connector",
+          "evidence_template": "During the River Rescue mission, you prioritized team communication, victim safety, and coordinated stakeholder needs."
+        },
+        {
+          "mission_id": "river_rescue",
+          "role_id": "communicator",
+          "evidence_template": "During the River Rescue mission, you clearly structured the briefing and communicated rescue plans to the team."
+        },
+        {
+          "mission_id": "ai_healthcare",
+          "role_id": "explorer",
+          "evidence_template": "During the AI Healthcare mission, you scrutinized diagnosis datasets and explored edge-case clinical symptom patterns."
+        },
+        {
+          "mission_id": "ai_healthcare",
+          "role_id": "builder",
+          "evidence_template": "During the AI Healthcare mission, you built machine learning classification pipelines and trained diagnostic models."
+        },
+        {
+          "mission_id": "ai_healthcare",
+          "role_id": "operator",
+          "evidence_template": "During the AI Healthcare mission, you verified medical compliance, data privacy, and diagnostic checklist validation."
+        },
+        {
+          "mission_id": "ai_healthcare",
+          "role_id": "connector",
+          "evidence_template": "During the AI Healthcare mission, you listened to patient concerns and ensured doctor-AI recommendations were empathetic."
+        },
+        {
+          "mission_id": "ai_healthcare",
+          "role_id": "communicator",
+          "evidence_template": "During the AI Healthcare mission, you explained AI diagnostic rationales simply and reassuringly to patients."
+        },
+        {
+          "mission_id": "smart_waste",
+          "role_id": "explorer",
+          "evidence_template": "During the Smart Waste mission, you researched recyclable material sorting patterns and optical sensor accuracy."
+        },
+        {
+          "mission_id": "smart_waste",
+          "role_id": "builder",
+          "evidence_template": "During the Smart Waste mission, you constructed pneumatic sorting arms and tested sorting chute prototypes."
+        },
+        {
+          "mission_id": "smart_waste",
+          "role_id": "operator",
+          "evidence_template": "During the Smart Waste mission, you organized bin collection logistics, volume tracking, and processing schedules."
+        },
+        {
+          "mission_id": "smart_waste",
+          "role_id": "connector",
+          "evidence_template": "During the Smart Waste mission, you promoted community awareness and habit transformation toward recycling."
+        },
+        {
+          "mission_id": "smart_waste",
+          "role_id": "communicator",
+          "evidence_template": "During the Smart Waste mission, you designed educational labeling that made recycling intuitive for everyone."
+        },
+        {
+          "mission_id": "smart_home",
+          "role_id": "explorer",
+          "evidence_template": "During the Smart Home mission, you analyzed user lifestyle patterns and questioned existing sensor placements to optimize living comfort."
+        },
+        {
+          "mission_id": "smart_home",
+          "role_id": "builder",
+          "evidence_template": "During the Smart Home mission, you prototyped automated lighting and IoT sensor integrations hands-on."
+        },
+        {
+          "mission_id": "smart_home",
+          "role_id": "operator",
+          "evidence_template": "During the Smart Home mission, you established system reliability protocols and verified device power management routines."
+        },
+        {
+          "mission_id": "smart_home",
+          "role_id": "connector",
+          "evidence_template": "During the Smart Home mission, you gathered family member feedback to ensure smart automations felt natural and accessible."
+        },
+        {
+          "mission_id": "smart_home",
+          "role_id": "communicator",
+          "evidence_template": "During the Smart Home mission, you articulated system benefits clearly so household users easily understood the smart controls."
+        },
+        {
+          "mission_id": "drone_delivery",
+          "role_id": "explorer",
+          "evidence_template": "During the Drone Delivery mission, you investigated flight route risks, weather constraints, and payload dynamics."
+        },
+        {
+          "mission_id": "drone_delivery",
+          "role_id": "builder",
+          "evidence_template": "During the Drone Delivery mission, you optimized drone motor mounts, propeller balance, and battery efficiency."
+        },
+        {
+          "mission_id": "drone_delivery",
+          "role_id": "operator",
+          "evidence_template": "During the Drone Delivery mission, you monitored flight path safety, dispatch schedules, and emergency fail-safe rules."
+        },
+        {
+          "mission_id": "drone_delivery",
+          "role_id": "connector",
+          "evidence_template": "During the Drone Delivery mission, you aligned community privacy concerns with regulatory flight compliance."
+        },
+        {
+          "mission_id": "drone_delivery",
+          "role_id": "communicator",
+          "evidence_template": "During the Drone Delivery mission, you presented route progress and delivery notifications transparently to clients."
+        },
+        {
+          "mission_id": "disaster_response",
+          "role_id": "explorer",
+          "evidence_template": "During the Disaster Response mission, you analyzed terrain damage data and questioned satellite thermal maps to pinpoint survivors."
+        },
+        {
+          "mission_id": "disaster_response",
+          "role_id": "builder",
+          "evidence_template": "During the Disaster Response mission, you assembled rugged scout rovers capable of traversing debris fields."
+        },
+        {
+          "mission_id": "disaster_response",
+          "role_id": "operator",
+          "evidence_template": "During the Disaster Response mission, you managed resource staging, battery supplies, and mission timeline discipline."
+        },
+        {
+          "mission_id": "disaster_response",
+          "role_id": "connector",
+          "evidence_template": "During the Disaster Response mission, you coordinated between medical teams, volunteers, and command centers."
+        },
+        {
+          "mission_id": "disaster_response",
+          "role_id": "communicator",
+          "evidence_template": "During the Disaster Response mission, you broadcast emergency status bulletins and coordinated evacuation directions."
+        }
+      ],
+      "missingpiece": [
+        {
+          "primary_role": "explorer",
+          "missing_role": "operator",
+          "copy": "To turn your explorer strengths into tangible results, you should cultivate operator discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        },
+        {
+          "primary_role": "explorer",
+          "missing_role": "builder",
+          "copy": "To turn your explorer strengths into tangible results, you should cultivate builder discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        },
+        {
+          "primary_role": "explorer",
+          "missing_role": "communicator",
+          "copy": "To turn your explorer strengths into tangible results, you should cultivate communicator discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        },
+        {
+          "primary_role": "builder",
+          "missing_role": "explorer",
+          "copy": "To turn your builder strengths into tangible results, you should cultivate explorer discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        },
+        {
+          "primary_role": "builder",
+          "missing_role": "operator",
+          "copy": "To turn your builder strengths into tangible results, you should cultivate operator discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        },
+        {
+          "primary_role": "builder",
+          "missing_role": "connector",
+          "copy": "To turn your builder strengths into tangible results, you should cultivate connector discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        },
+        {
+          "primary_role": "builder",
+          "missing_role": "communicator",
+          "copy": "To turn your builder strengths into tangible results, you should cultivate communicator discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        },
+        {
+          "primary_role": "operator",
+          "missing_role": "explorer",
+          "copy": "To turn your operator strengths into tangible results, you should cultivate explorer discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        },
+        {
+          "primary_role": "operator",
+          "missing_role": "builder",
+          "copy": "To turn your operator strengths into tangible results, you should cultivate builder discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        },
+        {
+          "primary_role": "operator",
+          "missing_role": "communicator",
+          "copy": "To turn your operator strengths into tangible results, you should cultivate communicator discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        },
+        {
+          "primary_role": "connector",
+          "missing_role": "operator",
+          "copy": "To turn your connector strengths into tangible results, you should cultivate operator discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        },
+        {
+          "primary_role": "connector",
+          "missing_role": "builder",
+          "copy": "To turn your connector strengths into tangible results, you should cultivate builder discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        },
+        {
+          "primary_role": "connector",
+          "missing_role": "communicator",
+          "copy": "To turn your connector strengths into tangible results, you should cultivate communicator discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        },
+        {
+          "primary_role": "communicator",
+          "missing_role": "operator",
+          "copy": "To turn your communicator strengths into tangible results, you should cultivate operator discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        },
+        {
+          "primary_role": "communicator",
+          "missing_role": "builder",
+          "copy": "To turn your communicator strengths into tangible results, you should cultivate builder discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        },
+        {
+          "primary_role": "communicator",
+          "missing_role": "connector",
+          "copy": "To turn your communicator strengths into tangible results, you should cultivate connector discipline by following structured milestones.",
+          "activities_to_train": "Create a mini-project checklist.Keep an exploration journal.Set deadlines for each research step.Compare alternatives in a decision matrix."
+        }
+      ],
+      "careermap": [
+        {
+          "role_id": "explorer",
+          "domain": "Tech & Robotics",
+          "career": "Robotics Researcher",
+          "why_fit": "Ideal match for students with strong explorer traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Robotics, Mechatronics, AI, Computer Science",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "explorer",
+          "domain": "Tech & Robotics",
+          "career": "AI/Data Analyst",
+          "why_fit": "Ideal match for students with strong explorer traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Data Science, AI, Computer Science, Statistics",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "explorer",
+          "domain": "Product & Design",
+          "career": "UX Researcher",
+          "why_fit": "Ideal match for students with strong explorer traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Human-Computer Interaction, Psychology, Product Design",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "explorer",
+          "domain": "Science & Engineering",
+          "career": "Research Engineer",
+          "why_fit": "Ideal match for students with strong explorer traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Engineering, Robotics, Computer Engineering",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "builder",
+          "domain": "Tech & Robotics",
+          "career": "Robotics Engineer",
+          "why_fit": "Ideal match for students with strong builder traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Robotics, Mechatronics, Mechanical Engineering, Electrical Engineering",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "builder",
+          "domain": "Tech & Robotics",
+          "career": "Software Developer",
+          "why_fit": "Ideal match for students with strong builder traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Computer Science, Software Engineering",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "builder",
+          "domain": "Engineering & Maker",
+          "career": "Prototype Engineer",
+          "why_fit": "Ideal match for students with strong builder traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Product Design, Mechanical Engineering, Industrial Design",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "builder",
+          "domain": "Creative Tech",
+          "career": "Game Developer",
+          "why_fit": "Ideal match for students with strong builder traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Game Development, Computer Science, Digital Media",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "operator",
+          "domain": "Tech & Robotics",
+          "career": "QA/Test Engineer",
+          "why_fit": "Ideal match for students with strong operator traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Software Engineering, Information Systems, Quality Engineering",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "operator",
+          "domain": "Tech & Robotics",
+          "career": "Robotics Operator",
+          "why_fit": "Ideal match for students with strong operator traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Robotics Operations, Automation, Mechatronics",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "operator",
+          "domain": "Business & Operations",
+          "career": "Project Coordinator",
+          "why_fit": "Ideal match for students with strong operator traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Project Management, Business Administration, Operations Management",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "operator",
+          "domain": "Engineering & Manufacturing",
+          "career": "Process/Quality Engineer",
+          "why_fit": "Ideal match for students with strong operator traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Industrial Engineering, Manufacturing, Quality Engineering",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "connector",
+          "domain": "Tech & Robotics",
+          "career": "Human-Robot Interaction Designer",
+          "why_fit": "Ideal match for students with strong connector traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "HCI, Psychology, Product Design, Robotics",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "connector",
+          "domain": "Product & Business",
+          "career": "Product Manager",
+          "why_fit": "Ideal match for students with strong connector traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Product Management, Business, HCI, Computer Science",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "connector",
+          "domain": "Social Impact",
+          "career": "Program Manager",
+          "why_fit": "Ideal match for students with strong connector traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Education, Social Innovation, Public Policy, Business",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "connector",
+          "domain": "Education",
+          "career": "Learning Experience Designer",
+          "why_fit": "Ideal match for students with strong connector traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Education, Learning Design, Psychology, HCI",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "communicator",
+          "domain": "Tech & Robotics",
+          "career": "Developer Advocate",
+          "why_fit": "Ideal match for students with strong communicator traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Computer Science, Communication, Technical Communication",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "communicator",
+          "domain": "Tech & Robotics",
+          "career": "Technical Writer",
+          "why_fit": "Ideal match for students with strong communicator traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Technical Communication, Computer Science, English, Communication",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "communicator",
+          "domain": "Business & Product",
+          "career": "Product Marketing Specialist",
+          "why_fit": "Ideal match for students with strong communicator traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Marketing, Business, Communication, Product Management",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        },
+        {
+          "role_id": "communicator",
+          "domain": "Education & Media",
+          "career": "STEM Educator / Science Communicator",
+          "why_fit": "Ideal match for students with strong communicator traits who enjoy analytical problem solving in robotics and technology.",
+          "suggested_major": "Education, Science Communication, Digital Media",
+          "robotics_connection": "Apply core engineering principles, sensor integration, and real-world robotics deployments."
+        }
+      ],
+      "resources": [
+        {
+          "role_id": "explorer",
+          "resource_type": "skill",
+          "name": "Research & Inquiry",
+          "skill_area": "Đặt câu hỏi, tìm kiếm thông tin, kiểm chứng nguồn",
+          "why_recommended": "Helps strengthen core explorer capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "explorer",
+          "resource_type": "skill",
+          "name": "Scientific Thinking",
+          "skill_area": "Giả thuyết, thử nghiệm, quan sát, kết luận",
+          "why_recommended": "Helps strengthen core explorer capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "explorer",
+          "resource_type": "digital_skill",
+          "name": "Mind Mapping",
+          "skill_area": "Sắp xếp ý tưởng",
+          "why_recommended": "Helps strengthen core explorer capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "explorer",
+          "resource_type": "digital_skill",
+          "name": "Google Forms / Survey Basics",
+          "skill_area": "Thu thập dữ liệu đơn giản",
+          "why_recommended": "Helps strengthen core explorer capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "explorer",
+          "resource_type": "topic",
+          "name": "AI & Robotics Sensors",
+          "skill_area": "Công nghệ robot, cảm biến, AI",
+          "why_recommended": "Helps strengthen core explorer capabilities through systematic training.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "builder",
+          "resource_type": "skill",
+          "name": "Prototyping",
+          "skill_area": "Tạo mẫu nhanh",
+          "why_recommended": "Helps strengthen core builder capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "builder",
+          "resource_type": "skill",
+          "name": "Debugging",
+          "skill_area": "Tìm lỗi và sửa lỗi",
+          "why_recommended": "Helps strengthen core builder capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "builder",
+          "resource_type": "digital_skill",
+          "name": "Scratch / Blockly / MakeCode",
+          "skill_area": "Lập trình kéo thả",
+          "why_recommended": "Helps strengthen core builder capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "builder",
+          "resource_type": "digital_skill",
+          "name": "Tinkercad / CAD Basics",
+          "skill_area": "Thiết kế mô hình 3D",
+          "why_recommended": "Helps strengthen core builder capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "builder",
+          "resource_type": "topic",
+          "name": "Engineering Design Process",
+          "skill_area": "Thiết kế, build, test, improve",
+          "why_recommended": "Helps strengthen core builder capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "operator",
+          "resource_type": "skill",
+          "name": "Planning & Time Management",
+          "skill_area": "Quản lý thời gian, deadline, ưu tiên",
+          "why_recommended": "Helps strengthen core operator capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "operator",
+          "resource_type": "skill",
+          "name": "Quality Assurance Basics",
+          "skill_area": "Test case, bug report, checklist",
+          "why_recommended": "Helps strengthen core operator capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "operator",
+          "resource_type": "digital_skill",
+          "name": "Google Sheets / Excel Basics",
+          "skill_area": "Bảng tính, theo dõi tiến độ, dữ liệu",
+          "why_recommended": "Helps strengthen core operator capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "operator",
+          "resource_type": "digital_skill",
+          "name": "Trello / Notion / Task Board",
+          "skill_area": "Quản lý công việc nhóm",
+          "why_recommended": "Helps strengthen core operator capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "operator",
+          "resource_type": "topic",
+          "name": "Robotics Testing & Operations",
+          "skill_area": "Vận hành và kiểm thử robot",
+          "why_recommended": "Helps strengthen core operator capabilities through systematic training.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "connector",
+          "resource_type": "skill",
+          "name": "Active Listening",
+          "skill_area": "Lắng nghe, đặt câu hỏi, phản hồi",
+          "why_recommended": "Helps strengthen core connector capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "connector",
+          "resource_type": "skill",
+          "name": "Team Collaboration",
+          "skill_area": "Phối hợp nhóm, giải quyết mâu thuẫn",
+          "why_recommended": "Helps strengthen core connector capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "connector",
+          "resource_type": "digital_skill",
+          "name": "Persona Mapping",
+          "skill_area": "Chân dung người dùng",
+          "why_recommended": "Helps strengthen core connector capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "connector",
+          "resource_type": "digital_skill",
+          "name": "Miro / FigJam",
+          "skill_area": "Collaboration, user journey, stakeholder map",
+          "why_recommended": "Helps strengthen core connector capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "connector",
+          "resource_type": "topic",
+          "name": "Human-Centered Design",
+          "skill_area": "Thiết kế lấy con người làm trung tâm",
+          "why_recommended": "Helps strengthen core connector capabilities through systematic training.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "communicator",
+          "resource_type": "skill",
+          "name": "Public Speaking",
+          "skill_area": "Nói trước đám đông, trình bày ý tưởng",
+          "why_recommended": "Helps strengthen core communicator capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "communicator",
+          "resource_type": "skill",
+          "name": "Storytelling",
+          "skill_area": "Kể chuyện, cấu trúc thông điệp",
+          "why_recommended": "Helps strengthen core communicator capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "communicator",
+          "resource_type": "digital_skill",
+          "name": "Canva / Google Slides",
+          "skill_area": "Thiết kế slide, poster, visual communication",
+          "why_recommended": "Helps strengthen core communicator capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "communicator",
+          "resource_type": "digital_skill",
+          "name": "CapCut / Basic Video Editing",
+          "skill_area": "Làm video demo, explainer video",
+          "why_recommended": "Helps strengthen core communicator capabilities through systematic training.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "communicator",
+          "resource_type": "topic",
+          "name": "Science Communication",
+          "skill_area": "Truyền thông khoa học-công nghệ",
+          "why_recommended": "Helps strengthen core communicator capabilities through systematic training.",
+          "level": "intermediate"
+        }
+      ],
+      "activities": [
+        {
+          "role_id": "explorer",
+          "activity_type": "school",
+          "activity_name": "Mini Research Project",
+          "description": "Hands-on project designed to cultivate explorer practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the explorer profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "explorer",
+          "activity_type": "school",
+          "activity_name": "Science Fair / STEM Fair",
+          "description": "Hands-on project designed to cultivate explorer practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the explorer profile.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "explorer",
+          "activity_type": "home",
+          "activity_name": "Question Journal",
+          "description": "Hands-on project designed to cultivate explorer practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the explorer profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "explorer",
+          "activity_type": "club",
+          "activity_name": "Robotics Discovery Club",
+          "description": "Hands-on project designed to cultivate explorer practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the explorer profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "explorer",
+          "activity_type": "digital",
+          "activity_name": "AI/Tech Explainer Hunt",
+          "description": "Hands-on project designed to cultivate explorer practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the explorer profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "explorer",
+          "activity_type": "team",
+          "activity_name": "Problem Scout",
+          "description": "Hands-on project designed to cultivate explorer practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the explorer profile.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "explorer",
+          "activity_type": "community",
+          "activity_name": "Field Observation",
+          "description": "Hands-on project designed to cultivate explorer practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the explorer profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "explorer",
+          "activity_type": "competition",
+          "activity_name": "Invention Challenge",
+          "description": "Hands-on project designed to cultivate explorer practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the explorer profile.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "builder",
+          "activity_type": "school",
+          "activity_name": "Build-a-Prototype Challenge",
+          "description": "Hands-on project designed to cultivate builder practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the builder profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "builder",
+          "activity_type": "home",
+          "activity_name": "Weekend Maker Project",
+          "description": "Hands-on project designed to cultivate builder practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the builder profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "builder",
+          "activity_type": "club",
+          "activity_name": "Robotics Build Team",
+          "description": "Hands-on project designed to cultivate builder practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the builder profile.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "builder",
+          "activity_type": "digital",
+          "activity_name": "Scratch / Blockly Mini Game",
+          "description": "Hands-on project designed to cultivate builder practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the builder profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "builder",
+          "activity_type": "team",
+          "activity_name": "Prototype Owner",
+          "description": "Hands-on project designed to cultivate builder practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the builder profile.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "builder",
+          "activity_type": "competition",
+          "activity_name": "Robotics Competition",
+          "description": "Hands-on project designed to cultivate builder practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the builder profile.",
+          "level": "advanced"
+        },
+        {
+          "role_id": "builder",
+          "activity_type": "home",
+          "activity_name": "Fix & Improve",
+          "description": "Hands-on project designed to cultivate builder practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the builder profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "builder",
+          "activity_type": "digital",
+          "activity_name": "Tinkercad Basic Design",
+          "description": "Hands-on project designed to cultivate builder practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the builder profile.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "operator",
+          "activity_type": "school",
+          "activity_name": "Class Project Planner",
+          "description": "Hands-on project designed to cultivate operator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the operator profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "operator",
+          "activity_type": "home",
+          "activity_name": "Weekly Planning Routine",
+          "description": "Hands-on project designed to cultivate operator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the operator profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "operator",
+          "activity_type": "club",
+          "activity_name": "Event Logistics Helper",
+          "description": "Hands-on project designed to cultivate operator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the operator profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "operator",
+          "activity_type": "digital",
+          "activity_name": "Trello / Notion Task Board",
+          "description": "Hands-on project designed to cultivate operator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the operator profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "operator",
+          "activity_type": "team",
+          "activity_name": "QA/Test Lead",
+          "description": "Hands-on project designed to cultivate operator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the operator profile.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "operator",
+          "activity_type": "competition",
+          "activity_name": "Robot Run Checklist",
+          "description": "Hands-on project designed to cultivate operator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the operator profile.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "operator",
+          "activity_type": "home",
+          "activity_name": "Personal Checklist System",
+          "description": "Hands-on project designed to cultivate operator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the operator profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "operator",
+          "activity_type": "school",
+          "activity_name": "Meeting Note Taker",
+          "description": "Hands-on project designed to cultivate operator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the operator profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "connector",
+          "activity_type": "school",
+          "activity_name": "Group Facilitator",
+          "description": "Hands-on project designed to cultivate connector practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the connector profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "connector",
+          "activity_type": "community",
+          "activity_name": "Volunteer Project",
+          "description": "Hands-on project designed to cultivate connector practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the connector profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "connector",
+          "activity_type": "team",
+          "activity_name": "User Interviewer",
+          "description": "Hands-on project designed to cultivate connector practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the connector profile.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "connector",
+          "activity_type": "digital",
+          "activity_name": "User Persona Canvas",
+          "description": "Hands-on project designed to cultivate connector practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the connector profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "connector",
+          "activity_type": "club",
+          "activity_name": "Team Bonding Coordinator",
+          "description": "Hands-on project designed to cultivate connector practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the connector profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "connector",
+          "activity_type": "school",
+          "activity_name": "Peer Support Buddy",
+          "description": "Hands-on project designed to cultivate connector practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the connector profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "connector",
+          "activity_type": "community",
+          "activity_name": "Human-Centered Design Challenge",
+          "description": "Hands-on project designed to cultivate connector practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the connector profile.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "connector",
+          "activity_type": "team",
+          "activity_name": "Stakeholder Mapper",
+          "description": "Hands-on project designed to cultivate connector practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the connector profile.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "communicator",
+          "activity_type": "school",
+          "activity_name": "Class Presenter",
+          "description": "Hands-on project designed to cultivate communicator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the communicator profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "communicator",
+          "activity_type": "club",
+          "activity_name": "MC / Host",
+          "description": "Hands-on project designed to cultivate communicator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the communicator profile.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "communicator",
+          "activity_type": "digital",
+          "activity_name": "Explainer Video",
+          "description": "Hands-on project designed to cultivate communicator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the communicator profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "communicator",
+          "activity_type": "team",
+          "activity_name": "Pitch Lead",
+          "description": "Hands-on project designed to cultivate communicator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the communicator profile.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "communicator",
+          "activity_type": "school",
+          "activity_name": "Debate / Public Speaking Club",
+          "description": "Hands-on project designed to cultivate communicator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the communicator profile.",
+          "level": "intermediate"
+        },
+        {
+          "role_id": "communicator",
+          "activity_type": "home",
+          "activity_name": "Teach-back Practice",
+          "description": "Hands-on project designed to cultivate communicator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the communicator profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "communicator",
+          "activity_type": "digital",
+          "activity_name": "Slide / Poster Design",
+          "description": "Hands-on project designed to cultivate communicator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the communicator profile.",
+          "level": "beginner"
+        },
+        {
+          "role_id": "communicator",
+          "activity_type": "community",
+          "activity_name": "Campaign Storyteller",
+          "description": "Hands-on project designed to cultivate communicator practical problem solving.",
+          "where_to_do": "At school / at home",
+          "why_fit": "Builds structured habits for the communicator profile.",
+          "level": "intermediate"
+        }
+      ],
+      "combinationbank": {
+        "explorer_builder": {
+          "profile_id": "explorer_builder",
+          "primary_role": "explorer",
+          "secondary_role": "builder",
+          "profile_name": "Explorer + Builder",
+          "headline": "You blend explorer inquiry with builder execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "STEM projects, robotics challenges, invention competitions, science fairs, maker spaces, and hands-on research-to-prototype initiatives."
+        },
+        "explorer_operator": {
+          "profile_id": "explorer_operator",
+          "primary_role": "explorer",
+          "secondary_role": "operator",
+          "profile_name": "Explorer + Operator",
+          "headline": "You blend explorer inquiry with operator execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Scientific research, data analysis, hypothesis testing, information synthesis projects, and structured robotics research."
+        },
+        "explorer_connector": {
+          "profile_id": "explorer_connector",
+          "primary_role": "explorer",
+          "secondary_role": "connector",
+          "profile_name": "Explorer + Connector",
+          "headline": "You blend explorer inquiry with connector execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "User research, social impact initiatives, human-centered design, user interviews, and community-focused robotics projects."
+        },
+        "explorer_communicator": {
+          "profile_id": "explorer_communicator",
+          "primary_role": "explorer",
+          "secondary_role": "communicator",
+          "profile_name": "Explorer + Communicator",
+          "headline": "You blend explorer inquiry with communicator execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Science communication, STEM presentations, tech explainer videos, educational workshops, project reports, and product demos."
+        },
+        "builder_explorer": {
+          "profile_id": "builder_explorer",
+          "primary_role": "builder",
+          "secondary_role": "explorer",
+          "profile_name": "Builder + Explorer",
+          "headline": "You blend builder inquiry with explorer execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Prototyping labs, robotics challenges, hackathons, maker initiatives, coding projects, and build-test-learn experiential environments."
+        },
+        "builder_operator": {
+          "profile_id": "builder_operator",
+          "primary_role": "builder",
+          "secondary_role": "operator",
+          "profile_name": "Builder + Operator",
+          "headline": "You blend builder inquiry with operator execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Robotics competitions, engineering projects, QA/testing, hardware construction, software debugging, and high-precision systems."
+        },
+        "builder_connector": {
+          "profile_id": "builder_connector",
+          "primary_role": "builder",
+          "secondary_role": "connector",
+          "profile_name": "Builder + Connector",
+          "headline": "You blend builder inquiry with connector execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Human-centered robotics, product design, assistive technology, social innovation, and technology projects for community good."
+        },
+        "builder_communicator": {
+          "profile_id": "builder_communicator",
+          "primary_role": "builder",
+          "secondary_role": "communicator",
+          "profile_name": "Builder + Communicator",
+          "headline": "You blend builder inquiry with communicator execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Demo days, robotics showcases, product pitching, science fairs, maker media, and technical product presentations."
+        },
+        "operator_explorer": {
+          "profile_id": "operator_explorer",
+          "primary_role": "operator",
+          "secondary_role": "explorer",
+          "profile_name": "Operator + Explorer",
+          "headline": "You blend operator inquiry with explorer execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Process improvement, robotics testing, data logging, quality assurance, and projects requiring both discipline and agile refinement."
+        },
+        "operator_builder": {
+          "profile_id": "operator_builder",
+          "primary_role": "operator",
+          "secondary_role": "builder",
+          "profile_name": "Operator + Builder",
+          "headline": "You blend operator inquiry with builder execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Robotics operations, test engineering, technical project management, competition team coordination, and system deployments."
+        },
+        "operator_connector": {
+          "profile_id": "operator_connector",
+          "primary_role": "operator",
+          "secondary_role": "connector",
+          "profile_name": "Operator + Connector",
+          "headline": "You blend operator inquiry with connector execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Event operations, project coordination, team workflow management, program operations, and robotics team logistics."
+        },
+        "operator_communicator": {
+          "profile_id": "operator_communicator",
+          "primary_role": "operator",
+          "secondary_role": "communicator",
+          "profile_name": "Operator + Communicator",
+          "headline": "You blend operator inquiry with communicator execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Project plan briefings, status updates, team standups, documentation, user guide development, and workshop management."
+        },
+        "connector_explorer": {
+          "profile_id": "connector_explorer",
+          "primary_role": "connector",
+          "secondary_role": "explorer",
+          "profile_name": "Connector + Explorer",
+          "headline": "You blend connector inquiry with explorer execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "User interviews, community research, social impact projects, service design, and robotics solutions tailored for real users."
+        },
+        "connector_builder": {
+          "profile_id": "connector_builder",
+          "primary_role": "connector",
+          "secondary_role": "builder",
+          "profile_name": "Connector + Builder",
+          "headline": "You blend connector inquiry with builder execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Assistive technology, social innovation, product design, human-centered robotics, and community projects with working prototypes."
+        },
+        "connector_operator": {
+          "profile_id": "connector_operator",
+          "primary_role": "connector",
+          "secondary_role": "operator",
+          "profile_name": "Connector + Operator",
+          "headline": "You blend connector inquiry with operator execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Program coordination, event operations, club administration, stakeholder management, and robotics educational programs."
+        },
+        "connector_communicator": {
+          "profile_id": "connector_communicator",
+          "primary_role": "connector",
+          "secondary_role": "communicator",
+          "profile_name": "Connector + Communicator",
+          "headline": "You blend connector inquiry with communicator execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Community outreach, social media campaigns, education, interactive workshops, social venture pitching, and team presentations."
+        },
+        "communicator_explorer": {
+          "profile_id": "communicator_explorer",
+          "primary_role": "communicator",
+          "secondary_role": "explorer",
+          "profile_name": "Communicator + Explorer",
+          "headline": "You blend communicator inquiry with explorer execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Science communication, STEM content creation, keynote presentations, explainer videos, interactive workshops, and tech storytelling."
+        },
+        "communicator_builder": {
+          "profile_id": "communicator_builder",
+          "primary_role": "communicator",
+          "secondary_role": "builder",
+          "profile_name": "Communicator + Builder",
+          "headline": "You blend communicator inquiry with builder execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Product demos, maker presentations, pitch competitions, robotics showcases, and multimedia content featuring tangible products."
+        },
+        "communicator_operator": {
+          "profile_id": "communicator_operator",
+          "primary_role": "communicator",
+          "secondary_role": "operator",
+          "profile_name": "Communicator + Operator",
+          "headline": "You blend communicator inquiry with operator execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Training programs, technical documentation, project reporting, product tutorials, workshop facilitation, and structured presentations."
+        },
+        "communicator_connector": {
+          "profile_id": "communicator_connector",
+          "primary_role": "communicator",
+          "secondary_role": "connector",
+          "profile_name": "Communicator + Connector",
+          "headline": "You blend communicator inquiry with connector execution.",
+          "portrait": "You excel when identifying opportunities and driving them through hands-on experimentation.",
+          "parent_empathy": "Parents will notice both curiosity and proactive problem-solving habits.",
+          "best_environment": "Public speaking, community outreach, tech marketing, education, social advocacy campaigns, and social impact project pitches."
+        }
+      }
+    },
+    "missions": {
+      "river_rescue": "River Rescue Mission",
+      "ai_healthcare": "AI Healthcare Mission",
+      "smart_home": "Smart Home Mission",
+      "smart_waste": "Smart Waste Mission",
+      "drone_delivery": "Drone Delivery Mission",
+      "disaster_response": "Disaster Response Mission"
+    },
+    "evidence_fallback": "During the {{mission}}, you demonstrated the core traits of a {{role}}.",
+    "levels": {
+      "basic": "Basic",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "natural_behavior_headline": "Natural Behaviors"
+  }
+}

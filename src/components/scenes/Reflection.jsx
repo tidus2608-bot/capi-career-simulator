@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { capiAudio } from '../../audio.js'
-import { PHASE3_QUESTIONS, LIKERT_FIT } from '../../data.js'
+import { PHASE3_QUESTIONS } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import QAPageLayout from './QAPageLayout.jsx'
 
 export default function ReflectionScene() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const {
     onReflectDone,
@@ -60,10 +62,10 @@ export default function ReflectionScene() {
       imageSrc={imgPath}
       idx={idx}
       total={PHASE3_QUESTIONS.length}
-      questionText={q.text_vn}
-      options={[1, 2, 3, 4, 5].map((val) => ({
+      questionText={t(`phase3_questions.${q.role}`)}
+      options={[5, 4, 3, 2, 1].map((val) => ({
+        text: t(`likert_fit.${val}`),
         value: val,
-        text: LIKERT_FIT[val - 1] || `Option ${val}`,
       }))}
       selectedValue={currentValue}
       onSelect={handleSelectOption}

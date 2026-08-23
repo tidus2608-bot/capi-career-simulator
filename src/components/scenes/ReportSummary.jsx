@@ -5,13 +5,11 @@ import { Icon } from '@iconify/react'
 import SummaryRadar from '../SummaryRadar.jsx'
 import Capi from '../Capi.jsx'
 import Button from '../Button.jsx'
-import { CAPI_ROLES } from '../../data.js'
 import { capiAudio } from '../../audio.js'
 
 export default function ReportSummary() {
   const navigate = useNavigate()
-  const { t, i18n } = useTranslation()
-  const isEn = i18n.language === 'en'
+  const { t } = useTranslation()
   const { result, certCopy, certId } = useOutletContext()
   const [mounted, setMounted] = useState(false)
   const [isMobile, setIsMobile] = useState(
@@ -31,31 +29,28 @@ export default function ReportSummary() {
 
   if (!result || !certCopy) return null
 
-  const primary = CAPI_ROLES[result.primaryRole] || {
-    color: '#9333EA',
-    name: 'Communicator',
-    nameVn: 'Nhà Truyền thông',
-    summaryVn:
-      'Bạn nổi bật ở khả năng truyền đạt ý tưởng và giúp mọi người nhìn thấy ý nghĩa chung.',
-  }
+  const primaryRoleKey = result.primaryRole
 
   const radarScores = result.phase2 || result.phase1 || {}
 
-  const growthAreaStr = isEn ? certCopy.growthAreasEn?.[0] || '' : certCopy.growthAreasVn?.[0] || ''
-  const colonIndex = growthAreaStr.indexOf(':')
-  const growthHeadline =
-    colonIndex !== -1 ? growthAreaStr.substring(0, colonIndex).trim() : t('report.card_growth')
-  const growthDesc =
-    colonIndex !== -1 ? growthAreaStr.substring(colonIndex + 1).trim() : growthAreaStr || ''
+  const lowestRoleKey = certCopy.lowestRoles?.[0] || 'operator'
+  const growthHeadline = t(`roles.${lowestRoleKey}.name`)
+  const growthQualifications =
+    t(`roles.${lowestRoleKey}.qualifications`, { returnObjects: true }) || []
+  const growthDesc = Array.isArray(growthQualifications) ? growthQualifications[0] || '' : ''
 
-  const primaryQualifications = isEn
-    ? certCopy.primaryQualificationsEn
-    : certCopy.primaryQualifications
+  const qualifications = t(`roles.${primaryRoleKey}.qualifications`, { returnObjects: true }) || []
   const strengthsHeadline =
-    primaryQualifications?.[0] || (isEn ? 'System Thinking' : 'Tư duy Hệ thống')
-  const strengthsDesc = isEn
-    ? `You possess strong qualifications in ${primary.name.toLowerCase()}, including: ${(primaryQualifications || []).slice(1, 4).join(', ')}.`
-    : `Bạn sở hữu thế mạnh vượt trội về ${primary.nameVn.toLowerCase()}, nổi bật là: ${(primaryQualifications || []).slice(1, 4).join(', ')}.`
+    Array.isArray(qualifications) && qualifications[0]
+      ? qualifications[0]
+      : t(`roles.${primaryRoleKey}.name`)
+  const strengthsDesc = Array.isArray(qualifications) ? qualifications.slice(1, 4).join(', ') : ''
+
+  const naturalBehaviors =
+    t(`roles.${primaryRoleKey}.natural_behaviors`, { returnObjects: true }) || []
+  const naturalBehaviorDesc = Array.isArray(naturalBehaviors)
+    ? naturalBehaviors.slice(0, 2).join(' ')
+    : ''
 
   // Common card style generator
   const getCardStyle = (bgColor, borderColor, delay) => ({
@@ -187,14 +182,12 @@ export default function ReportSummary() {
                 color: '#1E293B',
               }}
             >
-              {isEn ? 'Natural Behaviors' : 'Xu hướng hành vi'}
+              {t('report.natural_behavior_headline')}
             </h4>
             <p
               style={{ margin: 0, fontSize: 'var(--text-sm)', color: '#475569', lineHeight: '1.4' }}
             >
-              {isEn
-                ? certCopy.workingStyleHeadlineEn || certCopy.workingStyleHeadlineVn
-                : certCopy.workingStyleHeadlineVn}
+              {naturalBehaviorDesc}
             </p>
           </div>
 
@@ -223,12 +216,12 @@ export default function ReportSummary() {
                 color: '#1E293B',
               }}
             >
-              {isEn ? certCopy.growthHeadlineEn || growthHeadline : growthHeadline}
+              {growthHeadline}
             </h4>
             <p
               style={{ margin: 0, fontSize: 'var(--text-sm)', color: '#475569', lineHeight: '1.4' }}
             >
-              {isEn ? certCopy.areasOfImprovementEn || growthDesc : growthDesc}
+              {growthDesc}
             </p>
           </div>
 
@@ -342,14 +335,12 @@ export default function ReportSummary() {
                 fontFamily: 'var(--font-display, sans-serif)',
               }}
             >
-              {isEn ? primary.name || 'Communicator' : primary.nameVn || 'Nhà Truyền thông'}
+              {t(`roles.${result.primaryRole}.name`)}
             </h3>
             <p
               style={{ margin: 0, fontSize: 'var(--text-sm)', color: '#6B21A8', lineHeight: '1.4' }}
             >
-              {t(`common.roles.${result.primaryRole}.tagline`) ||
-                certCopy.workingStyleHeadlineVn ||
-                'Bạn nổi bật ở khả năng truyền đạt ý tưởng và giúp mọi người nhìn thấy ý nghĩa chung.'}
+              {t(`roles.${result.primaryRole}.tagline`)}
             </p>
           </div>
 

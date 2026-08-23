@@ -17,53 +17,68 @@ export default function ThemeScene() {
   return (
     <div className="p2-shell" style={{ overflowY: 'auto', WebkitOverflowScrolling: 'touch' }}>
       <div className="p2-new-layout theme-select-layout">
-        <h2 className="p2-new-header">{t('common.select_challenge')}</h2>
+        <div className="p2-mission-header-group" style={{ textAlign: 'center', flexShrink: 0 }}>
+          <h2 className="p2-new-header" style={{ margin: 0 }}>
+            {t('common.select_challenge')}
+          </h2>
+          <div className="p2-mission-instruction-banner">
+            {selectedId ? t('common.selected_mission_ready') : t('common.select_theme_instruction')}
+          </div>
+        </div>
 
         <div className="p2-new-grid theme-grid">
-          {themes.map((tData) => (
-            <div
-              key={tData.id}
-              className={`p2-new-card ${selectedId === tData.id ? 'selected' : ''}`}
-              role="button"
-              tabIndex={0}
-              onClick={() => {
-                capiAudio.sfx('click')
-                setSelectedId(tData.id)
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault()
+          {themes.map((tData) => {
+            const isSelected = selectedId === tData.id
+            return (
+              <div
+                key={tData.id}
+                className={`p2-new-card ${isSelected ? 'selected' : ''} ${
+                  selectedId && !isSelected ? 'unselected-dim' : ''
+                }`}
+                role="button"
+                tabIndex={0}
+                aria-pressed={isSelected}
+                onClick={() => {
                   capiAudio.sfx('click')
                   setSelectedId(tData.id)
-                }
-              }}
-            >
-              <img
-                className="bg"
-                src={
-                  tData.id === 'ark-capi'
-                    ? '/illos/sx4-theme-ark.webp'
-                    : '/illos/sx4-theme-intern.webp'
-                }
-                alt=""
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none'
                 }}
-              />
-              <div className="p2-new-card-gradient" />
-              <div className="p2-new-card-content">
-                <div className="p2-new-card-subtitle">
-                  {t(`common.themes.${tData.id.replace('-', '_')}.displayName`)}
-                </div>
-                <div className="p2-new-card-title">
-                  {t(`common.themes.${tData.id.replace('-', '_')}.subtitle`)}
-                </div>
-                <div className="p2-new-card-desc">
-                  {t(`common.themes.${tData.id.replace('-', '_')}.blurb`)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    capiAudio.sfx('click')
+                    setSelectedId(tData.id)
+                  }
+                }}
+              >
+                {/* Selected Status Pill */}
+                {isSelected && (
+                  <div className="p2-mission-selected-pill">
+                    <span className="p2-mission-selected-pill-check">✓</span>
+                    <span>{t('common.selected_badge')}</span>
+                  </div>
+                )}
+
+                <img
+                  className="bg"
+                  src={
+                    tData.id === 'ark-capi'
+                      ? '/illos/sx4-theme-ark.webp'
+                      : '/illos/sx4-theme-intern.webp'
+                  }
+                  alt=""
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none'
+                  }}
+                />
+                <div className="p2-new-card-gradient" />
+                <div className="p2-new-card-content">
+                  <div className="p2-new-card-subtitle">{t(`themes.${tData.id}.displayName`)}</div>
+                  <div className="p2-new-card-title">{t(`themes.${tData.id}.subtitle`)}</div>
+                  <div className="p2-new-card-desc">{t(`themes.${tData.id}.blurb`)}</div>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         <div className="p2-new-actions">
@@ -74,7 +89,7 @@ export default function ThemeScene() {
               navigate('/role-reveal')
             }}
           >
-            {t('common.back_btn')}
+            ← {t('common.back_btn')}
           </Button>
           <Button
             variant="solid"

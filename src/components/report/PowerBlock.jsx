@@ -1,48 +1,29 @@
 import React from 'react'
 import { Icon } from '@iconify/react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation, Trans } from 'react-i18next'
 import SummaryRadar from '../SummaryRadar.jsx'
+import { CAPI_ROLES } from '../../data.js'
 
 const BULLET_COLORS = ['#6366F1', '#10B981', '#F59E0B', '#EF4444', '#06B6D4']
 
 const ROLE_RANKING_CONFIG = [
-  {
-    key: 'communicator',
-    color: '#EAB308',
-    nameVn: 'Communicator',
-    nameEn: 'Communicator',
-    textDark: true,
-  },
-  { key: 'connector', color: '#F97316', nameVn: 'Connector', nameEn: 'Connector' },
-  { key: 'explorer', color: '#22C55E', nameVn: 'Explorer', nameEn: 'Explorer' },
-  { key: 'builder', color: '#EF4444', nameVn: 'Builder', nameEn: 'Builder' },
-  { key: 'operator', color: '#3B82F6', nameVn: 'Operator', nameEn: 'Operator' },
+  { key: 'communicator', color: '#EAB308', textDark: true },
+  { key: 'connector', color: '#F97316' },
+  { key: 'explorer', color: '#22C55E' },
+  { key: 'builder', color: '#EF4444' },
+  { key: 'operator', color: '#3B82F6' },
 ]
 
-const COMBO_PROFILE_EN = {
-  connector_communicator: {
-    name: 'Empathetic Storyteller (Connector + Communicator)',
-    headline:
-      'You have the ability to empathize with others and convey messages in a way that touches the listeners.',
-    parent_empathy: [
-      'Caring about everyone around you',
-      'Loving storytelling, explaining, or representing the team in discussions',
-    ],
-    portrait: [
-      'Paying close attention to the emotions, needs, and perspectives of others.',
-      'Adjusting your delivery so the listener feels understood and inspired to participate.',
-    ],
-    environment:
-      'Community projects, social media, education, workshops, social impact pitching, team presentations.',
-  },
-}
-
-const parseBullets = (str) => {
-  if (!str) return []
-  return str
-    .split(/(?<=\.)\s*(?=[A-ZÀ-Ỹa-zA-Z])/g)
-    .map((s) => s.trim().replace(/\.$/, ''))
-    .filter((s) => s.length > 2)
+const parseBullets = (val) => {
+  if (!val) return []
+  if (Array.isArray(val)) return val.filter(Boolean)
+  if (typeof val === 'string') {
+    return val
+      .split(/(?<=[.!?])\s+/)
+      .map((s) => s.trim())
+      .filter((s) => s.length > 2)
+  }
+  return []
 }
 
 export default function PowerBlock({
@@ -67,69 +48,53 @@ export default function PowerBlock({
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // Combination identifiers
-  const comboKey = `${primaryRoleKey}_${secondaryRoleKey}`
-  const comboOverrideEn = COMBO_PROFILE_EN[comboKey]
-
-  // Setup Role & Combo names
+  // Setup Role & Combo names and taglines via i18n
+  const lang = isEn ? 'en' : 'vi'
   const primaryName = isEn
-    ? primaryRoleMeta?.name || primaryRoleMeta?.name_en || primaryRoleKey
-    : primaryRoleMeta?.nameVn || primaryRoleMeta?.name_vn || primaryRoleKey
+    ? primaryRoleMeta?.name ||
+      primaryRoleMeta?.name_en ||
+      t(`roles.${primaryRoleKey}.name`, { lng: 'en', defaultValue: primaryRoleKey })
+    : primaryRoleMeta?.nameVn ||
+      primaryRoleMeta?.name_vn ||
+      t(`roles.${primaryRoleKey}.name`, { lng: 'vi', defaultValue: primaryRoleKey })
 
-  const comboNameVi =
-    primaryComboData?.profile_name ||
-    `${primaryRoleMeta?.nameVn || primaryRoleMeta?.name_vn || primaryRoleKey} + ${secondaryRoleMeta?.nameVn || secondaryRoleMeta?.name_vn || secondaryRoleKey}`
-  const comboNameEn =
-    comboOverrideEn?.name ||
-    `${primaryRoleMeta?.name || primaryRoleMeta?.name_en || primaryRoleKey} + ${secondaryRoleMeta?.name || secondaryRoleMeta?.name_en || secondaryRoleKey}`
-  const comboName = isEn ? comboNameEn : comboNameVi
+  const primaryTagline = t(`roles.${primaryRoleKey}.tagline`, { lng: lang, defaultValue: '' })
+  const primarySubtitle = t(`roles.${primaryRoleKey}.subtitle`, {
+    lng: lang,
+    defaultValue: primaryRoleData?.tagline || '',
+  })
 
-  // Clean primary tagline
-  const rawTagline = primaryRoleData?.tagline || ''
-  const cleanTagline = rawTagline
-    .replace('Con nổi bật ở', isEn ? 'with' : 'với')
-    .replace('Con nổi bật', isEn ? 'with' : 'với')
-    .replace('con nổi bật ở', isEn ? 'with' : 'với')
-    .trim()
+  const comboName = isSecondary
+    ? isEn
+      ? primaryComboData?.profile_name_en ||
+        `${primaryRoleMeta?.name || primaryRoleKey} + ${secondaryRoleMeta?.name || secondaryRoleKey}`
+      : primaryComboData?.profile_name ||
+        `${primaryRoleMeta?.nameVn || primaryRoleKey} + ${secondaryRoleMeta?.nameVn || secondaryRoleKey}`
+    : primaryName
 
-  // Subtitle / Secondary combo info
-  const rawComboHeadline = primaryComboData?.headline || primaryRoleData?.tagline || ''
-  const cleanComboTagline = rawComboHeadline
-    .replace('Con có', isEn ? 'with' : 'với')
-    .replace('Con sở hữu', isEn ? 'with' : 'với')
-    .replace('con có', isEn ? 'with' : 'với')
-    .replace(/^Con /, '')
-    .trim()
+  const comboTagline = primaryComboData?.headline || primaryTagline
+  const comboSubtitle = primaryComboData?.headline || primarySubtitle
 
-  // Banner Title & Subtitle based on block mode
+  // Declarative banner title with <Trans />
   const bannerTitle = isSecondary ? (
-    isEn ? (
-      <>
-        You are also a <span style={{ color: '#8B2FA9', fontWeight: 800 }}>{comboName}</span> with a
-        tendency to {comboOverrideEn?.headline || cleanComboTagline}
-      </>
-    ) : (
-      <>
-        Bạn cũng là một <span style={{ color: '#8B2FA9', fontWeight: 800 }}>{comboName}</span> với{' '}
-        {cleanComboTagline}
-      </>
-    )
-  ) : isEn ? (
-    <>
-      You are best suited as an{' '}
-      <span style={{ color: '#8B2FA9', fontWeight: 800 }}>{primaryName}</span> with a tendency to{' '}
-      {cleanTagline}
-    </>
+    <Trans
+      i18nKey="report.secondary_title_template"
+      values={{ name: comboName, tagline: comboTagline }}
+      components={{
+        highlight: <span style={{ color: '#8B2FA9', fontWeight: 800 }} />,
+      }}
+    />
   ) : (
-    <>
-      Bạn phù hợp nhất là một{' '}
-      <span style={{ color: '#8B2FA9', fontWeight: 800 }}>{primaryName}</span> {cleanTagline}
-    </>
+    <Trans
+      i18nKey="report.primary_title_template"
+      values={{ name: primaryName, tagline: primaryTagline }}
+      components={{
+        highlight: <span style={{ color: '#8B2FA9', fontWeight: 800 }} />,
+      }}
+    />
   )
 
-  const bannerSubtitle = isEn
-    ? 'You stand out in your ability to communicate ideas and help everyone see a common meaning.'
-    : 'Bạn nổi bật ở khả năng truyền đạt ý tưởng và giúp mọi người nhìn thấy ý nghĩa chung.'
+  const bannerSubtitle = isSecondary ? comboSubtitle : primarySubtitle
 
   // Sort axis roles rankings based on block mode
   let rankedRoles = []
@@ -165,28 +130,35 @@ export default function PowerBlock({
   let portraitBullets = []
   let environmentText = ''
 
-  if (isSecondary && comboOverrideEn) {
-    empathyBullets = comboOverrideEn.parent_empathy || []
-    portraitBullets = comboOverrideEn.portrait || []
-    environmentText = comboOverrideEn.environment || ''
-  } else if (isSecondary && primaryComboData?.profile_name) {
+  const roleCatalog = t(`roles.${primaryRoleKey}`, { returnObjects: true, lng: lang }) || {}
+  const parentEmpathyArray = Array.isArray(roleCatalog.parent_empathy)
+    ? roleCatalog.parent_empathy
+    : []
+  const naturalBehaviorsArray = Array.isArray(roleCatalog.natural_behaviors)
+    ? roleCatalog.natural_behaviors
+    : []
+
+  if (isSecondary && primaryComboData?.profile_name) {
     empathyBullets = parseBullets(primaryComboData.parent_empathy || '')
     portraitBullets = parseBullets(primaryComboData.portrait || primaryComboData.strengths || '')
     environmentText = primaryComboData.best_environment || primaryComboData.natural_behaviors || ''
   } else {
-    if (isEn && primaryRoleData.summaryEn) {
-      empathyBullets = parseBullets(primaryRoleData.summaryEn)
-      portraitBullets = parseBullets(primaryRoleData.strengthsEn || '')
-    } else {
-      const rawEmpathy = primaryRoleData.parent_empathy || ''
-      empathyBullets = parseBullets(rawEmpathy)
-      portraitBullets = parseBullets(primaryRoleData.strengths || primaryRoleData.portrait || '')
-    }
-    environmentText = primaryRoleData.natural_behaviors || primaryRoleData.best_environment || ''
+    empathyBullets =
+      parentEmpathyArray.length > 0
+        ? parentEmpathyArray
+        : parseBullets(primaryRoleData?.parent_empathy || '')
+    portraitBullets =
+      naturalBehaviorsArray.length > 0
+        ? naturalBehaviorsArray
+        : parseBullets(primaryRoleData?.natural_behaviors || primaryRoleData?.strengths || '')
+    environmentText =
+      roleCatalog.best_environment ||
+      roleCatalog.best_fit_for ||
+      primaryRoleData?.best_environment ||
+      ''
   }
 
-  // Format environment text with space after periods
-  const formattedEnvironmentText = (environmentText || '').replace(/\.([A-Za-zÀ-Ỹ])/g, '. $1')
+  const formattedEnvironmentText = environmentText || ''
 
   return (
     <section className="report-section print-card power-block-section">
@@ -243,12 +215,19 @@ export default function PowerBlock({
       <div className="power-block-radar-row">
         {/* Radar Chart Column */}
         <div className="power-block-radar-col">
-          <SummaryRadar scores={result.phase2} size={isMobile ? 200 : 300} />
+          <SummaryRadar scores={result.phase2} size={isMobile ? 200 : 250} />
         </div>
 
         {/* Roles Ranked Bars Column */}
         <div className="power-block-ranks-col">
           {rankedRoles.map((role, idx) => {
+            const roleDisplayName = t(`roles.${role.key}.name`, {
+              lng: lang,
+              defaultValue: isEn
+                ? CAPI_ROLES[role.key]?.name || role.key
+                : CAPI_ROLES[role.key]?.nameVn || role.key,
+            })
+
             return (
               <div
                 key={role.key}
@@ -266,7 +245,7 @@ export default function PowerBlock({
                 }}
               >
                 <span>
-                  {String(idx + 1).padStart(2, '0')}. {isEn ? role.nameEn : role.nameVn}
+                  {String(idx + 1).padStart(2, '0')}. {roleDisplayName}
                 </span>
                 <span style={{ fontWeight: 800 }}>{role.score}%</span>
               </div>
@@ -286,6 +265,7 @@ export default function PowerBlock({
       >
         {/* Parent Empathy Card */}
         <div
+          className="power-block-subcard"
           style={{
             backgroundColor: '#F8FAFC',
             border: '1px solid #E2E8F0',
@@ -336,14 +316,15 @@ export default function PowerBlock({
               fontStyle: 'italic',
             }}
           >
-            {isEn
-              ? `These are natural expressions of the ${isSecondary ? comboName : primaryName} profile.`
-              : `Đó chính là những biểu hiện tự nhiên của nhóm ${isSecondary ? comboName : 'này'}.`}
+            {t('report.parent_expressions_note', {
+              role: isSecondary ? comboName : primaryName,
+            })}
           </p>
         </div>
 
         {/* Child Shines Card */}
         <div
+          className="power-block-subcard"
           style={{
             backgroundColor: '#F8FAFC',
             border: '1px solid #E2E8F0',
@@ -390,6 +371,7 @@ export default function PowerBlock({
 
       {/* 4. Best Environment Footer Row */}
       <div
+        className="power-block-environment"
         style={{
           backgroundColor: '#FAF5FF',
           border: '1px solid #E9D5FF',
