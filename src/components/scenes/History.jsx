@@ -2,21 +2,36 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { Icon } from '@iconify/react'
-import {
-  CAPI_ROLES,
-  CAPI_MISSIONS,
-  CAPI_THEMES,
-  PHASE1_QUESTIONS,
-  PHASE3_QUESTIONS,
-} from '../../data.js'
+import { CAPI_MISSIONS, PHASE1_QUESTIONS, PHASE3_QUESTIONS } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import { supabase } from '../../lib/supabase.js'
 import SceneShell from './SceneShell.jsx'
 import Button from '../Button.jsx'
 import Pagination from '../Pagination.jsx'
+import Modal from '../Modal.jsx'
 import { formatDateTime } from '../../lib/format.js'
 
-const ITEMS_PER_PAGE = 6
+function useResponsiveItemsPerPage() {
+  const [itemsPerPage, setItemsPerPage] = useState(() => {
+    if (typeof window === 'undefined') return 6
+    if (window.innerWidth < 640) return 3
+    if (window.innerWidth < 1024) return 4
+    return 6
+  })
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth
+      if (width < 640) setItemsPerPage(3)
+      else if (width < 1024) setItemsPerPage(4)
+      else setItemsPerPage(6)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  return itemsPerPage
+}
 
 const ROLE_DISPLAY_CONFIG = {
   explorer: {
@@ -70,18 +85,16 @@ function getRoleConfig(roleKey) {
 }
 
 function getMissionTitle(run, t) {
-  const mission = CAPI_MISSIONS[run.mission_id]
-  if (mission) {
-    return t(
-      `missions.${run.mission_id}.name`,
-      mission.name_vn || mission.title || `Nhiệm vụ #${run.mission_id}`,
-    )
+  if (!run) return ''
+  if (run.mission_id) {
+    const mission = CAPI_MISSIONS[run.mission_id]
+    if (mission) return t(`missions.${mission.id}.name`, mission.title)
+    return t(`missions.${run.mission_id}.name`, `Mission #${run.mission_id}`)
   }
   if (run.theme) {
-    const theme = CAPI_THEMES[run.theme]
-    if (theme) return theme.name
+    return t(`themes.${run.theme}.displayName`, run.theme)
   }
-  return t('history.default_mission_name', 'Nhiệm vụ mô phỏng')
+  return t('history.default_mission_name', 'Chiến dịch khám phá')
 }
 
 function getMissionPreviewImg(run) {
@@ -149,10 +162,7 @@ function LoginPrompt({ handleLogin, t }) {
             maxWidth: '35ch',
           }}
         >
-          {t(
-            'history.login_required_desc',
-            'Vui lòng đăng nhập tài khoản của bạn để xem và đồng bộ lịch sử các lượt làm bài test.',
-          )}
+          {t('history.login_required_desc')}
         </p>
       </div>
 
@@ -176,7 +186,7 @@ function LoginPrompt({ handleLogin, t }) {
         }}
       >
         <Icon icon="mdi:google" width={20} height={20} />
-        <span>{t('common.admin_login', 'Đăng nhập với Google')}</span>
+        <span>{t('history.btn_login')}</span>
       </Button>
     </div>
   )
@@ -372,7 +382,7 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
           }}
         >
           {activeTab === 'phase2' && (
-            <>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {mission?.questions?.length > 0 ? (
                 mission.questions.map((q, qIdx) => {
                   const selectedOptLabel = p2Answers[q.id]
@@ -405,7 +415,10 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                             textTransform: 'uppercase',
                           }}
                         >
-                          {q.chapter_vn || `Câu ${qIdx + 1}`}
+                          {t(
+                            `missions.${run.mission_id}.questions.${q.id}.chapter`,
+                            `Câu ${qIdx + 1}`,
+                          )}
                         </span>
                         {q.layer && (
                           <span
@@ -429,7 +442,10 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                           lineHeight: 1.45,
                         }}
                       >
-                        {q.capi_dialogue_vn || q.prompt_vn || `Tình huống ${qIdx + 1}`}
+                        {t(
+                          `missions.${run.mission_id}.questions.${q.id}.dialogue`,
+                          `Tình huống ${qIdx + 1}`,
+                        )}
                       </div>
                       <div
                         style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 4 }}
@@ -461,7 +477,11 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                               >
                                 {opt.label}.
                               </span>
-                              <span style={{ flex: 1 }}>{opt.text_vn || opt.text}</span>
+                              <span style={{ flex: 1 }}>
+                                {t(
+                                  `missions.${run.mission_id}.questions.${q.id}.options.${opt.label}`,
+                                )}
+                              </span>
                               {isSelected && (
                                 <span
                                   style={{
@@ -474,7 +494,7 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                                     flexShrink: 0,
                                   }}
                                 >
-                                  ✓ {t('history.selected_answer', 'Bạn đã chọn')}
+                                  ✓ {t('history.selected_answer')}
                                 </span>
                               )}
                             </div>
@@ -486,10 +506,10 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                 })
               ) : (
                 <div style={{ textAlign: 'center', padding: '30px', color: '#64748B' }}>
-                  {t('history.no_answers_recorded', 'Không có dữ liệu câu trả lời cho phase này.')}
+                  {t('history.no_answers_recorded')}
                 </div>
               )}
-            </>
+            </div>
           )}
 
           {activeTab === 'phase1' && (
@@ -516,11 +536,11 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                         style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}
                       >
                         <span style={{ fontSize: 12, fontWeight: 700, color: roleConfig.color }}>
-                          #{idx + 1} • {roleConfig.name}
+                          #{idx + 1} • {t(`roles.${q.role}.name`)}
                         </span>
                       </div>
                       <div style={{ fontSize: 14, color: '#0F172A', lineHeight: 1.4 }}>
-                        {t(`questions.${q.id}`, q.text_vn)}
+                        {t(`questions.${q.id}`)}
                       </div>
                     </div>
                     <div
@@ -570,11 +590,11 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                         style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}
                       >
                         <span style={{ fontSize: 12, fontWeight: 700, color: roleConfig.color }}>
-                          {roleConfig.name} ({roleConfig.nameVn})
+                          {t(`roles.${q.role}.name`)}
                         </span>
                       </div>
                       <div style={{ fontSize: 14, color: '#0F172A', lineHeight: 1.4 }}>
-                        {q.text_vn}
+                        {t(`phase3_questions.${q.role}`)}
                       </div>
                     </div>
                     <div
@@ -636,7 +656,7 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
   )
 }
 
-function HistoryCard({ run, onOpenAnswers, onOpenReport, t }) {
+function HistoryCard({ run, isSelected, onToggleCompare, onOpenAnswers, onOpenReport, t }) {
   const roleConfig = getRoleConfig(run.primary_role)
   const title = getMissionTitle(run, t)
   const previewImg = getMissionPreviewImg(run)
@@ -644,19 +664,32 @@ function HistoryCard({ run, onOpenAnswers, onOpenReport, t }) {
 
   return (
     <div
-      className="history-grid-card fade-up"
+      className={`history-grid-card fade-up ${isSelected ? 'selected' : ''}`}
+      onClick={() => onToggleCompare(run.id)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onToggleCompare(run.id)
+        }
+      }}
       style={{
-        backgroundColor: '#FFFFFF',
+        backgroundColor: isSelected ? '#FAF5FF' : '#FFFFFF',
         borderRadius: 20,
-        border: '1px solid #E2E8F0',
+        border: isSelected ? '2.5px solid #843497' : '1.5px solid #E2E8F0',
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        boxShadow: '0 4px 18px -2px rgba(0, 0, 0, 0.04)',
-        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+        boxShadow: isSelected
+          ? '0 12px 28px -4px rgba(132, 52, 151, 0.22)'
+          : '0 4px 18px -2px rgba(0, 0, 0, 0.04)',
+        transition: 'all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1)',
+        position: 'relative',
+        cursor: 'pointer',
       }}
     >
-      {/* Top Image Frame */}
+      {/* Top Image Frame with Compare Toggle Pill */}
       <div
         style={{
           height: 175,
@@ -679,6 +712,67 @@ function HistoryCard({ run, onOpenAnswers, onOpenReport, t }) {
             e.currentTarget.src = '/illos/m1-preview.webp'
           }}
         />
+
+        {/* Compare Select Checkbox Indicator */}
+        {isSelected ? (
+          <div
+            aria-label={t('history.selected_for_compare', 'Đã chọn')}
+            style={{
+              position: 'absolute',
+              top: 12,
+              right: 12,
+              backgroundColor: '#843497',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+              color: '#FFFFFF',
+              border: '1.5px solid #843497',
+              borderRadius: 9999,
+              padding: '4px 10px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 5,
+              fontSize: 12,
+              fontWeight: 700,
+              boxShadow: '0 3px 10px rgba(132, 52, 151, 0.3)',
+              transition: 'all 0.15s ease',
+              userSelect: 'none',
+            }}
+          >
+            <Icon icon="mdi:check" width={14} height={14} />
+            <span>{t('history.selected_for_compare', 'Đã chọn')}</span>
+          </div>
+        ) : (
+          <div
+            aria-label={t('history.select_to_compare', 'Chọn so sánh')}
+            style={{
+              position: 'absolute',
+              top: 12,
+              right: 12,
+              width: 28,
+              height: 28,
+              borderRadius: '50%',
+              backgroundColor: 'rgba(255, 255, 255, 0.88)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+              border: '1.5px solid #CBD5E1',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 2px 6px rgba(0,0,0,0.08)',
+              transition: 'all 0.15s ease',
+              userSelect: 'none',
+            }}
+          >
+            <div
+              style={{
+                width: 14,
+                height: 14,
+                borderRadius: '50%',
+                border: '2px solid #94A3B8',
+              }}
+            />
+          </div>
+        )}
       </div>
 
       {/* Card Body */}
@@ -755,7 +849,7 @@ function HistoryCard({ run, onOpenAnswers, onOpenReport, t }) {
                   marginTop: 1,
                 }}
               >
-                {t('history.primary_role_badge', 'Primary role')}
+                {t('history.primary_role_badge')}
               </div>
             </div>
             <div style={{ color: roleConfig.color, display: 'flex', alignItems: 'center' }}>
@@ -773,7 +867,10 @@ function HistoryCard({ run, onOpenAnswers, onOpenReport, t }) {
             }}
           >
             <button
-              onClick={() => onOpenAnswers(run)}
+              onClick={(e) => {
+                e.stopPropagation()
+                onOpenAnswers(run)
+              }}
               style={{
                 padding: '9px 10px',
                 fontSize: 13,
@@ -795,7 +892,10 @@ function HistoryCard({ run, onOpenAnswers, onOpenReport, t }) {
             </button>
 
             <button
-              onClick={() => onOpenReport(run)}
+              onClick={(e) => {
+                e.stopPropagation()
+                onOpenReport(run)
+              }}
               style={{
                 padding: '9px 10px',
                 fontSize: 13,
@@ -826,16 +926,21 @@ export default function HistoryScene() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { user, loadRun } = useWizard()
+  const itemsPerPage = useResponsiveItemsPerPage()
   const [runs, setRuns] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  // Modals & filters
+  // Modals & filters for History list
   const [selectedRunForAnswers, setSelectedRunForAnswers] = useState(null)
   const [filterOpen, setFilterOpen] = useState(false)
   const [selectedRoleFilter, setSelectedRoleFilter] = useState('all')
   const [sortOrder, setSortOrder] = useState('newest')
   const [currentPage, setCurrentPage] = useState(1)
+
+  // Compare selection state
+  const [selectedCompareRunIds, setSelectedCompareRunIds] = useState([])
+  const [showMaxLimitModal, setShowMaxLimitModal] = useState(false)
 
   useEffect(() => {
     if (!user) return undefined
@@ -847,14 +952,14 @@ export default function HistoryScene() {
       .limit(60)
       .then(({ data, error: err }) => {
         if (cancelled) return
-        if (err) setError(err.message || 'Lỗi tải lịch sử')
+        if (err) setError(err.message || t('history.load_error'))
         else setRuns(data || [])
         setLoading(false)
       })
     return () => {
       cancelled = true
     }
-  }, [user])
+  }, [user, t])
 
   const handleOpenReport = useCallback(
     (runData) => {
@@ -928,14 +1033,43 @@ export default function HistoryScene() {
     return list
   }, [runs, selectedRoleFilter, sortOrder])
 
-  // Pagination
-  const totalPages = Math.ceil(filteredRuns.length / ITEMS_PER_PAGE) || 1
+  // Pagination for History List
+  const totalPages = Math.ceil(filteredRuns.length / itemsPerPage) || 1
   const validCurrentPage = Math.min(Math.max(1, currentPage), totalPages)
 
   const paginatedRuns = useMemo(() => {
-    const start = (validCurrentPage - 1) * ITEMS_PER_PAGE
-    return filteredRuns.slice(start, start + ITEMS_PER_PAGE)
-  }, [filteredRuns, validCurrentPage])
+    const start = (validCurrentPage - 1) * itemsPerPage
+    return filteredRuns.slice(start, start + itemsPerPage)
+  }, [filteredRuns, validCurrentPage, itemsPerPage])
+
+  const historyFromCount = paginatedRuns.length > 0 ? (validCurrentPage - 1) * itemsPerPage + 1 : 0
+  const historyToCount =
+    paginatedRuns.length > 0 ? (validCurrentPage - 1) * itemsPerPage + paginatedRuns.length : 0
+
+  const handleToggleCompareRun = useCallback((runId) => {
+    setSelectedCompareRunIds((prev) => {
+      if (prev.includes(runId)) {
+        return prev.filter((id) => id !== runId)
+      }
+      if (prev.length >= 2) {
+        setShowMaxLimitModal(true)
+        return prev
+      }
+      return [...prev, runId]
+    })
+  }, [])
+
+  const handleNavigateCompare = useCallback(() => {
+    if (selectedCompareRunIds.length !== 2) return
+    const run1 = runs.find((r) => r.id === selectedCompareRunIds[0])
+    const run2 = runs.find((r) => r.id === selectedCompareRunIds[1])
+    navigate(
+      `/history/compare?run1=${encodeURIComponent(selectedCompareRunIds[0])}&run2=${encodeURIComponent(selectedCompareRunIds[1])}`,
+      {
+        state: { run1, run2 },
+      },
+    )
+  }, [selectedCompareRunIds, runs, navigate])
 
   // User avatar resolution
   const userAvatar = user?.user_metadata?.avatar_url || user?.user_metadata?.picture || null
@@ -971,14 +1105,15 @@ export default function HistoryScene() {
           <div>
             <h1
               style={{
-                fontSize: 22,
+                fontSize: 24,
                 fontWeight: 800,
                 color: '#0F172A',
                 margin: 0,
+                letterSpacing: '-0.02em',
                 fontFamily: 'var(--font-display)',
               }}
             >
-              {t('history.title', 'Lịch sử khám phá của bạn')}
+              {t('history.title')}
             </h1>
             <p
               style={{
@@ -987,10 +1122,7 @@ export default function HistoryScene() {
                 margin: '4px 0 0 0',
               }}
             >
-              {t(
-                'history.subtitle',
-                'Xem lại các nhiệm vụ đã hoàn thành và hành trình khám phá bản thân qua từng lần trải nghiệm.',
-              )}
+              {t('history.desc')}
             </p>
           </div>
 
@@ -1051,7 +1183,7 @@ export default function HistoryScene() {
               fontSize: 'inherit',
             }}
           >
-            {t('history.breadcrumb_report', 'Final report')}
+            {t('history.breadcrumb_report')}
           </button>
           <span>/</span>
           <button
@@ -1066,11 +1198,11 @@ export default function HistoryScene() {
               fontSize: 'inherit',
             }}
           >
-            {t('history.breadcrumb_detail', 'Report detail')}
+            {t('history.breadcrumb_detail')}
           </button>
           <span>/</span>
           <span style={{ color: '#843497', fontWeight: 700 }}>
-            {t('history.breadcrumb_history', 'History work')}
+            {t('history.breadcrumb_history')}
           </span>
         </nav>
 
@@ -1267,17 +1399,37 @@ export default function HistoryScene() {
                   flexWrap: 'wrap',
                 }}
               >
-                <h2
-                  style={{
-                    fontSize: 22,
-                    fontWeight: 800,
-                    color: '#0F172A',
-                    margin: 0,
-                    fontFamily: 'var(--font-display)',
-                  }}
-                >
-                  {t('history.list_title', 'Lịch sử làm bài')}
-                </h2>
+                <div>
+                  <h2
+                    style={{
+                      fontSize: 22,
+                      fontWeight: 800,
+                      color: '#0F172A',
+                      margin: 0,
+                      fontFamily: 'var(--font-display)',
+                    }}
+                  >
+                    {t('history.list_title', 'Lịch sử làm bài')}
+                  </h2>
+                  <p
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      margin: '4px 0 0 0',
+                      fontSize: 13,
+                      color: '#64748B',
+                    }}
+                  >
+                    <Icon icon="mdi:lightbulb-on-outline" width={16} height={16} color="#843497" />
+                    <span>
+                      {t(
+                        'history.compare_hint',
+                        'Mẹo: Nhấn vào thẻ để chọn và so sánh 2 lượt làm bài với nhau.',
+                      )}
+                    </span>
+                  </p>
+                </div>
 
                 <button
                   onClick={() => setFilterOpen((o) => !o)}
@@ -1329,9 +1481,7 @@ export default function HistoryScene() {
                             setCurrentPage(1)
                           }}
                         >
-                          {role === 'all'
-                            ? t('history.filter_all', 'Tất cả')
-                            : CAPI_ROLES[role]?.name || role}
+                          {role === 'all' ? t('history.filter_all') : t(`roles.${role}.name`, role)}
                         </button>
                       ),
                     )}
@@ -1339,12 +1489,12 @@ export default function HistoryScene() {
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
                     <span style={{ fontSize: 13, fontWeight: 700, color: '#475569' }}>
-                      Sắp xếp:
+                      {t('history.sort_label')}
                     </span>
                     {[
-                      { key: 'newest', label: t('history.sort_newest', 'Mới nhất') },
-                      { key: 'oldest', label: t('history.sort_oldest', 'Cũ nhất') },
-                      { key: 'score', label: t('history.sort_score', 'Điểm cao nhất') },
+                      { key: 'newest', label: t('history.sort_newest') },
+                      { key: 'oldest', label: t('history.sort_oldest') },
+                      { key: 'score', label: t('history.sort_score') },
                     ].map((s) => (
                       <button
                         key={s.key}
@@ -1397,6 +1547,8 @@ export default function HistoryScene() {
                     <HistoryCard
                       key={r.id}
                       run={r}
+                      isSelected={selectedCompareRunIds.includes(r.id)}
+                      onToggleCompare={handleToggleCompareRun}
                       onOpenAnswers={handleOpenAnswers}
                       onOpenReport={handleOpenReport}
                       t={t}
@@ -1419,7 +1571,8 @@ export default function HistoryScene() {
                 >
                   <div style={{ fontSize: 14, color: '#64748B' }}>
                     {t('history.showing_results', {
-                      count: paginatedRuns.length,
+                      from: historyFromCount,
+                      to: historyToCount,
                       total: filteredRuns.length,
                     })}
                   </div>
@@ -1436,6 +1589,112 @@ export default function HistoryScene() {
         )}
       </div>
 
+      {/* Floating Invisible Friction Compare Bar */}
+      {selectedCompareRunIds.length > 0 && (
+        <div className="floating-compare-bar fade-up">
+          <div className="compare-info-group">
+            <div
+              style={{
+                width: 26,
+                height: 26,
+                borderRadius: '50%',
+                backgroundColor: '#843497',
+                color: '#FFFFFF',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 800,
+                fontSize: 12.5,
+                flexShrink: 0,
+              }}
+            >
+              {selectedCompareRunIds.length}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <span
+                className="compare-info-title"
+                style={{
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: '#FFFFFF',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {t('history.selected_runs_count', {
+                  count: selectedCompareRunIds.length,
+                  total: 2,
+                })}
+              </span>
+              <span
+                className="compare-info-subtext"
+                style={{
+                  fontSize: 11,
+                  color: '#94A3B8',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {selectedCompareRunIds.length === 2
+                  ? t('history.ready_to_compare', 'Sẵn sàng đối chiếu')
+                  : t('history.pick_one_more', 'Chọn thêm 1 lượt nữa')}
+              </span>
+            </div>
+          </div>
+
+          <div className="compare-actions-group">
+            <button
+              onClick={() => setSelectedCompareRunIds([])}
+              className="compare-cancel-btn"
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: '#94A3B8',
+                fontSize: 13,
+                fontWeight: 600,
+                cursor: 'pointer',
+                padding: '6px 8px',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {t('common.cancel', 'Hủy')}
+            </button>
+
+            <Button
+              variant="solid"
+              active={selectedCompareRunIds.length === 2}
+              disabled={selectedCompareRunIds.length !== 2}
+              onClick={handleNavigateCompare}
+              className="compare-submit-btn"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '8px 16px',
+                borderRadius: 12,
+                fontWeight: 700,
+                fontSize: 13,
+                backgroundColor: selectedCompareRunIds.length === 2 ? '#843497' : '#334155',
+                color: '#FFFFFF',
+                border: 'none',
+                cursor: selectedCompareRunIds.length === 2 ? 'pointer' : 'not-allowed',
+                whiteSpace: 'nowrap',
+                boxShadow:
+                  selectedCompareRunIds.length === 2
+                    ? '0 4px 14px rgba(132, 52, 151, 0.4)'
+                    : 'none',
+              }}
+            >
+              <Icon icon="mdi:compare-horizontal" width={16} height={16} />
+              <span className="compare-btn-label-desktop">
+                {t('history.btn_compare', 'So sánh kết quả')}
+              </span>
+              <span className="compare-btn-label-mobile">
+                {t('history.btn_compare_short', 'So sánh')}
+              </span>
+            </Button>
+          </div>
+        </div>
+      )}
+
       {/* Answers Detail Modal */}
       {selectedRunForAnswers && (
         <AnswersModal
@@ -1445,6 +1704,20 @@ export default function HistoryScene() {
           t={t}
         />
       )}
+
+      {/* Limit Modal Alert when trying to select 3rd run */}
+      <Modal
+        isOpen={showMaxLimitModal}
+        onClose={() => setShowMaxLimitModal(false)}
+        title={t('history.max_selection_warning_title', 'Giới hạn lượt so sánh')}
+        description={t(
+          'history.max_selection_warning_desc',
+          'Chỉ được phép chọn tối đa 2 lượt làm test.',
+        )}
+        icon="mdi:alert-circle-outline"
+        confirmText={t('common.understood', 'Đã hiểu')}
+        onConfirm={() => setShowMaxLimitModal(false)}
+      />
     </SceneShell>
   )
 }

@@ -6,16 +6,15 @@ import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
 import Button from '../Button.jsx'
 import { Icon } from '@iconify/react'
-import missionsData from '../../data/missions.json'
+import { ROLE_KEYS, CAPI_ROLES } from '../../data.js'
 
 export default function CapiGeneInfoScene() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const { setStartedAt, setScanIntroActive, onRestart } = useWizard()
-  const isEn = i18n.language === 'en'
   const [activeIdx, setActiveIdx] = useState(0)
 
-  const roles = missionsData.roles
+  const roles = ROLE_KEYS.map((k) => ({ key: k, ...CAPI_ROLES[k] }))
   const activeRole = roles[activeIdx]
 
   const handlePrev = useCallback(() => {
@@ -37,6 +36,9 @@ export default function CapiGeneInfoScene() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [handleNext, handlePrev])
+
+  const activeQualifications =
+    t(`roles.${activeRole.key}.qualifications`, { returnObjects: true }) || []
 
   return (
     <SceneShell light className="no-scroll-shell">
@@ -80,10 +82,8 @@ export default function CapiGeneInfoScene() {
                   <img className="bg" src={`/illos/capi-gen-${r.key}.webp`} alt="" />
                   <div className="info-carousel-card-gradient" />
                   <div className="info-carousel-card-info">
-                    <div className="info-carousel-card-title">{isEn ? r.name_en : r.name_vn}</div>
-                    <div className="info-carousel-card-tagline">
-                      {t(`common.roles.${r.key}.tagline`)}
-                    </div>
+                    <div className="info-carousel-card-title">{t(`roles.${r.key}.name`)}</div>
+                    <div className="info-carousel-card-tagline">{t(`roles.${r.key}.tagline`)}</div>
                   </div>
                 </div>
               )
@@ -143,7 +143,7 @@ export default function CapiGeneInfoScene() {
               {t('common.role_description')}
             </div>
             <p className="p2-info-details-text" style={{ whiteSpace: 'pre-line', lineHeight: 1.6 }}>
-              {isEn ? activeRole.short_description_en : activeRole.short_description_vn}
+              {t(`roles.${activeRole.key}.short_description`)}
             </p>
           </div>
 
@@ -165,7 +165,7 @@ export default function CapiGeneInfoScene() {
               {t('common.role_characteristics')}
             </div>
             <ul className="p2-info-details-list">
-              {(isEn ? activeRole.qualifications_en : activeRole.qualifications_vn)
+              {(Array.isArray(activeQualifications) ? activeQualifications : [])
                 .slice(0, 4)
                 .map((q, idx) => (
                   <li key={idx}>{q}</li>

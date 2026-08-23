@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import SummaryRadar from '../SummaryRadar.jsx'
+import { CAPI_ROLES } from '../../data.js'
 
 export default function RadarRanking({ isEn, result }) {
   const { t } = useTranslation()
@@ -34,7 +35,7 @@ export default function RadarRanking({ isEn, result }) {
       >
         {/* Left Column: Radar (Centered) */}
         <div style={{ flex: 1, minWidth: '280px' }}>
-          <SummaryRadar scores={result.phase2} size={300} />
+          <SummaryRadar scores={result.phase2} size={280} />
         </div>
 
         {/* Right Column: Ranked Bars */}
@@ -48,18 +49,24 @@ export default function RadarRanking({ isEn, result }) {
           }}
         >
           {[
-            {
-              key: 'communicator',
-              color: '#EAB308',
-              nameVn: 'Người Truyền Cảm Hứng',
-              nameEn: 'Communicator',
-            },
-            { key: 'connector', color: '#F97316', nameVn: 'Người Kết Nối', nameEn: 'Connector' },
-            { key: 'operator', color: '#3B82F6', nameVn: 'Vận Hành Viên', nameEn: 'Operator' },
-            { key: 'builder', color: '#00e5ff', nameVn: 'Kỹ Sư Chế Tạo', nameEn: 'Builder' },
-            { key: 'explorer', color: '#7c5cff', nameVn: 'Nhà Khám Phá', nameEn: 'Explorer' },
+            { key: 'communicator', color: '#EAB308' },
+            { key: 'connector', color: '#F97316' },
+            { key: 'operator', color: '#3B82F6' },
+            { key: 'builder', color: '#00e5ff' },
+            { key: 'explorer', color: '#7c5cff' },
           ]
-            .map((rc) => ({ ...rc, score: Math.round(result.phase2?.[rc.key] || 0) }))
+            .map((rc) => ({
+              ...rc,
+              nameEn: t(`roles.${rc.key}.name`, {
+                lng: 'en',
+                defaultValue: CAPI_ROLES[rc.key]?.name || rc.key,
+              }),
+              nameVn: t(`roles.${rc.key}.name`, {
+                lng: 'vi',
+                defaultValue: CAPI_ROLES[rc.key]?.nameVn || rc.key,
+              }),
+              score: Math.round(result.phase2?.[rc.key] || 0),
+            }))
             .sort((a, b) => b.score - a.score)
             .map((role, idx) => {
               return (

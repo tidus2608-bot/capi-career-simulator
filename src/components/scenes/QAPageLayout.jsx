@@ -52,11 +52,18 @@ export default function QAPageLayout({
                     })}
                   </span>
                   <span>
-                    {t('common.percent_completed', { percent: Math.round((idx / total) * 100) })}
+                    {t('common.percent_completed', {
+                      percent: total > 0 ? Math.round(((idx + 1) / total) * 100) : 0,
+                    })}
                   </span>
                 </div>
                 <div className="p1-progress-outer">
-                  <div className="p1-progress-inner" style={{ width: `${(idx / total) * 100}%` }} />
+                  <div
+                    className="p1-progress-inner"
+                    style={{
+                      width: `${total > 0 ? Math.round(((idx + 1) / total) * 100) : 0}%`,
+                    }}
+                  />
                 </div>
               </div>
 

@@ -1,0 +1,2809 @@
+{
+  "version": "2.0.0",
+  "weighted_final": {
+    "weights": {
+      "phase1": 0.2,
+      "phase2": 0.5,
+      "phase3": 0.3
+    },
+    "formula": "Final(role) = 0.20 × P1(role) + 0.50 × P2(role) + 0.30 × P3(role)",
+    "all_scores_normalized_to_0_100": true
+  },
+  "score_bands": [
+    {
+      "min": 0,
+      "max": 39,
+      "band": "weak"
+    },
+    {
+      "min": 40,
+      "max": 54,
+      "band": "moderate"
+    },
+    {
+      "min": 55,
+      "max": 69,
+      "band": "clear"
+    },
+    {
+      "min": 70,
+      "max": 84,
+      "band": "strong"
+    },
+    {
+      "min": 85,
+      "max": 100,
+      "band": "dominant"
+    }
+  ],
+  "phase1": {
+    "type": "likert_self_perception",
+    "questions": [
+      {
+        "id": "Q1",
+        "role": "builder"
+      },
+      {
+        "id": "Q2",
+        "role": "builder"
+      },
+      {
+        "id": "Q3",
+        "role": "builder"
+      },
+      {
+        "id": "Q10",
+        "role": "explorer"
+      },
+      {
+        "id": "Q11",
+        "role": "explorer"
+      },
+      {
+        "id": "Q12",
+        "role": "explorer"
+      },
+      {
+        "id": "Q19",
+        "role": "operator"
+      },
+      {
+        "id": "Q20",
+        "role": "operator"
+      },
+      {
+        "id": "Q21",
+        "role": "operator"
+      },
+      {
+        "id": "Q28",
+        "role": "connector"
+      },
+      {
+        "id": "Q29",
+        "role": "connector"
+      },
+      {
+        "id": "Q30",
+        "role": "connector"
+      },
+      {
+        "id": "Q37",
+        "role": "communicator"
+      },
+      {
+        "id": "Q38",
+        "role": "communicator"
+      },
+      {
+        "id": "Q39",
+        "role": "communicator"
+      }
+    ],
+    "confidence_checks": [
+      {
+        "id": "CONF1"
+      },
+      {
+        "id": "CONF2"
+      }
+    ]
+  },
+  "phase3": {
+    "type": "likert_reflection",
+    "questions": [
+      {
+        "id": "P3_EXPLORER",
+        "role": "explorer"
+      },
+      {
+        "id": "P3_BUILDER",
+        "role": "builder"
+      },
+      {
+        "id": "P3_OPERATOR",
+        "role": "operator"
+      },
+      {
+        "id": "P3_CONNECTOR",
+        "role": "connector"
+      },
+      {
+        "id": "P3_COMMUNICATOR",
+        "role": "communicator"
+      }
+    ]
+  },
+  "missions": [
+    {
+      "id": 1,
+      "questions": [
+        {
+          "id": 1,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "explorer"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "layer": "problem_discovery",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "operator",
+              "secondary_role": "builder"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "layer": "challenge",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "layer": "challenge",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "operator",
+              "secondary_role": "explorer"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "operator"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "layer": "unexpected",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "questions": [
+        {
+          "id": 1,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "layer": "challenge",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "layer": "challenge",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "layer": "challenge",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "layer": "unexpected",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "explorer"
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "layer": "unexpected",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "communicator",
+              "secondary_role": "explorer"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "questions": [
+        {
+          "id": 1,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "layer": "challenge",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "layer": "challenge",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "communicator",
+              "secondary_role": "explorer"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "questions": [
+        {
+          "id": 1,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "builder"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "explorer"
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "questions": [
+        {
+          "id": 1,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "builder"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "questions": [
+        {
+          "id": 1,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "layer": "problem_discovery",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "layer": "team_work",
+          "weight": 1,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": null
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "layer": "challenge",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "layer": "impact",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "connector"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": null
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "connector",
+              "secondary_role": "communicator"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "operator"
+            },
+            {
+              "label": "C",
+              "primary_role": "operator",
+              "secondary_role": null
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "layer": "unexpected",
+          "weight": 2,
+          "options": [
+            {
+              "label": "A",
+              "primary_role": "explorer",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "B",
+              "primary_role": "builder",
+              "secondary_role": "communicator"
+            },
+            {
+              "label": "C",
+              "primary_role": "communicator",
+              "secondary_role": "connector"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

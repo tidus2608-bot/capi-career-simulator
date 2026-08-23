@@ -2,7 +2,7 @@ export default function SceneShell({ children, className = '', light = false }) 
   if (light) {
     return (
       <div
-        className={`fade-in ${className}`}
+        className={`fade-in scene-shell scene-shell--light ${className}`}
         style={{
           position: 'absolute',
           inset: 0,
@@ -19,9 +19,12 @@ export default function SceneShell({ children, className = '', light = false }) 
   }
 
   return (
-    <div style={{ position: 'absolute', inset: 0, background: '#F5F6FA', overflow: 'hidden' }}>
+    <div
+      className="scene-shell-outer"
+      style={{ position: 'absolute', inset: 0, background: '#F5F6FA', overflow: 'hidden' }}
+    >
       <div
-        className={`fade-in ${className}`}
+        className={`fade-in scene-shell ${className}`}
         style={{
           position: 'relative',
           zIndex: 5,

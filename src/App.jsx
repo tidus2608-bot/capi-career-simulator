@@ -152,7 +152,7 @@ export default function AppLayout() {
       {/* Dev tweaks panel */}
       <div className={`glass tweaks ${tweaksOpen ? 'open' : ''}`}>
         <h4>Tweaks · Capi-Gene</h4>
-        <div className="tweak-label">Chế độ chơi đầy đủ (20 câu / mission)</div>
+        <div className="tweak-label">Mode (Questions / Mission)</div>
         <div className="seg">
           <button
             className={tweaks.fullPlay ? 'active' : ''}
@@ -167,7 +167,7 @@ export default function AppLayout() {
             Quick (5)
           </button>
         </div>
-        <div className="tweak-label">Bỏ qua phase</div>
+        <div className="tweak-label">Skip Phase</div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
           <button
             className="btn btn-ghost"

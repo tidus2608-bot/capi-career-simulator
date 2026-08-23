@@ -26,19 +26,30 @@ export default function MissionPickScene() {
           justifyContent: 'space-between',
         }}
       >
-        <h2 className="p2-new-header" style={{ margin: 0, flexShrink: 0 }}>
-          {t('common.select_challenge')}
-        </h2>
+        <div className="p2-mission-header-group" style={{ textAlign: 'center', flexShrink: 0 }}>
+          <h2 className="p2-new-header" style={{ margin: 0 }}>
+            {t('common.select_mission')}
+          </h2>
+          <div className="p2-mission-instruction-banner">
+            {selectedId
+              ? t('common.selected_mission_ready')
+              : t('common.select_mission_instruction')}
+          </div>
+        </div>
 
         <div className="p2-mission-grid">
           {missions.map((m) => {
             const hasEnglishName = !!t(`missions.${m.id}.english_name`)
+            const isSelected = selectedId === m.id
             return (
               <div
                 key={m.id}
-                className={`p2-mission-card ${selectedId === m.id ? 'selected' : ''}`}
+                className={`p2-mission-card ${isSelected ? 'selected' : ''} ${
+                  selectedId && !isSelected ? 'unselected-dim' : ''
+                }`}
                 role="button"
                 tabIndex={0}
+                aria-pressed={isSelected}
                 onClick={() => {
                   capiAudio.sfx('click')
                   setSelectedId(m.id)
@@ -51,6 +62,14 @@ export default function MissionPickScene() {
                   }
                 }}
               >
+                {/* Selected Status Pill */}
+                {isSelected && (
+                  <div className="p2-mission-selected-pill">
+                    <span className="p2-mission-selected-pill-check">✓</span>
+                    <span>{t('common.selected_badge')}</span>
+                  </div>
+                )}
+
                 {/* Background preview image */}
                 <img
                   className="bg"
@@ -72,12 +91,14 @@ export default function MissionPickScene() {
                   >
                     {MISSION_ICONS[m.id]?.emoji}
                   </div>
-                  <div className="p2-mission-title">{t(`missions.${m.id}.name`)}</div>
-                  {hasEnglishName && (
-                    <div className="p2-mission-english-name">
-                      {t(`missions.${m.id}.english_name`)}
-                    </div>
-                  )}
+                  <div className="p2-mission-card-base-text">
+                    <div className="p2-mission-title">{t(`missions.${m.id}.name`)}</div>
+                    {hasEnglishName && (
+                      <div className="p2-mission-english-name">
+                        {t(`missions.${m.id}.english_name`)}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Hover/Selected Detail View */}
@@ -107,7 +128,8 @@ export default function MissionPickScene() {
                       {(t(`missions.${m.id}.goals`, { returnObjects: true }) || []).map(
                         (goal, idx) => (
                           <div key={idx} className="p2-mission-goal-item">
-                            {goal}
+                            <span className="p2-mission-goal-dot">✦</span>
+                            <span>{goal}</span>
                           </div>
                         ),
                       )}
@@ -129,6 +151,7 @@ export default function MissionPickScene() {
           >
             ← {t('common.back_btn')}
           </Button>
+
           <Button
             variant="solid"
             active={!!selectedId}

@@ -194,7 +194,7 @@ export default function ScanningScene() {
       idx={idx}
       total={total}
       questionText={t(`questions.${currentQ.id}`)}
-      options={[1, 2, 3, 4, 5].map((val) => ({
+      options={[5, 4, 3, 2, 1].map((val) => ({
         value: val,
         text: t(`likert.${val}`),
       }))}

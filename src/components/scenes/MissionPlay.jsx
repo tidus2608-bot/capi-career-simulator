@@ -69,7 +69,7 @@ export default function MissionPlayScene() {
 
   const q = qs[idx]
   const illoSrc = `/illos/m${missionId}-q${String(idx + 1).padStart(2, '0')}.webp`
-  const progress = Math.round((idx / qs.length) * 100)
+  const progress = qs.length > 0 ? Math.round(((idx + 1) / qs.length) * 100) : 0
 
   const selectOption = (opt) => {
     capiAudio.sfx('click')
@@ -151,18 +151,22 @@ export default function MissionPlayScene() {
               }}
             >
               {/* Chapter Title Badge */}
-              {q.chapter_vn && <div className="p2-chapter-badge">{q.chapter_vn}</div>}
+              {t(`missions.${missionId}.questions.${q.id}.chapter`, '') && (
+                <div className="p2-chapter-badge">
+                  {t(`missions.${missionId}.questions.${q.id}.chapter`)}
+                </div>
+              )}
 
               {/* Progress Bar Container */}
               <div className="p1-progress-bar-container">
                 <div className="p1-progress-labels">
                   <span>
-                    {t('common_extra.question_of', {
+                    {t('common.question_progress', {
                       num: String(idx + 1).padStart(2, '0'),
                       total: String(qs.length).padStart(2, '0'),
                     })}
                   </span>
-                  <span>{t('common_extra.completed_pct', { percent: progress })}</span>
+                  <span>{t('common.percent_completed', { percent: progress })}</span>
                 </div>
                 <div className="p1-progress-outer">
                   <div className="p1-progress-inner" style={{ width: `${progress}%` }} />
@@ -171,10 +175,10 @@ export default function MissionPlayScene() {
 
               <QASection
                 key={idx}
-                questionText={q.capi_dialogue_vn?.replace(/^[""]|[""]$/g, '')}
+                questionText={t(`missions.${missionId}.questions.${q.id}.dialogue`)}
                 options={q.options.map((opt) => ({
                   label: opt.label,
-                  text: opt.text_vn,
+                  text: t(`missions.${missionId}.questions.${q.id}.options.${opt.label}`),
                   ...opt,
                 }))}
                 selectedValue={picked}

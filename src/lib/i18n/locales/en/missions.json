@@ -1,0 +1,1156 @@
+{
+  "missions": {
+    "1": {
+      "name": "Green River Operation",
+      "english_name": "River Eco-Recovery",
+      "desc": "Deploy autonomous cleanup robots and establish smart sensing along vulnerable riverbanks.",
+      "goals": [
+        "Field surveillance & waste mapping",
+        "Robotic retrieval mechanism design",
+        "Continuous water quality monitoring"
+      ],
+      "questions": {
+        "1": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "Oh no, there is so much plastic waste along the riverbank! Before taking action, what is the first thing you would do to understand the problem?",
+          "options": {
+            "A": "Walk along the riverbank to survey where waste accumulates and identify what types of trash are present.",
+            "B": "List the core capabilities the robot must have to effectively process waste in this area.",
+            "C": "Ask local residents when the waste usually appears and what causes the accumulation."
+          }
+        },
+        "2": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "“Why is there more waste accumulating at night? Can you investigate?”",
+          "options": {
+            "A": "Investigate what nighttime factors cause the volume of waste to spike.",
+            "B": "Add engineering requirements so the robot can operate reliably under nighttime conditions.",
+            "C": "Test running the robot during different time slots to observe when it performs best."
+          }
+        },
+        "3": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "“The river current is too strong, pushing the robot off course! What should our priority be?”",
+          "options": {
+            "A": "Map out the section with turbulent currents to understand the hydrodynamic root cause.",
+            "B": "Adjust the propulsion configuration or movement mechanism so the robot maintains heading better.",
+            "C": "Modify field operational protocols in high-risk zones to minimize drift."
+          }
+        },
+        "4": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "Locals are still skeptical about autonomous cleanup robots. How will you approach this?",
+          "options": {
+            "A": "Survey residents to understand their specific concerns and hesitations.",
+            "B": "Fine-tune the robot so its cleanup performance is visibly consistent and reliable.",
+            "C": "Clearly explain how the robot functions and the tangible ecological benefits it brings to the neighborhood."
+          }
+        },
+        "5": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "“To build this robot, which aspect would you most like to be directly responsible for?”",
+          "options": {
+            "A": "Analyzing water quality data and river flow patterns to guide problem-solving.",
+            "B": "Designing, assembling, and testing the mechanical body and intake mechanism.",
+            "C": "Connecting with community partners and coordinating project outreach."
+          }
+        },
+        "6": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "The team is debating between two different robot designs. How will you help resolve the choice?",
+          "options": {
+            "A": "Conduct a clear trade-off matrix comparing the pros, cons, and operating limits of each design.",
+            "B": "Build a rapid, low-fidelity prototype to quickly test which concept performs better in water.",
+            "C": "Facilitate a structured discussion to align the team around a shared direction."
+          }
+        },
+        "7": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "Let's divide tasks to speed up progress on the robot. Which part do you want to take on?",
+          "options": {
+            "A": "Researching environmental parameters and hydrodynamic constraints.",
+            "B": "Building and improving core robotic hardware and firmware.",
+            "C": "Formulating field test plans so the robot operates smoothly in real waterways."
+          }
+        },
+        "8": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "“Before the community live demo, what do you want to focus on the most?”",
+          "options": {
+            "A": "Understanding audience expectations so the demo addresses their key concerns.",
+            "B": "Inspecting every fastener, seal, and connection to guarantee stable demo performance.",
+            "C": "Preparing a clear presentation on how the robot works and its environmental impact."
+          }
+        },
+        "9": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "“Debris is clogging the intake in certain river sections! How will you prioritize handling this?”",
+          "options": {
+            "A": "Determine the exact environmental conditions causing debris jams to identify the root cause.",
+            "B": "Refine the intake geometry and anti-jamming mechanism to prevent future clogs.",
+            "C": "Adjust operational patrol routes to steer clear of high-clog hazard zones."
+          }
+        },
+        "10": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "“We are missing several critical components! How do you handle this so development stays on schedule?”",
+          "options": {
+            "A": "Devise a simpler testing method to validate if the core hypothesis still holds.",
+            "B": "Adapt and repurpose available materials on hand to continue prototyping.",
+            "C": "Reach out to partner labs or sponsors who can supply the required hardware."
+          }
+        },
+        "11": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "During trial runs, the robot's motor noise disturbs nearby residents. What is your response?",
+          "options": {
+            "A": "Interview affected residents to understand the noise severity across different hours.",
+            "B": "Modify motor dampening and acoustic shielding while maintaining cleanup efficiency.",
+            "C": "Engage with the community to explain the trial schedule and build mutual consensus."
+          }
+        },
+        "12": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "The initiative is considering expanding to multiple river basins. Where do you want to start?",
+          "options": {
+            "A": "Analyze existing sensor data to determine whether this model transfers to other waterways.",
+            "B": "Standardize and modularize technical components for easier cross-site deployment.",
+            "C": "Establish a clear deployment playbook and standard operating procedure for new sites."
+          }
+        },
+        "13": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“The robot fleet is operating smoothly in the current phase. What should the team focus on next?”",
+          "options": {
+            "A": "Rigorously measure water purity indicators to validate actual environmental impact.",
+            "B": "Continue iterating on the robot's autonomous algorithms and user experience.",
+            "C": "Prepare logistical and operational prerequisites for multi-site deployment."
+          }
+        },
+        "14": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "A neighboring city has requested help to deploy this cleanup model for their own river! Which role do you want during preparation?",
+          "options": {
+            "A": "Investigate the environmental characteristics and unique constraints of the new region.",
+            "B": "Customize the robot's technical specs and hardware configuration for the new waterway.",
+            "C": "Coordinate with local authorities and community leaders to align on execution plans."
+          }
+        },
+        "15": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“The project is gaining major public attention! How do you want to leverage this opportunity?”",
+          "options": {
+            "A": "Publish empirical data and verified cleanup results to prove the project's measurable impact.",
+            "B": "Showcase breakthrough technological capabilities and advanced robotic features.",
+            "C": "Share an inspiring narrative from the riverfront to rally wider community support."
+          }
+        },
+        "16": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“To ensure long-term sustainability for years to come, what should the team prioritize most?”",
+          "options": {
+            "A": "Continuously gathering community feedback to keep the system aligned with real needs.",
+            "B": "Maintaining ongoing hardware upgrades and sensor calibration to keep the tech robust.",
+            "C": "Cultivating a strong partner network and long-term funding ecosystem."
+          }
+        },
+        "17": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“During a live demonstration, the robot suddenly halts. What is your immediate reaction?”",
+          "options": {
+            "A": "Pause systematically to diagnose telemetry logs and identify the root cause.",
+            "B": "Quickly patch the fault or activate the backup unit to resume the demo promptly.",
+            "C": "Reassure the audience and clearly explain the situation with composure."
+          }
+        },
+        "18": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“Right before final sign-off, key stakeholders suddenly request a scope change. How do you handle it?”",
+          "options": {
+            "A": "Inquire deeply to understand the core driver behind the stakeholder's request.",
+            "B": "Adjust technical specifications to accommodate the new requirement pragmatically.",
+            "C": "Reconvene all stakeholders to negotiate and realign on feasible expectations."
+          }
+        },
+        "19": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“On deployment day, weather conditions deteriorate significantly. What is your priority?”",
+          "options": {
+            "A": "Assess live meteorological data to identify the highest operational risks.",
+            "B": "Configure the robot with weatherproofing and adaptive control safeguards.",
+            "C": "Adjust deployment schedules and contingency plans to match current conditions."
+          }
+        },
+        "20": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "A child asks: 'What does this robot have to do with kids like us?'. How do you answer?",
+          "options": {
+            "A": "Connect the robot's purpose to clean drinking water and healthy fish in their everyday life.",
+            "B": "Invite them to see the controls and sensors up close to experience the technology.",
+            "C": "Tell an engaging story about how technology and kids together protect the planet."
+          }
+        }
+      }
+    },
+    "2": {
+      "name": "Space Medical Outpost",
+      "english_name": "Space Medical Outpost",
+      "desc": "Operate emergency medical stations, analyze symptoms, and automate triage protocols.",
+      "goals": [
+        "Patient triage & vital diagnostics",
+        "Emergency resource dispatch",
+        "AI clinical assistance calibration"
+      ],
+      "questions": {
+        "1": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "The space medical station has just received reports of astronauts showing unusual symptoms. What is your first priority?",
+          "options": {
+            "A": "Analyze vital telemetry data across affected astronauts to identify patterns.",
+            "B": "Calibrate automated diagnostic equipment to prepare for emergency triage.",
+            "C": "Interview crew members about recent environmental exposure and daily routines."
+          }
+        },
+        "2": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "“Symptoms seem to worsen during solar radiation peaks. How do you investigate?”",
+          "options": {
+            "A": "Cross-reference radiation exposure charts with biological vital indicators.",
+            "B": "Configure protective bio-shielding mechanisms around the medical pods.",
+            "C": "Monitor crew status at different radiation intervals to assess resilience."
+          }
+        },
+        "3": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "“A critical power surge interrupts life-support diagnostic sensors! What must be done first?”",
+          "options": {
+            "A": "Isolate the electrical sub-circuit to identify the cause of the power fluctuation.",
+            "B": "Reroute power to secondary backup capacitors and manual diagnostic tools.",
+            "C": "Coordinate triage priorities among medical personnel to maintain order."
+          }
+        },
+        "4": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "Some crew members feel anxious about relying on autonomous robotic surgery assistants. How do you address this?",
+          "options": {
+            "A": "Survey crew members to uncover specific doubts and psychological concerns.",
+            "B": "Demonstrate precision calibration routines and safety fail-safe protocols.",
+            "C": "Host an interactive walk-through explaining how human doctors oversee every autonomous step."
+          }
+        },
+        "5": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "When developing the automated diagnostic algorithm, which task appeals to you most?",
+          "options": {
+            "A": "Mining biomarker datasets to train differential diagnosis models.",
+            "B": "Programming real-time telemetry processing and robotic response hardware.",
+            "C": "Designing intuitive clinical workflows that doctors can trust under pressure."
+          }
+        },
+        "6": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "The medical team is choosing between a rapid screening tool and an in-depth diagnostic scanner. How do you decide?",
+          "options": {
+            "A": "Build a decision matrix analyzing accuracy thresholds, power consumption, and scan latency.",
+            "B": "Set up a side-by-side simulation benchmark using synthetic patient profiles.",
+            "C": "Facilitate a clinical consensus meeting between flight surgeons and engineers."
+          }
+        },
+        "7": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "To upgrade the emergency response pod, which role would you prefer to own?",
+          "options": {
+            "A": "Formulating predictive models for early symptom detection in zero-gravity.",
+            "B": "Refining the mechanical life-support enclosure and automated drug dispensers.",
+            "C": "Standardizing emergency operating protocols for the entire space station."
+          }
+        },
+        "8": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "“Before presenting the medical outpost system to mission command, what is your focus?”",
+          "options": {
+            "A": "Reviewing flight surgeon feedback to ensure all critical edge cases are addressed.",
+            "B": "Stress-testing diagnostic hardware and backup power switching under simulated failures.",
+            "C": "Structuring a compelling demonstration showcasing life-saving speed and patient recovery metrics."
+          }
+        },
+        "9": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "“The automated triage unit gives conflicting readings for a critical patient! How do you proceed?”",
+          "options": {
+            "A": "Examine raw sensor telemetry to verify if sensor drift or bio-interference caused the anomaly.",
+            "B": "Switch to secondary diagnostic channels and recalibrate optical bio-sensors.",
+            "C": "Direct clinical staff to initiate established emergency stabilization procedures."
+          }
+        },
+        "10": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "“A key medical supply shipment was delayed by a docking anomaly. How do you adapt?”",
+          "options": {
+            "A": "Evaluate alternative clinical protocols that achieve equivalent therapeutic outcomes.",
+            "B": "Repurpose available medical supplies using 3D bio-printers on board.",
+            "C": "Coordinate with neighboring orbital modules to arrange an emergency resource exchange."
+          }
+        },
+        "11": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "The diagnostic pod's alarm sounds are causing cognitive fatigue for nurses. What do you do?",
+          "options": {
+            "A": "Study alarm frequencies and nurse reaction times to identify unnecessary alert triggers.",
+            "B": "Redesign auditory alerts into tiered, color-coded visual cues and distinct harmonic tones.",
+            "C": "Conduct brief training sessions on alarm prioritization and workflow stress management."
+          }
+        },
+        "12": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "Mission Command wants to scale this medical pod design to lunar and deep-space missions. Where do you begin?",
+          "options": {
+            "A": "Analyze radiation, gravity, and latency differences across lunar and planetary environments.",
+            "B": "Modularize hardware components for rapid field maintenance in harsh space environments.",
+            "C": "Draft standardized medical training guides for astronauts without surgical backgrounds."
+          }
+        },
+        "13": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“The space station medical pod is running reliably. What should the engineering team tackle next?”",
+          "options": {
+            "A": "Conduct longitudinal clinical studies on long-duration spaceflight recovery rates.",
+            "B": "Integrate autonomous robotic precision tools for complex microgravity surgery.",
+            "C": "Establish telemedicine communication channels with Earth ground control specialists."
+          }
+        },
+        "14": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "A planetary colony outpost requests deployment of our medical tech. What is your focus during preparation?",
+          "options": {
+            "A": "Research the planetary atmosphere, dust hazards, and local physiological strains.",
+            "B": "Adapt thermal regulation and hermetic sealing to withstand extreme planetary dust.",
+            "C": "Align with planetary expedition leaders on supply logistics and emergency triage hierarchy."
+          }
+        },
+        "15": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“Global science media is covering the medical breakthrough! How do you present the milestone?”",
+          "options": {
+            "A": "Share peer-reviewed clinical telemetry and recovery statistics validating system efficacy.",
+            "B": "Highlight the cutting-edge autonomous bio-robotics and AI algorithms powering the pod.",
+            "C": "Tell the human story of saving an astronaut's life thousands of miles from Earth."
+          }
+        },
+        "16": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“To support multi-year deep space missions, what is the most vital long-term priority?”",
+          "options": {
+            "A": "Continuously monitoring astronaut biometric trends to preempt chronic space conditions.",
+            "B": "Designing self-healing hardware and highly durable medical components.",
+            "C": "Fostering international space agency collaboration and shared medical supply reserves."
+          }
+        },
+        "17": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“During a critical live surgery demo, sensor communication drops for 10 seconds. What do you do?”",
+          "options": {
+            "A": "Analyze communication logs immediately to isolate packet loss versus hardware failure.",
+            "B": "Engage autonomous onboard fail-safe mode to keep the patient stable without interruption.",
+            "C": "Clearly brief mission command on the status while the backup protocol engages."
+          }
+        },
+        "18": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“Space agency leadership requests immediate modification of the emergency quarantine protocol. How do you respond?”",
+          "options": {
+            "A": "Assess the biological safety rationale and epidemic containment implications of the change.",
+            "B": "Update isolation airflow logic and automated hatch interlocks to match the new spec.",
+            "C": "Lead a synchronization briefing with station commanders and flight doctors."
+          }
+        },
+        "19": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“A micrometeorite impact triggers multiple simultaneous casualties across the station. What is your priority?”",
+          "options": {
+            "A": "Run triage prioritization models to allocate scarce medical pods to highest-survival patients.",
+            "B": "Boost diagnostic pod power output and prep automated emergency resuscitation beds.",
+            "C": "Direct non-medical crew into organized stretcher support and evacuation corridors."
+          }
+        },
+        "20": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "A space trainee asks: 'Why do we need automated medical pods when we have doctors?'. How do you explain?",
+          "options": {
+            "A": "Explain that automation provides micro-second reaction times when communication with Earth is delayed.",
+            "B": "Demonstrate how robotic arms eliminate hand tremors during delicate microgravity procedures.",
+            "C": "Share a story of how the automated pod acts as a tireless companion supporting the doctor."
+          }
+        }
+      }
+    },
+    "3": {
+      "name": "Smart Living Lab",
+      "english_name": "Smart Living Lab",
+      "desc": "Design and integrate energy-efficient IoT home automation and environmental controls.",
+      "goals": [
+        "Resident workflow observation",
+        "Energy optimization algorithms",
+        "Home safety & intrusion safeguards"
+      ],
+      "questions": {
+        "1": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "When first arriving to survey the smart home lab, you notice lighting, HVAC, and power meters running constantly. What is your first step?",
+          "options": {
+            "A": "Collect power consumption metrics across each appliance to pinpoint energy waste.",
+            "B": "Check electrical breaker panels and IoT sensor nodes to see how they are wired.",
+            "C": "Interview residents about their daily habits, comfort preferences, and routine pain points."
+          }
+        },
+        "2": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "“Electricity consumption spikes drastically in the evening. How do you investigate?”",
+          "options": {
+            "A": "Analyze appliance activity logs during peak evening hours to identify the primary culprits.",
+            "B": "Program automated power throttling on non-essential appliances during peak hours.",
+            "C": "Observe family activities in the evening to understand their practical lighting and cooking needs."
+          }
+        },
+        "3": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "“The smart environmental control unit caused the temperature to swing wildly! What do you do first?”",
+          "options": {
+            "A": "Examine thermostat sensor readings and feedback loops to diagnose calibration errors.",
+            "B": "Manually override the climate control system and calibrate temperature thresholds.",
+            "C": "Reassure residents and provide immediate manual control options for their comfort."
+          }
+        },
+        "4": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "Elderly family members find smart voice commands complicated and confusing. How do you resolve this?",
+          "options": {
+            "A": "Observe where they encounter difficulties when trying to interact with smart devices.",
+            "B": "Add tactile physical switches with clear status lights alongside voice automation.",
+            "C": "Patiently guide them through simple everyday routines and print easy-to-read reference cards."
+          }
+        },
+        "5": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "When developing the smart home automation hub, which area would you prefer to build?",
+          "options": {
+            "A": "Building energy optimization algorithms that learn resident routines automatically.",
+            "B": "Wiring IoT controllers, relays, and smart sensor network protocols.",
+            "C": "Designing a seamless mobile interface and household notification system."
+          }
+        },
+        "6": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "The team is choosing between local offline processing and cloud-connected smart controls. How do you decide?",
+          "options": {
+            "A": "Compare data privacy, latency, bandwidth costs, and offline reliability for each approach.",
+            "B": "Set up a test bench running both systems simultaneously to measure responsiveness.",
+            "C": "Lead a discussion with the homeowner to balance convenience against privacy expectations."
+          }
+        },
+        "7": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "To enhance the home security module, which responsibility do you want to take on?",
+          "options": {
+            "A": "Analyzing intrusion sensor logs and false-alarm frequency under different conditions.",
+            "B": "Developing the smart door lock mechanism and biometric recognition sensors.",
+            "C": "Structuring the emergency response workflow between the home and local security guards."
+          }
+        },
+        "8": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "“Before presenting the smart home system to prospective families, what is your top focus?”",
+          "options": {
+            "A": "Gathering family expectations to ensure the demo demonstrates real daily benefits.",
+            "B": "Performing comprehensive stress testing across all connected IoT devices.",
+            "C": "Preparing a clear presentation on how smart automation reduces bills and enhances safety."
+          }
+        },
+        "9": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "“A network outage disconnects smart sensors from the central hub! How do you prioritize?”",
+          "options": {
+            "A": "Investigate whether the failure originates from Wi-Fi router overload or sensor mesh interference.",
+            "B": "Deploy a local mesh failover protocol so basic lighting and security function without internet.",
+            "C": "Notify the household with clear status indicators showing offline mode is active."
+          }
+        },
+        "10": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "“Several smart sensors are out of stock. How do you keep the installation on track?”",
+          "options": {
+            "A": "Identify alternative sensor types that can capture equivalent environmental metrics.",
+            "B": "Repurpose and reconfigure existing multi-sensors to cover the critical zones.",
+            "C": "Reach out to local hardware suppliers to procure compatible replacement components."
+          }
+        },
+        "11": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "Smart lighting turns off unexpectedly when residents are sitting still reading. What is your fix?",
+          "options": {
+            "A": "Study motion sensor blind spots and resident sedentary habits to understand why detection failed.",
+            "B": "Upgrade to millimeter-wave presence sensors that detect breathing and micro-movements.",
+            "C": "Explain how presence zones work and offer easy override buttons on reading lamps."
+          }
+        },
+        "12": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "The city plans to implement this smart energy system across an entire apartment building. Where do you start?",
+          "options": {
+            "A": "Analyze aggregate electrical grid load profiles and tenant diversity across the complex.",
+            "B": "Standardize modular IoT smart panels for streamlined building-wide installation.",
+            "C": "Formulate building management guidelines and tenant onboarding documentation."
+          }
+        },
+        "13": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“The single-home pilot achieved 25% energy savings. What is the next major objective?”",
+          "options": {
+            "A": "Conduct detailed financial audits to verify real monetary ROI and carbon reduction.",
+            "B": "Integrate predictive solar battery storage and smart grid vehicle charging.",
+            "C": "Organize community workshops showcasing energy-saving milestones to inspire neighbors."
+          }
+        },
+        "14": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "A community center wants to adopt the smart environmental system. What role do you want during kickoff?",
+          "options": {
+            "A": "Evaluate room utilization rates and community center operating hours.",
+            "B": "Design heavy-duty IoT control hardware tailored for high-traffic public spaces.",
+            "C": "Collaborate with center managers and volunteers to design intuitive touchpanel controls."
+          }
+        },
+        "15": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“The smart energy project is featured on national green tech news! How do you showcase the achievement?”",
+          "options": {
+            "A": "Present verified telemetry charts showing verified kilowatt-hour reductions.",
+            "B": "Demonstrate live automated load balancing and intelligent climate algorithms on screen.",
+            "C": "Share stories of residents enjoying warmer, safer homes while reducing monthly utility costs."
+          }
+        },
+        "16": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“To ensure the smart home platform remains useful for a decade, what must be prioritized?”",
+          "options": {
+            "A": "Continuously updating automation rules based on evolving lifestyle trends.",
+            "B": "Maintaining open-standard interoperability and backward-compatible firmware updates.",
+            "C": "Building an active user community and responsive technical support ecosystem."
+          }
+        },
+        "17": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“During a live demonstration for building developers, the smart locks trigger a false lockout! What do you do?”",
+          "options": {
+            "A": "Inspect authentication logs to trace whether the trigger was sensor noise or a logic bug.",
+            "B": "Trigger the emergency physical key bypass and reset security controller state.",
+            "C": "Calmly explain the multi-layered security architecture and demonstrate the fail-safe recovery."
+          }
+        },
+        "18": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“New municipal energy regulations suddenly require all smart homes to cap peak HVAC wattage. How do you adapt?”",
+          "options": {
+            "A": "Analyze thermal retention rates of the building to design an intelligent power-cycling schedule.",
+            "B": "Reprogram the thermostat firmware to enforce dynamic peak-shaving wattage limits.",
+            "C": "Coordinate with homeowners to explain how pre-cooling maintains comfort while complying with rules."
+          }
+        },
+        "19": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“A sudden summer heatwave strains the power grid, causing brownouts across the district. What is your priority?”",
+          "options": {
+            "A": "Analyze household consumption data to determine the bare minimum critical loads.",
+            "B": "Switch smart home battery storage into micro-grid island mode to safeguard essential circuits.",
+            "C": "Guide residents on which appliances to pause to maximize battery backup duration."
+          }
+        },
+        "20": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "A child asks: 'Can the smart house play games with me?'. How do you respond?",
+          "options": {
+            "A": "Explain how smart voice assistants and lighting colors can create interactive treasure hunts.",
+            "B": "Show them how clapping their hands can change the room lighting like magic.",
+            "C": "Tell a fun story about how the house acts like an invisible friendly assistant caring for the family."
+          }
+        }
+      }
+    },
+    "4": {
+      "name": "Autonomous Warehouse",
+      "english_name": "Autonomous Warehouse",
+      "desc": "Optimize high-density sorting, packing, and AGV fleet navigation under peak throughput.",
+      "goals": [
+        "Smart warehouse layout design",
+        "AGV route planning & collision avoidance",
+        "Packaging and dispatch throughput"
+      ],
+      "questions": {
+        "1": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "Upon arriving at the fulfillment warehouse, you see forklifts, pallets, and workers moving constantly. What is your first priority?",
+          "options": {
+            "A": "Walk through the facility to observe where bottlenecks occur and which stages take the longest.",
+            "B": "Identify repetitive material handling tasks that AGV robots could immediately automate.",
+            "C": "Interview warehouse staff to understand which tasks cause the most fatigue and delays."
+          }
+        },
+        "2": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "“Why do picking errors surge during the evening shift? Can you investigate?”",
+          "options": {
+            "A": "Analyze error logs by aisle and product category to detect root patterns.",
+            "B": "Add barcode scanners and visual guidance indicators to picking carts.",
+            "C": "Observe shift handovers and worker fatigue levels during late-night operations."
+          }
+        },
+        "3": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "“Two AGV robots face off in a narrow aisle, blocking the entire transport lane! What do you do?”",
+          "options": {
+            "A": "Examine path-planning logs to identify why both robots claimed the same right-of-way.",
+            "B": "Reprogram intersection priority rules and unidirectional routing to prevent deadlocks.",
+            "C": "Direct floor managers to clear the blockage manually while the dispatch algorithm recalibrates."
+          }
+        },
+        "4": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "Warehouse operators are hesitant to trust automated sorting conveyors. How do you address this?",
+          "options": {
+            "A": "Survey operators to understand their fears regarding job displacement and safety.",
+            "B": "Implement visual safety zones, physical emergency stops, and transparent status lights.",
+            "C": "Run interactive workshops demonstrating how robots remove heavy lifting burdens from workers."
+          }
+        },
+        "5": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "When developing the automated warehouse system, which component do you want to build?",
+          "options": {
+            "A": "Developing fleet dispatch algorithms to optimize transport routes in real time.",
+            "B": "Assembling and tuning AGV chassis, LiDAR navigation sensors, and lifting forks.",
+            "C": "Designing warehouse floor workflow schedules and standard operating procedures."
+          }
+        },
+        "6": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "The team is choosing between QR-code grid navigation and LiDAR SLAM navigation. How do you decide?",
+          "options": {
+            "A": "Compare floor maintenance costs, mapping flexibility, installation speed, and accuracy.",
+            "B": "Test a prototype AGV on a physical test track using both navigation methods.",
+            "C": "Convene engineering and operations leadership to align on budget and long-term expansion goals."
+          }
+        },
+        "7": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "To enhance the parcel sorting module, which task would you prefer?",
+          "options": {
+            "A": "Analyzing package dimensions and weight distribution to optimize bin assignments.",
+            "B": "Engineering the robotic arm suction gripper and high-speed diverter gates.",
+            "C": "Coordinating dispatch scheduling with external delivery courier fleets."
+          }
+        },
+        "8": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "“Before the executive live demo of the AGV fleet, what is your top focus?”",
+          "options": {
+            "A": "Reviewing logistics KPIs to ensure the demo directly showcases throughput improvements.",
+            "B": "Calibrating every AGV sensor, wheel alignment, and battery health to ensure zero demo glitches.",
+            "C": "Preparing a clear presentation illustrating cost reductions and safety enhancements."
+          }
+        },
+        "9": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "“A parcel falls off a shelf and obstructs an AGV transit lane! What is your priority?”",
+          "options": {
+            "A": "Review camera feeds to determine why the parcel fell and identify structural shelf defects.",
+            "B": "Equip AGVs with dynamic obstacle avoidance so they automatically detour around dropped items.",
+            "C": "Alert floor safety marshals to clear the aisle and verify all AGV routes are clear."
+          }
+        },
+        "10": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "“Critical AGV motor controllers are delayed in transit. How do you keep the project on schedule?”",
+          "options": {
+            "A": "Run simulated software stress tests on digital twin models while awaiting hardware.",
+            "B": "Retrofit existing motor drivers with custom adapters to continue physical testing.",
+            "C": "Reach out to partner logistics firms to borrow compatible spare controller units."
+          }
+        },
+        "11": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "The AGV battery charging schedule causes bottlenecks during peak morning hours. What is your fix?",
+          "options": {
+            "A": "Analyze fleet battery discharge curves and order arrival patterns throughout the day.",
+            "B": "Implement opportunistic micro-charging stations at designated dwell points along transport lanes.",
+            "C": "Restructure operational shift rotations to stagger fleet recharging during low-volume lulls."
+          }
+        },
+        "12": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "Logistics management wants to expand the autonomous system across a regional warehouse network. Where do you begin?",
+          "options": {
+            "A": "Evaluate warehouse dimensions, ceiling heights, and SKU velocity across all regional sites.",
+            "B": "Standardize modular AGV charging docks and universal navigation anchors for rapid rollout.",
+            "C": "Create comprehensive site onboarding handbooks and operator certification courses."
+          }
+        },
+        "13": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“The AGV fleet increased throughput by 40%. What is the next major objective?”",
+          "options": {
+            "A": "Measure lifecycle maintenance costs and calculate exact payback periods across operations.",
+            "B": "Integrate automated vertical storage carousels and AI vision inspection cameras.",
+            "C": "Prepare logistics integration protocols to link regional warehouses into a unified distribution grid."
+          }
+        },
+        "14": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "A cold-storage logistics facility wants to deploy our AGV system. What role do you take during kickoff?",
+          "options": {
+            "A": "Study sub-zero temperature impacts on battery chemistry, lubricant viscosity, and sensor condensation.",
+            "B": "Engineer thermal insulation enclosures and heated sensor lenses for low-temperature operation.",
+            "C": "Coordinate with cold-chain operations teams to establish safety protocols for sub-zero human-robot collaboration."
+          }
+        },
+        "15": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“The warehouse automation project wins an industry logistics award! How do you present the achievement?”",
+          "options": {
+            "A": "Share data showing reduced order fulfillment times and a 99.9% order accuracy rate.",
+            "B": "Demonstrate the multi-agent swarm algorithms coordinating hundreds of robots simultaneously.",
+            "C": "Highlight how workplace safety improved, completely eliminating forklift collision injuries."
+          }
+        },
+        "16": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“To ensure the warehouse automation infrastructure thrives over the next decade, what is most vital?”",
+          "options": {
+            "A": "Continuously refining predictive inventory positioning algorithms to adapt to shifting consumer trends.",
+            "B": "Maintaining rigorous preventive maintenance schedules and modular hardware upgrades.",
+            "C": "Fostering strong partnerships with logistics carriers, software vendors, and frontline labor teams."
+          }
+        },
+        "17": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“During a live demonstration for corporate clients, the central fleet server restarts unexpectedly! What do you do?”",
+          "options": {
+            "A": "Examine crash dump logs to identify whether a memory leak or network packet caused the reboot.",
+            "B": "Rely on decentralized AGV onboard autonomy to safely hold position and prevent collisions.",
+            "C": "Calmly walk clients through the robust safety fail-safes actively preventing any floor hazard."
+          }
+        },
+        "18": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“The warehouse changes product catalog dimensions overnight, introducing oversized boxes. How do you adapt?”",
+          "options": {
+            "A": "Classify the new SKU size distributions to determine required changes in aisle clearance.",
+            "B": "Adjust AGV lifting fork spacing and gripper pressure profiles to handle oversized parcels.",
+            "C": "Re-assign warehouse floor zones and train staff on the new oversized package routing."
+          }
+        },
+        "19": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“A Black Friday shopping surge generates a 500% spike in picking orders. What is your priority?”",
+          "options": {
+            "A": "Run throughput simulation models to identify the top 3 bottleneck aisles restricting picking speed.",
+            "B": "Optimize AGV routing algorithms to maximize continuous picking density per linear meter.",
+            "C": "Reallocate warehouse staff to dynamic replenishment zones to ensure picking bins never empty."
+          }
+        },
+        "20": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "A new intern asks: 'How do so many AGV robots avoid crashing into each other?'. How do you explain?",
+          "options": {
+            "A": "Explain the mathematics of spatial time-window reservations and decentralized traffic scheduling.",
+            "B": "Show them the 360-degree LiDAR laser beams actively calculating distances 50 times every second.",
+            "C": "Compare the robot fleet to a well-rehearsed orchestra where every player follows precise shared rules."
+          }
+        }
+      }
+    },
+    "5": {
+      "name": "Drone Logistics Fleet",
+      "english_name": "Drone Logistics Fleet",
+      "desc": "Coordinate high-speed urban delivery drones, avoiding obstacles and adverse weather.",
+      "goals": [
+        "Safe flight corridor routing",
+        "Severe weather & obstacle mitigation",
+        "Precision payload delivery verification"
+      ],
+      "questions": {
+        "1": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "The drone delivery project is ready for launch. The team needs to choose an initial approach to understand the operational context. What is your first priority?",
+          "options": {
+            "A": "Survey the warehouse perimeter and flight corridors to identify urban obstacles and high-risk zones.",
+            "B": "Identify recurring delivery routes where autonomous drones can significantly cut transit time.",
+            "C": "Engage directly with operations and field staff to understand current delivery pain points and bottlenecks."
+          }
+        },
+        "2": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "“Why do delivery times fluctuate heavily during midday hours? Can you investigate?”",
+          "options": {
+            "A": "Analyze wind thermal currents and urban air traffic density during midday peaks.",
+            "B": "Add adaptive flight speed modes and battery thermal management to the drone software.",
+            "C": "Observe dispatch handoff procedures and loading dock operations during midday shifts."
+          }
+        },
+        "3": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "“A sudden gust of wind between high-rise buildings pushes a delivery drone off course! What should the priority be?”",
+          "options": {
+            "A": "Map out urban micro-climate wind tunnels to understand aerodynamic turbulence patterns.",
+            "B": "Upgrade motor responsiveness and gyroscope stabilization algorithms to resist wind shear.",
+            "C": "Establish emergency holding altitudes and safe landing zones along all urban flight paths."
+          }
+        },
+        "4": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "Urban residents express privacy and noise concerns regarding low-altitude drones. How will you address this?",
+          "options": {
+            "A": "Survey residents across different neighborhoods to pinpoint their exact privacy and acoustic concerns.",
+            "B": "Design low-noise toroidal propeller blades and enforce strict no-camera private zones.",
+            "C": "Organize community town halls to demonstrate safety features and showcase vital medical delivery benefits."
+          }
+        },
+        "5": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "When developing the drone delivery fleet system, which component do you want to lead?",
+          "options": {
+            "A": "Developing autonomous flight path algorithms that avoid obstacles and dynamic weather in real time.",
+            "B": "Designing, assembling, and testing lightweight carbon-fiber airframes and tethered payload winches.",
+            "C": "Establishing urban delivery dispatch hubs and coordinating regulatory airspace approvals."
+          }
+        },
+        "6": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "The team is choosing between fixed-wing VTOL drones and multirotor quadcopters. How do you evaluate?",
+          "options": {
+            "A": "Compare payload capacity, energy consumption, hover stability, and range across both airframes.",
+            "B": "Conduct flight trial simulations to test which design handles urban rooftop landings more reliably.",
+            "C": "Facilitate a team design review to align technical capabilities with long-term urban delivery goals."
+          }
+        },
+        "7": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "You have been assigned a vital responsibility in the drone initiative. Which area do you prefer?",
+          "options": {
+            "A": "Analyzing telemetry data on delivery times, battery consumption, and airspace risks to guide decisions.",
+            "B": "Developing the core avionics software, collision avoidance radar, and precision winch mechanisms.",
+            "C": "Organizing field operations and logistics workflows so daily deliveries run seamlessly on the ground."
+          }
+        },
+        "8": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "“Before presenting the live drone demo to aviation authorities and partners, what is your top priority?”",
+          "options": {
+            "A": "Reviewing regulatory safety checklists to ensure the demonstration addresses all compliance criteria.",
+            "B": "Inspecting avionics hardware, fail-safe parachutes, and battery health to guarantee flawless execution.",
+            "C": "Preparing a clear presentation on the system's economic impact, reliability, and robust safety protocols."
+          }
+        },
+        "9": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "“During testing, several drones abort deliveries and return to base prematurely. What role do you take?”",
+          "options": {
+            "A": "Isolate the root cause by analyzing whether the aborts were triggered by sensor noise, GPS dropouts, or software logic.",
+            "B": "Refine sensor fusion algorithms and GPS multi-band redundancy to enhance signal stability.",
+            "C": "Adjust operational protocols and customer delivery handoff guidelines to mitigate false aborts."
+          }
+        },
+        "10": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "“The team is missing specialized radar sensors needed for obstacle avoidance testing. How do you proceed?”",
+          "options": {
+            "A": "Devise an alternative optical camera testing method to validate collision avoidance principles.",
+            "B": "Adapt existing ultrasonic and LiDAR sensors on hand to build an interim testing setup.",
+            "C": "Reach out to partner research institutions to secure temporary loaner radar equipment."
+          }
+        },
+        "11": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "Customers report finding the parcel drop-off interaction confusing and intimidating. What is your priority?",
+          "options": {
+            "A": "Gather detailed user feedback through post-delivery surveys to identify specific points of confusion.",
+            "B": "Redesign the drop-off tether mechanism and visual LED countdown to make delivery obvious and safe.",
+            "C": "Create clear animated instructions in the mobile app so customers know exactly what to expect."
+          }
+        },
+        "12": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "The municipal authority invites us to expand drone delivery city-wide. Where do you begin?",
+          "options": {
+            "A": "Analyze city-wide airspace corridors, building height maps, and population density distributions.",
+            "B": "Design modular automated battery-swapping landing hubs for rapid decentralized deployment.",
+            "C": "Establish comprehensive operational standard operating procedures and air traffic liaison channels."
+          }
+        },
+        "13": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“The pilot drone network achieved a 99.5% on-time delivery rate. What should the team focus on next?”",
+          "options": {
+            "A": "Rigorously analyze operational cost per delivery and environmental carbon displacement metrics.",
+            "B": "Upgrade autonomous fleet algorithms to handle complex multi-drone formation routing at scale.",
+            "C": "Prepare the logistics infrastructure and regulatory filings required for multi-city expansion."
+          }
+        },
+        "14": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "Another major metropolitan area requests deployment of our drone network. What is your focus during preparation?",
+          "options": {
+            "A": "Study local weather patterns, topography, and unique urban regulations before designing routes.",
+            "B": "Customize drone hardware configurations and payload containers for the new city's climate and demands.",
+            "C": "Engage with local government agencies and delivery partners to establish clear coordination protocols."
+          }
+        },
+        "15": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“The drone project is gaining widespread media coverage! How do you want to leverage this opportunity?”",
+          "options": {
+            "A": "Share data showing how drone delivery cut medical transport times from 45 minutes to under 8 minutes.",
+            "B": "Highlight the breakthrough autonomous AI navigation and zero-emission electric powertrain technology.",
+            "C": "Tell compelling human stories of essential medicine delivered to remote and congested neighborhoods."
+          }
+        },
+        "16": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“To ensure the drone delivery network thrives sustainably over the next decade, what is most essential?”",
+          "options": {
+            "A": "Continuously studying urban growth patterns to ensure flight corridors evolve with the city.",
+            "B": "Maintaining ongoing hardware upgrades, battery improvements, and rigorous safety certifications.",
+            "C": "Cultivating strong public trust, robust community relations, and deep partner ecosystems."
+          }
+        },
+        "17": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“During a high-profile live demonstration, a drone experiences an unexpected motor warning mid-flight. What is your immediate reaction?”",
+          "options": {
+            "A": "Analyze live telemetry logs calmly to verify whether the warning is a sensor glitch or true mechanical failure.",
+            "B": "Execute the autonomous emergency landing protocol into a pre-designated clear zone immediately.",
+            "C": "Reassure stakeholders and clearly explain the automated triple-redundant safety mechanisms in action."
+          }
+        },
+        "18": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“Aviation authorities suddenly issue new low-altitude speed restrictions. How do you adapt?”",
+          "options": {
+            "A": "Analyze the mathematical impact of lower speeds on battery consumption, fleet size, and delivery schedules.",
+            "B": "Update flight control firmware to automatically adhere to dynamic corridor speed caps.",
+            "C": "Collaborate with aviation regulators to demonstrate our safety buffers and negotiate optimal parameters."
+          }
+        },
+        "19": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“A sudden holiday surge causes a massive order backlog across all distribution hubs. What is your priority?”",
+          "options": {
+            "A": "Analyze real-time demand heatmaps to identify which delivery corridors are facing the severe bottlenecks.",
+            "B": "Optimize multi-drop flight routes and dynamic battery-swapping cycles to maximize drone flight uptime.",
+            "C": "Coordinate with ground logistics teams to offload non-urgent parcels and prioritize critical deliveries."
+          }
+        },
+        "20": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "A customer asks: 'How does this drone know not to hit power lines and trees?'. How do you explain?",
+          "options": {
+            "A": "Explain how multi-sensor fusion combines LiDAR lasers, stereoscopic cameras, and AI vision to map obstacles.",
+            "B": "Show them the live telemetry screen depicting the 3D safety bubble the drone maintains around itself.",
+            "C": "Share a clear analogy comparing the drone's obstacle avoidance to how birds navigate naturally through forests."
+          }
+        }
+      }
+    },
+    "6": {
+      "name": "Disaster Response Unit",
+      "english_name": "Disaster Response Unit",
+      "desc": "Deploy emergency search-and-rescue robots to locate survivors in hazardous zones.",
+      "goals": [
+        "Thermal & acoustic survivor detection",
+        "Safe corridor clearance in rubble",
+        "Field team evacuation coordination"
+      ],
+      "questions": {
+        "1": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "Arriving at an earthquake-damaged disaster site, rescue teams are preparing to enter unstable structures. What is your first priority?",
+          "options": {
+            "A": "Deploy reconnaissance sensors and thermal cameras to map structural stability and potential victim locations.",
+            "B": "Prepare all-terrain crawler robots and communication repeaters for immediate hazardous deployment.",
+            "C": "Coordinate with emergency rescue commanders to understand urgent search priorities and hazards."
+          }
+        },
+        "2": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "“Radio signals are heavily attenuated under reinforced concrete rubble. How do you investigate?”",
+          "options": {
+            "A": "Test RF propagation frequencies and mesh relay nodes through different collapsed materials.",
+            "B": "Configure acoustic and seismic vibration sensors that operate without direct wireless line-of-sight.",
+            "C": "Establish a relay network of compact repeater beacons dropped by lead crawler robots."
+          }
+        },
+        "3": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "“An aftershock destabilizes the rubble pile, trapping a search robot in a narrow void! What do you do?”",
+          "options": {
+            "A": "Analyze structural stress telemetry to determine if the void is expanding or collapsing.",
+            "B": "Engage reverse omni-directional tracks and pneumatic lifting bladders to free the robot.",
+            "C": "Coordinate with the heavy rescue team to secure the area and establish an alternative entry path."
+          }
+        },
+        "4": {
+          "chapter": "Chapter 1: Reconnaissance",
+          "dialogue": "First responders are unfamiliar with the robotic search interface during emergency pressure. How do you help?",
+          "options": {
+            "A": "Observe where rescue operators hesitate when trying to interpret live thermal video feeds.",
+            "B": "Simplify the operator controller into high-contrast physical joysticks with one-touch audio listen modes.",
+            "C": "Conduct a 5-minute practical orientation briefing focusing on essential search-and-rescue commands."
+          }
+        },
+        "5": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "When developing the disaster response robot, which engineering task do you want to lead?",
+          "options": {
+            "A": "Developing sensor algorithms that filter background fire heat to detect human vital thermal signatures.",
+            "B": "Engineering ruggedized, waterproof treads and articulated robotic arms for clearing debris.",
+            "C": "Structuring incident command communication protocols and multi-agency coordination dashboards."
+          }
+        },
+        "6": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "The team is deciding between a snake-like serpentine robot and a tracked rover for collapsed building exploration. How do you evaluate?",
+          "options": {
+            "A": "Evaluate mobility in tight cracks, payload capacity, battery duration, and recovery difficulty for each design.",
+            "B": "Build a physical rubble obstacle course to benchmark navigation speed and sensor stability.",
+            "C": "Consult with seasoned urban search-and-rescue specialists to align with actual collapsed building realities."
+          }
+        },
+        "7": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "You have been assigned a critical role in the emergency response team. Which responsibility do you want?",
+          "options": {
+            "A": "Analyzing real-time sensor streams and structural integrity maps to guide rescue team entry points.",
+            "B": "Maintaining and field-repairing robotic drive systems, camera pods, and vital detection sensors.",
+            "C": "Coordinating search assignments between robotic units, canine teams, and human search squads."
+          }
+        },
+        "8": {
+          "chapter": "Chapter 2: Engineering",
+          "dialogue": "“Before presenting the disaster robot system to national emergency agencies, what is your primary focus?”",
+          "options": {
+            "A": "Reviewing emergency agency standards to ensure all life-safety and ruggedization criteria are met.",
+            "B": "Conducting rigorous drop, water-immersion, and high-heat endurance tests on all robotic components.",
+            "C": "Preparing a clear demonstration highlighting rapid deployment speed and verified life-saving capability."
+          }
+        },
+        "9": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "“Dust and smoke in a collapsed basement obscure optical cameras completely! How do you prioritize?”",
+          "options": {
+            "A": "Switch sensor modes immediately to long-wave infrared thermal imaging and millimeter-wave radar.",
+            "B": "Activate compressed air jets to clear dust from camera lenses and deploy forward LED searchlights.",
+            "C": "Guide the robot using acoustic sonar mapping and seismic sensor feedback to continue searching."
+          }
+        },
+        "10": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "“The specialized tether cable for deep void exploration is severed by falling concrete. How do you proceed?”",
+          "options": {
+            "A": "Evaluate wireless mesh relay feasibility to determine if wireless communication can bridge the void.",
+            "B": "Splice and repair the heavy-duty reinforced communication cable using field repair kits.",
+            "C": "Coordinate with partner rescue units to borrow a secondary tether reel or fiber-optic line."
+          }
+        },
+        "11": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "Survivors trapped in voids feel terrified when approached by mechanical search robots in the dark. What is your fix?",
+          "options": {
+            "A": "Study survivor psychology in disaster scenarios to design comforting human-robot interaction patterns.",
+            "B": "Equip robots with soft two-way voice speakers and warm, non-glaring lighting that illuminates gentle mascot graphics.",
+            "C": "Instruct operators to speak immediately in calm, reassuring human tones through the robot's speaker."
+          }
+        },
+        "12": {
+          "chapter": "Chapter 3: Challenge",
+          "dialogue": "National disaster management plans to station robotic search units in every major province. Where do you start?",
+          "options": {
+            "A": "Analyze regional disaster risk profiles—floods, landslides, earthquakes—to customize deployment packages.",
+            "B": "Design ruggedized, portable transport cases with integrated fast-charging for rapid helicopter deployment.",
+            "C": "Establish a standardized national training curriculum for provincial disaster response personnel."
+          }
+        },
+        "13": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“The disaster response unit successfully located 12 survivors during the recent mission. What is the next priority?”",
+          "options": {
+            "A": "Perform rigorous post-mission telemetry audits to identify which sensor modalities provided the fastest detections.",
+            "B": "Upgrade robot motors and chassis materials to withstand higher heat and caustic chemical environments.",
+            "C": "Build partnerships with international search-and-rescue organizations for cross-border humanitarian missions."
+          }
+        },
+        "14": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "A coastal region vulnerable to seasonal typhoons and landslides requests specialized robotic units. What is your role?",
+          "options": {
+            "A": "Research mudslide flow dynamics and saltwater corrosion factors characteristic of coastal disasters.",
+            "B": "Engineer amphibious sealed chassis enclosures and high-torque mud tracks for waterlogged terrain.",
+            "C": "Collaborate with coastal emergency authorities to integrate robots into early evacuation protocols."
+          }
+        },
+        "15": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“The rescue mission is featured internationally as a breakthrough in humanitarian robotics! How do you present it?”",
+          "options": {
+            "A": "Present detailed incident timelines and sensor detection data demonstrating how robots accelerated survivor extraction.",
+            "B": "Highlight the engineering achievements: multi-terrain mobility, thermal AI detection, and extreme ruggedness.",
+            "C": "Share heartfelt stories of rescued survivors and the courageous collaboration between human responders and robots."
+          }
+        },
+        "16": {
+          "chapter": "Chapter 4: Scaling",
+          "dialogue": "“To ensure the disaster response fleet remains mission-ready over decades, what must be prioritized?”",
+          "options": {
+            "A": "Continuously updating emergency algorithms based on insights from global disaster response debriefs.",
+            "B": "Maintaining meticulous preventive maintenance protocols and regular harsh-environment readiness drills.",
+            "C": "Fostering deep, enduring trust between technology teams and frontline emergency rescue services."
+          }
+        },
+        "17": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“During a critical live rescue operation, a robot loses video feed while in a deep void. What is your first response?”",
+          "options": {
+            "A": "Analyze network signal logs immediately to isolate whether the blackout is wireless loss or camera failure.",
+            "B": "Engage the autonomous backtrack routine to guide the robot automatically back toward the last known signal zone.",
+            "C": "Maintain calm composure, briefing rescue commanders while switching to secondary acoustic telemetry."
+          }
+        },
+        "18": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“The incident commander changes search priorities due to structural collapse risks in Section B. How do you adapt?”",
+          "options": {
+            "A": "Analyze new structural hazard maps to evaluate access corridors into the newly prioritized Section C.",
+            "B": "Re-deploy and reconfigure robotic units swiftly to penetrate the new priority search sectors.",
+            "C": "Coordinate with rescue team leaders to align all robotic search paths with updated safety perimeters."
+          }
+        },
+        "19": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "“Multiple distress signals arrive simultaneously from different collapsed sectors. What is your priority?”",
+          "options": {
+            "A": "Evaluate sensor confidence scores and acoustic patterns to rank survivor likelihood across all signals.",
+            "B": "Deploy all available robotic units in parallel, distributing telemetry feeds across operator workstations.",
+            "C": "Collaborate with field commanders to allocate rescue teams to highest-confidence survivor locations first."
+          }
+        },
+        "20": {
+          "chapter": "Chapter 5: Final Challenge",
+          "dialogue": "A community member asks: 'How do these robots help save lives in real emergencies?'. How do you explain?",
+          "options": {
+            "A": "Explain how robots enter unstable rubble too tight and dangerous for human searchers, finding survivors hours faster.",
+            "B": "Show them the thermal camera and acoustic sensors that can detect a heartbeat beneath meters of concrete.",
+            "C": "Share a real story of how robots and firefighters worked together to bring a trapped person home safely."
+          }
+        }
+      }
+    }
+  }
+}

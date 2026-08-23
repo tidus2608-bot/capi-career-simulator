@@ -1,9 +1,12 @@
 export default function Transition({ k, children }) {
   return (
-    <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
+    <div
+      className="scene-transition-wrapper"
+      style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}
+    >
       <div
         key={k}
-        className="fade-in"
+        className="fade-in scene-transition-content"
         style={{
           position: 'absolute',
           inset: 0,
@@ -14,7 +17,7 @@ export default function Transition({ k, children }) {
       >
         {children}
       </div>
-      <div key={`${k}-flash`} className="scene-flash" aria-hidden="true">
+      <div key={`${k}-flash`} className="scene-flash no-print" aria-hidden="true">
         <div className="capi-sprite-clip">
           <img
             src="/illos/capi-transition.webp"

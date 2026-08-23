@@ -2,55 +2,15 @@ import React, { useState } from 'react'
 import { Icon } from '@iconify/react'
 import { useTranslation } from 'react-i18next'
 
-const SKILL_STYLE_OVERRIDES = {
-  'public speaking': {
-    nameVi: 'Nói trước công chúng',
-    nameEn: 'Public Speaking',
-    icon: 'mdi:account-voice',
-    whyRecVi: 'Giúp con diễn đạt tự tin, rõ ràng và có cấu trúc.',
-    whyRecEn: 'Helps you express yourself confidently, clearly and with structure.',
-    skillAreaVi: 'Nghệ thuật kể chuyện (Kể chuyện, cách diễn đạt ngôn từ)',
-    skillAreaEn: 'Storytelling (Storytelling, verbal expression)',
-  },
-  storytelling: {
-    nameVi: 'Nghệ thuật kể chuyện',
-    nameEn: 'Storytelling',
-    icon: 'mdi:book-open-page-variant-outline',
-    whyRecVi: 'Giúp con biến ý tưởng hoặc dữ liệu thành câu chuyện dễ nhớ.',
-    whyRecEn: 'Helps you turn ideas or data into memorable stories.',
-    skillAreaVi: '',
-    skillAreaEn: '',
-  },
-  'canva / google slides': {
-    nameVi: 'Canva & Slides',
-    nameEn: 'Canva & Slides',
-    icon: 'mdi:application-outline',
-    whyRecVi: 'Giúp con truyền đạt ý tưởng trực quan và hấp dẫn hơn.',
-    whyRecEn: 'Helps you communicate ideas visually and more attractively.',
-    skillAreaVi: '',
-    skillAreaEn: '',
-  },
-  'science communication': {
-    nameVi: 'Truyền thông khoa học',
-    nameEn: 'Science Communication',
-    icon: 'mdi:flask-outline',
-    whyRecVi: 'Phù hợp với học sinh thích giải thích robotics, AI hoặc STEM cho người khác',
-    whyRecEn: 'Suitable for students who like to explain robotics, AI or STEM to others',
-    skillAreaVi: '',
-    skillAreaEn: '',
-  },
-  'capcut / basic video editing': {
-    nameVi: 'Dựng video/Capcut',
-    nameEn: 'Dựng video/Capcut',
-    icon: 'mdi:video-outline',
-    whyRecVi: 'Giúp con tạo nội dung giới thiệu sản phẩm hoặc giải thích công nghệ.',
-    whyRecEn: 'Helps you create content to introduce products or explain technology.',
-    skillAreaVi: '',
-    skillAreaEn: '',
-  },
+const SKILL_ICONS = {
+  'public speaking': 'mdi:account-voice',
+  storytelling: 'mdi:book-open-page-variant-outline',
+  'canva / google slides': 'mdi:application-outline',
+  'science communication': 'mdi:flask-outline',
+  'capcut / basic video editing': 'mdi:video-outline',
 }
 
-export default function AccordionSkills({ isEn, primarySkills = [] }) {
+export default function AccordionSkills({ primarySkills = [] }) {
   const { t } = useTranslation()
 
   // Keep track of expanded state for each accordion card individually, default all to expanded (true)
@@ -89,33 +49,19 @@ export default function AccordionSkills({ isEn, primarySkills = [] }) {
       {/* Accordions in responsive grid layout */}
       <div className="accordion-skills-grid">
         {primarySkills.map((sk, idx) => {
-          const key = sk.name.toLowerCase().trim()
-          const override = SKILL_STYLE_OVERRIDES[key]
-
-          const skillName = override ? (isEn ? override.nameEn : override.nameVi) : sk.name
-          const iconName = override ? override.icon : 'mdi:school-outline'
-          const whyRec = override
-            ? isEn
-              ? override.whyRecEn
-              : override.whyRecVi
-            : sk.why_recommended
-          const skillArea = override
-            ? isEn
-              ? override.skillAreaEn
-              : override.skillAreaVi
-            : sk.skill_area
+          const key = (sk.name || '').toLowerCase().trim()
+          const iconName = SKILL_ICONS[key] || 'mdi:school-outline'
+          const skillName = sk.name
+          const whyRec = sk.why_recommended
+          const skillArea = sk.skill_area
 
           const isOpen = !!expandedStates[idx]
 
           // Level styling matching mockup
           const isBeginner = sk.level === 'beginner'
           const lvlText = isBeginner
-            ? isEn
-              ? 'Beginner'
-              : 'Khởi đầu'
-            : isEn
-              ? 'Intermediate'
-              : 'Trung cấp'
+            ? t('report.training_level_beginner')
+            : t('report.training_level_intermediate')
           const lvlBg = isBeginner ? '#48BB78' : '#ECC94B'
           const lvlColor = isBeginner ? '#FFFFFF' : '#1F2937'
 
@@ -186,7 +132,7 @@ export default function AccordionSkills({ isEn, primarySkills = [] }) {
                     }}
                   >
                     <span style={{ fontSize: 'var(--text-sm)', fontWeight: 700, color: '#1F2937' }}>
-                      {isEn ? 'Level:' : 'Cấp độ:'}
+                      {t('report.training_level_label')}
                     </span>
                     <span
                       style={{

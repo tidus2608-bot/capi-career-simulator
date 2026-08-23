@@ -1,7 +1,7 @@
 /**
  * Capi Career Path Simulator — Scoring Engine v2 (JS port of scoring.ts)
  */
-import missionsData from '../data/missions.json'
+import missionsData from '../data/assessment_matrix.json'
 
 const ROLES = ['explorer', 'builder', 'operator', 'connector', 'communicator']
 const FINAL_WEIGHTS = missionsData.weighted_final.weights
@@ -164,81 +164,20 @@ export function calculateScore(missionId, phase1Answers, phase2Answers, phase3An
 
 // ─── Certificate copy ───────────────────────────────────────────────────────
 
-function getRoleData(key) {
-  return missionsData.roles.find((r) => r.key === key)
-}
-
 function round1(n) {
   return Math.round(n * 10) / 10
 }
 
-function profileNarrative(type, role) {
-  if (type === 'Hidden')
-    return `Bạn không nghĩ mình là ${role.name_vn}, nhưng hành vi của bạn cho thấy điều ngược lại. Đây là một sức mạnh tiềm ẩn cần được khám phá thêm.`
-  if (type === 'Emerging')
-    return `Sau khi trải nghiệm, bạn đã nhận ra mình phù hợp với vai trò ${role.name_vn} hơn so với suy nghĩ ban đầu. Một góc nhìn mới đang hình thành.`
-  return `Cả ba phase đều cho thấy bạn là một ${role.name_vn}. Bạn hiểu rõ bản thân và đang đi đúng hướng.`
-}
-
-function realityGrowthNarrative(result, primary) {
-  const topSelfRole = [...ROLES].sort((a, b) => result.phase1[b] - result.phase1[a])[0]
-  const topSelf = getRoleData(topSelfRole)
-  if (topSelfRole === result.primaryRole) {
-    return `Bạn nghĩ mình là một ${primary.name_vn}, và hành vi thực tế cũng xác nhận điều đó. Sự nhất quán giữa nhận thức và hành động là một thế mạnh quan trọng.`
-  }
-  return `Bạn nghĩ mình là một ${topSelf.name_vn}, nhưng thực chất bạn lại phù hợp hơn với vai trò ${primary.name_vn}. Đây không phải là sự mâu thuẫn — đây là cơ hội để hiểu rõ hơn về bản thân.`
-}
-
-const PHRASE_BANK_EN = {
-  explorer: ['curious', 'empathetic', 'questioning', 'deeply analytical'],
-  builder: ['hands-on', 'creative', 'solution-oriented', 'turning ideas into working products'],
-  operator: ['meticulous', 'reliable', 'execution-focused', 'ensuring stable system operations'],
-  connector: ['collaborative', 'people-oriented', 'connecting stakeholders', 'leading consensus'],
-  communicator: ['clear', 'persuasive', 'storytelling', 'making complex ideas simple'],
-}
-
 export function buildCertificateCopy(result) {
-  const primary = getRoleData(result.primaryRole)
-  const secondary = getRoleData(result.secondaryRole)
-
   const lowestRoles = [...ROLES].sort((a, b) => result.final[a] - result.final[b]).slice(0, 2)
 
-  const workingStyleHeadlineVn = `Bạn có xu hướng ${primary.phrase_bank_vn[0]} và ${primary.phrase_bank_vn[1]}, kết hợp với khả năng ${secondary.phrase_bank_vn[0]}.`
-
-  const phraseEn = PHRASE_BANK_EN[result.primaryRole] || ['curious', 'empathetic']
-  const secPhraseEn = PHRASE_BANK_EN[result.secondaryRole] || ['hands-on']
-  const workingStyleHeadlineEn = `You tend to be ${phraseEn[0]} and ${phraseEn[1]}, combined with a capability for ${secPhraseEn[0]} work.`
-
-  const profileTypeLabelVn = `${result.profileType} ${primary.name_vn}`
-  const profileTypeNarrativeVn = profileNarrative(result.profileType, primary)
-  const realityGrowthInsightVn = realityGrowthNarrative(result, primary)
-
-  const primaryInterpretationVn = `${primary.name_vn} (${primary.name_en}): ${primary.short_description_vn}`
-  const secondaryInterpretationVn = `${secondary.name_vn} (${secondary.name_en}): ${secondary.short_description_vn}`
-
-  const fullScoreBreakdown = ROLES.map((role) => {
-    const rd = getRoleData(role)
-    return {
-      role,
-      roleVn: rd.name_vn,
-      selfPerception: round1(result.phase1[role]),
-      actualBehavior: round1(result.phase2[role]),
-      reflection: round1(result.phase3[role]),
-      final: round1(result.final[role]),
-    }
-  })
-
-  const growthAreasVn = []
-  const growthAreasEn = []
-  for (const lowRoleKey of lowestRoles) {
-    const lowRole = getRoleData(lowRoleKey)
-    if (lowRole.qualifications_vn.length > 0) {
-      growthAreasVn.push(`Phát triển kỹ năng ${lowRole.name_vn}: ${lowRole.qualifications_vn[0]}.`)
-    }
-    if (lowRole.qualifications_en.length > 0) {
-      growthAreasEn.push(`Develop ${lowRole.name_en} skills: ${lowRole.qualifications_en[0]}.`)
-    }
-  }
+  const fullScoreBreakdown = ROLES.map((role) => ({
+    role,
+    selfPerception: round1(result.phase1[role]),
+    actualBehavior: round1(result.phase2[role]),
+    reflection: round1(result.phase3[role]),
+    final: round1(result.final[role]),
+  }))
 
   const primaryFinal = result.final[result.primaryRole]
   const scoreBand =
@@ -247,39 +186,21 @@ export function buildCertificateCopy(result) {
     missionsData.score_bands[0]
 
   return {
-    workingStyleHeadlineVn,
-    workingStyleHeadlineEn,
-    superpowerVn: {
-      roleVn: primary.name_vn,
-      roleEn: primary.name_en,
-      tagline: primary.tagline_vn,
+    primaryRole: result.primaryRole,
+    secondaryRole: result.secondaryRole,
+    lowestRoles,
+    scoreBand,
+    superpower: {
+      role: result.primaryRole,
       score: round1(result.phase2[result.primaryRole]),
-      bandLabel: scoreBand.label_vn,
+      band: scoreBand.band,
     },
-    secondaryPowerVn: {
-      roleVn: secondary.name_vn,
-      roleEn: secondary.name_en,
-      tagline: secondary.tagline_vn,
+    secondaryPower: {
+      role: result.secondaryRole,
       score: round1(result.final[result.secondaryRole]),
     },
-    profileTypeLabelVn,
-    profileTypeNarrativeVn,
-    realityGrowthInsightVn,
-    primaryInterpretationVn,
-    secondaryInterpretationVn,
+    profileType: result.profileType,
     fullScoreBreakdown,
-    growthAreasVn,
-    growthAreasEn,
-    primaryQualifications: primary.qualifications_vn,
-    primaryQualificationsEn: primary.qualifications_en,
-    primaryCareers: primary.careers_vn,
-    primaryCareersEn: primary.careers_en,
-    primaryMajors: primary.majors_vn,
-    secondaryQualifications: secondary.qualifications_vn,
-    secondaryQualificationsEn: secondary.qualifications_en,
-    secondaryCareers: secondary.careers_vn,
-    secondaryCareersEn: secondary.careers_en,
-    secondaryMajors: secondary.majors_vn,
   }
 }
 

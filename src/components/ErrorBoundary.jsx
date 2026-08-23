@@ -18,7 +18,7 @@ function Fallback({ message }) {
             onClick={() => window.location.reload()}
             className="error-boundary-btn"
           >
-            {t('error_boundary.btn_restart', 'Khởi động lại')}
+            {t('error_boundary.btn_restart')}
           </Button>
           <Button
             variant="outline"
@@ -32,7 +32,7 @@ function Fallback({ message }) {
             }}
             className="error-boundary-btn error-boundary-btn--outline"
           >
-            {t('error_boundary.btn_reset_cache', 'Xóa bộ nhớ đệm & Bắt đầu lại')}
+            {t('error_boundary.btn_reset_cache')}
           </Button>
         </div>
       </div>

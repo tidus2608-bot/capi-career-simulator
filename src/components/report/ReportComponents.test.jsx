@@ -7,7 +7,7 @@ import DevelopmentTimeline from './DevelopmentTimeline.jsx'
 import CareerMapTabs from './CareerMapTabs.jsx'
 import AccordionSkills from './AccordionSkills.jsx'
 import RadarRanking from './RadarRanking.jsx'
-import reportData from '../../data/reportData.json'
+import viRoles from '../../lib/i18n/locales/vi/roles.json'
 
 describe('Report UI Components Suite', () => {
   const sampleResult = {
@@ -68,7 +68,7 @@ describe('Report UI Components Suite', () => {
     color: '#22C55E',
   }
 
-  const primaryRoleData = reportData.rolebank.builder
+  const primaryRoleData = viRoles.roles.builder
 
   it('renders RadarRanking component without errors', () => {
     const { container } = render(
@@ -96,7 +96,7 @@ describe('Report UI Components Suite', () => {
         result={sampleResult}
       />,
     )
-    expect(screen.getByText(/Nhà Kiến Tạo/i)).toBeInTheDocument()
+    expect(screen.getAllByText(/Nhà Kiến Tạo/i).length).toBeGreaterThan(0)
   })
 
   it('renders EvidenceBlock component', () => {
@@ -132,5 +132,36 @@ describe('Report UI Components Suite', () => {
       <AccordionSkills isEn={false} primaryRoleKey="builder" secondaryRoleKey="explorer" />,
     )
     expect(container.querySelector('.print-card')).toBeInTheDocument()
+  })
+
+  it('contains expected print & layout classes for multi-page PDF generation', () => {
+    const { container: powerContainer } = render(
+      <PowerBlock
+        isEn={false}
+        isSecondary={false}
+        primaryRoleKey="builder"
+        secondaryRoleKey="explorer"
+        primaryRoleMeta={primaryRoleMeta}
+        secondaryRoleMeta={secondaryRoleMeta}
+        primaryRoleData={primaryRoleData}
+        primaryComboData={null}
+        result={sampleResult}
+      />,
+    )
+    expect(powerContainer.querySelector('.power-block-section')).toBeInTheDocument()
+    expect(powerContainer.querySelector('.power-block-banner')).toBeInTheDocument()
+    expect(powerContainer.querySelector('.power-block-radar-row')).toBeInTheDocument()
+
+    const { container: evidenceContainer } = render(
+      <EvidenceBlock
+        isEn={false}
+        result={sampleResult}
+        primaryRoleKey="builder"
+        secondaryRoleKey="explorer"
+        primaryRoleMeta={primaryRoleMeta}
+        secondaryRoleMeta={secondaryRoleMeta}
+      />,
+    )
+    expect(evidenceContainer.querySelectorAll('.evidence-card').length).toBeGreaterThan(0)
   })
 })

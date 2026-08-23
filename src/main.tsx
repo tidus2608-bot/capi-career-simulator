@@ -21,6 +21,7 @@ import {
   HistoryScene,
   CapiGeneInfoScene,
   FeedbackScene,
+  CompareResultsScene,
 } from './components/scenes/index.js'
 
 const router = createBrowserRouter([
@@ -51,6 +52,8 @@ const router = createBrowserRouter([
         ],
       },
       { path: 'history', element: <HistoryScene /> },
+      { path: 'history/compare', element: <CompareResultsScene /> },
+      { path: 'compare', element: <CompareResultsScene /> },
       { path: 'feedback', element: <FeedbackScene /> },
     ],
   },

@@ -1,0 +1,99 @@
+{
+  "intro": {
+    "tagline": "VIỆN NGHIÊN CỨU CAPI · ESTABLISHED 20XX",
+    "title": "Hành trình Điểm chạm Tương lai",
+    "title_highlight": "Điểm chạm",
+    "title_prefix": "Hành trình",
+    "title_suffix": "Tương lai",
+    "subtitle": "CAPI CAREER PATH SIMULATOR",
+    "blurb": "Capi sẽ quét hệ thống tư duy của bạn qua 17 câu hỏi, dẫn bạn vào một nhiệm vụ mô phỏng thực chiến 20 câu, và giải mã <em>Capi-Gene</em> — mật mã nghề nghiệp của bạn.",
+    "auth_loading": "Đang kiểm tra đăng nhập...",
+    "auth_signed_in": "Đã đăng nhập: {{name}}",
+    "btn_start": "BẮT ĐẦU QUÉT",
+    "btn_signin": "🔑 Đăng nhập Google & Bắt đầu",
+    "btn_signin_pending": "Đang chuyển hướng...",
+    "btn_play_guest": "Chơi không lưu kết quả",
+    "feature_phase1": "17 câu Phase 1",
+    "feature_mission": "20 câu/nhiệm vụ",
+    "feature_roles": "5 vai trò nghề nghiệp",
+    "feature_cert": "Chứng chỉ Capi-Gene",
+    "new_badge": "CAPI RESEARCH INSTITUTE",
+    "new_title": "Bạn đã được triệu tập đến Viện Nghiên cứu Capi",
+    "new_blurb": "Chào mừng bạn đến với Viện Nghiên cứu Capi! Mình là Capi, cộng sự của bạn. Trước khi bước vào các cổng mô phỏng thực tế ảo, hãy để mình quét sơ bộ hệ thống tư duy của bạn nhé. Sẵn sàng chưa?",
+    "btn_scan_gene": "Quét Capi-Gene",
+    "btn_what_is_gene": "Capi-Gene là gì?",
+    "footer_hint": "Hoàn thành bài quét đầu tiên để mở khóa các cổng mô phỏng thực tế ảo.",
+    "scan_intro_title": "PHASE 1 · CAPI-SCAN",
+    "scan_intro_blurb": "Bạn sẽ trả lời <strong style=\"color: #1a1a2e\">15 câu hỏi</strong> trên thang điểm 1–5. Hãy chọn theo những gì bạn <em style=\"font-style: normal; color: #843497; font-weight: 600\">thực sự</em> thường làm, không phải những gì bạn nghĩ là \"nên chọn\".",
+    "scan_intro_btn": "Bắt đầu quét"
+  },
+  "themes": {
+    "ark-capi": {
+      "displayName": "CHIẾN DỊCH TÀU ARK-CAPI",
+      "subtitle": "Hành trình Khám phá Hành tinh mới",
+      "blurb": "Năm 20xx. Trái đất cạn kiệt tài nguyên. Bạn điều khiển phi thuyền không gian Ark-Capi đi tìm \"Hành tinh Vĩnh cửu\"."
+    },
+    "ark_capi": {
+      "displayName": "CHIẾN DỊCH TÀU ARK-CAPI",
+      "subtitle": "Hành trình Khám phá Hành tinh mới",
+      "blurb": "Năm 20xx. Trái đất cạn kiệt tài nguyên. Bạn điều khiển phi thuyền không gian Ark-Capi đi tìm \"Hành tinh Vĩnh cửu\"."
+    },
+    "techno": {
+      "displayName": "KỲ THỰC TẬP TẠI S4V",
+      "subtitle": "Trải nghiệm Dự án Công nghệ STEAM",
+      "blurb": "Bạn là thực tập sinh tại tập đoàn S4V, trực tiếp tham gia các dự án Smart Home, Kho vận tự hành và Mạng lưới Drone."
+    }
+  },
+  "theme_scene": {
+    "back_to_themes": "Đổi cổng"
+  },
+  "likert": {
+    "1": "Hoàn toàn không đồng ý",
+    "2": "Không đồng ý",
+    "3": "Trung lập",
+    "4": "Đồng ý",
+    "5": "Hoàn toàn đồng ý"
+  },
+  "questions": {
+    "Q1": "Khi robot gặp sự cố, tôi muốn trực tiếp kiểm tra và sửa chữa",
+    "Q2": "Tôi kiên nhẫn thử đi thử lại và chỉnh từng phần để robot hoạt động tốt hơn.",
+    "Q3": "Tôi hứng thú với các bộ phận kỹ thuật như cảm biến, động cơ và mạch điều khiển.",
+    "Q10": "Tôi thích tìm hiểu cách một công nghệ mới hoạt động như thế nào.",
+    "Q11": "Tôi thường thử nhiều cách tiếp cận khác nhau khi giải quyết một vấn đề.",
+    "Q12": "Tôi hay tò mò và đặt câu hỏi về những điều xung quanh mình.",
+    "Q19": "Tôi thường lên kế hoạch chi tiết trước khi bắt đầu làm một dự án.",
+    "Q20": "Tôi luôn kiểm tra kỹ các bước để đảm bảo công việc không có sai sót.",
+    "Q21": "Tôi thích sắp xếp công việc theo thứ tự ưu tiên rõ ràng.",
+    "Q28": "Tôi dễ dàng nhận ra cảm xúc và nhu cầu của các thành viên trong nhóm.",
+    "Q29": "Tôi thích lắng nghe ý kiến của mọi người để cùng tìm ra giải pháp chung.",
+    "Q30": "Tôi thường là người kết nối các bạn trong nhóm khi có bất đồng ý kiến.",
+    "Q37": "Tôi tự tin trình bày ý tưởng của mình trước đám đông.",
+    "Q38": "Tôi thích dùng hình ảnh, câu chuyện để giải thích một vấn đề phức tạp.",
+    "Q39": "Tôi thường chia sẻ những điều mình học được với bạn bè và người thân.",
+    "CONF1": "Tôi cảm thấy các câu trả lời trên phản ánh đúng con người thật của mình.",
+    "CONF2": "Tôi tin tưởng vào khả năng tự đánh giá của bản thân trong bài test này.",
+    "C1": "Tôi cảm thấy các câu trả lời trên phản ánh đúng con người thật của mình.",
+    "C2": "Tôi tin tưởng vào khả năng tự đánh giá của bản thân trong bài test này."
+  },
+  "phase3_questions": {
+    "explorer": "Tôi thấy mình phù hợp với vai trò Nhà Khám Phá (Explorer): thích tìm hiểu, phân tích và đặt câu hỏi.",
+    "builder": "Tôi thấy mình phù hợp với vai trò Kỹ Sư Chế Tạo (Builder): thích lắp ráp, chế tạo và thử nghiệm giải pháp thực tế.",
+    "operator": "Tôi thấy mình phù hợp với vai trò Vận Hành Viên (Operator): thích tối ưu hóa, đảm bảo quy trình và hệ thống hoạt động ổn định.",
+    "connector": "Tôi thấy mình phù hợp với vai trò Người Kết Nối (Connector): thích làm việc nhóm, kết nối mọi người và tạo sự đồng thuận.",
+    "communicator": "Tôi thấy mình phù hợp với vai trò Người Truyền Cảm Hứng (Communicator): thích chia sẻ, truyền đạt ý tưởng và truyền cảm hứng cho người khác."
+  },
+  "likert_fit": {
+    "1": "Hoàn toàn không phù hợp",
+    "2": "Không phù hợp",
+    "3": "Bình thường",
+    "4": "Phù hợp",
+    "5": "Rất phù hợp"
+  },
+  "reveal": {
+    "phase1_completed": "KẾT QUẢ PHASE 1 · CAPI-SCAN",
+    "capi_dialogue_prefix": "Hệ thống nhận thấy bạn có tiềm năng nổi trội ở vai trò ",
+    "capi_dialogue_suffix": ". Tuy nhiên, đây mới chỉ là bài quét sơ bộ qua nhận thức ban đầu. Hãy bước vào mô phỏng thực chiến để kiểm chứng nhé!",
+    "disclaimer": "* Kết quả này chỉ mang tính tham khảo bước đầu dựa trên tự đánh giá của bạn.",
+    "btn_select_gate": "Chọn Cổng Mô Phỏng Tiếp Theo"
+  }
+}

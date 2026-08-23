@@ -1,0 +1,99 @@
+{
+  "intro": {
+    "tagline": "CAPI RESEARCH INSTITUTE · ESTABLISHED 20XX",
+    "title": "Touching the Future",
+    "title_highlight": "Touchpoint",
+    "title_prefix": "The",
+    "title_suffix": "Journey",
+    "subtitle": "CAPI CAREER PATH SIMULATOR",
+    "blurb": "Capi will scan your way of thinking through 17 quick questions, drop you into a 20-question simulation mission, and decode your <em>Capi-Gene</em> — your career signature.",
+    "auth_loading": "Checking sign-in...",
+    "auth_signed_in": "Signed in: {{name}}",
+    "btn_start": "START SCAN",
+    "btn_signin": "🔑 Sign in with Google & Start",
+    "btn_signin_pending": "Redirecting...",
+    "btn_play_guest": "Play without saving",
+    "feature_phase1": "17 Phase 1 questions",
+    "feature_mission": "20 questions / mission",
+    "feature_roles": "5 career roles",
+    "feature_cert": "Capi-Gene certificate",
+    "new_badge": "CAPI RESEARCH INSTITUTE",
+    "new_title": "You have been summoned to the Capi Research Institute",
+    "new_blurb": "Welcome to the Capi Research Institute! I am Capi, your assistant. Before stepping into the virtual reality simulation gates, let me run a preliminary scan on your thinking system. Ready?",
+    "btn_scan_gene": "Scan Capi-Gene",
+    "btn_what_is_gene": "What is Capi-Gene?",
+    "footer_hint": "Complete the first scan to unlock virtual reality simulation gates.",
+    "scan_intro_title": "PHASE 1 · CAPI-SCAN",
+    "scan_intro_blurb": "You will answer <strong style=\"color: #1a1a2e\">15 questions</strong> on a 1-5 scale. Please choose based on what you <em style=\"font-style: normal; color: #843497; font-weight: 600\">actually</em> do, not what you think is the \"correct choice\".",
+    "scan_intro_btn": "Start scanning →"
+  },
+  "themes": {
+    "ark-capi": {
+      "displayName": "ARK-CAPI CAMPAIGN",
+      "subtitle": "Journey to the New Planet",
+      "blurb": "Year 20xx. Earth resources are depleted. Command the Ark-Capi starship in search of the \"Eternal Planet\"."
+    },
+    "ark_capi": {
+      "displayName": "ARK-CAPI CAMPAIGN",
+      "subtitle": "Journey to the New Planet",
+      "blurb": "Year 20xx. Earth resources are depleted. Command the Ark-Capi starship in search of the \"Eternal Planet\"."
+    },
+    "techno": {
+      "displayName": "S4V INTERNSHIP",
+      "subtitle": "Hands-on STEAM Engineering",
+      "blurb": "As an engineering intern at S4V, tackle Smart Home automation, Autonomous Warehouses, and Drone Logistics Fleets."
+    }
+  },
+  "theme_scene": {
+    "back_to_themes": "Change gate"
+  },
+  "likert": {
+    "1": "Strongly Disagree",
+    "2": "Disagree",
+    "3": "Neutral",
+    "4": "Agree",
+    "5": "Strongly Agree"
+  },
+  "questions": {
+    "Q1": "When a robot malfunctions, I want to directly inspect and repair it.",
+    "Q2": "I patiently iterate and fine-tune each component to make the robot perform better.",
+    "Q3": "I am fascinated by technical components like sensors, motors, and circuits.",
+    "Q10": "I love investigating how new technologies work under the hood.",
+    "Q11": "I frequently experiment with diverse approaches when tackling a problem.",
+    "Q12": "I am constantly curious and asking questions about things around me.",
+    "Q19": "I typically create detailed step-by-step plans before starting a project.",
+    "Q20": "I meticulously verify every step to ensure work has zero errors.",
+    "Q21": "I enjoy organizing tasks in a clear priority sequence.",
+    "Q28": "I easily sense the emotions and needs of team members.",
+    "Q29": "I enjoy listening to everyone's input to reach a shared solution.",
+    "Q30": "I often act as the bridge between team members during disagreements.",
+    "Q37": "I feel confident presenting my ideas in front of an audience.",
+    "Q38": "I love using visual diagrams and stories to explain complex concepts.",
+    "Q39": "I frequently share what I learn with friends and family.",
+    "CONF1": "I feel the above answers accurately reflect who I truly am.",
+    "CONF2": "I am confident in my self-assessment throughout this evaluation.",
+    "C1": "I feel the above answers accurately reflect who I truly am.",
+    "C2": "I am confident in my self-assessment throughout this evaluation."
+  },
+  "phase3_questions": {
+    "explorer": "I see myself fitting the Explorer role: curious, analytical, and questioning.",
+    "builder": "I see myself fitting the Builder role: hands-on, making, and testing real-world prototypes.",
+    "operator": "I see myself fitting the Operator role: optimizing workflows, ensuring discipline and stable systems.",
+    "connector": "I see myself fitting the Connector role: collaborating, networking, and building team consensus.",
+    "communicator": "I see myself fitting the Communicator role: presenting ideas clearly, storytelling, and inspiring others."
+  },
+  "likert_fit": {
+    "1": "Strongly Unfit",
+    "2": "Unfit",
+    "3": "Neutral",
+    "4": "Fit",
+    "5": "Strongly Fit"
+  },
+  "reveal": {
+    "phase1_completed": "PHASE 1 RESULT · CAPI-SCAN",
+    "capi_dialogue_prefix": "The system detects strong natural affinity for the ",
+    "capi_dialogue_suffix": " role. However, this is an initial scan based on self-perception. Step into the simulation missions to put your skills to the test!",
+    "disclaimer": "* This initial result reflects your self-assessment before real-world challenge testing.",
+    "btn_select_gate": "Select Next Simulation Gateway"
+  }
+}
