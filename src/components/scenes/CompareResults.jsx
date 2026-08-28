@@ -5,61 +5,10 @@ import { Icon } from '@iconify/react'
 import SceneShell from './SceneShell.jsx'
 import Button from '../Button.jsx'
 import SummaryRadar from '../SummaryRadar.jsx'
-import { CAPI_ROLES } from '../../data.js'
+import { CAPI_ROLES, getRoleConfig } from '../../data.js'
 import { supabase } from '../../lib/supabase.js'
 import { formatDateTime } from '../../lib/format.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
-
-const ROLE_DISPLAY_CONFIG = {
-  explorer: {
-    name: 'Explorer',
-    nameVn: 'Nhà Khám Phá',
-    color: '#16A34A',
-    bg: '#E8F5E9',
-    icon: 'mdi:magnify-expand',
-  },
-  operator: {
-    name: 'Operator',
-    nameVn: 'Vận Hành Viên',
-    color: '#2563EB',
-    bg: '#EFF6FF',
-    icon: 'mdi:file-document-outline',
-  },
-  connector: {
-    name: 'Connector',
-    nameVn: 'Người Kết Nối',
-    color: '#EA580C',
-    bg: '#FFF7ED',
-    icon: 'mdi:account-group-outline',
-  },
-  communicator: {
-    name: 'Communicator',
-    nameVn: 'Người Truyền Cảm Hứng',
-    color: '#D97706',
-    bg: '#FFFBEB',
-    icon: 'mdi:comment-text-multiple-outline',
-  },
-  builder: {
-    name: 'Builder',
-    nameVn: 'Kỹ Sư Chế Tạo',
-    color: '#E11D48',
-    bg: '#FFE4E6',
-    icon: 'mdi:hammer-wrench',
-  },
-}
-
-function getRoleConfig(roleKey) {
-  const key = (roleKey || '').toLowerCase()
-  return (
-    ROLE_DISPLAY_CONFIG[key] || {
-      name: roleKey || 'Explorer',
-      nameVn: roleKey || 'Nhà Khám Phá',
-      color: '#843497',
-      bg: '#F3E8FF',
-      icon: 'mdi:compass-outline',
-    }
-  )
-}
 
 function getMissionTitle(run, t) {
   if (!run) return ''
@@ -551,10 +500,7 @@ function ComparisonColumn({ run, index, isEn, t }) {
                 fontFamily: 'var(--font-body)',
               }}
             >
-              {t(
-                'compare.default_activity',
-                'Tham gia các dự án thực tế và câu lạc bộ học tập.',
-              )}
+              {t('compare.default_activity', 'Tham gia các dự án thực tế và câu lạc bộ học tập.')}
             </li>
           )}
         </ul>

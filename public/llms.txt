@@ -1,0 +1,61 @@
+# Capi Career Path Simulator
+
+> An interactive career discovery simulation designed for students and young learners. Capi Career Path Simulator bridges the gap between self-perception and real-world behavioral choices through story-driven decision scenarios, producing a personalized career report and development roadmap.
+
+## Overview
+
+Capi Career Path Simulator is a gamified vocational orientation platform. Unlike traditional multiple-choice personality tests that rely purely on self-reported perception, Capi places players into engaging real-world and futuristic scenarios where their actual situational decisions reveal their primary and secondary career archetypes.
+
+### Key Highlights
+- **Experiential Discovery**: Combines initial self-assessment with interactive simulation missions and guided reflection.
+- **5 Core Archetypes**: Maps student strengths to modern vocational and industry roles.
+- **Gap Analysis**: Identifies differences between how students perceive themselves and how they act under pressure.
+- **Personalized Output**: Generates an in-depth, bilingual (Vietnamese/English) career discovery certificate with actionable career tracks and major recommendations.
+
+---
+
+## Core Career Archetypes
+
+The simulation evaluates player behavior across five foundational career archetypes:
+
+- **Explorer (Nhà Khám Phá)**: Curious, analytical, and research-driven. Thrives on exploring unknowns, testing hypotheses, and analyzing root causes.
+- **Builder (Kỹ Sư Chế Tạo)**: Practical, structured, and engineering-minded. Enjoys building systems, prototyping solutions, and hands-on creation.
+- **Operator (Vận Hành Viên)**: Methodical, dependable, and process-oriented. Excels at logistics, workflow optimization, and operational stability.
+- **Connector (Người Kết Nối)**: Empathetic, collaborative, and team-centric. Bridges people and ideas, resolves conflicts, and champions user needs.
+- **Communicator (Người Truyền Cảm Hứng)**: Expressive, persuasive, and visionary. Specializes in storytelling, communication, public presentation, and advocacy.
+
+---
+
+## The 3-Phase Simulation Journey
+
+1. **Phase 1: Self-Perception Scan**
+   - Quick self-assessment evaluating personal confidence and baseline interests across all archetypes.
+
+2. **Phase 2: Story-Driven Missions**
+   - Immersive decision-making scenarios where players make weighted operational and ethical choices under constraints.
+   - **Available Themes**:
+     - *Ark-Capi Campaign*: Sci-fi space expedition solving environmental and survival challenges aboard a colony ship.
+     - *S4V Internship*: Real-world STEAM corporate experience handling Smart Home, automated warehousing, and drone networks.
+
+3. **Phase 3: Guided Reflection & Certificate Generation**
+   - Post-mission reflection reconciling initial perceptions with observed actions.
+   - Comprehensive 12-section Career Discovery Report featuring:
+     - Primary and secondary superpower breakdown.
+     - Dual-radar comparison (Self-perception vs. Actual behavioral choices).
+     - Aligned academic majors and vocational pathways.
+     - Targeted personal growth suggestions and developmental milestones.
+
+---
+
+## Languages & Accessibility
+
+- Fully bilingual support: **Vietnamese (`vi`)** and **English (`en`)**.
+- Responsive web experience designed for mobile, tablet, and desktop viewports.
+- Integrated ambient audio and interactive visual feedback.
+
+---
+
+## Optional
+
+- [Project Repository](https://github.com/s4v/capi-career-simulator): Source repository and issue tracker.
+- [Feedback & Support](https://capi-career-simulator.pages.dev/feedback): User feedback and suggestions portal.

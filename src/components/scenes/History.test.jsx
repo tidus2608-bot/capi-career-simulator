@@ -112,4 +112,46 @@ describe('HistoryScene', () => {
       ),
     ).toBeInTheDocument()
   })
+
+  it('opens Answer Details Modal with Phase 1, Phase 2, Phase 3 tabs in correct order', async () => {
+    render(
+      <MemoryRouter initialEntries={['/history']}>
+        <WizardProvider>
+          <HistoryScene />
+        </WizardProvider>
+      </MemoryRouter>,
+    )
+
+    await waitFor(() => {
+      expect(document.querySelectorAll('.history-grid-card').length).toBe(3)
+    })
+
+    // Click "Xem câu trả lời" button on first card
+    const viewAnswersBtn = screen.getAllByText(/(xem câu trả lời|view answers)/i)[0]
+    expect(viewAnswersBtn).toBeInTheDocument()
+    fireEvent.click(viewAnswersBtn)
+
+    // Verify phase tab buttons exist and are ordered
+    await waitFor(() => {
+      const tabButtons = screen
+        .getAllByRole('button')
+        .filter((btn) => /(giai đoạn|phase)/i.test(btn.textContent || ''))
+      expect(tabButtons.length).toBe(3)
+      expect(tabButtons[0].textContent).toMatch(/(giai đoạn 1|phase 1)/i)
+      expect(tabButtons[1].textContent).toMatch(/(giai đoạn 2|phase 2)/i)
+      expect(tabButtons[2].textContent).toMatch(/(giai đoạn 3|phase 3)/i)
+    })
+
+    // Verify /5 score scale indicators are rendered in Phase 1
+    expect(screen.getAllByText(/\/5/i).length).toBeGreaterThan(0)
+
+    // Verify "Đóng" button exists in footer & header and closes modal
+    const closeBtns = screen.getAllByRole('button', { name: /(đóng|close)/i })
+    expect(closeBtns.length).toBeGreaterThanOrEqual(1)
+    fireEvent.click(closeBtns[0])
+
+    await waitFor(() => {
+      expect(screen.queryByText(/(chi tiết câu trả lời|answer details)/i)).not.toBeInTheDocument()
+    })
+  })
 })

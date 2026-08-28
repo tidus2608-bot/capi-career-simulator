@@ -1,28 +1,19 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { RoleIcon } from '../UI.jsx'
+import { Icon } from '@iconify/react'
 import Capi from '../Capi.jsx'
 import { capiAudio } from '../../audio.js'
-import { CAPI_ROLES } from '../../data.js'
+import { getRoleConfig } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
 import Button from '../Button.jsx'
-
-const ROLE_BADGE_STYLES = {
-  explorer: { bg: '#eee8ff', color: '#7c5cff' },
-  builder: { bg: '#ffd6df', color: '#f42d55' },
-  operator: { bg: '#fff3d6', color: '#d97706' },
-  connector: { bg: '#d1fae5', color: '#10b981' },
-  communicator: { bg: '#ffe3e8', color: '#ec4899' },
-}
 
 export default function RoleRevealScene() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { phase1TopRole } = useWizard()
-  const r = phase1TopRole ? CAPI_ROLES[phase1TopRole] || CAPI_ROLES.explorer : CAPI_ROLES.explorer
-  const badgeStyle = ROLE_BADGE_STYLES[r.key] || { bg: '#ffd6df', color: '#f42d55' }
+  const r = getRoleConfig(phase1TopRole)
 
   useEffect(() => {
     capiAudio.sfx('success')
@@ -95,12 +86,12 @@ export default function RoleRevealScene() {
               width: 96,
               height: 96,
               borderRadius: '50%',
-              backgroundColor: badgeStyle.bg,
+              backgroundColor: r.bg,
               display: 'grid',
               placeItems: 'center',
             }}
           >
-            <RoleIcon role={r.key} size={44} color={badgeStyle.color} />
+            <Icon icon={r.icon} width={44} height={44} color={r.color} />
           </div>
 
           {/* Role Name + Tagline */}
