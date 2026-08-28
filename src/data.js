@@ -8,37 +8,147 @@ export const CAPI_ROLES = {
     key: 'explorer',
     name: 'Explorer',
     nameVn: 'Nhà Khám Phá',
-    color: '#7c5cff',
-    icon: 'compass',
+    color: '#7C3AED',
+    bg: '#F5F3FF',
+    icon: 'mdi:compass-outline',
   },
   builder: {
     key: 'builder',
     name: 'Builder',
     nameVn: 'Kỹ Sư Chế Tạo',
-    color: '#00e5ff',
-    icon: 'hammer',
+    color: '#0284C7',
+    bg: '#F0F9FF',
+    icon: 'mdi:hammer-wrench',
   },
   operator: {
     key: 'operator',
     name: 'Operator',
     nameVn: 'Vận Hành Viên',
-    color: '#ffb020',
-    icon: 'gear',
+    color: '#D97706',
+    bg: '#FFFBEB',
+    icon: 'mdi:cog-outline',
   },
   connector: {
     key: 'connector',
     name: 'Connector',
     nameVn: 'Người Kết Nối',
-    color: '#3ddc84',
-    icon: 'network',
+    color: '#16A34A',
+    bg: '#F0FDF4',
+    icon: 'mdi:account-group-outline',
   },
   communicator: {
     key: 'communicator',
     name: 'Communicator',
     nameVn: 'Người Truyền Cảm Hứng',
-    color: '#ff2d7a',
-    icon: 'broadcast',
+    color: '#E11D48',
+    bg: '#FFF1F2',
+    icon: 'mdi:bullhorn-outline',
   },
+}
+
+export function getRoleConfig(roleKey) {
+  const key = (roleKey || '').toLowerCase()
+  return (
+    CAPI_ROLES[key] || {
+      key: key || 'explorer',
+      name: roleKey || 'Explorer',
+      nameVn: roleKey || 'Nhà Khám Phá',
+      color: '#843497',
+      bg: '#F5F3FF',
+      icon: 'mdi:compass-outline',
+    }
+  )
+}
+
+export const CAPI_LAYERS = {
+  problem_discovery: {
+    key: 'problem_discovery',
+    nameVn: 'Khám phá vấn đề',
+    nameEn: 'Problem Discovery',
+    color: '#1D4ED8',
+    bg: '#EFF6FF',
+    border: '#DBEAFE',
+  },
+  team_work: {
+    key: 'team_work',
+    nameVn: 'Làm việc nhóm',
+    nameEn: 'Teamwork',
+    color: '#15803D',
+    bg: '#F0FDF4',
+    border: '#DCFCE7',
+  },
+  teamwork: {
+    key: 'team_work',
+    nameVn: 'Làm việc nhóm',
+    nameEn: 'Teamwork',
+    color: '#15803D',
+    bg: '#F0FDF4',
+    border: '#DCFCE7',
+  },
+  challenge: {
+    key: 'challenge',
+    nameVn: 'Đối mặt thử thách',
+    nameEn: 'Challenge',
+    color: '#7E22CE',
+    bg: '#FAF5FF',
+    border: '#F3E8FF',
+  },
+  impact: {
+    key: 'impact',
+    nameVn: 'Tạo tác động',
+    nameEn: 'Impact',
+    color: '#BE185D',
+    bg: '#FDF2F8',
+    border: '#FCE7F3',
+  },
+  unexpected: {
+    key: 'unexpected',
+    nameVn: 'Thử thách bất ngờ',
+    nameEn: 'Unexpected Challenge',
+    color: '#C2410C',
+    bg: '#FFF7ED',
+    border: '#FFEDD5',
+  },
+  ideation: {
+    key: 'ideation',
+    nameVn: 'Đưa ra ý tưởng',
+    nameEn: 'Ideation',
+    color: '#7E22CE',
+    bg: '#FAF5FF',
+    border: '#F3E8FF',
+  },
+  execution: {
+    key: 'execution',
+    nameVn: 'Thực thi nhiệm vụ',
+    nameEn: 'Execution',
+    color: '#15803D',
+    bg: '#F0FDF4',
+    border: '#DCFCE7',
+  },
+  reflection: {
+    key: 'reflection',
+    nameVn: 'Phản chiếu & Đúc kết',
+    nameEn: 'Reflection',
+    color: '#BE185D',
+    bg: '#FDF2F8',
+    border: '#FCE7F3',
+  },
+}
+
+export function getLayerConfig(layerKey) {
+  const rawKey = (layerKey || '').toLowerCase()
+  const key = rawKey.replace(/[- ]/g, '_')
+  return (
+    CAPI_LAYERS[key] ||
+    CAPI_LAYERS[rawKey] || {
+      key: rawKey,
+      nameVn: layerKey,
+      nameEn: layerKey,
+      color: '#475569',
+      bg: '#F1F5F9',
+      border: '#E2E8F0',
+    }
+  )
 }
 
 export const ROLE_KEYS = ['explorer', 'builder', 'operator', 'connector', 'communicator']

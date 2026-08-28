@@ -2,7 +2,13 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { Icon } from '@iconify/react'
-import { CAPI_MISSIONS, PHASE1_QUESTIONS, PHASE3_QUESTIONS } from '../../data.js'
+import {
+  CAPI_MISSIONS,
+  PHASE1_QUESTIONS,
+  PHASE3_QUESTIONS,
+  getRoleConfig,
+  getLayerConfig,
+} from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import { supabase } from '../../lib/supabase.js'
 import SceneShell from './SceneShell.jsx'
@@ -31,57 +37,6 @@ function useResponsiveItemsPerPage() {
   }, [])
 
   return itemsPerPage
-}
-
-const ROLE_DISPLAY_CONFIG = {
-  explorer: {
-    name: 'Explorer',
-    nameVn: 'Nhà Khám Phá',
-    color: '#16A34A',
-    bg: '#E8F5E9',
-    icon: 'mdi:magnify-expand',
-  },
-  operator: {
-    name: 'Operator',
-    nameVn: 'Vận Hành Viên',
-    color: '#2563EB',
-    bg: '#EFF6FF',
-    icon: 'mdi:file-document-outline',
-  },
-  connector: {
-    name: 'Connector',
-    nameVn: 'Người Kết Nối',
-    color: '#EA580C',
-    bg: '#FFF7ED',
-    icon: 'mdi:account-group-outline',
-  },
-  communicator: {
-    name: 'Communicator',
-    nameVn: 'Người Truyền Cảm Hứng',
-    color: '#D97706',
-    bg: '#FFFBEB',
-    icon: 'mdi:comment-text-multiple-outline',
-  },
-  builder: {
-    name: 'Builder',
-    nameVn: 'Kỹ Sư Chế Tạo',
-    color: '#E11D48',
-    bg: '#FFE4E6',
-    icon: 'mdi:hammer-wrench',
-  },
-}
-
-function getRoleConfig(roleKey) {
-  const key = (roleKey || '').toLowerCase()
-  return (
-    ROLE_DISPLAY_CONFIG[key] || {
-      name: roleKey || 'Explorer',
-      nameVn: roleKey || 'Nhà Khám Phá',
-      color: '#843497',
-      bg: '#F3E8FF',
-      icon: 'mdi:compass-outline',
-    }
-  )
 }
 
 function getMissionTitle(run, t) {
@@ -192,8 +147,94 @@ function LoginPrompt({ handleLogin, t }) {
   )
 }
 
+function getLayerBadge(layerKey, t) {
+  if (!layerKey) return null
+  const conf = getLayerConfig(layerKey)
+  const label = t(`history.layer_${conf.key}`, conf.nameVn)
+
+  return (
+    <span
+      style={{
+        fontSize: 11.5,
+        fontWeight: 600,
+        color: conf.color,
+        backgroundColor: conf.bg,
+        border: `1px solid ${conf.border}`,
+        padding: '2px 9px',
+        borderRadius: 9999,
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 4,
+      }}
+    >
+      <Icon icon="mdi:tag-outline" width={12} height={12} />
+      {label}
+    </span>
+  )
+}
+
+function ScoreMeter({ score, roleConfig }) {
+  const numericScore = typeof score === 'number' ? score : parseInt(score, 10) || 0
+  const isPresent = score !== undefined && score !== null && !isNaN(numericScore)
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 3,
+        padding: '4px 8px',
+        borderRadius: 8,
+        backgroundColor: isPresent ? roleConfig.bg : '#F1F5F9',
+        minWidth: 46,
+        flexShrink: 0,
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 1 }}>
+        <span
+          style={{
+            fontSize: 15,
+            fontWeight: 800,
+            color: isPresent ? roleConfig.color : '#94A3B8',
+            lineHeight: 1,
+          }}
+        >
+          {isPresent ? numericScore : '-'}
+        </span>
+        <span
+          style={{
+            fontSize: 10.5,
+            fontWeight: 600,
+            color: '#94A3B8',
+            lineHeight: 1,
+          }}
+        >
+          /5
+        </span>
+      </div>
+      <div style={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+        {[1, 2, 3, 4, 5].map((step) => {
+          const isFilled = isPresent && numericScore >= step
+          return (
+            <div
+              key={step}
+              style={{
+                width: 4.5,
+                height: 4.5,
+                borderRadius: '50%',
+                backgroundColor: isFilled ? roleConfig.color : '#CBD5E1',
+              }}
+            />
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 function AnswersModal({ run, onClose, onViewReport, t }) {
-  const [activeTab, setActiveTab] = useState('phase2')
+  const [activeTab, setActiveTab] = useState('phase1')
   const mission = CAPI_MISSIONS[run.mission_id]
   const missionTitle = getMissionTitle(run, t)
 
@@ -209,21 +250,10 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
   const p1Answers = run.phase1_answers?.selfPerception || {}
   const p3Answers = run.phase3_answers || {}
 
+  const p2QuestionsCount = mission?.questions?.length || 0
+
   return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 9999,
-        backgroundColor: 'rgba(15, 23, 42, 0.65)',
-        backdropFilter: 'blur(4px)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '16px',
-        animation: 'fadeIn 0.2s ease-out',
-      }}
-    >
+    <div className="answers-modal-overlay">
       {/* Invisible backdrop button for click-outside dismissal */}
       <button
         type="button"
@@ -239,40 +269,18 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
         }}
       />
       <div
-        className="glass"
+        className="glass answers-modal-card"
         role="dialog"
         aria-modal="true"
         aria-label={t('history.answers_modal_title', 'Chi tiết câu trả lời')}
-        style={{
-          position: 'relative',
-          zIndex: 1,
-          backgroundColor: '#FFFFFF',
-          borderRadius: 24,
-          width: '100%',
-          maxWidth: 780,
-          maxHeight: '90vh',
-          display: 'flex',
-          flexDirection: 'column',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-          overflow: 'hidden',
-        }}
       >
-        {/* Modal Header */}
-        <div
-          style={{
-            padding: '20px 24px',
-            borderBottom: '1px solid #E2E8F0',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: 16,
-          }}
-        >
+        {/* Modal Header - Pinned at top */}
+        <div className="answers-modal-header">
           <div>
             <h3
               style={{
                 margin: 0,
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: 700,
                 color: '#0F172A',
                 fontFamily: 'var(--font-display)',
@@ -280,16 +288,16 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
             >
               {t('history.answers_modal_title', 'Chi tiết câu trả lời')}
             </h3>
-            <div style={{ fontSize: 13, color: '#64748B', marginTop: 4 }}>
+            <div style={{ fontSize: 12.5, color: '#64748B', marginTop: 3 }}>
               {missionTitle} • {formatDateTime(run.created_at)}
             </div>
           </div>
           <button
             onClick={onClose}
-            aria-label={t('common.cancel', 'Đóng')}
+            aria-label={t('common.close', 'Đóng')}
             style={{
-              width: 36,
-              height: 36,
+              width: 34,
+              height: 34,
               borderRadius: '50%',
               backgroundColor: '#F1F5F9',
               border: 'none',
@@ -298,107 +306,129 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
               justifyContent: 'center',
               color: '#64748B',
               cursor: 'pointer',
+              transition: 'background-color 0.15s ease',
             }}
           >
-            <Icon icon="mdi:close" width={20} height={20} />
+            <Icon icon="mdi:close" width={18} height={18} />
           </button>
         </div>
 
-        {/* Modal Navigation Tabs */}
-        <div
-          style={{
-            padding: '12px 24px 0 24px',
-            borderBottom: '1px solid #E2E8F0',
-            display: 'flex',
-            gap: 12,
-            backgroundColor: '#F8FAFC',
-          }}
-        >
-          <button
-            onClick={() => setActiveTab('phase2')}
-            style={{
-              padding: '10px 16px',
-              fontSize: 14,
-              fontWeight: activeTab === 'phase2' ? 700 : 500,
-              color: activeTab === 'phase2' ? '#843497' : '#64748B',
-              borderBottom:
-                activeTab === 'phase2' ? '2.5px solid #843497' : '2.5px solid transparent',
-              background: 'none',
-              borderTop: 'none',
-              borderLeft: 'none',
-              borderRight: 'none',
-              cursor: 'pointer',
-            }}
-          >
-            {t('history.phase2_tab', 'Phase 2: Nhiệm vụ')}
-          </button>
-          <button
-            onClick={() => setActiveTab('phase1')}
-            style={{
-              padding: '10px 16px',
-              fontSize: 14,
-              fontWeight: activeTab === 'phase1' ? 700 : 500,
-              color: activeTab === 'phase1' ? '#843497' : '#64748B',
-              borderBottom:
-                activeTab === 'phase1' ? '2.5px solid #843497' : '2.5px solid transparent',
-              background: 'none',
-              borderTop: 'none',
-              borderLeft: 'none',
-              borderRight: 'none',
-              cursor: 'pointer',
-            }}
-          >
-            {t('history.phase1_tab', 'Phase 1: Nhận thức')}
-          </button>
-          <button
-            onClick={() => setActiveTab('phase3')}
-            style={{
-              padding: '10px 16px',
-              fontSize: 14,
-              fontWeight: activeTab === 'phase3' ? 700 : 500,
-              color: activeTab === 'phase3' ? '#843497' : '#64748B',
-              borderBottom:
-                activeTab === 'phase3' ? '2.5px solid #843497' : '2.5px solid transparent',
-              background: 'none',
-              borderTop: 'none',
-              borderLeft: 'none',
-              borderRight: 'none',
-              cursor: 'pointer',
-            }}
-          >
-            {t('history.phase3_tab', 'Phase 3: Phản chiếu')}
-          </button>
+        {/* Modal Navigation Tabs - Pinned with flexShrink: 0 */}
+        <div className="answers-modal-tabs">
+          {[
+            {
+              id: 'phase1',
+              label: t('history.phase1_tab', 'Giai đoạn 1: Nhận thức'),
+              badge: `${PHASE1_QUESTIONS.length} ${t('history.items_count', { count: '' }).trim()}`,
+            },
+            {
+              id: 'phase2',
+              label: t('history.phase2_tab', 'Giai đoạn 2: Nhiệm vụ'),
+              badge: `${p2QuestionsCount} ${t('history.situations_count', { count: '' }).trim()}`,
+            },
+            {
+              id: 'phase3',
+              label: t('history.phase3_tab', 'Giai đoạn 3: Phản chiếu'),
+              badge: `${PHASE3_QUESTIONS.length} ${t('history.roles_count', { count: '' }).trim()}`,
+            },
+          ].map((tab) => {
+            const isActive = activeTab === tab.id
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className="answers-modal-tab-btn"
+                style={{
+                  fontWeight: isActive ? 700 : 500,
+                  color: isActive ? '#843497' : '#64748B',
+                  borderBottom: isActive ? '2.5px solid #843497' : '2.5px solid transparent',
+                }}
+              >
+                <span>{tab.label}</span>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    padding: '2px 7px',
+                    borderRadius: 9999,
+                    backgroundColor: isActive ? 'rgba(132, 52, 151, 0.12)' : '#E2E8F0',
+                    color: isActive ? '#843497' : '#64748B',
+                  }}
+                >
+                  {tab.badge}
+                </span>
+              </button>
+            )
+          })}
         </div>
 
-        {/* Modal Scrollable Content */}
-        <div
-          style={{
-            padding: '24px',
-            overflowY: 'auto',
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 20,
-          }}
-        >
+        {/* Modal Scrollable Content - Pure open editorial layout, ZERO card-in-card */}
+        <div className="answers-modal-content">
+          {activeTab === 'phase1' && (
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {PHASE1_QUESTIONS.map((q, idx) => {
+                const score = p1Answers[q.id]
+                const roleConfig = getRoleConfig(q.role)
+                const isLast = idx === PHASE1_QUESTIONS.length - 1
+                return (
+                  <div
+                    key={q.id}
+                    style={{
+                      padding: '12px 0',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: 14,
+                      borderBottom: isLast ? 'none' : '1px solid #F1F5F9',
+                    }}
+                  >
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div
+                        style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 3 }}
+                      >
+                        <span
+                          style={{
+                            fontSize: 12,
+                            fontWeight: 700,
+                            color: roleConfig.color,
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 4,
+                          }}
+                        >
+                          <Icon icon={roleConfig.icon} width={14} height={14} />#{idx + 1} •{' '}
+                          {t(`roles.${q.role}.name`)}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: 13.5, color: '#0F172A', lineHeight: 1.45 }}>
+                        {t(`questions.${q.id}`)}
+                      </div>
+                    </div>
+                    <ScoreMeter score={score} roleConfig={roleConfig} />
+                  </div>
+                )
+              })}
+            </div>
+          )}
+
           {activeTab === 'phase2' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               {mission?.questions?.length > 0 ? (
                 mission.questions.map((q, qIdx) => {
                   const selectedOptLabel = p2Answers[q.id]
+                  const isLastQuestion = qIdx === mission.questions.length - 1
                   return (
                     <div
                       key={q.id}
                       style={{
-                        backgroundColor: '#F8FAFC',
-                        borderRadius: 16,
-                        border: '1px solid #E2E8F0',
-                        padding: '18px 20px',
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: 12,
+                        gap: 10,
+                        paddingBottom: isLastQuestion ? 4 : 20,
+                        borderBottom: isLastQuestion ? 'none' : '1px solid #E2E8F0',
                       }}
                     >
+                      {/* Chapter and Layer Meta Header */}
                       <div
                         style={{
                           display: 'flex',
@@ -409,10 +439,11 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                       >
                         <span
                           style={{
-                            fontSize: 13,
-                            fontWeight: 700,
+                            fontSize: 12,
+                            fontWeight: 800,
                             color: '#843497',
                             textTransform: 'uppercase',
+                            letterSpacing: '0.04em',
                           }}
                         >
                           {t(
@@ -420,23 +451,13 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                             `Câu ${qIdx + 1}`,
                           )}
                         </span>
-                        {q.layer && (
-                          <span
-                            style={{
-                              fontSize: 11,
-                              color: '#64748B',
-                              backgroundColor: '#E2E8F0',
-                              padding: '2px 8px',
-                              borderRadius: 99,
-                            }}
-                          >
-                            {q.layer}
-                          </span>
-                        )}
+                        {q.layer && getLayerBadge(q.layer, t)}
                       </div>
+
+                      {/* Scenario Dialogue Prompt */}
                       <div
                         style={{
-                          fontSize: 15,
+                          fontSize: 14.5,
                           fontWeight: 600,
                           color: '#0F172A',
                           lineHeight: 1.45,
@@ -447,8 +468,10 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                           `Tình huống ${qIdx + 1}`,
                         )}
                       </div>
+
+                      {/* Options without Left Color Bar */}
                       <div
-                        style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 4 }}
+                        style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 2 }}
                       >
                         {q.options?.map((opt) => {
                           const isSelected = selectedOptLabel === opt.label
@@ -459,25 +482,41 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                                 padding: '10px 14px',
                                 borderRadius: 10,
                                 fontSize: 13.5,
-                                lineHeight: 1.4,
-                                backgroundColor: isSelected ? '#EFF6FF' : '#FFFFFF',
-                                border: isSelected ? '1.5px solid #3B82F6' : '1px solid #E2E8F0',
-                                color: isSelected ? '#1E3A8A' : '#334155',
+                                lineHeight: 1.45,
+                                backgroundColor: isSelected ? '#F5F3FF' : '#F8FAFC',
+                                border: isSelected ? '1px solid #DDD6FE' : '1px solid #E2E8F0',
+                                color: isSelected ? '#4C1D95' : '#334155',
                                 display: 'flex',
                                 alignItems: 'flex-start',
                                 gap: 10,
+                                transition: 'all 0.15s ease',
                               }}
                             >
                               <span
                                 style={{
+                                  width: 20,
+                                  height: 20,
+                                  borderRadius: 4,
+                                  backgroundColor: isSelected ? '#843497' : '#E2E8F0',
+                                  color: isSelected ? '#FFFFFF' : '#64748B',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
                                   fontWeight: 700,
-                                  color: isSelected ? '#2563EB' : '#64748B',
+                                  fontSize: 11.5,
                                   flexShrink: 0,
+                                  marginTop: 1,
                                 }}
                               >
-                                {opt.label}.
+                                {opt.label}
                               </span>
-                              <span style={{ flex: 1 }}>
+                              <span
+                                style={{
+                                  flex: 1,
+                                  fontWeight: isSelected ? 600 : 400,
+                                  lineHeight: 1.4,
+                                }}
+                              >
                                 {t(
                                   `missions.${run.mission_id}.questions.${q.id}.options.${opt.label}`,
                                 )}
@@ -487,14 +526,18 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                                   style={{
                                     fontSize: 11,
                                     fontWeight: 700,
-                                    color: '#2563EB',
-                                    backgroundColor: '#DBEAFE',
+                                    color: '#843497',
+                                    backgroundColor: '#EDE9FE',
                                     padding: '2px 8px',
-                                    borderRadius: 99,
+                                    borderRadius: 9999,
                                     flexShrink: 0,
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: 3,
                                   }}
                                 >
-                                  ✓ {t('history.selected_answer')}
+                                  <Icon icon="mdi:check-bold" width={11} height={11} />
+                                  {t('history.selected_answer', 'Bạn đã chọn')}
                                 </span>
                               )}
                             </div>
@@ -512,108 +555,47 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
             </div>
           )}
 
-          {activeTab === 'phase1' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {PHASE1_QUESTIONS.map((q, idx) => {
-                const score = p1Answers[q.id]
-                const roleConfig = getRoleConfig(q.role)
-                return (
-                  <div
-                    key={q.id}
-                    style={{
-                      backgroundColor: '#F8FAFC',
-                      borderRadius: 14,
-                      border: '1px solid #E2E8F0',
-                      padding: '14px 18px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      gap: 16,
-                    }}
-                  >
-                    <div style={{ flex: 1 }}>
-                      <div
-                        style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}
-                      >
-                        <span style={{ fontSize: 12, fontWeight: 700, color: roleConfig.color }}>
-                          #{idx + 1} • {t(`roles.${q.role}.name`)}
-                        </span>
-                      </div>
-                      <div style={{ fontSize: 14, color: '#0F172A', lineHeight: 1.4 }}>
-                        {t(`questions.${q.id}`)}
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: '50%',
-                        backgroundColor: score !== undefined ? roleConfig.bg : '#E2E8F0',
-                        color: score !== undefined ? roleConfig.color : '#64748B',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontWeight: 800,
-                        fontSize: 16,
-                        flexShrink: 0,
-                      }}
-                    >
-                      {score !== undefined ? score : '-'}
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          )}
-
           {activeTab === 'phase3' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {PHASE3_QUESTIONS.map((q) => {
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {PHASE3_QUESTIONS.map((q, idx) => {
                 const score = p3Answers[q.role]
                 const roleConfig = getRoleConfig(q.role)
+                const isLast = idx === PHASE3_QUESTIONS.length - 1
                 return (
                   <div
                     key={q.id}
                     style={{
-                      backgroundColor: '#F8FAFC',
-                      borderRadius: 14,
-                      border: '1px solid #E2E8F0',
-                      padding: '14px 18px',
+                      padding: '12px 0',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      gap: 16,
+                      gap: 14,
+                      borderBottom: isLast ? 'none' : '1px solid #F1F5F9',
                     }}
                   >
-                    <div style={{ flex: 1 }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
                       <div
-                        style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}
+                        style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 3 }}
                       >
-                        <span style={{ fontSize: 12, fontWeight: 700, color: roleConfig.color }}>
+                        <span
+                          style={{
+                            fontSize: 12,
+                            fontWeight: 700,
+                            color: roleConfig.color,
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 4,
+                          }}
+                        >
+                          <Icon icon={roleConfig.icon} width={14} height={14} />
                           {t(`roles.${q.role}.name`)}
                         </span>
                       </div>
-                      <div style={{ fontSize: 14, color: '#0F172A', lineHeight: 1.4 }}>
+                      <div style={{ fontSize: 13.5, color: '#0F172A', lineHeight: 1.45 }}>
                         {t(`phase3_questions.${q.role}`)}
                       </div>
                     </div>
-                    <div
-                      style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: '50%',
-                        backgroundColor: score !== undefined ? roleConfig.bg : '#E2E8F0',
-                        color: score !== undefined ? roleConfig.color : '#64748B',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontWeight: 800,
-                        fontSize: 16,
-                        flexShrink: 0,
-                      }}
-                    >
-                      {score !== undefined ? score : '-'}
-                    </div>
+                    <ScoreMeter score={score} roleConfig={roleConfig} />
                   </div>
                 )
               })}
@@ -621,20 +603,10 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
           )}
         </div>
 
-        {/* Modal Footer */}
-        <div
-          style={{
-            padding: '16px 24px',
-            borderTop: '1px solid #E2E8F0',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            gap: 12,
-            backgroundColor: '#F8FAFC',
-          }}
-        >
+        {/* Modal Footer - Pinned at bottom */}
+        <div className="answers-modal-footer">
           <Button variant="outline" onClick={onClose}>
-            {t('common.cancel', 'Đóng')}
+            {t('common.close', 'Đóng')}
           </Button>
           <Button
             variant="solid"
@@ -713,33 +685,29 @@ function HistoryCard({ run, isSelected, onToggleCompare, onOpenAnswers, onOpenRe
           }}
         />
 
-        {/* Compare Select Checkbox Indicator */}
+        {/* Compare Select Checkbox Indicator (Top-Left) */}
         {isSelected ? (
           <div
             aria-label={t('history.selected_for_compare', 'Đã chọn')}
             style={{
               position: 'absolute',
               top: 12,
-              right: 12,
+              left: 12,
+              width: 24,
+              height: 24,
+              borderRadius: 6,
               backgroundColor: '#843497',
-              backdropFilter: 'blur(8px)',
-              WebkitBackdropFilter: 'blur(8px)',
+              border: '2px solid #843497',
               color: '#FFFFFF',
-              border: '1.5px solid #843497',
-              borderRadius: 9999,
-              padding: '4px 10px',
               display: 'flex',
               alignItems: 'center',
-              gap: 5,
-              fontSize: 12,
-              fontWeight: 700,
-              boxShadow: '0 3px 10px rgba(132, 52, 151, 0.3)',
+              justifyContent: 'center',
+              boxShadow: '0 2px 8px rgba(132, 52, 151, 0.4)',
               transition: 'all 0.15s ease',
               userSelect: 'none',
             }}
           >
-            <Icon icon="mdi:check" width={14} height={14} />
-            <span>{t('history.selected_for_compare', 'Đã chọn')}</span>
+            <Icon icon="mdi:check-bold" width={15} height={15} />
           </div>
         ) : (
           <div
@@ -747,31 +715,22 @@ function HistoryCard({ run, isSelected, onToggleCompare, onOpenAnswers, onOpenRe
             style={{
               position: 'absolute',
               top: 12,
-              right: 12,
-              width: 28,
-              height: 28,
-              borderRadius: '50%',
-              backgroundColor: 'rgba(255, 255, 255, 0.88)',
+              left: 12,
+              width: 24,
+              height: 24,
+              borderRadius: 6,
+              backgroundColor: 'rgba(255, 255, 255, 0.92)',
               backdropFilter: 'blur(8px)',
               WebkitBackdropFilter: 'blur(8px)',
-              border: '1.5px solid #CBD5E1',
+              border: '2px solid #94A3B8',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 2px 6px rgba(0,0,0,0.08)',
+              boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
               transition: 'all 0.15s ease',
               userSelect: 'none',
             }}
-          >
-            <div
-              style={{
-                width: 14,
-                height: 14,
-                borderRadius: '50%',
-                border: '2px solid #94A3B8',
-              }}
-            />
-          </div>
+          />
         )}
       </div>
 
@@ -1411,24 +1370,46 @@ export default function HistoryScene() {
                   >
                     {t('history.list_title', 'Lịch sử làm bài')}
                   </h2>
-                  <p
+                  <div
                     style={{
-                      display: 'flex',
+                      display: 'inline-flex',
                       alignItems: 'center',
-                      gap: 6,
-                      margin: '4px 0 0 0',
+                      gap: 8,
+                      margin: '8px 0 0 0',
+                      padding: '6px 14px',
+                      borderRadius: 9999,
+                      backgroundColor: '#FEF3C7',
+                      border: '1px solid #FDE68A',
+                      color: '#92400E',
                       fontSize: 13,
-                      color: '#64748B',
+                      fontWeight: 600,
+                      boxShadow: '0 2px 6px rgba(245, 158, 11, 0.08)',
+                      width: 'fit-content',
                     }}
                   >
-                    <Icon icon="mdi:lightbulb-on-outline" width={16} height={16} color="#843497" />
+                    <div
+                      style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: '50%',
+                        backgroundColor: '#F59E0B',
+                        color: '#FFFFFF',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        boxShadow: '0 0 6px rgba(245, 158, 11, 0.45)',
+                      }}
+                    >
+                      <Icon icon="mdi:lightbulb-on" width={13} height={13} />
+                    </div>
                     <span>
                       {t(
                         'history.compare_hint',
                         'Mẹo: Nhấn vào thẻ để chọn và so sánh 2 lượt làm bài với nhau.',
                       )}
                     </span>
-                  </p>
+                  </div>
                 </div>
 
                 <button
@@ -1589,14 +1570,14 @@ export default function HistoryScene() {
         )}
       </div>
 
-      {/* Floating Invisible Friction Compare Bar */}
+      {/* Floating Compare Action Bar (Centered Light Frosted Glass) */}
       {selectedCompareRunIds.length > 0 && (
-        <div className="floating-compare-bar fade-up">
+        <div className="floating-compare-bar">
           <div className="compare-info-group">
             <div
               style={{
-                width: 26,
-                height: 26,
+                width: 28,
+                height: 28,
                 borderRadius: '50%',
                 backgroundColor: '#843497',
                 color: '#FFFFFF',
@@ -1604,8 +1585,9 @@ export default function HistoryScene() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontWeight: 800,
-                fontSize: 12.5,
+                fontSize: 13,
                 flexShrink: 0,
+                boxShadow: '0 2px 8px rgba(132, 52, 151, 0.35)',
               }}
             >
               {selectedCompareRunIds.length}
@@ -1614,9 +1596,10 @@ export default function HistoryScene() {
               <span
                 className="compare-info-title"
                 style={{
-                  fontSize: 13,
+                  fontSize: 13.5,
                   fontWeight: 700,
-                  color: '#FFFFFF',
+                  color: '#0F172A',
+                  fontFamily: 'var(--font-display)',
                   whiteSpace: 'nowrap',
                 }}
               >
@@ -1628,8 +1611,9 @@ export default function HistoryScene() {
               <span
                 className="compare-info-subtext"
                 style={{
-                  fontSize: 11,
-                  color: '#94A3B8',
+                  fontSize: 11.5,
+                  color: selectedCompareRunIds.length === 2 ? '#843497' : '#64748B',
+                  fontWeight: selectedCompareRunIds.length === 2 ? 600 : 500,
                   whiteSpace: 'nowrap',
                 }}
               >
@@ -1647,12 +1631,14 @@ export default function HistoryScene() {
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: '#94A3B8',
+                color: '#64748B',
                 fontSize: 13,
                 fontWeight: 600,
                 cursor: 'pointer',
-                padding: '6px 8px',
+                padding: '6px 10px',
+                borderRadius: 8,
                 whiteSpace: 'nowrap',
+                transition: 'all 0.15s ease',
               }}
             >
               {t('common.cancel', 'Hủy')}
@@ -1668,19 +1654,20 @@ export default function HistoryScene() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: 6,
-                padding: '8px 16px',
-                borderRadius: 12,
+                padding: '9px 18px',
+                borderRadius: 9999,
                 fontWeight: 700,
                 fontSize: 13,
-                backgroundColor: selectedCompareRunIds.length === 2 ? '#843497' : '#334155',
-                color: '#FFFFFF',
-                border: 'none',
+                backgroundColor: selectedCompareRunIds.length === 2 ? '#843497' : '#F1F5F9',
+                color: selectedCompareRunIds.length === 2 ? '#FFFFFF' : '#94A3B8',
+                border: selectedCompareRunIds.length === 2 ? 'none' : '1px solid #E2E8F0',
                 cursor: selectedCompareRunIds.length === 2 ? 'pointer' : 'not-allowed',
                 whiteSpace: 'nowrap',
                 boxShadow:
                   selectedCompareRunIds.length === 2
-                    ? '0 4px 14px rgba(132, 52, 151, 0.4)'
+                    ? '0 4px 14px rgba(132, 52, 151, 0.35)'
                     : 'none',
+                transition: 'all 0.15s ease',
               }}
             >
               <Icon icon="mdi:compare-horizontal" width={16} height={16} />

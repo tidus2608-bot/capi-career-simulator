@@ -22,6 +22,7 @@ import {
   CapiGeneInfoScene,
   FeedbackScene,
   CompareResultsScene,
+  CreditsScene,
 } from './components/scenes/index.js'
 
 const router = createBrowserRouter([
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <IntroScene /> },
       { path: 'capi-gene-info', element: <CapiGeneInfoScene /> },
+      { path: 'credits', element: <CreditsScene /> },
       { path: 'scan', element: <ScanningScene /> },
       { path: 'role-reveal', element: <RoleRevealScene /> },
       { path: 'theme', element: <ThemeScene /> },

@@ -167,15 +167,41 @@ export default function IntroScene() {
             marginTop: 'auto',
             display: 'flex',
             alignItems: 'center',
-            gap: 10,
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: 12,
             color: '#e2e8f0',
             fontSize: 'var(--text-xs)',
             opacity: 0.85,
             paddingTop: 16,
           }}
         >
-          <Icon icon="mdi:information-outline" width="18" height="18" style={{ flexShrink: 0 }} />
-          {t('intro.footer_hint')}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <Icon icon="mdi:information-outline" width="18" height="18" style={{ flexShrink: 0 }} />
+            {t('intro.footer_hint')}
+          </div>
+          <button
+            onClick={() => {
+              capiAudio.sfx('click')
+              navigate('/credits')
+            }}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#e2e8f0',
+              textDecoration: 'underline',
+              cursor: 'pointer',
+              fontSize: 'var(--text-xs)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 4,
+              padding: 0,
+              fontFamily: 'inherit',
+            }}
+          >
+            <Icon icon="mdi:account-group-outline" width={16} height={16} />
+            <span>{t('common.credits', 'Đội ngũ phát triển')}</span>
+          </button>
         </div>
       </div>
     </SceneShell>

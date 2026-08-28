@@ -86,12 +86,17 @@ src/
     scoring.js         # Pure scoring engine (3-phase model)
     scoring.test.js    # Profile-classification tests
   components/
-    Capi.jsx           # SVG chibi capybara mascot
-    UI.jsx             # Particles, Typed, Radar, RoleIcon, SceneArt
-    Scenes.jsx         # All scenes (~900 LOC; split planned in PR 4)
+    Capi.jsx           # Mascot avatar component
+    Button.jsx         # Accessible button primitive
+    Modal.jsx          # Accessible modal dialog primitive
+    SummaryRadar.jsx   # Pentagon radar chart component
+    HeaderControls.jsx # Responsive navbar & mobile menu drawer
+    LanguageSwitch.jsx # Canonical language switcher
     ErrorBoundary.jsx  # Async-failure fallback
+    scenes/            # Modular scene views (Intro, Play, Report, History, Credits...)
+    report/            # Report breakdown & certificate sub-components
   data/
-    missions.json      # Source of truth for question/mission/role data
+    assessment_matrix.json # Source of truth for question/mission/role data
 
 functions/             # Cloudflare Pages Functions (admin only)
   _auth.ts             # HMAC-signed session cookies + admin allowlist
