@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Icon } from '@iconify/react'
 import { supabase } from '../../lib/supabase.js'
 import { getWordCount } from '../../lib/format.js'
+import CapiImage from '../CapiImage.jsx'
 
 const TOTAL_QUESTIONS = 13
 const PROGRESS_PERCENT = Array.from({ length: TOTAL_QUESTIONS }, (_, i) =>
@@ -279,7 +280,14 @@ export default function FeedbackScene() {
     <div className="feedback-scene-shell">
       {/* Header Banner */}
       <div className="feedback-header-banner">
-        <img src="/images/capi-survey.png" alt="Capi" className="feedback-header-mascot" />
+        <CapiImage
+          src="/images/capi-survey.webp"
+          alt="Capi"
+          className="feedback-header-mascot"
+          width={68}
+          height={68}
+          theme="light"
+        />
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           <h1 className="feedback-header-title">{t('feedback.header_title')}</h1>
           <p className="feedback-header-subtitle">{t('feedback.header_subtitle')}</p>

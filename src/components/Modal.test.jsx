@@ -45,4 +45,22 @@ describe('Modal Component', () => {
     fireEvent.keyDown(window, { key: 'Escape' })
     expect(handleClose).toHaveBeenCalledTimes(1)
   })
+
+  it('calls onCancel if provided when cancel button is clicked', () => {
+    const handleClose = vi.fn()
+    const handleCancel = vi.fn()
+    render(
+      <Modal
+        isOpen={true}
+        title="Custom Cancel"
+        cancelText="Cancel Action"
+        onClose={handleClose}
+        onCancel={handleCancel}
+      />,
+    )
+
+    fireEvent.click(screen.getByText('Cancel Action'))
+    expect(handleCancel).toHaveBeenCalledTimes(1)
+    expect(handleClose).not.toHaveBeenCalled()
+  })
 })

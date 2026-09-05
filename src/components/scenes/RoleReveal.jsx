@@ -28,7 +28,7 @@ export default function RoleRevealScene() {
           width: '100%',
           display: 'grid',
           placeItems: 'center',
-          padding: '24px 16px',
+          padding: 'clamp(80px, 10vh, 96px) 16px 24px',
           boxSizing: 'border-box',
           overflow: 'hidden',
           background: '#f4f3f6',
@@ -36,7 +36,7 @@ export default function RoleRevealScene() {
       >
         {/* Extracted ambient background decoration SVG */}
         <img
-          src="/illos/ambient-circles.webp"
+          src="/illos/ambient-circles.svg"
           alt=""
           style={{
             position: 'absolute',

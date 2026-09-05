@@ -8,6 +8,7 @@ import { useWizard } from '../../contexts/WizardContext.jsx'
 import QASection from '../QASection.jsx'
 import SceneShell from './SceneShell.jsx'
 import TransitionScreen from './TransitionScreen.jsx'
+import CapiImage from '../CapiImage.jsx'
 
 const MISSION_PADS = {
   1: [98, 146.8, 196, 293.7],
@@ -128,16 +129,13 @@ export default function MissionPlayScene() {
         {/* Split Layout */}
         <div className="p1-split-layout">
           <div className="p1-left-illustration p1-left-illustration--cover">
-            <img
+            <CapiImage
               src={illoSrc}
               alt=""
-              onError={(e) => {
-                if (e.currentTarget.src.endsWith('.webp')) {
-                  e.currentTarget.src = e.currentTarget.src.replace(/\.webp$/, '.png')
-                } else if (!e.currentTarget.src.includes('preview')) {
-                  e.currentTarget.src = `/illos/m${missionId}-preview.webp`
-                }
-              }}
+              theme="light"
+              priority
+              fallbackSrc={`/illos/m${missionId}-preview.webp`}
+              style={{ height: '100%' }}
             />
           </div>
 

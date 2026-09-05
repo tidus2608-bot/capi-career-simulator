@@ -15,6 +15,7 @@ import SceneShell from './SceneShell.jsx'
 import Button from '../Button.jsx'
 import Pagination from '../Pagination.jsx'
 import Modal from '../Modal.jsx'
+import CapiImage from '../CapiImage.jsx'
 import { formatDateTime } from '../../lib/format.js'
 
 function useResponsiveItemsPerPage() {
@@ -671,17 +672,14 @@ function HistoryCard({ run, isSelected, onToggleCompare, onOpenAnswers, onOpenRe
           backgroundColor: '#F1F5F9',
         }}
       >
-        <img
+        <CapiImage
           src={previewImg}
           alt={title}
+          fallbackSrc="/illos/m1-preview.webp"
+          theme="light"
           style={{
             width: '100%',
             height: '100%',
-            objectFit: 'cover',
-            display: 'block',
-          }}
-          onError={(e) => {
-            e.currentTarget.src = '/illos/m1-preview.webp'
           }}
         />
 

@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, Suspense } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { capiAudio } from './audio.js'
 import { useWizard } from './contexts/WizardContext.jsx'
 import ErrorBoundary from './components/ErrorBoundary.jsx'
 import HeaderControls from './components/HeaderControls.jsx'
-import { Transition } from './components/scenes/index.js'
+import Transition from './components/scenes/Transition.jsx'
 import { calculateScore, buildCertificateCopy } from './lib/scoring.js'
 import { CAPI_MISSIONS, CAPI_THEMES } from './data.js'
 
@@ -101,14 +101,7 @@ export default function AppLayout() {
 
   // Route Guards
   useEffect(() => {
-    if (
-      path === '/' ||
-      path === '/capi-gene-info' ||
-      path === '/scan' ||
-      path === '/history' ||
-      path === '/feedback'
-    )
-      return
+    if (path === '/' || path === '/scan' || path === '/history' || path === '/feedback') return
 
     // If we have an active scoring result and are navigating to the certificate, bypass intermediate guards
     if (scoringResult && path.startsWith('/certificate')) return
@@ -144,7 +137,22 @@ export default function AppLayout() {
   return (
     <ErrorBoundary>
       <Transition k={path + selectedMission + selectedTheme}>
-        <Outlet />
+        <Suspense
+          fallback={
+            <div
+              style={{
+                display: 'grid',
+                placeItems: 'center',
+                minHeight: '100dvh',
+                width: '100%',
+              }}
+            >
+              <div className="capi-loading-spinner" />
+            </div>
+          }
+        >
+          <Outlet />
+        </Suspense>
       </Transition>
 
       <HeaderControls muted={muted} toggleMute={toggleMute} />
