@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import Button from '../Button.jsx'
+import CapiImage from '../CapiImage.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_THEMES } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
@@ -58,7 +59,7 @@ export default function ThemeScene() {
                   </div>
                 )}
 
-                <img
+                <CapiImage
                   className="bg"
                   src={
                     tData.id === 'ark-capi'
@@ -66,9 +67,7 @@ export default function ThemeScene() {
                       : '/illos/sx4-theme-intern.webp'
                   }
                   alt=""
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none'
-                  }}
+                  theme="dark"
                 />
                 <div className="p2-new-card-gradient" />
                 <div className="p2-new-card-content">

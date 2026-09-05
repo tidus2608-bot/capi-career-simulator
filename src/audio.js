@@ -59,7 +59,7 @@ class CapiAudio {
     if (this.bgLoading) return null
     this.bgLoading = true
     try {
-      const response = await fetch('/sounds/bg-music.wav')
+      const response = await fetch('/sounds/bg-music.mp3')
       const arrayBuffer = await response.arrayBuffer()
       this._ensure()
       if (this.ctx) {

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Icon } from '@iconify/react'
 import { capiAudio } from '../../audio.js'
 import Button from '../Button.jsx'
+import CapiImage from '../CapiImage.jsx'
 import SceneShell from './SceneShell.jsx'
 
 export default function TransitionScreen({ imageSrc, onNext, onBack }) {
@@ -32,7 +33,7 @@ export default function TransitionScreen({ imageSrc, onNext, onBack }) {
           minHeight: '100%',
           width: '100%',
           boxSizing: 'border-box',
-          padding: 'clamp(20px, 3.5vh, 40px) clamp(16px, 3vw, 32px)',
+          padding: 'clamp(72px, 9vh, 90px) clamp(16px, 3vw, 32px) clamp(20px, 3.5vh, 40px)',
         }}
       >
         <div
@@ -63,17 +64,14 @@ export default function TransitionScreen({ imageSrc, onNext, onBack }) {
               boxSizing: 'border-box',
             }}
           >
-            <img
+            <CapiImage
               src={imageSrc}
               alt=""
+              theme="dark"
+              priority
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover',
-                display: 'block',
-              }}
-              onError={(e) => {
-                e.currentTarget.style.display = 'none'
               }}
             />
           </div>

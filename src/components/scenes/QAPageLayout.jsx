@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import Button from '../Button.jsx'
 import QASection from '../QASection.jsx'
+import CapiImage from '../CapiImage.jsx'
 import SceneShell from './SceneShell.jsx'
 
 export default function QAPageLayout({
@@ -30,7 +31,7 @@ export default function QAPageLayout({
           <div
             className={`p1-left-illustration ${coverImage ? 'p1-left-illustration--cover' : ''}`}
           >
-            <img src={imageSrc} alt="" />
+            <CapiImage src={imageSrc} alt="" theme="light" priority style={{ height: '100%' }} />
           </div>
 
           <div className="p1-right-content">

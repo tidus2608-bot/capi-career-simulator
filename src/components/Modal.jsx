@@ -16,6 +16,7 @@ export default function Modal({
   confirmVariant = 'primary', // 'primary' | 'danger'
   confirmDisabled = false,
   cancelText,
+  onCancel,
   maxWidth = '460px',
   className = '',
 }) {
@@ -142,7 +143,7 @@ export default function Modal({
             {cancelText && (
               <button
                 type="button"
-                onClick={onClose}
+                onClick={onCancel || onClose}
                 style={{
                   flex: 1,
                   padding: '12px 18px',

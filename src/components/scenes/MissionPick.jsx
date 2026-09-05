@@ -6,6 +6,7 @@ import { CAPI_THEMES, CAPI_MISSIONS, MISSION_ICONS } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
 import Button from '../Button.jsx'
+import CapiImage from '../CapiImage.jsx'
 
 export default function MissionPickScene() {
   const { selectedTheme, setSelectedMission } = useWizard()
@@ -71,13 +72,11 @@ export default function MissionPickScene() {
                 )}
 
                 {/* Background preview image */}
-                <img
+                <CapiImage
                   className="bg"
                   src={`/illos/m${m.id}-preview.webp`}
                   alt=""
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none'
-                  }}
+                  theme="dark"
                 />
 
                 {/* Base View (Visible when not hovered/selected) */}

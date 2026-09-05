@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '@iconify/react'
 import { capiAudio } from '../audio.js'
 import LanguageSwitch from './LanguageSwitch.jsx'
 import Button from './Button.jsx'
-import AdminAuthNav from './AdminAuthNav.jsx'
 import Modal from './Modal.jsx'
 import { useWizard } from '../contexts/WizardContext.jsx'
 import { supabase } from '../lib/supabase.js'
@@ -14,44 +13,18 @@ export default function HeaderControls({ muted, toggleMute }) {
   const { t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
-  const { user, session, onRestart } = useWizard()
+  const { onRestart, user } = useWizard()
   const path = location.pathname
 
   const isHome = path === '/'
-  const isSummary = path === '/certificate/summary'
-  const isDetails = path === '/certificate/details'
   const isCompare = path === '/history/compare' || path === '/compare'
 
   const audioIcon = (
     <Icon icon={muted ? 'mdi:volume-off' : 'mdi:volume-high'} width={20} height={20} />
   )
 
-  const TRANSLATED_PATHS = new Set([
-    '/',
-    '/capi-gene-info',
-    '/credits',
-    '/scan',
-    '/role-reveal',
-    '/theme',
-    '/mission-pick',
-    '/mission-play',
-    '/reflect',
-    '/certificate',
-    '/certificate/loading',
-    '/certificate/summary',
-    '/certificate/details',
-    '/history',
-    '/history/compare',
-    '/compare',
-    '/feedback',
-  ])
-
-  const showLanguage = TRANSLATED_PATHS.has(path)
-  const showHome = !isHome && path !== '/certificate/loading'
-
   const isInProgress =
     path !== '/' &&
-    path !== '/capi-gene-info' &&
     path !== '/credits' &&
     path !== '/history' &&
     !isCompare &&
@@ -59,512 +32,392 @@ export default function HeaderControls({ muted, toggleMute }) {
     !path.startsWith('/certificate')
 
   const [showConfirmModal, setShowConfirmModal] = useState(false)
+  const [pendingNav, setPendingNav] = useState(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false)
+  const accountMenuRef = useRef(null)
 
-  const handleHomeClick = () => {
+  useEffect(() => {
+    if (!accountMenuOpen) return undefined
+
+    const closeOnOutsideClick = (e) => {
+      if (!accountMenuRef.current?.contains(e.target)) {
+        setAccountMenuOpen(false)
+      }
+    }
+    const closeOnEscape = (e) => {
+      if (e.key === 'Escape') {
+        setAccountMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', closeOnOutsideClick)
+    document.addEventListener('keydown', closeOnEscape)
+    return () => {
+      document.removeEventListener('mousedown', closeOnOutsideClick)
+      document.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [accountMenuOpen])
+
+  const handleNavWithConfirm = (targetPath) => {
     capiAudio.sfx('click')
+    setMobileMenuOpen(false)
+    setAccountMenuOpen(false)
+
+    if (targetPath === '/' && isHome) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      return
+    }
+
     if (isInProgress) {
+      setPendingNav(targetPath)
       setShowConfirmModal(true)
     } else {
-      onRestart()
-      navigate('/')
+      if (targetPath === '/') {
+        onRestart()
+      }
+      navigate(targetPath)
     }
   }
 
-  const handleMobileLogin = async () => {
-    if (!supabase) return
+  const handleHomeClick = () => {
+    handleNavWithConfirm('/')
+  }
+
+  const handleConfirmExit = () => {
+    capiAudio.sfx('click')
+    setShowConfirmModal(false)
+    const dest = pendingNav || '/'
+    setPendingNav(null)
+    onRestart()
+    navigate(dest)
+  }
+
+  const handleLogin = async () => {
+    capiAudio.sfx('click')
+    const redirectTo =
+      window.location.origin +
+      window.location.pathname +
+      window.location.search +
+      window.location.hash
+
     try {
-      await supabase.auth.signInWithOAuth({
+      const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
-        options: { redirectTo: window.location.origin },
+        options: {
+          redirectTo,
+        },
       })
+      if (error) {
+        console.error('OAuth login error:', error)
+      }
     } catch (err) {
-      console.error('OAuth error:', err)
+      console.error('OAuth login exception:', err)
     }
   }
 
-  if (isHome || isSummary || isDetails) {
-    return (
-      <>
-        <header className="intro-navbar no-print">
-          <div className="intro-navbar-title">
-            <span className="intro-navbar-brand--full">Capi Career Path Simulator</span>
-            <span className="intro-navbar-brand--short">Capi Career</span>
-          </div>
-
-          {isSummary || isDetails ? (
-            <div
-              className="intro-navbar-controls"
-              style={{ display: 'flex', gap: 8, alignItems: 'center' }}
-            >
-              <LanguageSwitch />
-              <Button
-                variant="icon"
-                style={{
-                  position: 'static',
-                  width: 44,
-                  height: 44,
-                  border: 'none',
-                  background: '#f3f4f6',
-                  color: '#1a1a2e',
-                }}
-                title={muted ? t('common.audio_on') : t('common.audio_off')}
-                aria-label={muted ? t('common.audio_on') : t('common.audio_off')}
-                aria-pressed={muted}
-                onClick={toggleMute}
-              >
-                {audioIcon}
-              </Button>
-              <Button
-                variant="outline"
-                className="header-circle-btn"
-                onClick={handleHomeClick}
-                title={t('common.back_to_home')}
-              >
-                <Icon icon="mdi:home-outline" width={20} height={20} />
-              </Button>
-            </div>
-          ) : (
-            <>
-              {/* Desktop Controls (hidden on mobile) */}
-              <div className="desktop-nav-controls">
-                <button
-                  type="button"
-                  className="intro-nav-link"
-                  onClick={() => {
-                    capiAudio.sfx('click')
-                    navigate('/credits')
-                  }}
-                  title={t('common.credits', 'Đội ngũ phát triển')}
-                >
-                  <Icon icon="mdi:account-group-outline" width={18} height={18} />
-                  <span>{t('common.credits_short', 'Credits')}</span>
-                </button>
-                <LanguageSwitch />
-                <button
-                  type="button"
-                  className="intro-nav-circle-btn"
-                  onClick={toggleMute}
-                  title={muted ? t('common.audio_on') : t('common.audio_off')}
-                  aria-label={muted ? t('common.audio_on') : t('common.audio_off')}
-                >
-                  {audioIcon}
-                </button>
-                <AdminAuthNav
-                  supabase={supabase}
-                  session={session}
-                  onHistory={user ? () => navigate('/history') : null}
-                />
-              </div>
-
-              {/* Mobile Controls (hidden on desktop): Audio + Hamburger Button */}
-              <div className="mobile-nav-controls">
-                <button
-                  type="button"
-                  onClick={toggleMute}
-                  aria-label={muted ? t('common.audio_on') : t('common.audio_off')}
-                  title={muted ? t('common.audio_on') : t('common.audio_off')}
-                  style={{
-                    width: 38,
-                    height: 38,
-                    borderRadius: '50%',
-                    border: 'none',
-                    backgroundColor: '#F1F5F9',
-                    color: '#1E293B',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <Icon
-                    icon={muted ? 'mdi:volume-off' : 'mdi:volume-high'}
-                    width={18}
-                    height={18}
-                  />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    capiAudio.sfx('click')
-                    setMobileMenuOpen(true)
-                  }}
-                  aria-label="Menu"
-                  title="Menu"
-                  style={{
-                    width: 38,
-                    height: 38,
-                    borderRadius: '50%',
-                    border: '1px solid #E2E8F0',
-                    backgroundColor: '#FFFFFF',
-                    color: '#1E293B',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
-                  }}
-                >
-                  <Icon icon="mdi:menu" width={20} height={20} />
-                </button>
-              </div>
-            </>
-          )}
-        </header>
-
-        {/* Mobile Hamburger Drawer Menu */}
-        {mobileMenuOpen && (
-          <div
-            style={{
-              position: 'fixed',
-              inset: 0,
-              zIndex: 9999,
-              backgroundColor: 'rgba(15, 23, 42, 0.65)',
-              backdropFilter: 'blur(6px)',
-              WebkitBackdropFilter: 'blur(6px)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-start',
-              padding: '12px 14px',
-              animation: 'fadeIn 0.15s ease-out',
-            }}
-          >
-            {/* Click outside to dismiss */}
-            <button
-              type="button"
-              tabIndex={-1}
-              aria-hidden="true"
-              onClick={() => setMobileMenuOpen(false)}
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'transparent',
-                border: 'none',
-                cursor: 'default',
-              }}
-            />
-
-            <div
-              className="glass"
-              role="dialog"
-              aria-modal="true"
-              aria-label="Menu"
-              style={{
-                position: 'relative',
-                zIndex: 1,
-                backgroundColor: '#FFFFFF',
-                borderRadius: 20,
-                padding: '18px',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.25)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 14,
-              }}
-            >
-              {/* Drawer Top Header */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <div
-                    style={{
-                      width: 32,
-                      height: 32,
-                      borderRadius: 8,
-                      backgroundColor: 'rgba(132, 52, 151, 0.1)',
-                      color: '#843497',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Icon icon="mdi:compass-outline" width={18} height={18} />
-                  </div>
-                  <span
-                    style={{
-                      fontSize: 16,
-                      fontWeight: 700,
-                      color: '#0F172A',
-                      fontFamily: 'var(--font-display)',
-                    }}
-                  >
-                    Capi Career
-                  </span>
-                </div>
-
-                <button
-                  onClick={() => setMobileMenuOpen(false)}
-                  aria-label={t('common.close', 'Đóng')}
-                  style={{
-                    width: 34,
-                    height: 34,
-                    borderRadius: '50%',
-                    backgroundColor: '#F1F5F9',
-                    border: 'none',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#64748B',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <Icon icon="mdi:close" width={18} height={18} />
-                </button>
-              </div>
-
-              {/* User Account / Login Box */}
-              <div
-                style={{
-                  padding: '12px 14px',
-                  borderRadius: 14,
-                  backgroundColor: '#F8FAFC',
-                  border: '1px solid #F1F5F9',
-                }}
-              >
-                {session?.user || user ? (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <div
-                        style={{
-                          width: 34,
-                          height: 34,
-                          borderRadius: '50%',
-                          backgroundColor: '#843497',
-                          color: '#FFFFFF',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontWeight: 700,
-                          fontSize: 13,
-                        }}
-                      >
-                        {(session?.user?.user_metadata?.full_name ||
-                          session?.user?.email ||
-                          'U')[0].toUpperCase()}
-                      </div>
-                      <div style={{ flex: 1, minWidth: 0 }}>
-                        <div
-                          style={{
-                            fontSize: 13.5,
-                            fontWeight: 700,
-                            color: '#0F172A',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                          }}
-                        >
-                          {session?.user?.user_metadata?.full_name || session?.user?.email}
-                        </div>
-                        <div
-                          style={{
-                            fontSize: 11.5,
-                            color: '#64748B',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                          }}
-                        >
-                          {session?.user?.email}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div style={{ display: 'flex', gap: 8, marginTop: 2 }}>
-                      <Button
-                        variant="outline"
-                        style={{
-                          flex: 1,
-                          height: 36,
-                          fontSize: 12,
-                          fontWeight: 600,
-                          borderRadius: 8,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: 6,
-                        }}
-                        onClick={() => {
-                          setMobileMenuOpen(false)
-                          navigate('/history')
-                        }}
-                      >
-                        <Icon icon="mdi:history" width={16} height={16} />
-                        <span>{t('common.history', 'Lịch sử')}</span>
-                      </Button>
-                      <a
-                        href="/api/auth/logout?returnTo=%2F"
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          padding: '0 12px',
-                          height: 36,
-                          fontSize: 12,
-                          fontWeight: 600,
-                          borderRadius: 8,
-                          color: '#DC2626',
-                          backgroundColor: '#FEF2F2',
-                          textDecoration: 'none',
-                        }}
-                      >
-                        <Icon icon="mdi:logout" width={16} height={16} />
-                      </a>
-                    </div>
-                  </div>
-                ) : (
-                  <button
-                    onClick={handleMobileLogin}
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 8,
-                      padding: '10px 14px',
-                      borderRadius: 10,
-                      backgroundColor: '#FFFFFF',
-                      border: '1px solid #E2E8F0',
-                      color: '#1E293B',
-                      fontSize: 13,
-                      fontWeight: 600,
-                      cursor: 'pointer',
-                    }}
-                  >
-                    <Icon icon="mdi:google" width={18} height={18} />
-                    <span>{t('common.admin_login', 'Đăng nhập Google')}</span>
-                  </button>
-                )}
-              </div>
-
-              {/* Navigation Menu Links */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false)
-                    navigate('/capi-gene-info')
-                  }}
-                  style={{
-                    padding: '11px 14px',
-                    borderRadius: 10,
-                    backgroundColor: '#F8FAFC',
-                    border: 'none',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 10,
-                    fontSize: 13.5,
-                    fontWeight: 600,
-                    color: '#1E293B',
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                  }}
-                >
-                  <Icon icon="mdi:dna" width={18} height={18} color="#843497" />
-                  <span>{t('common.capi_gene_info_title', '5 Mảnh Ghép Capi-Gene')}</span>
-                </button>
-
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false)
-                    navigate('/credits')
-                  }}
-                  style={{
-                    padding: '11px 14px',
-                    borderRadius: 10,
-                    backgroundColor: '#F8FAFC',
-                    border: 'none',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 10,
-                    fontSize: 13.5,
-                    fontWeight: 600,
-                    color: '#1E293B',
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                  }}
-                >
-                  <Icon icon="mdi:account-group-outline" width={18} height={18} color="#843497" />
-                  <span>{t('credits.title', 'Đội ngũ & Thông tin Dự án')}</span>
-                </button>
-              </div>
-
-              {/* Language Switcher in Drawer */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  paddingTop: 10,
-                  borderTop: '1px solid #F1F5F9',
-                }}
-              >
-                <span style={{ fontSize: 12.5, fontWeight: 600, color: '#64748B' }}>
-                  {t('common.language', 'Ngôn ngữ')}:
-                </span>
-                <LanguageSwitch />
-              </div>
-            </div>
-          </div>
-        )}
-      </>
-    )
+  const handleLogout = async () => {
+    capiAudio.sfx('click')
+    setAccountMenuOpen(false)
+    setMobileMenuOpen(false)
+    try {
+      if (supabase) {
+        await supabase.auth.signOut()
+      }
+    } catch (err) {
+      console.error('OAuth logout exception:', err)
+    }
   }
+
+  const displayName =
+    user?.user_metadata?.full_name ||
+    user?.user_metadata?.name ||
+    user?.email?.split('@')[0] ||
+    t('intro.nav_history')
+
+  const avatarUrl = user?.user_metadata?.avatar_url || user?.user_metadata?.picture || null
 
   return (
     <>
-      {/* Top-Left Controls */}
-      <div
-        style={{
-          position: 'fixed',
-          top: 16,
-          left: 16,
-          zIndex: 100,
-          display: 'flex',
-          gap: 12,
-          alignItems: 'center',
-        }}
-      >
-        {isCompare && (
-          <Button
-            variant="outline"
-            className="header-circle-btn"
+      <header className="intro-navbar no-print">
+        {/* Left Controls: Compare Back Button, Language switch & audio toggle (Desktop only) */}
+        <div className="intro-navbar-left desktop-nav-controls">
+          {isCompare && (
+            <button
+              type="button"
+              className="intro-nav-circle-btn"
+              onClick={() => {
+                capiAudio.sfx('click')
+                navigate('/history')
+              }}
+              title={t('common.back_to_history', 'Quay lại lịch sử')}
+              aria-label={t('common.back_to_history', 'Quay lại lịch sử')}
+            >
+              <Icon icon="mdi:arrow-left" width={20} height={20} />
+            </button>
+          )}
+          <LanguageSwitch />
+          <button
+            type="button"
+            className="intro-nav-circle-btn"
+            onClick={toggleMute}
+            title={muted ? t('common.audio_on') : t('common.audio_off')}
+            aria-label={muted ? t('common.audio_on') : t('common.audio_off')}
+          >
+            {audioIcon}
+          </button>
+        </div>
+
+        {/* Center Brand: Logo + Title (interactive -> Home) */}
+        <div
+          className="intro-navbar-brand"
+          role="button"
+          tabIndex={0}
+          onClick={handleHomeClick}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              handleHomeClick()
+            }
+          }}
+          title={t('common.back_to_home', 'Về trang chủ')}
+        >
+          <img src="/illos/logo.webp" alt="" className="intro-navbar-logo" />
+          <span className="intro-navbar-title">Capi Career</span>
+        </div>
+
+        {/* Right Controls: Desktop CTAs */}
+        <div className="intro-navbar-right desktop-nav-controls">
+          {user ? (
+            <div className="intro-nav-user-container" ref={accountMenuRef}>
+              <button
+                type="button"
+                className="intro-nav-user-trigger"
+                aria-label={t('common.account_menu_for', { name: displayName })}
+                aria-haspopup="menu"
+                aria-expanded={accountMenuOpen}
+                onClick={() => {
+                  capiAudio.sfx('click')
+                  setAccountMenuOpen((prev) => !prev)
+                }}
+              >
+                {avatarUrl ? (
+                  <img
+                    src={avatarUrl}
+                    alt=""
+                    className="intro-nav-user-avatar"
+                    onError={(e) => {
+                      if (e?.currentTarget) e.currentTarget.style.display = 'none'
+                    }}
+                  />
+                ) : (
+                  <div className="intro-nav-user-avatar-fallback">
+                    <Icon icon="mdi:account" width={18} height={18} />
+                  </div>
+                )}
+                <span className="intro-nav-user-name">{displayName}</span>
+                <Icon
+                  icon="mdi:chevron-down"
+                  className={`intro-nav-user-caret ${accountMenuOpen ? 'open' : ''}`}
+                  width={16}
+                  height={16}
+                />
+              </button>
+
+              {accountMenuOpen && (
+                <div
+                  className="intro-nav-dropdown-menu"
+                  role="menu"
+                  aria-label={t('common.account_menu')}
+                >
+                  <div className="intro-nav-dropdown-user-info">
+                    <span className="intro-nav-dropdown-name">{displayName}</span>
+                    {user.email && <span className="intro-nav-dropdown-email">{user.email}</span>}
+                  </div>
+                  <div className="intro-nav-dropdown-divider" />
+                  <button
+                    type="button"
+                    className="intro-nav-dropdown-item"
+                    role="menuitem"
+                    onClick={() => {
+                      capiAudio.sfx('click')
+                      setAccountMenuOpen(false)
+                      handleNavWithConfirm('/history')
+                    }}
+                  >
+                    <Icon icon="mdi:history" width={18} height={18} />
+                    <span>{t('intro.nav_history')}</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="intro-nav-dropdown-item intro-nav-dropdown-item--danger"
+                    role="menuitem"
+                    onClick={handleLogout}
+                  >
+                    <Icon icon="mdi:logout" width={18} height={18} />
+                    <span>{t('common.sign_out_short')}</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Button variant="solid" active className="intro-nav-cta-start" onClick={handleLogin}>
+              {t('intro.nav_login')}
+            </Button>
+          )}
+        </div>
+
+        {/* Mobile Right Controls: Only Menu toggle */}
+        <div className="mobile-nav-controls">
+          <button
+            type="button"
+            className="intro-nav-menu-btn"
             onClick={() => {
               capiAudio.sfx('click')
-              navigate('/history')
+              setMobileMenuOpen(true)
             }}
-            title={t('common.back_to_history', 'Quay lại lịch sử')}
-            aria-label={t('common.back_to_history', 'Quay lại lịch sử')}
+            aria-label="Menu"
+            title="Menu"
           >
-            <Icon icon="mdi:arrow-left" width={20} height={20} />
-          </Button>
-        )}
-        {showHome && (
-          <Button
-            variant="outline"
-            className="header-circle-btn"
-            onClick={handleHomeClick}
-            title={t('common.back_to_home')}
-          >
-            <Icon icon="mdi:home-outline" width={20} height={20} />
-          </Button>
-        )}
-        {showLanguage && <LanguageSwitch />}
-      </div>
+            <Icon icon="mdi:menu" width={22} height={22} />
+          </button>
+        </div>
+      </header>
 
-      {/* Top-Right Audio Toggle */}
-      <Button
-        variant="icon"
-        title={muted ? t('common.audio_on') : t('common.audio_off')}
-        aria-label={muted ? t('common.audio_on') : t('common.audio_off')}
-        aria-pressed={muted}
-        onClick={toggleMute}
-      >
-        {audioIcon}
-      </Button>
+      {/* Mobile Hamburger Drawer Menu */}
+      {mobileMenuOpen && (
+        <div className="intro-drawer-backdrop">
+          <button
+            type="button"
+            className="intro-drawer-overlay-btn"
+            tabIndex={-1}
+            aria-label={t('common.close')}
+            onClick={() => setMobileMenuOpen(false)}
+          />
+
+          <div className="intro-drawer-dialog">
+            <div className="intro-drawer-header">
+              <div className="intro-drawer-brand">
+                <img src="/illos/logo.webp" alt="" className="intro-drawer-logo" />
+                <span className="intro-drawer-title">Capi Career</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label={t('common.close')}
+                className="intro-drawer-close"
+              >
+                <Icon icon="mdi:close" width={18} height={18} />
+              </button>
+            </div>
+
+            {user && (
+              <div className="intro-drawer-user-card">
+                {avatarUrl ? (
+                  <img src={avatarUrl} alt="" className="intro-drawer-avatar" />
+                ) : (
+                  <div className="intro-drawer-avatar-fallback">
+                    <Icon icon="mdi:account" width={20} height={20} />
+                  </div>
+                )}
+                <div className="intro-drawer-user-details">
+                  <span className="intro-drawer-user-name">{displayName}</span>
+                  {user.email && <span className="intro-drawer-user-email">{user.email}</span>}
+                </div>
+              </div>
+            )}
+
+            <div className="intro-drawer-list">
+              {!isHome && (
+                <button
+                  type="button"
+                  className="intro-drawer-item"
+                  onClick={() => handleNavWithConfirm('/')}
+                >
+                  <Icon icon="mdi:home-outline" width={18} height={18} />
+                  <span>{t('common.back_to_home', 'Trang chủ')}</span>
+                </button>
+              )}
+
+              {!user ? (
+                <button
+                  type="button"
+                  className="intro-drawer-item intro-drawer-item--primary"
+                  onClick={() => {
+                    setMobileMenuOpen(false)
+                    handleLogin()
+                  }}
+                >
+                  <Icon icon="mdi:login" width={18} height={18} />
+                  <span>{t('intro.nav_login')}</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="intro-drawer-item"
+                  onClick={() => handleNavWithConfirm('/history')}
+                >
+                  <Icon icon="mdi:history" width={18} height={18} />
+                  <span>{t('intro.nav_history')}</span>
+                </button>
+              )}
+
+              <button
+                type="button"
+                className="intro-drawer-item"
+                onClick={() => {
+                  setMobileMenuOpen(false)
+                  if (isHome) {
+                    document.getElementById('genes')?.scrollIntoView({ behavior: 'smooth' })
+                  } else {
+                    handleNavWithConfirm('/#genes')
+                  }
+                }}
+              >
+                <Icon icon="mdi:dna" width={18} height={18} />
+                <span>{t('common.capi_gene_info_title', '5 Mảnh Ghép Capi-Gene')}</span>
+              </button>
+
+              <button
+                type="button"
+                className="intro-drawer-item"
+                onClick={() => handleNavWithConfirm('/credits')}
+              >
+                <Icon icon="mdi:account-group-outline" width={18} height={18} />
+                <span>{t('common.credits', 'Đội ngũ phát triển')}</span>
+              </button>
+
+              {user && (
+                <button
+                  type="button"
+                  className="intro-drawer-item intro-drawer-item--danger"
+                  onClick={handleLogout}
+                >
+                  <Icon icon="mdi:logout" width={18} height={18} />
+                  <span>{t('common.sign_out_short')}</span>
+                </button>
+              )}
+            </div>
+
+            <div className="intro-drawer-controls-row">
+              <div className="intro-drawer-lang-row">
+                <span className="intro-drawer-lang-label">{t('common.language', 'Ngôn ngữ')}</span>
+                <LanguageSwitch />
+              </div>
+              <button
+                type="button"
+                className="intro-drawer-audio-btn"
+                onClick={toggleMute}
+                title={muted ? t('common.audio_on') : t('common.audio_off')}
+                aria-label={muted ? t('common.audio_on') : t('common.audio_off')}
+              >
+                {audioIcon}
+                <span>{muted ? t('common.audio_on') : t('common.audio_off')}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Confirmation Exit Modal */}
       <Modal
@@ -572,6 +425,7 @@ export default function HeaderControls({ muted, toggleMute }) {
         onClose={() => {
           capiAudio.sfx('click')
           setShowConfirmModal(false)
+          setPendingNav(null)
         }}
         title={t('confirm_exit.title')}
         description={t('confirm_exit.message')}
@@ -579,12 +433,7 @@ export default function HeaderControls({ muted, toggleMute }) {
         cancelText={t('confirm_exit.cancel_btn')}
         confirmText={t('confirm_exit.confirm_btn')}
         confirmVariant="danger"
-        onConfirm={() => {
-          capiAudio.sfx('click')
-          setShowConfirmModal(false)
-          onRestart()
-          navigate('/')
-        }}
+        onConfirm={handleConfirmExit}
       />
     </>
   )

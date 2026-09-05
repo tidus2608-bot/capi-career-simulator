@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import './lib/i18n/index.js'
@@ -6,24 +6,23 @@ import './styles.css'
 
 import { WizardProvider } from './contexts/WizardContext.jsx'
 import AppLayout from './App.jsx'
-import {
-  IntroScene,
-  ScanningScene,
-  RoleRevealScene,
-  ThemeScene,
-  MissionPickScene,
-  MissionPlayScene,
-  ReflectionScene,
-  CertificateScene,
-  ReportLoading,
-  ReportSummary,
-  ReportDetails,
-  HistoryScene,
-  CapiGeneInfoScene,
-  FeedbackScene,
-  CompareResultsScene,
-  CreditsScene,
-} from './components/scenes/index.js'
+import IntroScene from './components/scenes/Intro.jsx'
+
+// Route-level code-splitting for non-landing scenes
+const ScanningScene = lazy(() => import('./components/scenes/Scanning.jsx'))
+const RoleRevealScene = lazy(() => import('./components/scenes/RoleReveal.jsx'))
+const ThemeScene = lazy(() => import('./components/scenes/Theme.jsx'))
+const MissionPickScene = lazy(() => import('./components/scenes/MissionPick.jsx'))
+const MissionPlayScene = lazy(() => import('./components/scenes/MissionPlay.jsx'))
+const ReflectionScene = lazy(() => import('./components/scenes/Reflection.jsx'))
+const CertificateScene = lazy(() => import('./components/scenes/Certificate.jsx'))
+const ReportLoading = lazy(() => import('./components/scenes/ReportLoading.jsx'))
+const ReportSummary = lazy(() => import('./components/scenes/ReportSummary.jsx'))
+const ReportDetails = lazy(() => import('./components/scenes/ReportDetails.jsx'))
+const HistoryScene = lazy(() => import('./components/scenes/History.jsx'))
+const FeedbackScene = lazy(() => import('./components/scenes/FeedbackScene.jsx'))
+const CompareResultsScene = lazy(() => import('./components/scenes/CompareResults.jsx'))
+const CreditsScene = lazy(() => import('./components/scenes/Credits.jsx'))
 
 const router = createBrowserRouter([
   {
@@ -35,7 +34,6 @@ const router = createBrowserRouter([
     ),
     children: [
       { path: '/', element: <IntroScene /> },
-      { path: 'capi-gene-info', element: <CapiGeneInfoScene /> },
       { path: 'credits', element: <CreditsScene /> },
       { path: 'scan', element: <ScanningScene /> },
       { path: 'role-reveal', element: <RoleRevealScene /> },
@@ -61,7 +59,19 @@ const router = createBrowserRouter([
   },
   {
     path: '/feedback',
-    element: <FeedbackScene />,
+    element: (
+      <Suspense
+        fallback={
+          <div
+            style={{ display: 'grid', placeItems: 'center', minHeight: '100dvh', width: '100%' }}
+          >
+            <div className="capi-loading-spinner" />
+          </div>
+        }
+      >
+        <FeedbackScene />
+      </Suspense>
+    ),
   },
 ])
 

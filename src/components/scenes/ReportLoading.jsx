@@ -45,7 +45,7 @@ export default function ReportLoading() {
           justifyContent: 'center',
           height: '100%',
           width: '100%',
-          padding: 24,
+          padding: 'clamp(80px, 10vh, 96px) 24px 24px',
           textAlign: 'center',
           boxSizing: 'border-box',
           overflow: 'hidden',
@@ -54,7 +54,7 @@ export default function ReportLoading() {
       >
         {/* Extracted ambient background decoration SVG */}
         <img
-          src="/illos/ambient-circles.webp"
+          src="/illos/ambient-circles.svg"
           alt=""
           style={{
             position: 'absolute',
