@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next'
 import { CAPI_ROLES } from '../data.js'
 
 const ROLES_CONFIG = [
-  { key: 'communicator', color: '#EAB308' }, // Top (0 deg)
-  { key: 'connector', color: '#F97316' }, // Top-Right (72 deg)
-  { key: 'operator', color: '#3B82F6' }, // Bottom-Right (144 deg)
-  { key: 'builder', color: '#EF4444' }, // Bottom-Left (216 deg)
-  { key: 'explorer', color: '#22C55E' }, // Top-Left (288 deg)
+  { key: 'communicator' }, // Top (0 deg)
+  { key: 'connector' }, // Top-Right (72 deg)
+  { key: 'operator' }, // Bottom-Right (144 deg)
+  { key: 'builder' }, // Bottom-Left (216 deg)
+  { key: 'explorer' }, // Top-Left (288 deg)
 ]
 
 export default function SummaryRadar({ scores, size = 250 }) {
@@ -103,65 +103,100 @@ export default function SummaryRadar({ scores, size = 250 }) {
       </svg>
 
       {/* Vertex Badges Overlay */}
-      {ROLES_CONFIG.map((rc, i) => {
-        const angle = -Math.PI / 2 + (i / ROLES_CONFIG.length) * Math.PI * 2
-        // Position badge slightly outside max radius
-        const bx = cx + Math.cos(angle) * (r + badgeOffset)
-        const by = cy + Math.sin(angle) * (r + badgeOffset)
-        const scoreVal = Math.round(getScore(rc.key))
+      {(() => {
+        const rankedRoles = [...ROLES_CONFIG]
+          .map((rc) => ({ key: rc.key, score: getScore(rc.key) }))
+          .sort((a, b) => b.score - a.score)
+        const top1Key = rankedRoles[0]?.key
+        const top2Key = rankedRoles[1]?.key
 
-        return (
-          <div
-            key={rc.key}
-            style={{
-              position: 'absolute',
-              left: `${bx}px`,
-              top: `${by}px`,
-              transform: 'translate(-50%, -50%)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: isSmall ? '2px' : '3px',
-              zIndex: 10,
-              maxWidth: isSmall ? '60px' : '72px',
-              textAlign: 'center',
-            }}
-          >
+        return ROLES_CONFIG.map((rc, i) => {
+          const angle = -Math.PI / 2 + (i / ROLES_CONFIG.length) * Math.PI * 2
+          const bx = cx + Math.cos(angle) * (r + badgeOffset)
+          const by = cy + Math.sin(angle) * (r + badgeOffset)
+          const scoreVal = Math.round(getScore(rc.key))
+          const isTop1 = rc.key === top1Key
+          const isTop2 = rc.key === top2Key
+
+          let badgeBg = '#FFFFFF'
+          let badgeBorder = '1.5px solid var(--border-light)'
+          let badgeColor = 'var(--ink-secondary)'
+          let shadow = '0 1px 3px rgba(0,0,0,0.06)'
+
+          if (isTop1) {
+            badgeBg = 'var(--color-primary)'
+            badgeBorder = '1.5px solid var(--color-primary)'
+            badgeColor = '#FFFFFF'
+            shadow = '0 3px 8px var(--color-primary-shadow)'
+          } else if (isTop2) {
+            badgeBg = 'var(--surface-lavender)'
+            badgeBorder = '1.5px solid var(--color-primary-border)'
+            badgeColor = 'var(--color-primary)'
+            shadow = '0 2px 6px rgba(132, 52, 151, 0.08)'
+          }
+
+          const labelColor = isTop1
+            ? 'var(--color-primary)'
+            : isTop2
+              ? 'var(--ink-dark)'
+              : 'var(--ink-secondary)'
+          const labelWeight = isTop1 || isTop2 ? 800 : 600
+
+          return (
             <div
+              key={rc.key}
               style={{
-                backgroundColor: rc.color,
-                color: rc.key === 'communicator' ? '#1F2937' : '#FFFFFF',
-                borderRadius: '50%',
-                width: isSmall ? '28px' : '32px',
-                height: isSmall ? '28px' : '32px',
+                position: 'absolute',
+                left: `${bx}px`,
+                top: `${by}px`,
+                transform: 'translate(-50%, -50%)',
                 display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: isSmall ? '10px' : '11.5px',
-                fontWeight: 800,
-                fontFamily: 'var(--font-display)',
-                boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
-                flexShrink: 0,
+                gap: isSmall ? '2px' : '3px',
+                zIndex: 10,
+                maxWidth: isSmall ? '64px' : '76px',
+                textAlign: 'center',
               }}
             >
-              {scoreVal}%
+              <div
+                style={{
+                  backgroundColor: badgeBg,
+                  border: badgeBorder,
+                  color: badgeColor,
+                  borderRadius: '50%',
+                  width: isSmall ? '28px' : '32px',
+                  height: isSmall ? '28px' : '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: isSmall ? '10px' : '11.5px',
+                  fontWeight: 800,
+                  fontFamily: 'var(--font-display)',
+                  boxShadow: shadow,
+                  flexShrink: 0,
+                  transition: 'background-color 150ms ease, border-color 150ms ease',
+                }}
+              >
+                {scoreVal}%
+              </div>
+              <span
+                style={{
+                  fontSize: isSmall ? '10.5px' : '12px',
+                  fontWeight: labelWeight,
+                  fontFamily: 'var(--font-display)',
+                  color: labelColor,
+                  lineHeight: 1.25,
+                  whiteSpace: 'normal',
+                  wordBreak: 'keep-all',
+                }}
+              >
+                {isEn ? CAPI_ROLES[rc.key]?.name || rc.key : CAPI_ROLES[rc.key]?.nameVn || rc.key}
+              </span>
             </div>
-            <span
-              style={{
-                fontSize: isSmall ? '10.5px' : '12px',
-                fontWeight: 700,
-                fontFamily: 'var(--font-display)',
-                color: '#0F172A',
-                lineHeight: 1.25,
-                whiteSpace: 'normal',
-                wordBreak: 'keep-all',
-              }}
-            >
-              {isEn ? CAPI_ROLES[rc.key]?.name || rc.key : CAPI_ROLES[rc.key]?.nameVn || rc.key}
-            </span>
-          </div>
-        )
-      })}
+          )
+        })
+      })()}
     </div>
   )
 }

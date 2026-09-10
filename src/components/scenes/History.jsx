@@ -74,8 +74,8 @@ function LoginPrompt({ handleLogin, t }) {
         alignItems: 'center',
         gap: 24,
         borderRadius: 24,
-        backgroundColor: '#FFFFFF',
-        border: '1px solid #E2E8F0',
+        backgroundColor: 'var(--surface-light)',
+        border: '1.5px solid var(--border-light)',
         maxWidth: 500,
         margin: '40px auto 0 auto',
         boxShadow: '0 10px 30px -10px rgba(0, 0, 0, 0.05)',
@@ -86,11 +86,12 @@ function LoginPrompt({ handleLogin, t }) {
           width: 64,
           height: 64,
           borderRadius: '50%',
-          backgroundColor: '#F1F5F9',
+          backgroundColor: 'var(--surface-lavender)',
+          border: '1px solid var(--border-purple)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#64748B',
+          color: 'var(--color-primary)',
           marginBottom: 8,
         }}
       >
@@ -102,7 +103,7 @@ function LoginPrompt({ handleLogin, t }) {
           style={{
             fontSize: 22,
             fontWeight: 700,
-            color: '#0F172A',
+            color: 'var(--ink-dark)',
             margin: 0,
             fontFamily: 'var(--font-display)',
           }}
@@ -112,7 +113,7 @@ function LoginPrompt({ handleLogin, t }) {
         <p
           style={{
             fontSize: 15,
-            color: '#64748B',
+            color: 'var(--ink-secondary)',
             margin: 0,
             lineHeight: 1.5,
             maxWidth: '35ch',
@@ -124,21 +125,18 @@ function LoginPrompt({ handleLogin, t }) {
 
       <Button
         variant="solid"
+        active
         onClick={handleLogin}
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           gap: 10,
-          backgroundColor: '#8B2FA9',
-          color: '#FFFFFF',
           padding: '12px 24px',
           borderRadius: 12,
           fontWeight: 600,
           fontSize: 15,
           width: '100%',
-          border: 'none',
-          cursor: 'pointer',
         }}
       >
         <Icon icon="mdi:google" width={20} height={20} />
@@ -187,7 +185,7 @@ function ScoreMeter({ score, roleConfig }) {
         gap: 3,
         padding: '4px 8px',
         borderRadius: 8,
-        backgroundColor: isPresent ? roleConfig.bg : '#F1F5F9',
+        backgroundColor: isPresent ? roleConfig.bg : 'var(--surface-subtle)',
         minWidth: 46,
         flexShrink: 0,
       }}
@@ -197,7 +195,7 @@ function ScoreMeter({ score, roleConfig }) {
           style={{
             fontSize: 15,
             fontWeight: 800,
-            color: isPresent ? roleConfig.color : '#94A3B8',
+            color: isPresent ? roleConfig.color : 'var(--ink-muted)',
             lineHeight: 1,
           }}
         >
@@ -207,7 +205,7 @@ function ScoreMeter({ score, roleConfig }) {
           style={{
             fontSize: 10.5,
             fontWeight: 600,
-            color: '#94A3B8',
+            color: 'var(--ink-muted)',
             lineHeight: 1,
           }}
         >
@@ -224,7 +222,7 @@ function ScoreMeter({ score, roleConfig }) {
                 width: 4.5,
                 height: 4.5,
                 borderRadius: '50%',
-                backgroundColor: isFilled ? roleConfig.color : '#CBD5E1',
+                backgroundColor: isFilled ? roleConfig.color : 'var(--border-light)',
               }}
             />
           )
@@ -283,13 +281,13 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                 margin: 0,
                 fontSize: 18,
                 fontWeight: 700,
-                color: '#0F172A',
+                color: 'var(--ink-main)',
                 fontFamily: 'var(--font-display)',
               }}
             >
               {t('history.answers_modal_title', 'Chi tiết câu trả lời')}
             </h3>
-            <div style={{ fontSize: 12.5, color: '#64748B', marginTop: 3 }}>
+            <div style={{ fontSize: 12.5, color: 'var(--ink-secondary)', marginTop: 3 }}>
               {missionTitle} • {formatDateTime(run.created_at)}
             </div>
           </div>
@@ -300,14 +298,14 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
               width: 34,
               height: 34,
               borderRadius: '50%',
-              backgroundColor: '#F1F5F9',
+              backgroundColor: 'var(--surface-subtle)',
               border: 'none',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#64748B',
+              color: 'var(--ink-secondary)',
               cursor: 'pointer',
-              transition: 'background-color 0.15s ease',
+              transition: 'background-color 150ms ease, color 150ms ease',
             }}
           >
             <Icon icon="mdi:close" width={18} height={18} />
@@ -341,8 +339,10 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                 className="answers-modal-tab-btn"
                 style={{
                   fontWeight: isActive ? 700 : 500,
-                  color: isActive ? '#843497' : '#64748B',
-                  borderBottom: isActive ? '2.5px solid #843497' : '2.5px solid transparent',
+                  color: isActive ? 'var(--color-primary)' : 'var(--ink-secondary)',
+                  borderBottom: isActive
+                    ? '2.5px solid var(--color-primary)'
+                    : '2.5px solid transparent',
                 }}
               >
                 <span>{tab.label}</span>
@@ -352,8 +352,8 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                     fontWeight: 700,
                     padding: '2px 7px',
                     borderRadius: 9999,
-                    backgroundColor: isActive ? 'rgba(132, 52, 151, 0.12)' : '#E2E8F0',
-                    color: isActive ? '#843497' : '#64748B',
+                    backgroundColor: isActive ? 'var(--surface-lavender)' : 'var(--surface-subtle)',
+                    color: isActive ? 'var(--color-primary)' : 'var(--ink-secondary)',
                   }}
                 >
                   {tab.badge}
@@ -380,7 +380,7 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       gap: 14,
-                      borderBottom: isLast ? 'none' : '1px solid #F1F5F9',
+                      borderBottom: isLast ? 'none' : '1px solid var(--border-light)',
                     }}
                   >
                     <div style={{ flex: 1, minWidth: 0 }}>
@@ -401,7 +401,7 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                           {t(`roles.${q.role}.name`)}
                         </span>
                       </div>
-                      <div style={{ fontSize: 13.5, color: '#0F172A', lineHeight: 1.45 }}>
+                      <div style={{ fontSize: 13.5, color: 'var(--ink-main)', lineHeight: 1.45 }}>
                         {t(`questions.${q.id}`)}
                       </div>
                     </div>
@@ -426,7 +426,7 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                         flexDirection: 'column',
                         gap: 10,
                         paddingBottom: isLastQuestion ? 4 : 20,
-                        borderBottom: isLastQuestion ? 'none' : '1px solid #E2E8F0',
+                        borderBottom: isLastQuestion ? 'none' : '1px solid var(--border-light)',
                       }}
                     >
                       {/* Chapter and Layer Meta Header */}
@@ -442,7 +442,7 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                           style={{
                             fontSize: 12,
                             fontWeight: 800,
-                            color: '#843497',
+                            color: 'var(--color-primary)',
                             textTransform: 'uppercase',
                             letterSpacing: '0.04em',
                           }}
@@ -460,7 +460,7 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                         style={{
                           fontSize: 14.5,
                           fontWeight: 600,
-                          color: '#0F172A',
+                          color: 'var(--ink-main)',
                           lineHeight: 1.45,
                         }}
                       >
@@ -484,13 +484,17 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                                 borderRadius: 10,
                                 fontSize: 13.5,
                                 lineHeight: 1.45,
-                                backgroundColor: isSelected ? '#F5F3FF' : '#F8FAFC',
-                                border: isSelected ? '1px solid #DDD6FE' : '1px solid #E2E8F0',
-                                color: isSelected ? '#4C1D95' : '#334155',
+                                backgroundColor: isSelected
+                                  ? 'var(--surface-lavender)'
+                                  : 'var(--surface-subtle)',
+                                border: isSelected
+                                  ? '1px solid var(--border-purple)'
+                                  : '1px solid var(--border-light)',
+                                color: 'var(--ink-main)',
                                 display: 'flex',
                                 alignItems: 'flex-start',
                                 gap: 10,
-                                transition: 'all 0.15s ease',
+                                transition: 'background-color 150ms ease, border-color 150ms ease',
                               }}
                             >
                               <span
@@ -498,8 +502,11 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                                   width: 20,
                                   height: 20,
                                   borderRadius: 4,
-                                  backgroundColor: isSelected ? '#843497' : '#E2E8F0',
-                                  color: isSelected ? '#FFFFFF' : '#64748B',
+                                  backgroundColor: isSelected
+                                    ? 'var(--color-primary)'
+                                    : 'var(--surface-light)',
+                                  color: isSelected ? '#FFFFFF' : 'var(--ink-secondary)',
+                                  border: isSelected ? 'none' : '1px solid var(--border-light)',
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
@@ -527,8 +534,8 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                                   style={{
                                     fontSize: 11,
                                     fontWeight: 700,
-                                    color: '#843497',
-                                    backgroundColor: '#EDE9FE',
+                                    color: 'var(--color-primary)',
+                                    backgroundColor: 'rgba(132, 52, 151, 0.12)',
                                     padding: '2px 8px',
                                     borderRadius: 9999,
                                     flexShrink: 0,
@@ -549,7 +556,9 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                   )
                 })
               ) : (
-                <div style={{ textAlign: 'center', padding: '30px', color: '#64748B' }}>
+                <div
+                  style={{ textAlign: 'center', padding: '30px', color: 'var(--ink-secondary)' }}
+                >
                   {t('history.no_answers_recorded')}
                 </div>
               )}
@@ -571,7 +580,7 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       gap: 14,
-                      borderBottom: isLast ? 'none' : '1px solid #F1F5F9',
+                      borderBottom: isLast ? 'none' : '1px solid var(--border-light)',
                     }}
                   >
                     <div style={{ flex: 1, minWidth: 0 }}>
@@ -592,7 +601,7 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
                           {t(`roles.${q.role}.name`)}
                         </span>
                       </div>
-                      <div style={{ fontSize: 13.5, color: '#0F172A', lineHeight: 1.45 }}>
+                      <div style={{ fontSize: 13.5, color: 'var(--ink-main)', lineHeight: 1.45 }}>
                         {t(`phase3_questions.${q.role}`)}
                       </div>
                     </div>
@@ -611,10 +620,9 @@ function AnswersModal({ run, onClose, onViewReport, t }) {
           </Button>
           <Button
             variant="solid"
+            active
             onClick={() => onViewReport(run)}
             style={{
-              backgroundColor: '#843497',
-              color: '#FFFFFF',
               display: 'flex',
               alignItems: 'center',
               gap: 6,
@@ -637,7 +645,7 @@ function HistoryCard({ run, isSelected, onToggleCompare, onOpenAnswers, onOpenRe
 
   return (
     <div
-      className={`history-grid-card fade-up ${isSelected ? 'selected' : ''}`}
+      className={`history-grid-card fade-up ${isSelected ? 'is-selected' : ''}`}
       onClick={() => onToggleCompare(run.id)}
       role="button"
       tabIndex={0}
@@ -648,16 +656,17 @@ function HistoryCard({ run, isSelected, onToggleCompare, onOpenAnswers, onOpenRe
         }
       }}
       style={{
-        backgroundColor: isSelected ? '#FAF5FF' : '#FFFFFF',
+        backgroundColor: isSelected ? 'var(--surface-lavender)' : 'var(--surface-light)',
         borderRadius: 20,
-        border: isSelected ? '2.5px solid #843497' : '1.5px solid #E2E8F0',
+        border: isSelected ? '2px solid var(--color-primary)' : '1.5px solid var(--border-light)',
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
         boxShadow: isSelected
-          ? '0 12px 28px -4px rgba(132, 52, 151, 0.22)'
-          : '0 4px 18px -2px rgba(0, 0, 0, 0.04)',
-        transition: 'all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1)',
+          ? '0 0 0 2px var(--color-primary), 0 12px 28px -6px rgba(132, 52, 151, 0.25)'
+          : '0 4px 16px -2px rgba(0, 0, 0, 0.03)',
+        transition:
+          'transform 200ms cubic-bezier(0.16, 1, 0.3, 1), border-color 150ms ease, box-shadow 150ms ease',
         position: 'relative',
         cursor: 'pointer',
       }}
@@ -669,7 +678,7 @@ function HistoryCard({ run, isSelected, onToggleCompare, onOpenAnswers, onOpenRe
           width: '100%',
           position: 'relative',
           overflow: 'hidden',
-          backgroundColor: '#F1F5F9',
+          backgroundColor: 'var(--surface-subtle)',
         }}
       >
         <CapiImage
@@ -694,14 +703,14 @@ function HistoryCard({ run, isSelected, onToggleCompare, onOpenAnswers, onOpenRe
               width: 24,
               height: 24,
               borderRadius: 6,
-              backgroundColor: '#843497',
-              border: '2px solid #843497',
+              backgroundColor: 'var(--color-primary)',
+              border: '2px solid var(--color-primary)',
               color: '#FFFFFF',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               boxShadow: '0 2px 8px rgba(132, 52, 151, 0.4)',
-              transition: 'all 0.15s ease',
+              transition: 'background-color 150ms ease, border-color 150ms ease',
               userSelect: 'none',
             }}
           >
@@ -717,15 +726,15 @@ function HistoryCard({ run, isSelected, onToggleCompare, onOpenAnswers, onOpenRe
               width: 24,
               height: 24,
               borderRadius: 6,
-              backgroundColor: 'rgba(255, 255, 255, 0.92)',
+              backgroundColor: 'rgba(255, 255, 255, 0.94)',
               backdropFilter: 'blur(8px)',
               WebkitBackdropFilter: 'blur(8px)',
-              border: '2px solid #94A3B8',
+              border: '2px solid var(--border-purple)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
-              transition: 'all 0.15s ease',
+              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08)',
+              transition: 'border-color 150ms ease, background-color 150ms ease',
               userSelect: 'none',
             }}
           />
@@ -749,7 +758,7 @@ function HistoryCard({ run, isSelected, onToggleCompare, onOpenAnswers, onOpenRe
             style={{
               fontSize: 16,
               fontWeight: 700,
-              color: '#0F172A',
+              color: 'var(--ink-dark)',
               lineHeight: 1.35,
               margin: 0,
               minHeight: '2.7em',
@@ -766,7 +775,7 @@ function HistoryCard({ run, isSelected, onToggleCompare, onOpenAnswers, onOpenRe
               alignItems: 'center',
               gap: 6,
               fontSize: 13,
-              color: '#64748B',
+              color: 'var(--ink-muted)',
             }}
           >
             <Icon icon="mdi:clock-outline" width={16} height={16} />
@@ -775,42 +784,60 @@ function HistoryCard({ run, isSelected, onToggleCompare, onOpenAnswers, onOpenRe
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {/* Role Badge Container */}
+          {/* Role Badge Container with Role-Specific Micro-Accents */}
           <div
             style={{
-              backgroundColor: roleConfig.bg,
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              border: `1px solid ${isSelected ? 'var(--border-purple)' : 'var(--border-light)'}`,
               borderRadius: 14,
-              padding: '10px 16px',
+              padding: '10px 14px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
+              boxShadow: '0 1px 4px rgba(0, 0, 0, 0.02)',
+              transition: 'border-color 150ms ease',
             }}
           >
             <div>
               <div
                 style={{
-                  fontSize: 15,
-                  fontWeight: 700,
+                  fontSize: 14.5,
+                  fontWeight: 800,
                   color: roleConfig.color,
                   textTransform: 'capitalize',
+                  fontFamily: 'var(--font-display)',
+                  letterSpacing: '-0.01em',
                 }}
               >
-                {roleConfig.name}
+                {t(`roles.${roleConfig.key}.name`, roleConfig.name)}
               </div>
               <div
                 style={{
                   fontSize: 12,
-                  color: roleConfig.color,
-                  opacity: 0.85,
+                  color: 'var(--ink-muted)',
                   fontWeight: 500,
                   marginTop: 1,
                 }}
               >
-                {t('history.primary_role_badge')}
+                {t('history.primary_role_badge', 'Vai trò chính')}
               </div>
             </div>
-            <div style={{ color: roleConfig.color, display: 'flex', alignItems: 'center' }}>
-              <Icon icon={roleConfig.icon} width={26} height={26} />
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 10,
+                backgroundColor: roleConfig.bg,
+                color: roleConfig.color,
+                border: `1px solid ${roleConfig.color}25`,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: `0 2px 8px -1px ${roleConfig.color}20`,
+                flexShrink: 0,
+              }}
+            >
+              <Icon icon={roleConfig.icon} width={20} height={20} />
             </div>
           </div>
 
@@ -823,55 +850,48 @@ function HistoryCard({ run, isSelected, onToggleCompare, onOpenAnswers, onOpenRe
               marginTop: 2,
             }}
           >
-            <button
+            <Button
+              variant="outline"
               onClick={(e) => {
                 e.stopPropagation()
                 onOpenAnswers(run)
               }}
               style={{
-                padding: '9px 10px',
+                padding: '8px 10px',
                 fontSize: 13,
                 fontWeight: 600,
                 borderRadius: 10,
-                border: '1px solid #CBD5E1',
-                color: '#475569',
-                backgroundColor: '#FFFFFF',
+                gap: 4,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: 4,
-                cursor: 'pointer',
-                transition: 'all 0.15s ease',
               }}
             >
               <span>{t('history.btn_view_answers', 'Xem câu trả lời')}</span>
               <Icon icon="mdi:arrow-top-right" width={15} height={15} />
-            </button>
+            </Button>
 
-            <button
+            <Button
+              variant="solid"
+              active
               onClick={(e) => {
                 e.stopPropagation()
                 onOpenReport(run)
               }}
               style={{
-                padding: '9px 10px',
+                padding: '8px 10px',
                 fontSize: 13,
                 fontWeight: 600,
                 borderRadius: 10,
-                border: 'none',
-                color: '#FFFFFF',
-                backgroundColor: '#843497',
+                gap: 5,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: 5,
-                cursor: 'pointer',
-                transition: 'all 0.15s ease',
               }}
             >
               <span>{t('history.btn_view_report', 'Xem báo cáo')}</span>
               <Icon icon="mdi:eye-outline" width={16} height={16} />
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -955,15 +975,16 @@ export default function HistoryScene() {
 
   // Summary Metrics
   const totalExperiences = runs.length
-  const dominantRoleKey = useMemo(() => {
-    if (!runs.length) return 'connector'
-    const counts = {}
+  const { dominantRoleKey, roleCounts } = useMemo(() => {
+    const counts = { builder: 0, explorer: 0, operator: 0, connector: 0, communicator: 0 }
+    if (!runs.length) return { dominantRoleKey: 'connector', roleCounts: counts }
     for (const r of runs) {
       const rk = (r.primary_role || '').toLowerCase()
-      if (rk) counts[rk] = (counts[rk] || 0) + 1
+      if (counts[rk] !== undefined) counts[rk] += 1
+      else counts[rk] = 1
     }
     const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1])
-    return sorted[0]?.[0] || 'connector'
+    return { dominantRoleKey: sorted[0]?.[0] || 'connector', roleCounts: counts }
   }, [runs])
 
   const dominantRoleConfig = getRoleConfig(dominantRoleKey)
@@ -1028,94 +1049,27 @@ export default function HistoryScene() {
     )
   }, [selectedCompareRunIds, runs, navigate])
 
-  // User avatar resolution
-  const userAvatar = user?.user_metadata?.avatar_url || user?.user_metadata?.picture || null
-
   return (
     <SceneShell light>
-      <style>{`
-        .history-grid-card:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 28px -6px rgba(139, 47, 169, 0.12);
-        }
-        .filter-chip {
-          padding: 6px 14px;
-          border-radius: 99px;
-          font-size: 13px;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.15s ease;
-          border: 1px solid #E2E8F0;
-          background: #FFFFFF;
-          color: #64748B;
-        }
-        .filter-chip.active {
-          background: #843497;
-          color: #FFFFFF;
-          border-color: #843497;
-        }
-      `}</style>
+      {/* Ambient Lighting Background */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '100%',
+          maxWidth: 1200,
+          height: 480,
+          background:
+            'radial-gradient(ellipse 65% 55% at 50% 12%, rgba(132, 52, 151, 0.09) 0%, rgba(2, 132, 199, 0.04) 50%, transparent 80%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
 
       <div className="history-page-shell">
-        {/* Top Header Card */}
-        <div className="history-header-card fade-up">
-          <div>
-            <h1
-              style={{
-                fontSize: 24,
-                fontWeight: 800,
-                color: '#0F172A',
-                margin: 0,
-                letterSpacing: '-0.02em',
-                fontFamily: 'var(--font-display)',
-              }}
-            >
-              {t('history.title')}
-            </h1>
-            <p
-              style={{
-                fontSize: 14,
-                color: '#64748B',
-                margin: '4px 0 0 0',
-              }}
-            >
-              {t('history.desc')}
-            </p>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            {userAvatar ? (
-              <img
-                src={userAvatar}
-                alt={user.email || 'User'}
-                style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: '50%',
-                  objectFit: 'cover',
-                  border: '2px solid #E2E8F0',
-                }}
-              />
-            ) : (
-              <div
-                style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: '50%',
-                  backgroundColor: '#F1F5F9',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#64748B',
-                  border: '2px solid #E2E8F0',
-                }}
-              >
-                <Icon icon="mdi:account" width={24} height={24} />
-              </div>
-            )}
-          </div>
-        </div>
-
         {/* Breadcrumb Navigation */}
         <nav
           aria-label="Breadcrumb"
@@ -1124,20 +1078,21 @@ export default function HistoryScene() {
             alignItems: 'center',
             gap: 8,
             fontSize: 13,
-            color: '#64748B',
-            marginTop: -8,
+            color: 'var(--ink-muted)',
+            marginBottom: -8,
           }}
         >
           <button
             onClick={() => navigate('/certificate/summary')}
             style={{
-              color: '#64748B',
+              color: 'var(--ink-secondary)',
               cursor: 'pointer',
               background: 'none',
               border: 'none',
               padding: 0,
               fontFamily: 'inherit',
               fontSize: 'inherit',
+              transition: 'color 150ms ease',
             }}
           >
             {t('history.breadcrumb_report')}
@@ -1146,34 +1101,68 @@ export default function HistoryScene() {
           <button
             onClick={() => navigate('/certificate/details')}
             style={{
-              color: '#64748B',
+              color: 'var(--ink-secondary)',
               cursor: 'pointer',
               background: 'none',
               border: 'none',
               padding: 0,
               fontFamily: 'inherit',
               fontSize: 'inherit',
+              transition: 'color 150ms ease',
             }}
           >
             {t('history.breadcrumb_detail')}
           </button>
           <span>/</span>
-          <span style={{ color: '#843497', fontWeight: 700 }}>
+          <span style={{ color: 'var(--color-primary)', fontWeight: 700 }}>
             {t('history.breadcrumb_history')}
           </span>
         </nav>
+
+        {/* Integrated Page Header */}
+        <div className="fade-up" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <h1
+            style={{
+              fontSize: 28,
+              fontWeight: 800,
+              color: 'var(--ink-main)',
+              margin: 0,
+              letterSpacing: '-0.02em',
+              fontFamily: 'var(--font-display)',
+            }}
+          >
+            {t('history.title')}
+          </h1>
+          <p
+            style={{
+              fontSize: 14.5,
+              color: 'var(--ink-secondary)',
+              margin: 0,
+              lineHeight: 1.5,
+            }}
+          >
+            {t('history.desc')}
+          </p>
+        </div>
 
         {!user ? (
           <LoginPrompt handleLogin={handleLogin} t={t} />
         ) : loading ? (
           <div style={{ display: 'flex', justifyContent: 'center', padding: '80px 0' }}>
-            <div className="mono" style={{ color: '#94A3B8', fontSize: 14, textAlign: 'center' }}>
+            <div
+              className="mono"
+              style={{ color: 'var(--ink-muted)', fontSize: 14, textAlign: 'center' }}
+            >
               <Icon
                 icon="mdi:loading"
                 width={28}
                 height={28}
                 className="spin"
-                style={{ margin: '0 auto 12px auto', display: 'block' }}
+                style={{
+                  margin: '0 auto 12px auto',
+                  display: 'block',
+                  color: 'var(--color-primary)',
+                }}
               />
               {t('common.loading', 'Đang tải...')}
             </div>
@@ -1184,9 +1173,9 @@ export default function HistoryScene() {
             style={{
               padding: '40px 30px',
               textAlign: 'center',
-              color: '#E11D48',
-              borderColor: '#FECDD3',
-              backgroundColor: '#FFF1F2',
+              color: 'var(--color-danger, #E11D48)',
+              borderColor: 'rgba(225, 29, 72, 0.2)',
+              backgroundColor: 'rgba(225, 29, 72, 0.05)',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -1201,144 +1190,158 @@ export default function HistoryScene() {
           </div>
         ) : (
           <>
-            {/* Section 1: Overview Cards ("Tổng quan") */}
+            {/* Section 1: Bento Dossier Overview */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <h2
-                style={{
-                  fontSize: 22,
-                  fontWeight: 800,
-                  color: '#0F172A',
-                  margin: 0,
-                  fontFamily: 'var(--font-display)',
-                }}
-              >
-                {t('history.overview_title', 'Tổng quan')}
-              </h2>
-
               <div
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                  gap: 20,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 12,
                 }}
               >
-                {/* Overview Card 1: Total Runs */}
-                <div
-                  className="fade-up"
+                <h2
                   style={{
-                    backgroundColor: '#FFFFFF',
-                    borderRadius: 20,
-                    border: '1px solid #E2E8F0',
-                    borderLeft: '4px solid #2563EB',
-                    padding: '22px 24px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    gap: 18,
-                    boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.03)',
+                    fontSize: 20,
+                    fontWeight: 800,
+                    color: 'var(--ink-main)',
+                    margin: 0,
+                    fontFamily: 'var(--font-display)',
+                    letterSpacing: '-0.01em',
                   }}
                 >
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: 34,
-                        fontWeight: 800,
-                        color: '#2563EB',
-                        fontFamily: 'var(--font-display)',
-                        lineHeight: 1,
-                      }}
-                    >
-                      {totalExperiences}
+                  {t('history.overview_title', 'Tổng quan')}
+                </h2>
+              </div>
+
+              <div className="bento-dossier-grid fade-up">
+                {/* Bento Card 1: Dominant Role Hero Spotlight */}
+                <div
+                  className="bento-dossier-card bento-hero-card"
+                  style={{
+                    backgroundImage: `radial-gradient(circle at 92% 12%, ${dominantRoleConfig.color}15 0%, transparent 55%)`,
+                  }}
+                >
+                  <div className="bento-hero-header">
+                    <span className="bento-tag" style={{ color: dominantRoleConfig.color }}>
+                      <Icon icon="mdi:crown-outline" width={16} />
+                      {t('history.dominant_archetype', 'Hình mẫu chủ đạo')}
                     </span>
+                    <span className="bento-role-pct">
+                      {Math.round(
+                        ((roleCounts[dominantRoleKey] || 0) / (totalExperiences || 1)) * 100,
+                      )}
+                      % {t('history.frequency', 'tổng số lượt')}
+                    </span>
+                  </div>
+
+                  <div className="bento-hero-body">
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <h3
+                        className="bento-hero-role-title"
+                        style={{ color: dominantRoleConfig.color }}
+                      >
+                        {t(`roles.${dominantRoleKey}.name`, dominantRoleConfig.name)}
+                      </h3>
+                      <p className="bento-hero-role-desc">
+                        {dominantRoleConfig.nameVn} •{' '}
+                        {t('history.top_role_sub', 'Role xuất hiện nhiều nhất qua các bài làm.')}
+                      </p>
+                    </div>
+
                     <div
+                      className="bento-hero-icon-emblem"
                       style={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: '50%',
-                        backgroundColor: '#EFF6FF',
-                        color: '#2563EB',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        backgroundColor: dominantRoleConfig.bg,
+                        color: dominantRoleConfig.color,
+                        border: `1.5px solid ${dominantRoleConfig.color}35`,
+                        boxShadow: `0 8px 24px -4px ${dominantRoleConfig.color}25`,
                       }}
                     >
-                      <Icon icon="mdi:pencil-outline" width={22} height={22} />
+                      <Icon icon={dominantRoleConfig.icon} width={34} height={34} />
                     </div>
                   </div>
 
-                  <div>
-                    <div style={{ fontSize: 16, fontWeight: 700, color: '#0F172A' }}>
-                      {t('history.total_runs', 'Tổng lượt trải nghiệm')}
-                    </div>
-                    <div style={{ fontSize: 13, color: '#64748B', marginTop: 2 }}>
-                      {t('history.total_runs_sub', 'Số lần đã làm simulator')}
-                    </div>
+                  {/* Archetype Distribution Strip */}
+                  <div className="bento-role-distribution">
+                    {['builder', 'explorer', 'operator', 'connector', 'communicator'].map(
+                      (roleKey) => {
+                        const count = roleCounts[roleKey] || 0
+                        const rc = getRoleConfig(roleKey)
+                        return (
+                          <div
+                            key={roleKey}
+                            className="bento-role-pill"
+                            style={{
+                              borderColor:
+                                roleKey === dominantRoleKey ? rc.color : 'var(--border-light)',
+                              backgroundColor:
+                                roleKey === dominantRoleKey ? rc.bg : 'var(--surface-light)',
+                            }}
+                          >
+                            <span
+                              style={{
+                                width: 8,
+                                height: 8,
+                                borderRadius: '50%',
+                                backgroundColor: rc.color,
+                                flexShrink: 0,
+                              }}
+                            />
+                            <span style={{ fontWeight: 700, color: rc.color }}>
+                              {t(`roles.${roleKey}.name`, rc.name)}
+                            </span>
+                            <span style={{ color: 'var(--ink-muted)', fontSize: 11 }}>{count}</span>
+                          </div>
+                        )
+                      },
+                    )}
                   </div>
                 </div>
 
-                {/* Overview Card 2: Dominant Role */}
-                <div
-                  className="fade-up"
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    borderRadius: 20,
-                    border: '1px solid #E2E8F0',
-                    borderLeft: `4px solid ${dominantRoleConfig.color}`,
-                    padding: '22px 24px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    gap: 18,
-                    boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.03)',
-                  }}
-                >
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: 30,
-                        fontWeight: 800,
-                        color: dominantRoleConfig.color,
-                        fontFamily: 'var(--font-display)',
-                        lineHeight: 1,
-                        textTransform: 'capitalize',
-                      }}
-                    >
-                      {dominantRoleConfig.name}
+                {/* Bento Card 2: Quest Progress & Metrics */}
+                <div className="bento-dossier-card bento-stats-card">
+                  <div className="bento-stats-header">
+                    <span className="bento-tag">
+                      <Icon icon="mdi:compass-rose" width={16} />
+                      {t('history.quest_progress', 'Hành trình khám phá')}
                     </span>
-                    <div
-                      style={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: '50%',
-                        backgroundColor: dominantRoleConfig.bg,
-                        color: dominantRoleConfig.color,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <Icon icon="mdi:account-group-outline" width={22} height={22} />
-                    </div>
+                    <span className="bento-level-badge">
+                      Level {Math.max(1, Math.floor(totalExperiences / 2))}
+                    </span>
                   </div>
 
-                  <div>
-                    <div style={{ fontSize: 16, fontWeight: 700, color: '#0F172A' }}>
-                      {t('history.top_role', 'Vai trò nổi bật')}
+                  <div className="bento-stats-main">
+                    <div className="bento-stat-number-wrapper">
+                      <span className="bento-stat-huge-number">{totalExperiences}</span>
+                      <span className="bento-stat-unit">{t('history.runs_unit', 'lượt làm')}</span>
                     </div>
-                    <div style={{ fontSize: 13, color: '#64748B', marginTop: 2 }}>
-                      {t('history.top_role_sub', 'Role xuất hiện nhiều nhất')}
+                    <p className="bento-stat-subtext">
+                      {t(
+                        'history.total_runs_sub',
+                        'Số lần đã hoàn thành bài mô phỏng nghề nghiệp.',
+                      )}
+                    </p>
+                  </div>
+
+                  <div className="bento-stats-footer">
+                    <div className="bento-stat-footer-item">
+                      <Icon
+                        icon="mdi:clock-check-outline"
+                        width={18}
+                        style={{ color: 'var(--color-primary)' }}
+                      />
+                      <span>
+                        {filteredRuns.length} {t('history.filtered_count', 'lượt hiển thị')}
+                      </span>
+                    </div>
+                    <div className="bento-stat-footer-item">
+                      <Icon
+                        icon="mdi:shield-check-outline"
+                        width={18}
+                        style={{ color: 'var(--color-success, #059669)' }}
+                      />
+                      <span>{t('history.authenticated_data', 'Dữ liệu đã đồng bộ')}</span>
                     </div>
                   </div>
                 </div>
@@ -1361,7 +1364,7 @@ export default function HistoryScene() {
                     style={{
                       fontSize: 22,
                       fontWeight: 800,
-                      color: '#0F172A',
+                      color: 'var(--ink-main)',
                       margin: 0,
                       fontFamily: 'var(--font-display)',
                     }}
@@ -1369,6 +1372,7 @@ export default function HistoryScene() {
                     {t('history.list_title', 'Lịch sử làm bài')}
                   </h2>
                   <div
+                    className="history-compare-hint"
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -1376,12 +1380,12 @@ export default function HistoryScene() {
                       margin: '8px 0 0 0',
                       padding: '6px 14px',
                       borderRadius: 9999,
-                      backgroundColor: '#FEF3C7',
-                      border: '1px solid #FDE68A',
-                      color: '#92400E',
+                      backgroundColor: 'var(--surface-lavender)',
+                      border: '1px solid var(--border-purple)',
+                      color: 'var(--color-primary)',
                       fontSize: 13,
                       fontWeight: 600,
-                      boxShadow: '0 2px 6px rgba(245, 158, 11, 0.08)',
+                      boxShadow: '0 2px 6px rgba(132, 52, 151, 0.08)',
                       width: 'fit-content',
                     }}
                   >
@@ -1390,13 +1394,13 @@ export default function HistoryScene() {
                         width: 20,
                         height: 20,
                         borderRadius: '50%',
-                        backgroundColor: '#F59E0B',
+                        backgroundColor: 'var(--color-primary)',
                         color: '#FFFFFF',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         flexShrink: 0,
-                        boxShadow: '0 0 6px rgba(245, 158, 11, 0.45)',
+                        boxShadow: '0 0 6px rgba(132, 52, 151, 0.3)',
                       }}
                     >
                       <Icon icon="mdi:lightbulb-on" width={13} height={13} />
@@ -1417,15 +1421,18 @@ export default function HistoryScene() {
                     width: 40,
                     height: 40,
                     borderRadius: '50%',
-                    border: '1px solid #E2E8F0',
-                    backgroundColor: filterOpen ? '#F1F5F9' : '#FFFFFF',
-                    color: filterOpen ? '#843497' : '#475569',
+                    border: '1px solid var(--border-light)',
+                    backgroundColor: filterOpen
+                      ? 'var(--surface-lavender)'
+                      : 'var(--surface-light)',
+                    color: filterOpen ? 'var(--color-primary)' : 'var(--ink-secondary)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
                     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
-                    transition: 'all 0.15s ease',
+                    transition:
+                      'background-color 150ms ease, color 150ms ease, border-color 150ms ease',
                   }}
                 >
                   <Icon icon="mdi:tune" width={20} height={20} />
@@ -1439,15 +1446,15 @@ export default function HistoryScene() {
                   style={{
                     padding: '16px 20px',
                     borderRadius: 16,
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #E2E8F0',
+                    backgroundColor: 'var(--surface-light)',
+                    border: '1px solid var(--border-light)',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: 12,
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                    <span style={{ fontSize: 13, fontWeight: 700, color: '#475569' }}>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink-secondary)' }}>
                       {t('history.filter_by_role', 'Vai trò')}:
                     </span>
                     {['all', 'explorer', 'builder', 'operator', 'connector', 'communicator'].map(
@@ -1467,7 +1474,7 @@ export default function HistoryScene() {
                   </div>
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                    <span style={{ fontSize: 13, fontWeight: 700, color: '#475569' }}>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink-secondary)' }}>
                       {t('history.sort_label')}
                     </span>
                     {[
@@ -1494,9 +1501,9 @@ export default function HistoryScene() {
                   style={{
                     padding: '60px 30px',
                     textAlign: 'center',
-                    color: '#64748B',
-                    backgroundColor: '#FFFFFF',
-                    borderColor: '#E2E8F0',
+                    color: 'var(--ink-secondary)',
+                    backgroundColor: 'var(--surface-light)',
+                    borderColor: 'var(--border-light)',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -1516,6 +1523,7 @@ export default function HistoryScene() {
                 </div>
               ) : (
                 <div
+                  className="history-cards-grid"
                   style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))',
@@ -1539,6 +1547,7 @@ export default function HistoryScene() {
               {/* Pagination Controls */}
               {filteredRuns.length > 0 && (
                 <div
+                  className="history-pagination-wrapper"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -1548,7 +1557,10 @@ export default function HistoryScene() {
                     gap: 16,
                   }}
                 >
-                  <div style={{ fontSize: 14, color: '#64748B' }}>
+                  <div
+                    className="history-pagination-info"
+                    style={{ fontSize: 14, color: 'var(--ink-secondary)' }}
+                  >
                     {t('history.showing_results', {
                       from: historyFromCount,
                       to: historyToCount,
@@ -1577,7 +1589,7 @@ export default function HistoryScene() {
                 width: 28,
                 height: 28,
                 borderRadius: '50%',
-                backgroundColor: '#843497',
+                backgroundColor: 'var(--color-primary)',
                 color: '#FFFFFF',
                 display: 'flex',
                 alignItems: 'center',
@@ -1596,7 +1608,7 @@ export default function HistoryScene() {
                 style={{
                   fontSize: 13.5,
                   fontWeight: 700,
-                  color: '#0F172A',
+                  color: 'var(--ink-main)',
                   fontFamily: 'var(--font-display)',
                   whiteSpace: 'nowrap',
                 }}
@@ -1610,7 +1622,10 @@ export default function HistoryScene() {
                 className="compare-info-subtext"
                 style={{
                   fontSize: 11.5,
-                  color: selectedCompareRunIds.length === 2 ? '#843497' : '#64748B',
+                  color:
+                    selectedCompareRunIds.length === 2
+                      ? 'var(--color-primary)'
+                      : 'var(--ink-secondary)',
                   fontWeight: selectedCompareRunIds.length === 2 ? 600 : 500,
                   whiteSpace: 'nowrap',
                 }}
@@ -1629,14 +1644,14 @@ export default function HistoryScene() {
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: '#64748B',
+                color: 'var(--ink-secondary)',
                 fontSize: 13,
                 fontWeight: 600,
                 cursor: 'pointer',
                 padding: '6px 10px',
                 borderRadius: 8,
                 whiteSpace: 'nowrap',
-                transition: 'all 0.15s ease',
+                transition: 'color 150ms ease, background-color 150ms ease',
               }}
             >
               {t('common.cancel', 'Hủy')}
@@ -1656,16 +1671,7 @@ export default function HistoryScene() {
                 borderRadius: 9999,
                 fontWeight: 700,
                 fontSize: 13,
-                backgroundColor: selectedCompareRunIds.length === 2 ? '#843497' : '#F1F5F9',
-                color: selectedCompareRunIds.length === 2 ? '#FFFFFF' : '#94A3B8',
-                border: selectedCompareRunIds.length === 2 ? 'none' : '1px solid #E2E8F0',
-                cursor: selectedCompareRunIds.length === 2 ? 'pointer' : 'not-allowed',
                 whiteSpace: 'nowrap',
-                boxShadow:
-                  selectedCompareRunIds.length === 2
-                    ? '0 4px 14px rgba(132, 52, 151, 0.35)'
-                    : 'none',
-                transition: 'all 0.15s ease',
               }}
             >
               <Icon icon="mdi:compare-horizontal" width={16} height={16} />

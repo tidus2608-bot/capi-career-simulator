@@ -37,13 +37,12 @@ export default function AccordionSkills({ primarySkills = [] }) {
             margin: 0,
             fontSize: 'var(--text-xl)',
             fontWeight: 800,
-            color: '#A855F7',
-            whiteSpace: 'nowrap',
+            color: 'var(--color-primary)',
           }}
         >
           {t('report.training_accordion_title')}
         </h3>
-        <div style={{ flex: 1, height: '2px', backgroundColor: '#E9D5FF' }} />
+        <div style={{ flex: 1, height: '2px', backgroundColor: 'var(--border-purple)' }} />
       </div>
 
       {/* Accordions in responsive grid layout */}
@@ -57,13 +56,16 @@ export default function AccordionSkills({ primarySkills = [] }) {
 
           const isOpen = !!expandedStates[idx]
 
-          // Level styling matching mockup
+          // Level styling matching design system
           const isBeginner = sk.level === 'beginner'
           const lvlText = isBeginner
             ? t('report.training_level_beginner')
             : t('report.training_level_intermediate')
-          const lvlBg = isBeginner ? '#48BB78' : '#ECC94B'
-          const lvlColor = isBeginner ? '#FFFFFF' : '#1F2937'
+          const lvlBg = isBeginner ? 'var(--surface-subtle)' : 'var(--surface-lavender)'
+          const lvlBorder = isBeginner
+            ? '1px solid var(--border-light)'
+            : '1px solid var(--border-purple)'
+          const lvlColor = isBeginner ? 'var(--ink-secondary)' : 'var(--color-primary)'
 
           // Stretch the last item if total items is odd
           const isFullWidth = idx === primarySkills.length - 1 && primarySkills.length % 2 !== 0
@@ -73,19 +75,19 @@ export default function AccordionSkills({ primarySkills = [] }) {
               key={idx}
               className="accordion-skill-card"
               style={{
-                border: '1.5px solid #E9D5FF',
+                border: '1.5px solid var(--border-purple)',
                 borderRadius: '16px',
                 overflow: 'hidden',
                 gridColumn: isFullWidth ? '1 / span 2' : 'span 1',
                 height: 'fit-content',
-                backgroundColor: '#FFFFFF',
+                backgroundColor: 'var(--surface-light)',
               }}
             >
               {/* Solid Purple Accordion Header Button */}
               <button
                 onClick={() => toggleExpand(idx)}
                 style={{
-                  backgroundColor: '#8B2FA9',
+                  backgroundColor: 'var(--color-primary)',
                   padding: '16px 20px',
                   display: 'flex',
                   alignItems: 'center',
@@ -97,6 +99,7 @@ export default function AccordionSkills({ primarySkills = [] }) {
                   textAlign: 'left',
                   fontFamily: 'inherit',
                   color: '#FFFFFF',
+                  transition: 'background-color 150ms ease',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -120,7 +123,7 @@ export default function AccordionSkills({ primarySkills = [] }) {
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '12px',
-                    backgroundColor: '#FFFFFF',
+                    backgroundColor: 'var(--surface-light)',
                   }}
                 >
                   {/* Level row */}
@@ -131,12 +134,19 @@ export default function AccordionSkills({ primarySkills = [] }) {
                       alignItems: 'center',
                     }}
                   >
-                    <span style={{ fontSize: 'var(--text-sm)', fontWeight: 700, color: '#1F2937' }}>
+                    <span
+                      style={{
+                        fontSize: 'var(--text-sm)',
+                        fontWeight: 700,
+                        color: 'var(--ink-dark)',
+                      }}
+                    >
                       {t('report.training_level_label')}
                     </span>
                     <span
                       style={{
                         backgroundColor: lvlBg,
+                        border: lvlBorder,
                         color: lvlColor,
                         fontSize: 'var(--text-xs)',
                         fontWeight: 700,
@@ -165,19 +175,25 @@ export default function AccordionSkills({ primarySkills = [] }) {
                       style={{
                         fontSize: 'var(--text-sm)',
                         fontWeight: 700,
-                        color: '#1F2937',
+                        color: 'var(--ink-dark)',
                       }}
                     >
                       {t('report.training_why_rec')}
                     </span>
-                    <span style={{ fontSize: 'var(--text-sm)', color: '#475569', lineHeight: 1.5 }}>
+                    <span
+                      style={{
+                        fontSize: 'var(--text-sm)',
+                        color: 'var(--ink-secondary)',
+                        lineHeight: 1.5,
+                      }}
+                    >
                       {whyRec}
                     </span>
                     {skillArea && (
                       <span
                         style={{
                           fontSize: 'var(--text-xs)',
-                          color: '#64748B',
+                          color: 'var(--ink-muted)',
                           lineHeight: 1.4,
                           marginTop: '2px',
                         }}

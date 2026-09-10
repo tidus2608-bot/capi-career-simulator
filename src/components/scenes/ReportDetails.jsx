@@ -8,6 +8,7 @@ import { CAPI_ROLES } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import Button from '../Button.jsx'
 import FeedbackInvitationModal from './FeedbackInvitationModal.jsx'
+import FeedbackModal from './FeedbackModal.jsx'
 
 // Subcomponents
 import PowerBlock from '../report/PowerBlock.jsx'
@@ -16,15 +17,6 @@ import DevelopmentTimeline from '../report/DevelopmentTimeline.jsx'
 import AccordionSkills from '../report/AccordionSkills.jsx'
 import CareerMapTabs from '../report/CareerMapTabs.jsx'
 
-// Color map for role styles
-const ROLE_COLORS = {
-  explorer: '#7c5cff',
-  builder: '#00e5ff',
-  operator: '#ffb020',
-  connector: '#3ddc84',
-  communicator: '#ff2d7a',
-}
-
 export default function ReportDetails() {
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
@@ -32,6 +24,7 @@ export default function ReportDetails() {
   const { result, certCopy } = useOutletContext()
   const { selectedMission, savedRunId } = useWizard()
   const [showFeedbackModal, setShowFeedbackModal] = useState(false)
+  const [showSurveyModal, setShowSurveyModal] = useState(false)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -99,8 +92,7 @@ export default function ReportDetails() {
   const handleAcceptFeedback = () => {
     markPrompted()
     setShowFeedbackModal(false)
-    const runQuery = savedRunId ? `?run=${encodeURIComponent(savedRunId)}` : ''
-    window.open(`/feedback${runQuery}`, '_blank', 'noopener,noreferrer')
+    setShowSurveyModal(true)
   }
 
   if (!result || !certCopy) return null
@@ -129,7 +121,7 @@ export default function ReportDetails() {
   const primaryComboData = reportCatalog.combinationbank?.[primaryComboId] || {}
 
   // Lowest role for Step 2 Missing Piece
-  const sortedRoles = Object.keys(ROLE_COLORS).sort(
+  const sortedRoles = Object.keys(CAPI_ROLES).sort(
     (a, b) => (result.phase2?.[a] || 0) - (result.phase2?.[b] || 0),
   )
   const missingRoleKey = sortedRoles[0]
@@ -161,47 +153,81 @@ export default function ReportDetails() {
 
   return (
     <SceneShell light>
+      {/* Top Ambient Glow */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '100%',
+          maxWidth: 1200,
+          height: 480,
+          background:
+            'radial-gradient(ellipse 65% 55% at 50% 12%, rgba(132, 52, 151, 0.09) 0%, rgba(2, 132, 199, 0.04) 50%, transparent 80%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
+
       {/* Main Report Container */}
-      <div className="print-container report-details-container">
+      <div
+        className="print-container report-details-container"
+        style={{ position: 'relative', zIndex: 1 }}
+      >
         {/* Title Block 1 */}
         <div className="report-details-header">
           <div>
             <h1 className="report-details-title">{t('report.details_title_main')}</h1>
-            <span
+            <div
               style={{
-                fontSize: '13px',
-                fontWeight: 600,
-                color: '#7E22CE',
-                textTransform: 'uppercase',
-                letterSpacing: '1px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                marginTop: '4px',
               }}
             >
-              Capi-Gene Decoding Report
-            </span>
+              <span
+                style={{
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  backgroundColor: 'var(--color-primary)',
+                  boxShadow: '0 0 8px var(--color-primary)',
+                }}
+              />
+              <span
+                style={{
+                  fontSize: '12px',
+                  fontFamily: 'var(--font-mono, monospace)',
+                  fontWeight: 700,
+                  color: 'var(--color-primary)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                }}
+              >
+                CAPI-GENE DECODING REPORT • DEEP ANALYSIS
+              </span>
+            </div>
           </div>
 
           <div>
             <Button
-              variant="solid"
-              active
+              variant="outline"
               className="no-print"
               onClick={handlePrint}
               style={{
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                width: 'fit-content',
-                padding: '10px 18px',
-                borderRadius: '12px',
-                backgroundColor: '#8B2FA9',
-                color: '#FFFFFF',
-                fontWeight: 600,
+                width: 'auto',
+                padding: '8px 18px',
                 fontSize: '14px',
-                cursor: 'pointer',
-                border: 'none',
+                fontWeight: 600,
+                borderRadius: '10px',
               }}
             >
-              <Icon icon="mdi:printer" width={18} height={18} />
+              <Icon icon="mdi:download-outline" width={18} height={18} />
               <span>{t('report.btn_pdf')}</span>
             </Button>
           </div>
@@ -278,19 +304,9 @@ export default function ReportDetails() {
             }}
             style={{
               flex: 1,
-              minWidth: '240px',
+              minWidth: '200px',
               height: '48px',
-              borderRadius: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
               gap: '8px',
-              fontSize: '16px',
-              fontWeight: 600,
-              cursor: 'pointer',
-              border: '1.5px solid #8B2FA9',
-              color: '#8B2FA9',
-              backgroundColor: '#FFFFFF',
             }}
           >
             <Icon icon="mdi:arrow-left" width={18} height={18} />
@@ -298,31 +314,38 @@ export default function ReportDetails() {
           </Button>
 
           <Button
+            variant="outline"
+            onClick={() => {
+              capiAudio.sfx('click')
+              setShowSurveyModal(true)
+            }}
+            style={{
+              flex: 1,
+              minWidth: '200px',
+              height: '48px',
+              gap: '8px',
+            }}
+          >
+            <Icon icon="mdi:comment-quote-outline" width={18} height={18} />
+            <span>{t('report.btn_feedback')}</span>
+          </Button>
+
+          <Button
             variant="solid"
             active
             onClick={() => {
               capiAudio.sfx('click')
-              navigate('/history')
+              navigate('/')
             }}
             style={{
               flex: 1,
-              minWidth: '240px',
+              minWidth: '200px',
               height: '48px',
-              borderRadius: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
               gap: '8px',
-              fontSize: '16px',
-              fontWeight: 600,
-              cursor: 'pointer',
-              backgroundColor: '#8B2FA9',
-              color: '#FFFFFF',
-              border: 'none',
             }}
           >
-            <Icon icon="mdi:history" width={18} height={18} />
-            <span>{t('report.btn_past_runs_history')}</span>
+            <Icon icon="mdi:home-outline" width={18} height={18} />
+            <span>{t('report.btn_home')}</span>
           </Button>
         </div>
       </div>
@@ -331,6 +354,12 @@ export default function ReportDetails() {
         isOpen={showFeedbackModal}
         onClose={handleCloseFeedbackModal}
         onAccept={handleAcceptFeedback}
+      />
+
+      <FeedbackModal
+        isOpen={showSurveyModal}
+        onClose={() => setShowSurveyModal(false)}
+        runId={savedRunId}
       />
     </SceneShell>
   )
