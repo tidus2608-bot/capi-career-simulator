@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react'
 import SceneShell from './SceneShell.jsx'
 import Button from '../Button.jsx'
 import SummaryRadar from '../SummaryRadar.jsx'
+import UserAvatar from '../UserAvatar.jsx'
 import { CAPI_ROLES, getRoleConfig } from '../../data.js'
 import { supabase } from '../../lib/supabase.js'
 import { formatDateTime } from '../../lib/format.js'
@@ -602,37 +603,29 @@ export default function CompareResultsScene() {
             </p>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            {userAvatar ? (
-              <img
-                src={userAvatar}
-                alt={user?.email || 'User'}
-                style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: '50%',
-                  objectFit: 'cover',
-                  border: '2px solid #E2E8F0',
-                }}
-              />
-            ) : (
-              <div
-                style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: '50%',
-                  backgroundColor: '#F1F5F9',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#64748B',
-                  border: '2px solid #E2E8F0',
-                }}
-              >
-                <Icon icon="mdi:account" width={26} height={26} />
-              </div>
-            )}
-          </div>
+            <UserAvatar
+              src={userAvatar}
+              alt={user?.email || 'User'}
+              style={{
+                width: 48,
+                height: 48,
+                borderRadius: '50%',
+                objectFit: 'cover',
+                border: '2px solid #E2E8F0',
+              }}
+              fallbackStyle={{
+                width: 48,
+                height: 48,
+                borderRadius: '50%',
+                backgroundColor: '#F1F5F9',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#64748B',
+                border: '2px solid #E2E8F0',
+              }}
+              iconSize={26}
+            />
         </div>
 
         {/* Breadcrumbs Navigation */}

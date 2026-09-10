@@ -263,4 +263,32 @@ describe('HeaderControls', () => {
     expect(mockOnRestart).toHaveBeenCalledTimes(1)
     expect(mockNavigate).toHaveBeenCalledWith('/')
   })
+
+  it('gracefully falls back to account icon when avatar image fails to load', () => {
+    mockUser = {
+      id: 'test-user-broken-avatar',
+      email: 'alex@example.com',
+      user_metadata: {
+        full_name: 'Alex Capi',
+        avatar_url: 'https://lh3.googleusercontent.com/broken-avatar.jpg',
+      },
+    }
+
+    render(
+      <MemoryRouter>
+        <HeaderControls muted={false} toggleMute={vi.fn()} />
+      </MemoryRouter>,
+    )
+
+    const avatarImg = document.querySelector('.intro-nav-user-avatar')
+    expect(avatarImg).toBeInTheDocument()
+    expect(avatarImg).toHaveAttribute('referrerpolicy', 'no-referrer')
+
+    // Simulate network error
+    fireEvent.error(avatarImg)
+
+    // Avatar image is replaced by fallback icon
+    expect(document.querySelector('.intro-nav-user-avatar')).toBeNull()
+    expect(document.querySelector('.intro-nav-user-avatar-fallback')).toBeInTheDocument()
+  })
 })

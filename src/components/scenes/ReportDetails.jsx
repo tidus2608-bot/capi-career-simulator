@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '@iconify/react'
@@ -25,6 +25,7 @@ export default function ReportDetails() {
   const { selectedMission, savedRunId } = useWizard()
   const [showFeedbackModal, setShowFeedbackModal] = useState(false)
   const [showSurveyModal, setShowSurveyModal] = useState(false)
+  const containerRef = useRef(null)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -49,27 +50,23 @@ export default function ReportDetails() {
 
     if (alreadyPrompted) return
 
-    const handleScroll = () => {
-      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop
-      const windowHeight = window.innerHeight
-      const docHeight = Math.max(
-        document.body.scrollHeight,
-        document.documentElement.scrollHeight,
-        document.body.offsetHeight,
-        document.documentElement.offsetHeight,
-      )
+    const scroller = containerRef.current?.closest('.scene-shell')
+    if (!scroller) return
 
-      if (scrollY + windowHeight >= docHeight - 200) {
+    const handleScroll = () => {
+      if (
+        scroller.scrollTop > 200 &&
+        scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 250
+      ) {
         setShowFeedbackModal(true)
-        window.removeEventListener('scroll', handleScroll)
+        scroller.removeEventListener('scroll', handleScroll)
       }
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
+    scroller.addEventListener('scroll', handleScroll, { passive: true })
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
+      scroller.removeEventListener('scroll', handleScroll)
     }
   }, [navigate, savedRunId])
 
@@ -172,6 +169,7 @@ export default function ReportDetails() {
 
       {/* Main Report Container */}
       <div
+        ref={containerRef}
         className="print-container report-details-container"
         style={{ position: 'relative', zIndex: 1 }}
       >

@@ -22,6 +22,9 @@ export default defineConfig({
           ) {
             return 'data-missions'
           }
+          if (id.includes('src/lib/i18n/locales/')) {
+            return 'i18n-locales'
+          }
         },
       },
     },
