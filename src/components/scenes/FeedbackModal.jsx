@@ -211,8 +211,11 @@ function FeedbackModalContent({ onClose, runId }) {
         void e
       }
 
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+      const validRunId = typeof runId === 'string' && uuidRegex.test(runId) ? runId : null
+
       const row = {
-        run_id: runId,
+        run_id: validRunId,
         user_id: userId,
         answers: answers,
         consent_given: true,

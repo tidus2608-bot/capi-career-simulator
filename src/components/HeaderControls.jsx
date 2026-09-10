@@ -6,6 +6,7 @@ import { capiAudio } from '../audio.js'
 import LanguageSwitch from './LanguageSwitch.jsx'
 import Button from './Button.jsx'
 import Modal from './Modal.jsx'
+import UserAvatar from './UserAvatar.jsx'
 import { useWizard } from '../contexts/WizardContext.jsx'
 import { supabase } from '../lib/supabase.js'
 
@@ -181,7 +182,13 @@ export default function HeaderControls({ muted, toggleMute }) {
           }}
           title={t('common.back_to_home', 'Về trang chủ')}
         >
-          <img src="/illos/logo.webp" alt="" className="intro-navbar-logo" />
+          <img
+            src="/illos/logo.webp"
+            alt=""
+            width="30"
+            height="30"
+            className="intro-navbar-logo"
+          />
           <span className="intro-navbar-title">Capi Career</span>
         </div>
 
@@ -200,20 +207,13 @@ export default function HeaderControls({ muted, toggleMute }) {
                   setAccountMenuOpen((prev) => !prev)
                 }}
               >
-                {avatarUrl ? (
-                  <img
-                    src={avatarUrl}
-                    alt=""
-                    className="intro-nav-user-avatar"
-                    onError={(e) => {
-                      if (e?.currentTarget) e.currentTarget.style.display = 'none'
-                    }}
-                  />
-                ) : (
-                  <div className="intro-nav-user-avatar-fallback">
-                    <Icon icon="mdi:account" width={18} height={18} />
-                  </div>
-                )}
+                <UserAvatar
+                  src={avatarUrl}
+                  alt=""
+                  className="intro-nav-user-avatar"
+                  fallbackClassName="intro-nav-user-avatar-fallback"
+                  iconSize={18}
+                />
                 <span className="intro-nav-user-name">{displayName}</span>
                 <Icon
                   icon="mdi:chevron-down"
@@ -297,7 +297,13 @@ export default function HeaderControls({ muted, toggleMute }) {
           <div className="intro-drawer-dialog">
             <div className="intro-drawer-header">
               <div className="intro-drawer-brand">
-                <img src="/illos/logo.webp" alt="" className="intro-drawer-logo" />
+                <img
+                  src="/illos/logo.webp"
+                  alt=""
+                  width="32"
+                  height="32"
+                  className="intro-drawer-logo"
+                />
                 <span className="intro-drawer-title">Capi Career</span>
               </div>
               <button
@@ -312,13 +318,13 @@ export default function HeaderControls({ muted, toggleMute }) {
 
             {user && (
               <div className="intro-drawer-user-card">
-                {avatarUrl ? (
-                  <img src={avatarUrl} alt="" className="intro-drawer-avatar" />
-                ) : (
-                  <div className="intro-drawer-avatar-fallback">
-                    <Icon icon="mdi:account" width={20} height={20} />
-                  </div>
-                )}
+                <UserAvatar
+                  src={avatarUrl}
+                  alt=""
+                  className="intro-drawer-avatar"
+                  fallbackClassName="intro-drawer-avatar-fallback"
+                  iconSize={20}
+                />
                 <div className="intro-drawer-user-details">
                   <span className="intro-drawer-user-name">{displayName}</span>
                   {user.email && <span className="intro-drawer-user-email">{user.email}</span>}
