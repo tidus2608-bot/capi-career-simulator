@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react'
+import React, { lazy } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import './lib/i18n/index.js'
@@ -20,7 +20,6 @@ const ReportLoading = lazy(() => import('./components/scenes/ReportLoading.jsx')
 const ReportSummary = lazy(() => import('./components/scenes/ReportSummary.jsx'))
 const ReportDetails = lazy(() => import('./components/scenes/ReportDetails.jsx'))
 const HistoryScene = lazy(() => import('./components/scenes/History.jsx'))
-const FeedbackScene = lazy(() => import('./components/scenes/FeedbackScene.jsx'))
 const CompareResultsScene = lazy(() => import('./components/scenes/CompareResults.jsx'))
 const CreditsScene = lazy(() => import('./components/scenes/Credits.jsx'))
 
@@ -54,24 +53,7 @@ const router = createBrowserRouter([
       { path: 'history', element: <HistoryScene /> },
       { path: 'history/compare', element: <CompareResultsScene /> },
       { path: 'compare', element: <CompareResultsScene /> },
-      { path: 'feedback', element: <FeedbackScene /> },
     ],
-  },
-  {
-    path: '/feedback',
-    element: (
-      <Suspense
-        fallback={
-          <div
-            style={{ display: 'grid', placeItems: 'center', minHeight: '100dvh', width: '100%' }}
-          >
-            <div className="capi-loading-spinner" />
-          </div>
-        }
-      >
-        <FeedbackScene />
-      </Suspense>
-    ),
   },
 ])
 

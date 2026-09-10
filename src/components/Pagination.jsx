@@ -2,17 +2,34 @@ import React from 'react'
 import { Icon } from '@iconify/react'
 
 /**
+ * Calculates responsive pagination items with ellipsis when total > 5.
+ * Always produces at most 5 items for a compact, mobile-friendly layout.
+ */
+function getPaginationItems(current, total) {
+  if (total <= 5) {
+    return Array.from({ length: total }, (_, i) => i + 1)
+  }
+  if (current <= 3) {
+    return [1, 2, 3, 'ellipsis-end', total]
+  }
+  if (current >= total - 2) {
+    return [1, 'ellipsis-start', total - 2, total - 1, total]
+  }
+  return [1, 'ellipsis-start', current, 'ellipsis-end', total]
+}
+
+/**
  * Shared Pagination component.
  */
 export default function Pagination({ current = 1, total = 1, onChange, className = '' }) {
   if (total <= 1) return null
 
   const validCurrent = Math.min(Math.max(1, current), total)
+  const pageItems = getPaginationItems(validCurrent, total)
 
   return (
     <div
-      className={className}
-      style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+      className={`pagination-container ${className}`.trim()}
       role="navigation"
       aria-label="Pagination"
     >
@@ -22,20 +39,7 @@ export default function Pagination({ current = 1, total = 1, onChange, className
         onClick={() => onChange(1)}
         disabled={validCurrent === 1}
         aria-label="First page"
-        style={{
-          width: 36,
-          height: 36,
-          borderRadius: '50%',
-          backgroundColor: '#475569',
-          color: '#FFFFFF',
-          border: 'none',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: validCurrent === 1 ? 'not-allowed' : 'pointer',
-          opacity: validCurrent === 1 ? 0.35 : 1,
-          transition: 'all 0.15s ease',
-        }}
+        className="pagination-nav-btn pagination-nav-btn--first"
       >
         <Icon icon="mdi:chevron-double-left" width={18} height={18} />
       </button>
@@ -46,47 +50,35 @@ export default function Pagination({ current = 1, total = 1, onChange, className
         onClick={() => onChange(Math.max(1, validCurrent - 1))}
         disabled={validCurrent === 1}
         aria-label="Previous page"
-        style={{
-          width: 36,
-          height: 36,
-          borderRadius: '50%',
-          backgroundColor: '#475569',
-          color: '#FFFFFF',
-          border: 'none',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: validCurrent === 1 ? 'not-allowed' : 'pointer',
-          opacity: validCurrent === 1 ? 0.35 : 1,
-          transition: 'all 0.15s ease',
-        }}
+        className="pagination-nav-btn pagination-nav-btn--prev"
       >
         <Icon icon="mdi:chevron-left" width={18} height={18} />
       </button>
 
-      {/* Page Numbers */}
-      {Array.from({ length: total }, (_, i) => i + 1).map((pageNum) => {
-        const isActive = validCurrent === pageNum
+      {/* Page Numbers & Ellipses */}
+      {pageItems.map((item, idx) => {
+        if (typeof item === 'string') {
+          return (
+            <span
+              key={`ellipsis-${item}-${idx}`}
+              className="pagination-ellipsis"
+              aria-hidden="true"
+            >
+              …
+            </span>
+          )
+        }
+
+        const isActive = validCurrent === item
         return (
           <button
-            key={pageNum}
+            key={item}
             type="button"
-            onClick={() => onChange(pageNum)}
+            onClick={() => onChange(item)}
             aria-current={isActive ? 'page' : undefined}
-            style={{
-              minWidth: 32,
-              height: 32,
-              padding: '0 4px',
-              fontSize: 14,
-              fontWeight: isActive ? 800 : 500,
-              color: isActive ? '#843497' : '#64748B',
-              backgroundColor: 'transparent',
-              border: 'none',
-              cursor: 'pointer',
-              borderRadius: 6,
-            }}
+            className={`pagination-page-btn ${isActive ? 'is-active' : ''}`}
           >
-            {String(pageNum).padStart(2, '0')}
+            {String(item).padStart(2, '0')}
           </button>
         )
       })}
@@ -97,20 +89,7 @@ export default function Pagination({ current = 1, total = 1, onChange, className
         onClick={() => onChange(Math.min(total, validCurrent + 1))}
         disabled={validCurrent === total}
         aria-label="Next page"
-        style={{
-          width: 36,
-          height: 36,
-          borderRadius: '50%',
-          backgroundColor: '#843497',
-          color: '#FFFFFF',
-          border: 'none',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: validCurrent === total ? 'not-allowed' : 'pointer',
-          opacity: validCurrent === total ? 0.35 : 1,
-          transition: 'all 0.15s ease',
-        }}
+        className="pagination-nav-btn pagination-nav-btn--next"
       >
         <Icon icon="mdi:chevron-right" width={18} height={18} />
       </button>
@@ -121,20 +100,7 @@ export default function Pagination({ current = 1, total = 1, onChange, className
         onClick={() => onChange(total)}
         disabled={validCurrent === total}
         aria-label="Last page"
-        style={{
-          width: 36,
-          height: 36,
-          borderRadius: '50%',
-          backgroundColor: '#843497',
-          color: '#FFFFFF',
-          border: 'none',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: validCurrent === total ? 'not-allowed' : 'pointer',
-          opacity: validCurrent === total ? 0.35 : 1,
-          transition: 'all 0.15s ease',
-        }}
+        className="pagination-nav-btn pagination-nav-btn--last"
       >
         <Icon icon="mdi:chevron-double-right" width={18} height={18} />
       </button>

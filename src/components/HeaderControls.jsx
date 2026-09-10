@@ -28,7 +28,6 @@ export default function HeaderControls({ muted, toggleMute }) {
     path !== '/credits' &&
     path !== '/history' &&
     !isCompare &&
-    path !== '/feedback' &&
     !path.startsWith('/certificate')
 
   const [showConfirmModal, setShowConfirmModal] = useState(false)

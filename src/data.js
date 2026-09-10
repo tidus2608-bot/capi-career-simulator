@@ -198,30 +198,12 @@ export const MISSION_ICONS = {
 // Numeric ID → mission object from missions.json
 export const CAPI_MISSIONS = Object.fromEntries(missionsData.missions.map((m) => [m.id, m]))
 
-// Mission background art variant
-export const MISSION_BG = {
-  1: 'river',
-  2: 'hospital',
-  3: 'home',
-  4: 'warehouse',
-  5: 'drone',
-  6: 'rescue',
-}
-
 // Phase 1 Likert questions (15) + confidence checks (2)
 export const PHASE1_QUESTIONS = missionsData.phase1.questions
 export const CONFIDENCE_CHECKS = missionsData.phase1.confidence_checks
 
 // Phase 3 reflection questions (1 per role)
 export const PHASE3_QUESTIONS = missionsData.phase3.questions
-
-// Score band helpers
-export function getScoreBand(score) {
-  return (
-    missionsData.score_bands.find((b) => score >= b.min && score <= b.max) ??
-    missionsData.score_bands[0]
-  )
-}
 
 // Top role from a { role: number } object
 export function topRole(scores) {

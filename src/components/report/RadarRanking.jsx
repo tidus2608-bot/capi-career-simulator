@@ -48,32 +48,37 @@ export default function RadarRanking({ isEn, result }) {
             gap: '14px',
           }}
         >
-          {[
-            { key: 'communicator', color: '#EAB308' },
-            { key: 'connector', color: '#F97316' },
-            { key: 'operator', color: '#3B82F6' },
-            { key: 'builder', color: '#00e5ff' },
-            { key: 'explorer', color: '#7c5cff' },
-          ]
-            .map((rc) => ({
-              ...rc,
-              nameEn: t(`roles.${rc.key}.name`, {
+          {Object.keys(CAPI_ROLES)
+            .map((k) => ({
+              key: k,
+              nameEn: t(`roles.${k}.name`, {
                 lng: 'en',
-                defaultValue: CAPI_ROLES[rc.key]?.name || rc.key,
+                defaultValue: CAPI_ROLES[k]?.name || k,
               }),
-              nameVn: t(`roles.${rc.key}.name`, {
+              nameVn: t(`roles.${k}.name`, {
                 lng: 'vi',
-                defaultValue: CAPI_ROLES[rc.key]?.nameVn || rc.key,
+                defaultValue: CAPI_ROLES[k]?.nameVn || k,
               }),
-              score: Math.round(result.phase2?.[rc.key] || 0),
+              score: Math.round(result.phase2?.[k] || 0),
             }))
             .sort((a, b) => b.score - a.score)
             .map((role, idx) => {
+              const isTop1 = idx === 0
+              const isTop2 = idx === 1
+              const progressColor = isTop1 ? 'var(--color-primary)' : isTop2 ? '#A855F7' : '#94A3B8'
+              const scoreColor = isTop1
+                ? 'var(--color-primary)'
+                : isTop2
+                  ? '#7E22CE'
+                  : 'var(--ink-secondary)'
+              const nameColor = isTop1 || isTop2 ? 'var(--ink-dark)' : 'var(--ink-secondary)'
+              const idxColor = isTop1 ? 'var(--color-primary)' : '#94A3B8'
+
               return (
                 <div key={role.key} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   {/* Ranking Index */}
                   <span
-                    style={{ fontSize: '14px', fontWeight: 800, color: '#94A3B8', width: '22px' }}
+                    style={{ fontSize: '14px', fontWeight: 800, color: idxColor, width: '22px' }}
                   >
                     {String(idx + 1).padStart(2, '0')}
                   </span>
@@ -88,10 +93,10 @@ export default function RadarRanking({ isEn, result }) {
                         fontSize: '13.5px',
                       }}
                     >
-                      <span style={{ fontWeight: 700, color: '#1E293B' }}>
+                      <span style={{ fontWeight: 700, color: nameColor }}>
                         {isEn ? role.nameEn : role.nameVn}
                       </span>
-                      <span style={{ fontWeight: 800, color: role.color }}>{role.score}%</span>
+                      <span style={{ fontWeight: 800, color: scoreColor }}>{role.score}%</span>
                     </div>
 
                     {/* Progress track */}
@@ -107,7 +112,7 @@ export default function RadarRanking({ isEn, result }) {
                         style={{
                           height: '100%',
                           width: `${role.score}%`,
-                          backgroundColor: role.color,
+                          backgroundColor: progressColor,
                           borderRadius: '9999px',
                         }}
                       />

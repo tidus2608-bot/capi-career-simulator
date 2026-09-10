@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Icon } from '@iconify/react'
 import { useTranslation } from 'react-i18next'
+import { getRoleConfig } from '../../data.js'
 
 const STANDARD_DOMAINS = [
   'Tech & Robotics',
@@ -10,99 +11,39 @@ const STANDARD_DOMAINS = [
 ]
 
 const ROLE_MAP_STYLES = {
-  explorer: {
-    borderTopColor: '#A855F7',
-    badgeBg: '#F3E8FF',
-    badgeColor: '#A855F7',
-    tagBg: '#F3E8FF',
-    tagColor: '#A855F7',
-    icon: 'mdi:magnify',
-  },
-  builder: {
-    borderTopColor: '#06B6D4',
-    badgeBg: '#ECFEFF',
-    badgeColor: '#0891B2',
-    tagBg: '#ECFEFF',
-    tagColor: '#0891B2',
-    icon: 'mdi:sitemap-outline',
-  },
-  operator: {
-    borderTopColor: '#3B82F6',
-    badgeBg: '#EFF6FF',
-    badgeColor: '#2563EB',
-    tagBg: '#EFF6FF',
-    tagColor: '#2563EB',
-    icon: 'mdi:cog-outline',
-  },
-  connector: {
-    borderTopColor: '#10B981',
-    badgeBg: '#ECFDF5',
-    badgeColor: '#059669',
-    tagBg: '#ECFDF5',
-    tagColor: '#059669',
-    icon: 'mdi:transit-connection-variant',
-  },
-  communicator: {
-    borderTopColor: '#F59E0B',
-    badgeBg: '#FEF3C7',
-    badgeColor: '#D97706',
-    tagBg: '#FEF3C7',
-    tagColor: '#D97706',
-    icon: 'mdi:megaphone-outline',
-  },
+  explorer: { icon: 'mdi:magnify' },
+  builder: { icon: 'mdi:sitemap-outline' },
+  operator: { icon: 'mdi:cog-outline' },
+  connector: { icon: 'mdi:transit-connection-variant' },
+  communicator: { icon: 'mdi:megaphone-outline' },
 }
 
 const CAREER_STYLE_OVERRIDES = {
   'product marketing specialist': {
-    borderTopColor: '#F59E0B',
-    badgeBg: '#FEF3C7',
-    badgeColor: '#D97706',
-    tagBg: '#FEF3C7',
-    tagColor: '#D97706',
     icon: 'mdi:megaphone-outline',
     tags: ['Marketing', 'Business', 'Communication'],
     bullets: ['Storytelling', 'Product Launch'],
     domain: 'Tech & Robotics',
   },
   'developer advocate': {
-    borderTopColor: '#06B6D4',
-    badgeBg: '#ECFEFF',
-    badgeColor: '#0891B2',
-    tagBg: '#ECFEFF',
-    tagColor: '#0891B2',
     icon: 'mdi:sitemap-outline',
     tags: ['Computer Science', 'Communication'],
     bullets: ['Community Support', 'Code & Blog'],
     domain: 'Tech & Robotics',
   },
   'technical writer': {
-    borderTopColor: '#3B82F6',
-    badgeBg: '#EFF6FF',
-    badgeColor: '#2563EB',
-    tagBg: '#EFF6FF',
-    tagColor: '#2563EB',
     icon: 'mdi:file-document-edit-outline',
     tags: ['Marketing', 'Business', 'Communication'],
     bullets: ['Technical Communication', 'Computer Science'],
     domain: 'Tech & Robotics',
   },
   'science communicator': {
-    borderTopColor: '#B45309',
-    badgeBg: '#FEF3C7',
-    badgeColor: '#B45309',
-    tagBg: '#FEF3C7',
-    tagColor: '#B45309',
     icon: 'mdi:flask-outline',
     tags: ['Education', 'Science Communication'],
     bullets: ['Public Speaking', 'Instructional Design'],
     domain: 'Tech & Robotics',
   },
   'ui/ux designer': {
-    borderTopColor: '#10B981',
-    badgeBg: '#ECFDF5',
-    badgeColor: '#059669',
-    tagBg: '#ECFDF5',
-    tagColor: '#059669',
     icon: 'mdi:brush-outline',
     tags: ['Design', 'Human-Computer Interaction'],
     bullets: ['Visual Design', 'User Research'],
@@ -186,27 +127,27 @@ export default function CareerMapTabs({ allCareers = [] }) {
 
   return (
     <section className="report-section print-card career-map-section">
-      {/* Header Row with Horizontal Line */}
+      {/* Header Row with Purple Line */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
         <h3
           style={{
             margin: 0,
             fontSize: 'var(--text-xl)',
             fontWeight: 800,
-            color: '#A855F7',
+            color: 'var(--color-primary)',
             whiteSpace: 'nowrap',
           }}
         >
           {t('report.career_map_title')}
         </h3>
-        <div style={{ flex: 1, height: '2px', backgroundColor: '#E9D5FF' }} />
+        <div style={{ flex: 1, height: '2px', backgroundColor: 'var(--border-purple)' }} />
       </div>
 
-      {/* Tabs Filter Bar Container styled exactly like screenshot */}
+      {/* Tabs Filter Bar Container */}
       <div
         className="no-print"
         style={{
-          backgroundColor: '#FAF5FF',
+          backgroundColor: 'var(--surface-lavender)',
           borderRadius: '12px',
           padding: '6px 8px',
           display: 'flex',
@@ -222,15 +163,15 @@ export default function CareerMapTabs({ allCareers = [] }) {
               key={dom}
               onClick={() => setActiveDomain(dom)}
               style={{
-                background: isActive ? '#9333EA' : 'transparent',
+                background: isActive ? 'var(--color-primary)' : 'transparent',
                 border: 'none',
-                color: isActive ? '#FFFFFF' : '#70707A',
+                color: isActive ? '#FFFFFF' : 'var(--ink-secondary)',
                 fontSize: 'var(--text-sm)',
                 fontWeight: isActive ? 700 : 600,
                 borderRadius: '8px',
                 padding: '8px 16px',
                 cursor: 'pointer',
-                transition: 'all 0.2s',
+                transition: 'background-color 150ms ease, color 150ms ease',
               }}
             >
               {dom}
@@ -286,47 +227,87 @@ export default function CareerMapTabs({ allCareers = [] }) {
                 key={idx}
                 className="career-map-card"
                 style={{
-                  border: '1.5px solid #E2E8F0',
-                  borderTop: `4px solid ${theme.borderTopColor}`,
+                  border: '1.5px solid var(--border-light)',
                   borderRadius: '16px',
                   padding: '24px',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '16px',
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: 'var(--surface-light)',
                   gridColumn: isFullWidth ? '1 / span 2' : 'span 1',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.01)',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.02)',
                 }}
               >
                 {/* Job Header */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div
-                    style={{
-                      backgroundColor: theme.badgeBg,
-                      color: theme.badgeColor,
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '8px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Icon icon={theme.icon} width={22} height={22} />
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <h4
+                {(() => {
+                  const roleConfig = getRoleConfig(job.role_id)
+                  return (
+                    <div
                       style={{
-                        margin: 0,
-                        fontSize: 'var(--text-md)',
-                        fontWeight: 800,
-                        color: '#1F2937',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: '12px',
                       }}
                     >
-                      {job.career}
-                    </h4>
-                  </div>
-                </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div
+                          style={{
+                            backgroundColor: roleConfig.bg,
+                            border: `1px solid ${roleConfig.color}30`,
+                            color: roleConfig.color,
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '10px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                          }}
+                        >
+                          <Icon
+                            icon={theme.icon || roleConfig.icon || 'mdi:briefcase-outline'}
+                            width={22}
+                            height={22}
+                          />
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                          <h4
+                            style={{
+                              margin: 0,
+                              fontSize: 'var(--text-md)',
+                              fontWeight: 800,
+                              color: 'var(--ink-dark)',
+                            }}
+                          >
+                            {job.career}
+                          </h4>
+                        </div>
+                      </div>
+
+                      {/* Role Badge Chip */}
+                      <span
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                          padding: '3px 9px',
+                          borderRadius: '6px',
+                          backgroundColor: roleConfig.bg,
+                          color: roleConfig.color,
+                          fontSize: '11px',
+                          fontWeight: 700,
+                          letterSpacing: '0.03em',
+                          border: `1px solid ${roleConfig.color}30`,
+                          flexShrink: 0,
+                        }}
+                      >
+                        <Icon icon={roleConfig.icon} width={13} height={13} />
+                        <span>{roleConfig.name}</span>
+                      </span>
+                    </div>
+                  )
+                })()}
 
                 {/* Skill Tag Chips */}
                 {tags.length > 0 && (
@@ -335,8 +316,8 @@ export default function CareerMapTabs({ allCareers = [] }) {
                       <span
                         key={tIdx}
                         style={{
-                          backgroundColor: theme.tagBg,
-                          color: theme.tagColor,
+                          backgroundColor: '#F1F5F9',
+                          color: '#334155',
                           borderRadius: '20px',
                           padding: '3px 10px',
                           fontSize: 'var(--text-xs)',
@@ -366,13 +347,15 @@ export default function CareerMapTabs({ allCareers = [] }) {
                         key={bIdx}
                         style={{
                           fontSize: 'var(--text-sm)',
-                          color: '#475569',
+                          color: 'var(--ink-secondary)',
                           position: 'relative',
                           paddingLeft: '12px',
                           lineHeight: 1.5,
                         }}
                       >
-                        <span style={{ position: 'absolute', left: 0, color: '#94A3B8' }}>•</span>
+                        <span style={{ position: 'absolute', left: 0, color: 'var(--ink-muted)' }}>
+                          •
+                        </span>
                         {b}
                       </li>
                     ))}
@@ -384,11 +367,13 @@ export default function CareerMapTabs({ allCareers = [] }) {
                   style={{
                     margin: 0,
                     fontSize: 'var(--text-sm)',
-                    color: '#475569',
+                    color: 'var(--ink-secondary)',
                     lineHeight: 1.5,
                   }}
                 >
-                  <strong style={{ color: '#475569' }}>{t('report.career_why_fit')}</strong>
+                  <strong style={{ color: 'var(--ink-secondary)' }}>
+                    {t('report.career_why_fit')}
+                  </strong>
                   {whyFitText}
                 </p>
 
@@ -403,7 +388,7 @@ export default function CareerMapTabs({ allCareers = [] }) {
                       lineHeight: 1.4,
                     }}
                   >
-                    <strong style={{ color: theme.badgeColor }}>Robotics: </strong>
+                    <strong style={{ color: 'var(--color-primary)' }}>Robotics: </strong>
                     {job.robotics_connection}
                   </div>
                 )}

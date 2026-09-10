@@ -120,7 +120,13 @@
     "ready_to_compare": "Sẵn sàng đối chiếu",
     "pick_one_more": "Chọn thêm 1 lượt nữa",
     "max_selection_warning_title": "Giới hạn lượt so sánh",
-    "max_selection_warning_desc": "Chỉ được phép chọn tối đa 2 lượt làm test."
+    "max_selection_warning_desc": "Chỉ được phép chọn tối đa 2 lượt làm test.",
+    "dominant_archetype": "Hình mẫu chủ đạo",
+    "quest_progress": "Hành trình khám phá",
+    "frequency": "tổng số lượt",
+    "runs_unit": "lượt làm",
+    "filtered_count": "lượt hiển thị",
+    "authenticated_data": "Dữ liệu đã đồng bộ"
   },
   "compare": {
     "title": "So sánh kết quả",

@@ -2,17 +2,9 @@ import React from 'react'
 import { Icon } from '@iconify/react'
 import { useTranslation, Trans } from 'react-i18next'
 import SummaryRadar from '../SummaryRadar.jsx'
-import { CAPI_ROLES } from '../../data.js'
+import { CAPI_ROLES, getRoleConfig } from '../../data.js'
 
-const BULLET_COLORS = ['#6366F1', '#10B981', '#F59E0B', '#EF4444', '#06B6D4']
-
-const ROLE_RANKING_CONFIG = [
-  { key: 'communicator', color: '#EAB308', textDark: true },
-  { key: 'connector', color: '#F97316' },
-  { key: 'explorer', color: '#22C55E' },
-  { key: 'builder', color: '#EF4444' },
-  { key: 'operator', color: '#3B82F6' },
-]
+const ROLE_KEYS = Object.keys(CAPI_ROLES)
 
 const parseBullets = (val) => {
   if (!val) return []
@@ -38,6 +30,9 @@ export default function PowerBlock({
   result,
 }) {
   const { t } = useTranslation()
+  const primaryRoleConfig = getRoleConfig(primaryRoleKey)
+  const secondaryRoleConfig = getRoleConfig(secondaryRoleKey)
+
   const [isMobile, setIsMobile] = React.useState(
     () => typeof window !== 'undefined' && window.innerWidth <= 768,
   )
@@ -81,7 +76,7 @@ export default function PowerBlock({
       i18nKey="report.secondary_title_template"
       values={{ name: comboName, tagline: comboTagline }}
       components={{
-        highlight: <span style={{ color: '#8B2FA9', fontWeight: 800 }} />,
+        highlight: <span style={{ color: 'var(--color-primary)', fontWeight: 800 }} />,
       }}
     />
   ) : (
@@ -89,7 +84,7 @@ export default function PowerBlock({
       i18nKey="report.primary_title_template"
       values={{ name: primaryName, tagline: primaryTagline }}
       components={{
-        highlight: <span style={{ color: '#8B2FA9', fontWeight: 800 }} />,
+        highlight: <span style={{ color: 'var(--color-primary)', fontWeight: 800 }} />,
       }}
     />
   )
@@ -100,28 +95,21 @@ export default function PowerBlock({
   let rankedRoles = []
   if (isSecondary) {
     // Put Primary first, Secondary second
-    const primaryItem = ROLE_RANKING_CONFIG.find((rc) => rc.key === primaryRoleKey)
-    const secondaryItem = ROLE_RANKING_CONFIG.find((rc) => rc.key === secondaryRoleKey)
-    const others = ROLE_RANKING_CONFIG.filter(
-      (rc) => rc.key !== primaryRoleKey && rc.key !== secondaryRoleKey,
-    )
+    const others = ROLE_KEYS.filter((k) => k !== primaryRoleKey && k !== secondaryRoleKey)
     const othersScored = others
-      .map((rc) => ({ ...rc, score: Math.round(result.phase2?.[rc.key] || 0) }))
+      .map((k) => ({ key: k, score: Math.round(result.phase2?.[k] || 0) }))
       .sort((a, b) => b.score - a.score)
 
     rankedRoles = [
-      primaryItem && { ...primaryItem, score: Math.round(result.phase2?.[primaryRoleKey] || 0) },
-      secondaryItem && {
-        ...secondaryItem,
-        score: Math.round(result.phase2?.[secondaryRoleKey] || 0),
-      },
+      { key: primaryRoleKey, score: Math.round(result.phase2?.[primaryRoleKey] || 0) },
+      { key: secondaryRoleKey, score: Math.round(result.phase2?.[secondaryRoleKey] || 0) },
       ...othersScored,
-    ].filter(Boolean)
+    ]
   } else {
     // Sort strictly by score descending
-    rankedRoles = ROLE_RANKING_CONFIG.map((rc) => ({
-      ...rc,
-      score: Math.round(result.phase2?.[rc.key] || 0),
+    rankedRoles = ROLE_KEYS.map((k) => ({
+      key: k,
+      score: Math.round(result.phase2?.[k] || 0),
     })).sort((a, b) => b.score - a.score)
   }
 
@@ -163,18 +151,60 @@ export default function PowerBlock({
   return (
     <section className="report-section print-card power-block-section">
       {/* 1. Top Banner (Hero Card) */}
-      <div className="power-block-banner">
+      <div
+        className="power-block-banner"
+        style={{
+          backgroundColor: isSecondary ? 'var(--surface-lavender)' : primaryRoleConfig.bg,
+          borderColor: isSecondary ? 'var(--border-purple)' : `${primaryRoleConfig.color}33`,
+          boxShadow: isSecondary
+            ? '0 4px 16px -2px rgba(132, 52, 151, 0.05)'
+            : `0 6px 20px -4px ${primaryRoleConfig.color}15`,
+        }}
+      >
         <div
           className="power-block-banner-text"
-          style={{ zIndex: 1, flex: 1, paddingRight: isMobile ? '0' : '120px' }}
+          style={{ zIndex: 1, flex: 1, paddingRight: isMobile ? '0' : '16px' }}
         >
+          {/* Archetype pill */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
+            <span
+              style={{
+                backgroundColor: isSecondary ? 'var(--surface-light)' : '#FFFFFF',
+                color: isSecondary ? 'var(--color-primary)' : primaryRoleConfig.color,
+                border: isSecondary
+                  ? '1px solid var(--border-purple)'
+                  : `1px solid ${primaryRoleConfig.color}40`,
+                fontSize: '11px',
+                fontWeight: 700,
+                borderRadius: '9999px',
+                padding: '3px 12px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 5,
+                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.03)',
+              }}
+            >
+              <Icon
+                icon={isSecondary ? 'mdi:transit-connection-variant' : primaryRoleConfig.icon}
+                width={13}
+                height={13}
+              />
+              <span>
+                {isSecondary
+                  ? t('report.combination_archetype', 'Bộ đôi kết hợp')
+                  : t('report.dominant_archetype', 'Hình mẫu chủ đạo')}
+              </span>
+            </span>
+          </div>
+
           <h2
             style={{
               fontSize: 'var(--text-xl)',
-              fontWeight: 700,
+              fontWeight: 800,
               margin: 0,
               lineHeight: 1.4,
-              color: '#1F2937',
+              color: 'var(--ink-dark)',
+              fontFamily: 'var(--font-display, sans-serif)',
             }}
           >
             {bannerTitle}
@@ -182,9 +212,9 @@ export default function PowerBlock({
 
           <p
             style={{
-              margin: '10px 0 0 0',
-              fontSize: 'var(--text-base)',
-              color: '#475569',
+              margin: '8px 0 0 0',
+              fontSize: 'var(--text-sm)',
+              color: 'var(--ink-secondary)',
               fontWeight: 500,
               lineHeight: 1.5,
             }}
@@ -193,21 +223,74 @@ export default function PowerBlock({
           </p>
         </div>
 
-        {/* Faint Medal Ribbon badge in background */}
+        {/* Archetype Emblem on Right */}
         {!isMobile && (
-          <Icon
-            icon="mdi:medal-outline"
-            width={92}
-            height={92}
+          <div
             style={{
-              color: '#E9D5FF',
-              opacity: 0.55,
-              position: 'absolute',
-              right: '24px',
-              top: '50%',
-              transform: 'translateY(-50%)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              flexShrink: 0,
+              marginLeft: 16,
             }}
-          />
+          >
+            {isSecondary ? (
+              <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: '14px',
+                    backgroundColor: '#FFFFFF',
+                    border: `1.5px solid ${primaryRoleConfig.color}40`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: primaryRoleConfig.color,
+                    boxShadow: `0 4px 14px ${primaryRoleConfig.color}20`,
+                    zIndex: 1,
+                  }}
+                >
+                  <Icon icon={primaryRoleConfig.icon} width={24} height={24} />
+                </div>
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: '14px',
+                    backgroundColor: '#FFFFFF',
+                    border: `1.5px solid ${secondaryRoleConfig.color}40`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: secondaryRoleConfig.color,
+                    boxShadow: `0 4px 14px ${secondaryRoleConfig.color}20`,
+                    marginLeft: -14,
+                    zIndex: 2,
+                  }}
+                >
+                  <Icon icon={secondaryRoleConfig.icon} width={24} height={24} />
+                </div>
+              </div>
+            ) : (
+              <div
+                style={{
+                  width: 54,
+                  height: 54,
+                  borderRadius: '16px',
+                  backgroundColor: '#FFFFFF',
+                  border: `1.5px solid ${primaryRoleConfig.color}40`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: primaryRoleConfig.color,
+                  boxShadow: `0 6px 18px ${primaryRoleConfig.color}22`,
+                }}
+              >
+                <Icon icon={primaryRoleConfig.icon} width={28} height={28} />
+              </div>
+            )}
+          </div>
         )}
       </div>
 
@@ -221,6 +304,7 @@ export default function PowerBlock({
         {/* Roles Ranked Bars Column */}
         <div className="power-block-ranks-col">
           {rankedRoles.map((role, idx) => {
+            const rc = getRoleConfig(role.key)
             const roleDisplayName = t(`roles.${role.key}.name`, {
               lng: lang,
               defaultValue: isEn
@@ -228,26 +312,113 @@ export default function PowerBlock({
                 : CAPI_ROLES[role.key]?.nameVn || role.key,
             })
 
+            const isTop1 = idx === 0
+            const isTop2 = idx === 1
+
             return (
               <div
                 key={role.key}
+                className="power-rank-bar"
                 style={{
-                  backgroundColor: role.color,
-                  color: role.textDark ? '#1F2937' : '#FFFFFF',
-                  borderRadius: '8px',
-                  padding: '10px 16px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  fontWeight: 700,
-                  fontSize: 'var(--text-sm)',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
+                  backgroundColor: isTop1
+                    ? 'var(--color-primary)'
+                    : isTop2
+                      ? 'var(--surface-lavender)'
+                      : 'var(--surface-light)',
+                  border: isTop1
+                    ? '1.5px solid var(--color-primary)'
+                    : isTop2
+                      ? '1.5px solid var(--color-primary-border)'
+                      : '1.5px solid var(--border-light)',
+                  color: isTop1 ? '#FFFFFF' : 'var(--ink-dark)',
+                  boxShadow: isTop1
+                    ? '0 4px 14px var(--color-primary-shadow)'
+                    : '0 2px 6px rgba(0, 0, 0, 0.02)',
                 }}
               >
-                <span>
-                  {String(idx + 1).padStart(2, '0')}. {roleDisplayName}
-                </span>
-                <span style={{ fontWeight: 800 }}>{role.score}%</span>
+                {/* Left side: Rank index, Role icon with color, Role name */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span
+                    style={{
+                      color: isTop1 ? 'rgba(255, 255, 255, 0.8)' : 'var(--ink-muted)',
+                      fontWeight: 800,
+                      fontSize: '12px',
+                      fontFamily: 'monospace',
+                    }}
+                  >
+                    {String(idx + 1).padStart(2, '0')}.
+                  </span>
+
+                  {/* Micro-accent archetype icon badge */}
+                  <div
+                    style={{
+                      width: 26,
+                      height: 26,
+                      borderRadius: '8px',
+                      backgroundColor: isTop1 ? 'rgba(255, 255, 255, 0.2)' : rc.bg,
+                      border: isTop1
+                        ? '1px solid rgba(255, 255, 255, 0.3)'
+                        : `1px solid ${rc.color}35`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: isTop1 ? '#FFFFFF' : rc.color,
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Icon icon={rc.icon} width={14} height={14} />
+                  </div>
+
+                  <span
+                    style={{
+                      fontWeight: 700,
+                      fontSize: '13.5px',
+                      color: isTop1
+                        ? '#FFFFFF'
+                        : isTop2
+                          ? 'var(--color-primary)'
+                          : 'var(--ink-dark)',
+                    }}
+                  >
+                    {roleDisplayName}
+                  </span>
+                </div>
+
+                {/* Right side: Micro progress bar & score */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div
+                    style={{
+                      width: 48,
+                      height: 5,
+                      borderRadius: 9999,
+                      backgroundColor: isTop1 ? 'rgba(255, 255, 255, 0.25)' : 'var(--border-light)',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: `${Math.min(role.score, 100)}%`,
+                        height: '100%',
+                        backgroundColor: isTop1 ? '#FFFFFF' : rc.color,
+                        borderRadius: 9999,
+                      }}
+                    />
+                  </div>
+                  <span
+                    style={{
+                      fontWeight: 800,
+                      fontSize: '13.5px',
+                      fontFamily: 'monospace',
+                      color: isTop1
+                        ? '#FFFFFF'
+                        : isTop2
+                          ? 'var(--color-primary)'
+                          : 'var(--ink-dark)',
+                    }}
+                  >
+                    {role.score}%
+                  </span>
+                </div>
               </div>
             )
           })}
@@ -267,8 +438,8 @@ export default function PowerBlock({
         <div
           className="power-block-subcard"
           style={{
-            backgroundColor: '#F8FAFC',
-            border: '1px solid #E2E8F0',
+            backgroundColor: 'var(--surface-subtle)',
+            border: '1px solid var(--border-light)',
             borderRadius: '16px',
             padding: isMobile ? '20px 16px' : '24px',
             display: 'flex',
@@ -276,7 +447,14 @@ export default function PowerBlock({
             gap: '14px',
           }}
         >
-          <h4 style={{ margin: 0, fontSize: 'var(--text-md)', fontWeight: 800, color: '#1F2937' }}>
+          <h4
+            style={{
+              margin: 0,
+              fontSize: 'var(--text-md)',
+              fontWeight: 800,
+              color: 'var(--ink-dark)',
+            }}
+          >
             {t('report.parent_notice_when')}
           </h4>
 
@@ -295,14 +473,23 @@ export default function PowerBlock({
                 key={idx}
                 style={{
                   fontSize: 'var(--text-sm)',
-                  fontWeight: 600,
-                  color: BULLET_COLORS[idx % BULLET_COLORS.length],
+                  fontWeight: 500,
+                  color: 'var(--ink-secondary)',
                   position: 'relative',
-                  paddingLeft: '14px',
-                  lineHeight: 1.5,
+                  paddingLeft: '16px',
+                  lineHeight: 1.6,
                 }}
               >
-                <span style={{ position: 'absolute', left: 0 }}>•</span>
+                <span
+                  style={{
+                    position: 'absolute',
+                    left: 0,
+                    color: 'var(--color-primary)',
+                    fontWeight: 700,
+                  }}
+                >
+                  •
+                </span>
                 {b}
               </li>
             ))}
@@ -312,7 +499,7 @@ export default function PowerBlock({
             style={{
               margin: '4px 0 0 0',
               fontSize: 'var(--text-xs)',
-              color: '#64748B',
+              color: 'var(--ink-muted)',
               fontStyle: 'italic',
             }}
           >
@@ -326,8 +513,8 @@ export default function PowerBlock({
         <div
           className="power-block-subcard"
           style={{
-            backgroundColor: '#F8FAFC',
-            border: '1px solid #E2E8F0',
+            backgroundColor: 'var(--surface-subtle)',
+            border: '1px solid var(--border-light)',
             borderRadius: '16px',
             padding: isMobile ? '20px 16px' : '24px',
             display: 'flex',
@@ -335,7 +522,14 @@ export default function PowerBlock({
             gap: '14px',
           }}
         >
-          <h4 style={{ margin: 0, fontSize: 'var(--text-md)', fontWeight: 800, color: '#1F2937' }}>
+          <h4
+            style={{
+              margin: 0,
+              fontSize: 'var(--text-md)',
+              fontWeight: 800,
+              color: 'var(--ink-dark)',
+            }}
+          >
             {t('report.child_shines_when')}
           </h4>
 
@@ -354,14 +548,23 @@ export default function PowerBlock({
                 key={idx}
                 style={{
                   fontSize: 'var(--text-sm)',
-                  fontWeight: 600,
-                  color: BULLET_COLORS[idx % BULLET_COLORS.length],
+                  fontWeight: 500,
+                  color: 'var(--ink-secondary)',
                   position: 'relative',
-                  paddingLeft: '14px',
-                  lineHeight: 1.5,
+                  paddingLeft: '16px',
+                  lineHeight: 1.6,
                 }}
               >
-                <span style={{ position: 'absolute', left: 0 }}>•</span>
+                <span
+                  style={{
+                    position: 'absolute',
+                    left: 0,
+                    color: 'var(--color-primary)',
+                    fontWeight: 700,
+                  }}
+                >
+                  •
+                </span>
                 {b}
               </li>
             ))}
@@ -373,8 +576,8 @@ export default function PowerBlock({
       <div
         className="power-block-environment"
         style={{
-          backgroundColor: '#FAF5FF',
-          border: '1px solid #E9D5FF',
+          backgroundColor: 'var(--surface-lavender)',
+          border: '1px solid var(--border-purple)',
           borderRadius: '14px',
           padding: '14px 20px',
           display: 'flex',
@@ -385,7 +588,7 @@ export default function PowerBlock({
       >
         <div
           style={{
-            backgroundColor: '#EBE6F3',
+            backgroundColor: 'var(--color-lavender-0)',
             width: '32px',
             height: '32px',
             borderRadius: '50%',
@@ -395,11 +598,11 @@ export default function PowerBlock({
             flexShrink: 0,
           }}
         >
-          <Icon icon="mdi:compass-rose" color="#70707A" width={18} height={18} />
+          <Icon icon="mdi:compass-rose" color="var(--color-primary)" width={18} height={18} />
         </div>
 
-        <div style={{ fontSize: 'var(--text-sm)', color: '#1F2937', lineHeight: 1.5 }}>
-          <strong style={{ color: '#8B2FA9', fontWeight: 700 }}>
+        <div style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-dark)', lineHeight: 1.5 }}>
+          <strong style={{ color: 'var(--color-primary)', fontWeight: 700 }}>
             {t('report.suitable_environment')}{' '}
           </strong>
           <span style={{ fontWeight: 600 }}>{formattedEnvironmentText}</span>

@@ -57,17 +57,15 @@ export default function DevelopmentTimeline({
           {/* Step 1: Activities to Try */}
           <div className="dev-timeline-step-card dev-timeline-step-1">
             <div className="dev-timeline-step-header">
-              <div className="dev-timeline-step-num dev-timeline-step-num--1">1</div>
-              <h4 className="dev-timeline-step-title dev-timeline-step-title--1">
-                {t('report.dev_step1_try')}
-              </h4>
+              <div className="dev-timeline-step-num">1</div>
+              <h4 className="dev-timeline-step-title">{t('report.dev_step1_try')}</h4>
             </div>
 
             <div className="dev-timeline-step-body">
               <ul className="dev-timeline-clean-list">
                 {primaryActivities.slice(0, 4).map((act, i) => (
                   <li key={i} className="dev-timeline-clean-item">
-                    <span className="dev-timeline-bullet dev-timeline-bullet--purple">✦</span>
+                    <span className="dev-timeline-bullet">✦</span>
                     <span className="dev-timeline-item-text">{act.activity_name}</span>
                   </li>
                 ))}
@@ -83,10 +81,8 @@ export default function DevelopmentTimeline({
           {/* Step 2: Areas to Strengthen */}
           <div className="dev-timeline-step-card dev-timeline-step-2">
             <div className="dev-timeline-step-header">
-              <div className="dev-timeline-step-num dev-timeline-step-num--2">2</div>
-              <h4 className="dev-timeline-step-title dev-timeline-step-title--2">
-                {t('report.dev_step2_balance')}
-              </h4>
+              <div className="dev-timeline-step-num">2</div>
+              <h4 className="dev-timeline-step-title">{t('report.dev_step2_balance')}</h4>
             </div>
 
             <div className="dev-timeline-step-body">
@@ -101,13 +97,13 @@ export default function DevelopmentTimeline({
                 {missingActivitiesList.length > 0 ? (
                   missingActivitiesList.map((act, i) => (
                     <li key={i} className="dev-timeline-clean-item">
-                      <span className="dev-timeline-bullet dev-timeline-bullet--pink">•</span>
+                      <span className="dev-timeline-bullet">•</span>
                       <span className="dev-timeline-item-text">{act}</span>
                     </li>
                   ))
                 ) : (
                   <li className="dev-timeline-clean-item">
-                    <span className="dev-timeline-bullet dev-timeline-bullet--pink">•</span>
+                    <span className="dev-timeline-bullet">•</span>
                     <span className="dev-timeline-item-text">
                       {missingPieceData?.copy || t('report.dev_balance_with')}
                     </span>
@@ -125,10 +121,8 @@ export default function DevelopmentTimeline({
           {/* Step 3: Recommended Skills */}
           <div className="dev-timeline-step-card dev-timeline-step-3">
             <div className="dev-timeline-step-header">
-              <div className="dev-timeline-step-num dev-timeline-step-num--3">3</div>
-              <h4 className="dev-timeline-step-title dev-timeline-step-title--3">
-                {t('report.dev_step3_skills')}
-              </h4>
+              <div className="dev-timeline-step-num">3</div>
+              <h4 className="dev-timeline-step-title">{t('report.dev_step3_skills')}</h4>
             </div>
 
             <div className="dev-timeline-step-body">
@@ -136,7 +130,7 @@ export default function DevelopmentTimeline({
                 {primarySkills.map((sk, i) => (
                   <li key={i} className="dev-timeline-clean-item dev-timeline-skill-item">
                     <div className="dev-timeline-skill-name-wrap">
-                      <span className="dev-timeline-bullet dev-timeline-bullet--cyan">✦</span>
+                      <span className="dev-timeline-bullet">✦</span>
                       <span className="dev-timeline-item-text">{sk.name}</span>
                     </div>
                     {sk.level && (

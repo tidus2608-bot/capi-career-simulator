@@ -9,6 +9,7 @@
     "card_growth": "Điểm cần lưu ý",
     "btn_restart": "Thử nhiệm vụ khác",
     "btn_back_to_home": "Trở về Trang chủ",
+    "dominant_archetype": "Hình mẫu chủ đạo",
     "cert_title": "Chứng nhận CAPI-GENE",
     "cert_subtitle": "Được giải mã bởi Viện Nghiên cứu Capi",
     "btn_details": "Xem chi tiết báo cáo",
@@ -34,9 +35,14 @@
     "suitable_environment": "Môi trường phù hợp: ",
     "radar_ranking_title": "Biểu đồ Phân tích năng lực & Bảng xếp hạng",
     "evidence_simulation_title": "Minh chứng từ Mô phỏng Lab",
+    "evidence_eyebrow": "NHẬT KÝ QUAN SÁT THỰC NGHIỆM • LAB OBSERVATION",
+    "evidence_subtitle": "Ghi nhận những quyết định và hành vi thực tế của con trong quá trình tương tác giải quyết tình huống mô phỏng.",
     "evidence_activity_record": "Nhật ký Hoạt động Mô phỏng",
-    "evidence_primary_role": "Role cốt lõi",
-    "evidence_secondary_role": "Role bổ trợ",
+    "evidence_primary_role": "Tín hiệu Chủ đạo",
+    "evidence_secondary_role": "Tín hiệu Bổ trợ",
+    "evidence_observed_action": "Hành vi quan sát được",
+    "evidence_mission_context": "Bối cảnh Thực nghiệm",
+    "evidence_verified_badge": "DỮ LIỆU ĐÃ XÁC THỰC",
     "dev_path_title": "Lộ trình Phát triển",
     "dev_step1_try": "Con có thể thử",
     "dev_step2_balance": "Mảnh ghép nên rèn thêm",
@@ -53,6 +59,8 @@
     "career_why_fit": "Lý do: ",
     "btn_back_to_summary": "Quay về tổng quát",
     "btn_past_runs_history": "Lịch sử làm bài",
+    "btn_home": "Trang chủ",
+    "btn_feedback": "Góp ý & Đánh giá",
     "data": {
       "evidence": [
         {

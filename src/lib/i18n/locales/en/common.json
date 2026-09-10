@@ -120,7 +120,13 @@
     "ready_to_compare": "Ready to compare",
     "pick_one_more": "Select 1 more attempt",
     "max_selection_warning_title": "Comparison Limit",
-    "max_selection_warning_desc": "You can only select up to 2 test runs."
+    "max_selection_warning_desc": "You can only select up to 2 test runs.",
+    "dominant_archetype": "Dominant Archetype",
+    "quest_progress": "Quest Progress",
+    "frequency": "of all runs",
+    "runs_unit": "runs",
+    "filtered_count": "runs displayed",
+    "authenticated_data": "Cloud synced"
   },
   "compare": {
     "title": "Compare Results",
