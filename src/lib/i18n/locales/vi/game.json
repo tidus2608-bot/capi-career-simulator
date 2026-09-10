@@ -6,7 +6,7 @@
     "title_prefix": "Hành trình",
     "title_suffix": "Tương lai",
     "subtitle": "CAPI CAREER PATH SIMULATOR",
-    "blurb": "Capi sẽ quét hệ thống tư duy của bạn qua 17 câu hỏi, dẫn bạn vào một nhiệm vụ mô phỏng thực chiến 20 câu, và giải mã <em>Capi-Gene</em> — mật mã nghề nghiệp của bạn.",
+    "blurb": "Capi sẽ quét hệ thống tư duy của bạn qua 15 câu hỏi, dẫn bạn vào một nhiệm vụ mô phỏng thực chiến 20 câu, và giải mã <em>Capi-Gene</em> — mật mã nghề nghiệp của bạn.",
     "auth_loading": "Đang kiểm tra đăng nhập...",
     "auth_signed_in": "Đã đăng nhập: {{name}}",
     "btn_start": "BẮT ĐẦU QUÉT",
@@ -128,18 +128,14 @@
     "Q30": "Tôi thường là người kết nối các bạn trong nhóm khi có bất đồng ý kiến.",
     "Q37": "Tôi tự tin trình bày ý tưởng của mình trước đám đông.",
     "Q38": "Tôi thích dùng hình ảnh, câu chuyện để giải thích một vấn đề phức tạp.",
-    "Q39": "Tôi thường chia sẻ những điều mình học được với bạn bè và người thân.",
-    "CONF1": "Tôi cảm thấy các câu trả lời trên phản ánh đúng con người thật của mình.",
-    "CONF2": "Tôi tin tưởng vào khả năng tự đánh giá của bản thân trong bài test này.",
-    "C1": "Tôi cảm thấy các câu trả lời trên phản ánh đúng con người thật của mình.",
-    "C2": "Tôi tin tưởng vào khả năng tự đánh giá của bản thân trong bài test này."
+    "Q39": "Tôi thường chia sẻ những điều mình học được với bạn bè và người thân."
   },
   "phase3_questions": {
     "explorer": "Tôi thấy mình phù hợp với vai trò Nhà Khám Phá (Explorer): thích tìm hiểu, phân tích và đặt câu hỏi.",
-    "builder": "Tôi thấy mình phù hợp với vai trò Kỹ Sư Chế Tạo (Builder): thích lắp ráp, chế tạo và thử nghiệm giải pháp thực tế.",
-    "operator": "Tôi thấy mình phù hợp với vai trò Vận Hành Viên (Operator): thích tối ưu hóa, đảm bảo quy trình và hệ thống hoạt động ổn định.",
+    "builder": "Tôi thấy mình phù hợp với vai trò Nhà Kiến Tạo (Builder): thích lắp ráp, chế tạo và thử nghiệm giải pháp thực tế.",
+    "operator": "Tôi thấy mình phù hợp với vai trò Nhà Vận Hành (Operator): thích tối ưu hóa, đảm bảo quy trình và hệ thống hoạt động ổn định.",
     "connector": "Tôi thấy mình phù hợp với vai trò Người Kết Nối (Connector): thích làm việc nhóm, kết nối mọi người và tạo sự đồng thuận.",
-    "communicator": "Tôi thấy mình phù hợp với vai trò Người Truyền Cảm Hứng (Communicator): thích chia sẻ, truyền đạt ý tưởng và truyền cảm hứng cho người khác."
+    "communicator": "Tôi thấy mình phù hợp với vai trò Người Truyền Đạt (Communicator): thích chia sẻ, truyền đạt ý tưởng và giúp người khác hiểu rõ vấn đề."
   },
   "likert_fit": {
     "1": "Hoàn toàn không phù hợp",

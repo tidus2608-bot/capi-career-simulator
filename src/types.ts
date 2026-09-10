@@ -17,14 +17,14 @@ export type ThemeId = 'ark-capi' | 'techno'
 
 export type MissionId = 1 | 2 | 3 | 4 | 5 | 6
 
-export type ProfileType = 'Hidden' | 'Aligned' | 'Emerging'
+export type ProfileType = 'Dominant' | 'Hybrid' | 'Hidden' | 'Aligned' | 'Emerging'
 
 export type LikertValue = 1 | 2 | 3 | 4 | 5
 export type OptionLabel = 'A' | 'B' | 'C'
 
 export interface Phase1Answers {
   selfPerception: Record<string, LikertValue>
-  confidence: Record<string, LikertValue>
+  confidence?: Record<string, LikertValue>
 }
 
 export type Phase2Answers = Record<number, OptionLabel>
@@ -46,7 +46,12 @@ export interface ScoringResult {
   learningGap: RoleScores
   primaryRole: Role
   secondaryRole: Role
-  confidenceFactor: number
+  topRole?: Role
+  secondRole?: Role
+  topRoles?: Role[]
+  secondRoles?: Role[]
+  gap?: number
+  confidenceFactor?: number
   profileType: ProfileType
   scoreBand: ScoreBand
 }
@@ -110,7 +115,7 @@ export interface RunRow {
     reality_gap: RoleScores
     learning_gap: RoleScores
   }
-  confidence_factor: number
+  confidence_factor?: number
   primary_role: Role
   secondary_role: Role
   profile_type: ProfileType

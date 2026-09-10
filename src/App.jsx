@@ -199,7 +199,6 @@ export default function AppLayout() {
                   Q38: 2,
                   Q39: 2,
                 },
-                confidence: { C1: 4, C2: 4 },
               })
               setPhase1TopRole('builder')
               navigate('/theme')
@@ -229,7 +228,6 @@ export default function AppLayout() {
                   Q38: 2,
                   Q39: 2,
                 },
-                confidence: { C1: 4, C2: 4 },
               }
               const ph2 = {
                 1: 'B',
@@ -285,7 +283,6 @@ export default function AppLayout() {
                   Q38: 2,
                   Q39: 2,
                 },
-                confidence: { C1: 4, C2: 4 },
               }
               const ph2 = {
                 1: 'B',
@@ -336,7 +333,6 @@ export default function AppLayout() {
                   reality_gap: r.realityGap,
                   learning_gap: r.learningGap,
                 },
-                confidence_factor: r.confidenceFactor,
                 primary_role: r.primaryRole,
                 secondary_role: r.secondaryRole,
                 profile_type: r.profileType,

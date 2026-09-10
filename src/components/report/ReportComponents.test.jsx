@@ -6,7 +6,6 @@ import EvidenceBlock from './EvidenceBlock.jsx'
 import DevelopmentTimeline from './DevelopmentTimeline.jsx'
 import CareerMapTabs from './CareerMapTabs.jsx'
 import AccordionSkills from './AccordionSkills.jsx'
-import RadarRanking from './RadarRanking.jsx'
 import viRoles from '../../lib/i18n/locales/vi/roles.json'
 
 describe('Report UI Components Suite', () => {
@@ -49,7 +48,6 @@ describe('Report UI Components Suite', () => {
       connector: -10,
       communicator: 0,
     },
-    confidenceFactor: 4.2,
     missionId: 1,
     theme: 'ark-capi',
   }
@@ -69,18 +67,6 @@ describe('Report UI Components Suite', () => {
   }
 
   const primaryRoleData = viRoles.roles.builder
-
-  it('renders RadarRanking component without errors', () => {
-    const { container } = render(
-      <RadarRanking
-        result={sampleResult}
-        isEn={false}
-        primaryRoleMeta={primaryRoleMeta}
-        secondaryRoleMeta={secondaryRoleMeta}
-      />,
-    )
-    expect(container.querySelector('.print-card')).toBeInTheDocument()
-  })
 
   it('renders PowerBlock component with primary role details', () => {
     render(

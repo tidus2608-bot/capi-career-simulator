@@ -6,7 +6,7 @@
     "title_prefix": "The",
     "title_suffix": "Journey",
     "subtitle": "CAPI CAREER PATH SIMULATOR",
-    "blurb": "Capi will scan your way of thinking through 17 quick questions, drop you into a 20-question simulation mission, and decode your <em>Capi-Gene</em> — your career signature.",
+    "blurb": "Capi will scan your way of thinking through 15 quick questions, drop you into a 20-question simulation mission, and decode your <em>Capi-Gene</em> — your career signature.",
     "auth_loading": "Checking sign-in...",
     "auth_signed_in": "Signed in: {{name}}",
     "btn_start": "START SCAN",
@@ -128,11 +128,7 @@
     "Q30": "I often act as the bridge between team members during disagreements.",
     "Q37": "I feel confident presenting my ideas in front of an audience.",
     "Q38": "I love using visual diagrams and stories to explain complex concepts.",
-    "Q39": "I frequently share what I learn with friends and family.",
-    "CONF1": "I feel the above answers accurately reflect who I truly am.",
-    "CONF2": "I am confident in my self-assessment throughout this evaluation.",
-    "C1": "I feel the above answers accurately reflect who I truly am.",
-    "C2": "I am confident in my self-assessment throughout this evaluation."
+    "Q39": "I frequently share what I learn with friends and family."
   },
   "phase3_questions": {
     "explorer": "I see myself fitting the Explorer role: curious, analytical, and questioning.",

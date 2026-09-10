@@ -5,7 +5,7 @@ import { Icon } from '@iconify/react'
 import { capiAudio } from '../../audio.js'
 import SceneShell from './SceneShell.jsx'
 
-export const CREDITS_TEAMS = [
+const CREDITS_TEAMS = [
   {
     id: 1,
     team: 'PRODUCT & LOGIC TEAM',
@@ -123,14 +123,6 @@ export const CREDITS_TEAMS = [
     ],
   },
 ]
-
-// Backwards compatibility alias
-export const CREDITS_TEAM = CREDITS_TEAMS.map((t) => ({
-  id: t.id,
-  team: t.team,
-  role: t.roles.map((r) => r.roleName).join(' / '),
-  members: t.roles.flatMap((r) => r.members),
-}))
 
 export default function CreditsScene() {
   const { t } = useTranslation()

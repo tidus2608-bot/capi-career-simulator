@@ -5,6 +5,10 @@ import { MemoryRouter } from 'react-router-dom'
 import HistoryScene from './History.jsx'
 import { WizardProvider } from '../../contexts/WizardContext.jsx'
 
+vi.mock('@iconify/react', () => ({
+  Icon: ({ icon, ...props }) => <span data-testid="icon" data-icon={icon} {...props} />,
+}))
+
 vi.mock('../../audio.js', () => ({
   capiAudio: {
     playBgm: vi.fn(),

@@ -80,7 +80,7 @@ export function sessionCookie(token: string, maxAge = 86400): string {
   return `admin_session=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${maxAge}`
 }
 
-export function getCookie(request: Request, name: string): string | null {
+function getCookie(request: Request, name: string): string | null {
   const cookie = request.headers.get('Cookie') || ''
   const prefix = `${name}=`
   const value = cookie

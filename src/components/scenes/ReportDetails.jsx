@@ -96,6 +96,7 @@ export default function ReportDetails() {
 
   const primaryRoleKey = result.primaryRole
   const secondaryRoleKey = result.secondaryRole
+  const isHybrid = result.profileType === 'Hybrid' || (result.gap !== undefined && result.gap < 8)
 
   const primaryRoleMeta = CAPI_ROLES[primaryRoleKey] || {
     nameVn: 'Nhà Khám Phá',
@@ -103,7 +104,7 @@ export default function ReportDetails() {
     color: '#7c5cff',
   }
   const secondaryRoleMeta = CAPI_ROLES[secondaryRoleKey] || {
-    nameVn: 'Kỹ Sư Chế Tạo',
+    nameVn: 'Nhà Kiến Tạo',
     name: 'Builder',
     color: '#00e5ff',
   }
@@ -117,9 +118,9 @@ export default function ReportDetails() {
 
   const primaryComboData = reportCatalog.combinationbank?.[primaryComboId] || {}
 
-  // Lowest role for Step 2 Missing Piece
+  // Lowest role for Step 2 Missing Piece (calculated from final score)
   const sortedRoles = Object.keys(CAPI_ROLES).sort(
-    (a, b) => (result.phase2?.[a] || 0) - (result.phase2?.[b] || 0),
+    (a, b) => ((result.final?.[a] ?? result.phase2?.[a]) || 0) - ((result.final?.[b] ?? result.phase2?.[b]) || 0),
   )
   const missingRoleKey = sortedRoles[0]
   const missingRoleMeta = CAPI_ROLES[missingRoleKey] || {}
@@ -231,23 +232,10 @@ export default function ReportDetails() {
           </div>
         </div>
 
-        {/* BLOCK 2-5: Primary Power Card & Radar Section */}
+        {/* BLOCK 2-6: Primary & Combination Power Card & Radar Section */}
         <PowerBlock
           isEn={isEn}
-          isSecondary={false}
-          primaryRoleKey={primaryRoleKey}
-          secondaryRoleKey={secondaryRoleKey}
-          primaryRoleMeta={primaryRoleMeta}
-          secondaryRoleMeta={secondaryRoleMeta}
-          primaryRoleData={primaryRoleData}
-          primaryComboData={primaryComboData}
-          result={result}
-        />
-
-        {/* BLOCK 6: Combination Power Card & Radar Section */}
-        <PowerBlock
-          isEn={isEn}
-          isSecondary={true}
+          isHybrid={isHybrid}
           primaryRoleKey={primaryRoleKey}
           secondaryRoleKey={secondaryRoleKey}
           primaryRoleMeta={primaryRoleMeta}

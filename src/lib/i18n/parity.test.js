@@ -105,11 +105,8 @@ describe('Poka-Yoke i18n Translation Parity Gate', () => {
   })
 
   describe('Assessment Matrix <-> i18n Catalog Coverage', () => {
-    it('should have translations for all Phase 1 questions and confidence checks in game.json', () => {
-      const allPhase1Ids = [
-        ...matrix.phase1.questions.map((q) => q.id),
-        ...matrix.phase1.confidence_checks.map((c) => c.id),
-      ]
+    it('should have translations for all Phase 1 questions in game.json', () => {
+      const allPhase1Ids = matrix.phase1.questions.map((q) => q.id)
 
       allPhase1Ids.forEach((id) => {
         expect(

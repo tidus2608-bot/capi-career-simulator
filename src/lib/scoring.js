@@ -5,14 +5,14 @@ import missionsData from '../data/assessment_matrix.json'
 
 const ROLES = ['explorer', 'builder', 'operator', 'connector', 'communicator']
 const FINAL_WEIGHTS = missionsData.weighted_final.weights
-const HIDDEN_REALITY_GAP_MIN = 15
-const EMERGING_LEARNING_GAP_MIN = 15
+const _HIDDEN_REALITY_GAP_MIN = 15
+const _EMERGING_LEARNING_GAP_MIN = 15
 
 function emptyScores() {
   return { explorer: 0, builder: 0, operator: 0, connector: 0, communicator: 0 }
 }
 
-export function getMission(missionId) {
+function getMission(missionId) {
   const m = missionsData.missions.find((m) => m.id === missionId)
   if (!m) throw new Error(`Mission ${missionId} not found`)
   return m
@@ -24,8 +24,9 @@ export function calculatePhase1(answers) {
   const phase1Questions = missionsData.phase1.questions
   const byRole = { explorer: [], builder: [], operator: [], connector: [], communicator: [] }
 
+  const selfPerception = answers?.selfPerception || answers || {}
   for (const q of phase1Questions) {
-    const ans = answers.selfPerception[q.id]
+    const ans = selfPerception[q.id]
     if (ans !== undefined) byRole[q.role].push(ans)
   }
 
@@ -38,19 +39,7 @@ export function calculatePhase1(answers) {
     }
   }
 
-  const confAnswers = Object.values(answers.confidence)
-  let confidenceFactor = 1.0
-  if (confAnswers.length > 0) {
-    const confAvg = confAnswers.reduce((a, b) => a + b, 0) / confAnswers.length
-    if (confAvg < 3) confidenceFactor = 0.7
-    else if (confAvg < 4) confidenceFactor = 0.9
-    else confidenceFactor = 1.0
-  }
-
-  const scores = emptyScores()
-  for (const role of ROLES) scores[role] = scaled[role] * confidenceFactor
-
-  return { scores, confidenceFactor }
+  return { scores: scaled }
 }
 
 // ─── Phase 2 ────────────────────────────────────────────────────────────────
@@ -62,7 +51,7 @@ function scoreOption(option) {
   return s
 }
 
-export function calculateMaxScores(mission) {
+function calculateMaxScores(mission) {
   const max = emptyScores()
   for (const q of mission.questions) {
     const optionScores = q.options.map(scoreOption)
@@ -109,7 +98,7 @@ export function calculatePhase3(answers) {
 // ─── Final scoring ──────────────────────────────────────────────────────────
 
 export function calculateScore(missionId, phase1Answers, phase2Answers, phase3Answers) {
-  const { scores: p1, confidenceFactor } = calculatePhase1(phase1Answers)
+  const { scores: p1 } = calculatePhase1(phase1Answers)
   const p2 = calculatePhase2(missionId, phase2Answers)
   const p3 = calculatePhase3(phase3Answers)
 
@@ -128,19 +117,23 @@ export function calculateScore(missionId, phase1Answers, phase2Answers, phase3An
     learningGap[role] = p3[role] - p1[role]
   }
 
-  const rankedByBehavior = [...ROLES].sort((a, b) => p2[b] - p2[a])
-  const primaryRole = rankedByBehavior[0]
-
+  // Rank strictly by Final Score descending (Master Plan Step 3)
   const rankedByFinal = [...ROLES].sort((a, b) => final[b] - final[a])
-  const secondaryRole = rankedByFinal[0] === primaryRole ? rankedByFinal[1] : rankedByFinal[0]
+  const topRole = rankedByFinal[0]
+  const secondRole = rankedByFinal[1]
+  const gap = final[topRole] - final[secondRole]
 
-  const primaryRealityGap = realityGap[primaryRole]
-  const primaryLearningGap = learningGap[primaryRole]
+  // Master Plan: gap >= 8% -> Dominant, < 8% -> Hybrid
+  const profileType = gap >= 8 ? 'Dominant' : 'Hybrid'
 
-  let profileType
-  if (primaryRealityGap >= HIDDEN_REALITY_GAP_MIN) profileType = 'Hidden'
-  else if (primaryLearningGap >= EMERGING_LEARNING_GAP_MIN) profileType = 'Emerging'
-  else profileType = 'Aligned'
+  // Ties detection (Master Plan Step 3)
+  const topRoles = rankedByFinal.filter((r) => Math.abs(final[r] - final[topRole]) < 0.001)
+  const secondRoles = rankedByFinal.filter(
+    (r) => !topRoles.includes(r) && Math.abs(final[r] - final[secondRole]) < 0.001,
+  )
+
+  const primaryRole = topRole
+  const secondaryRole = secondRole
 
   const primaryFinal = final[primaryRole]
   const scoreBand =
@@ -156,7 +149,11 @@ export function calculateScore(missionId, phase1Answers, phase2Answers, phase3An
     learningGap,
     primaryRole,
     secondaryRole,
-    confidenceFactor,
+    topRole,
+    secondRole,
+    topRoles,
+    secondRoles,
+    gap: round1(gap),
     profileType,
     scoreBand,
   }
@@ -205,4 +202,4 @@ export function buildCertificateCopy(result) {
 }
 
 // Export raw data helpers
-export { ROLES, missionsData }
+export { ROLES }

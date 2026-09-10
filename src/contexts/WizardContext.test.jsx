@@ -41,7 +41,7 @@ describe('WizardContext Client State Integrity', () => {
     expect(screen.getByTestId('mission').textContent).toBe('null')
     expect(screen.getByTestId('theme').textContent).toBe('null')
     expect(screen.getByTestId('p1-answers').textContent).toBe(
-      JSON.stringify({ selfPerception: {}, confidence: {} }),
+      JSON.stringify({ selfPerception: {} }),
     )
   })
 
@@ -58,7 +58,7 @@ describe('WizardContext Client State Integrity', () => {
 
     expect(screen.getByTestId('mission').textContent).toBe('null')
     expect(screen.getByTestId('p1-answers').textContent).toBe(
-      JSON.stringify({ selfPerception: {}, confidence: {} }),
+      JSON.stringify({ selfPerception: {} }),
     )
     warnSpy.mockRestore()
   })
