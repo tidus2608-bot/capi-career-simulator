@@ -37,7 +37,7 @@ export function clearAppStorage() {
   }
 }
 
-export function useLocalStorageState(key, defaultValue, validator) {
+function useLocalStorageState(key, defaultValue, validator) {
   const [state, setState] = useState(() => {
     try {
       const saved = window.localStorage.getItem(key)
@@ -81,16 +81,13 @@ export function WizardProvider({ children }) {
   )
   const [phase1Answers, setPhase1Answers] = useLocalStorageState(
     'phase1Answers',
-    { selfPerception: {}, confidence: {} },
+    { selfPerception: {} },
     (v) =>
       v &&
       typeof v === 'object' &&
       v.selfPerception &&
       typeof v.selfPerception === 'object' &&
-      !Array.isArray(v.selfPerception) &&
-      v.confidence &&
-      typeof v.confidence === 'object' &&
-      !Array.isArray(v.confidence),
+      !Array.isArray(v.selfPerception),
   )
   const [phase1TopRole, setPhase1TopRole] = useLocalStorageState(
     'phase1TopRole',
@@ -226,7 +223,6 @@ export function WizardProvider({ children }) {
         reality_gap: result.realityGap,
         learning_gap: result.learningGap,
       },
-      confidence_factor: result.confidenceFactor,
       primary_role: result.primaryRole,
       secondary_role: result.secondaryRole,
       profile_type: result.profileType,
@@ -240,7 +236,7 @@ export function WizardProvider({ children }) {
     }
 
     // Clear all test progress states from localStorage
-    setPhase1Answers({ selfPerception: {}, confidence: {} })
+    setPhase1Answers({ selfPerception: {} })
     setPhase1TopRole(null)
     setSelectedTheme(null)
     setSelectedMission(null)
@@ -315,7 +311,6 @@ export function WizardProvider({ children }) {
           reality_gap: scoringResult.realityGap,
           learning_gap: scoringResult.learningGap,
         },
-        confidence_factor: scoringResult.confidenceFactor,
         primary_role: scoringResult.primaryRole,
         secondary_role: scoringResult.secondaryRole,
         profile_type: scoringResult.profileType,
@@ -339,7 +334,6 @@ export function WizardProvider({ children }) {
       final: runData.scores?.final || {},
       realityGap: runData.scores?.reality_gap || {},
       learningGap: runData.scores?.learning_gap || {},
-      confidenceFactor: runData.confidence_factor,
       primaryRole: runData.primary_role,
       secondaryRole: runData.secondary_role,
       profileType: runData.profile_type,
@@ -354,7 +348,7 @@ export function WizardProvider({ children }) {
 
   const onRestart = () => {
     setScanIntroActive(true)
-    setPhase1Answers({ selfPerception: {}, confidence: {} })
+    setPhase1Answers({ selfPerception: {} })
     setPhase1TopRole(null)
     setSelectedTheme(null)
     setSelectedMission(null)

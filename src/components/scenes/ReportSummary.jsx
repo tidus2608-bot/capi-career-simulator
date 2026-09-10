@@ -31,28 +31,46 @@ export default function ReportSummary() {
   if (!result || !certCopy) return null
 
   const primaryRoleKey = result.primaryRole
+  const secondaryRoleKey = result.secondaryRole
+  const isHybrid = result.profileType === 'Hybrid' || (result.gap !== undefined && result.gap < 8)
   const primaryRoleConfig = getRoleConfig(primaryRoleKey)
+  const secondaryRoleConfig = getRoleConfig(secondaryRoleKey)
 
-  const radarScores = result.phase2 || result.phase1 || {}
+  const reportCatalog = t('report.data', { returnObjects: true }) || {}
+  const comboId = `${primaryRoleKey}_${secondaryRoleKey}`
+  const comboData = reportCatalog.combinationbank?.[comboId] || {}
+
+  const comboName = isHybrid
+    ? comboData.profile_name || `${t(`roles.${primaryRoleKey}.name`)} + ${t(`roles.${secondaryRoleKey}.name`)}`
+    : t(`roles.${primaryRoleKey}.name`)
+
+  const comboTagline = isHybrid
+    ? comboData.headline || t(`roles.${primaryRoleKey}.tagline`)
+    : t(`roles.${primaryRoleKey}.tagline`)
+
+  const radarScores = result.final || result.phase2 || result.phase1 || {}
 
   const lowestRoleKey = certCopy.lowestRoles?.[0] || 'operator'
   const lowestRoleConfig = getRoleConfig(lowestRoleKey)
   const growthHeadline = t(`roles.${lowestRoleKey}.name`)
-  const growthQualifications =
-    t(`roles.${lowestRoleKey}.qualifications`, { returnObjects: true }) || []
-  const growthDesc = Array.isArray(growthQualifications) ? growthQualifications[0] || '' : ''
+  const lowestRoleData = t(`roles.${lowestRoleKey}`, { returnObjects: true }) || {}
+  const lowestWatchouts = lowestRoleData.watchouts || []
+  const lowestQualifications = lowestRoleData.qualifications || []
+  const growthDesc = Array.isArray(lowestWatchouts) && lowestWatchouts.length > 0
+    ? lowestWatchouts[0]
+    : (Array.isArray(lowestQualifications) ? lowestQualifications[0] || '' : '')
 
+  const primaryStrengths = t(`roles.${primaryRoleKey}.strengths`, { returnObjects: true }) || []
   const qualifications = t(`roles.${primaryRoleKey}.qualifications`, { returnObjects: true }) || []
-  const strengthsHeadline =
-    Array.isArray(qualifications) && qualifications[0]
-      ? qualifications[0]
-      : t(`roles.${primaryRoleKey}.name`)
-  const strengthsDesc = Array.isArray(qualifications) ? qualifications.slice(1, 4).join(', ') : ''
+  const strengthsHeadline = t(`roles.${primaryRoleKey}.name`)
+  const strengthsDesc = Array.isArray(primaryStrengths) && primaryStrengths.length > 0
+    ? primaryStrengths.slice(0, 3).join(' • ')
+    : (Array.isArray(qualifications) ? qualifications.slice(1, 4).join(', ') : '')
 
   const naturalBehaviors =
     t(`roles.${primaryRoleKey}.natural_behaviors`, { returnObjects: true }) || []
-  const naturalBehaviorDesc = Array.isArray(naturalBehaviors)
-    ? naturalBehaviors.slice(0, 2).join(' ')
+  const naturalBehaviorDesc = Array.isArray(naturalBehaviors) && naturalBehaviors.length > 0
+    ? naturalBehaviors.slice(0, 2).join(' • ')
     : ''
 
   return (
@@ -383,8 +401,10 @@ export default function ReportSummary() {
           {/* Archetype Honor Spotlight */}
           <div
             style={{
-              backgroundColor: primaryRoleConfig.bg,
-              border: `1.5px solid ${primaryRoleConfig.color}33`,
+              backgroundColor: isHybrid ? 'var(--surface-lavender)' : primaryRoleConfig.bg,
+              border: isHybrid
+                ? '1.5px solid var(--border-purple)'
+                : `1.5px solid ${primaryRoleConfig.color}33`,
               borderRadius: '18px',
               padding: '14px 20px',
               width: '100%',
@@ -394,7 +414,9 @@ export default function ReportSummary() {
               alignItems: 'center',
               justifyContent: 'space-between',
               gap: '16px',
-              boxShadow: `0 8px 24px -6px ${primaryRoleConfig.color}18`,
+              boxShadow: isHybrid
+                ? '0 8px 24px -6px rgba(132, 52, 151, 0.12)'
+                : `0 8px 24px -6px ${primaryRoleConfig.color}18`,
               position: 'relative',
               overflow: 'hidden',
             }}
@@ -406,15 +428,23 @@ export default function ReportSummary() {
                   fontWeight: 700,
                   textTransform: 'uppercase',
                   letterSpacing: '0.08em',
-                  color: primaryRoleConfig.color,
+                  color: isHybrid ? 'var(--color-primary)' : primaryRoleConfig.color,
                   marginBottom: 3,
                   display: 'flex',
                   alignItems: 'center',
                   gap: 5,
                 }}
               >
-                <Icon icon="mdi:crown-outline" width={14} height={14} />
-                <span>{t('report.dominant_archetype')}</span>
+                <Icon
+                  icon={isHybrid ? 'mdi:transit-connection-variant' : 'mdi:crown-outline'}
+                  width={14}
+                  height={14}
+                />
+                <span>
+                  {isHybrid
+                    ? t('report.combination_archetype', 'Bộ đôi kết hợp')
+                    : t('report.dominant_archetype', 'Hình mẫu chủ đạo')}
+                </span>
               </div>
               <h3
                 style={{
@@ -426,7 +456,7 @@ export default function ReportSummary() {
                   letterSpacing: '-0.02em',
                 }}
               >
-                {t(`roles.${result.primaryRole}.name`)}
+                {comboName}
               </h3>
               <p
                 style={{
@@ -437,28 +467,75 @@ export default function ReportSummary() {
                   fontWeight: 500,
                 }}
               >
-                {t(`roles.${result.primaryRole}.tagline`)}
+                {comboTagline}
               </p>
             </div>
 
             {/* Emblem Icon with halo */}
-            <div
-              style={{
-                width: 48,
-                height: 48,
-                borderRadius: '14px',
-                backgroundColor: '#FFFFFF',
-                border: `1.5px solid ${primaryRoleConfig.color}40`,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: primaryRoleConfig.color,
-                boxShadow: `0 4px 14px ${primaryRoleConfig.color}25`,
-                flexShrink: 0,
-              }}
-            >
-              <Icon icon={primaryRoleConfig.icon} width={26} height={26} />
-            </div>
+            {isHybrid ? (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  position: 'relative',
+                  flexShrink: 0,
+                }}
+              >
+                <div
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: '14px',
+                    backgroundColor: '#FFFFFF',
+                    border: `1.5px solid ${primaryRoleConfig.color}40`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: primaryRoleConfig.color,
+                    boxShadow: `0 4px 12px ${primaryRoleConfig.color}20`,
+                    zIndex: 1,
+                  }}
+                >
+                  <Icon icon={primaryRoleConfig.icon} width={22} height={22} />
+                </div>
+                <div
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: '14px',
+                    backgroundColor: '#FFFFFF',
+                    border: `1.5px solid ${secondaryRoleConfig.color}40`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: secondaryRoleConfig.color,
+                    boxShadow: `0 4px 12px ${secondaryRoleConfig.color}20`,
+                    marginLeft: -12,
+                    zIndex: 2,
+                  }}
+                >
+                  <Icon icon={secondaryRoleConfig.icon} width={22} height={22} />
+                </div>
+              </div>
+            ) : (
+              <div
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: '14px',
+                  backgroundColor: '#FFFFFF',
+                  border: `1.5px solid ${primaryRoleConfig.color}40`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: primaryRoleConfig.color,
+                  boxShadow: `0 4px 14px ${primaryRoleConfig.color}25`,
+                  flexShrink: 0,
+                }}
+              >
+                <Icon icon={primaryRoleConfig.icon} width={26} height={26} />
+              </div>
+            )}
           </div>
 
           {/* Polygon Radar with Vertex Badges */}

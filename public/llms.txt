@@ -19,10 +19,10 @@ Capi Career Path Simulator is a gamified vocational orientation platform. Unlike
 The simulation evaluates player behavior across five foundational career archetypes:
 
 - **Explorer (Nhà Khám Phá)**: Curious, analytical, and research-driven. Thrives on exploring unknowns, testing hypotheses, and analyzing root causes.
-- **Builder (Kỹ Sư Chế Tạo)**: Practical, structured, and engineering-minded. Enjoys building systems, prototyping solutions, and hands-on creation.
-- **Operator (Vận Hành Viên)**: Methodical, dependable, and process-oriented. Excels at logistics, workflow optimization, and operational stability.
+- **Builder (Nhà Kiến Tạo)**: Practical, structured, and engineering-minded. Enjoys building systems, prototyping solutions, and hands-on creation.
+- **Operator (Nhà Vận Hành)**: Methodical, dependable, and process-oriented. Excels at logistics, workflow optimization, and operational stability.
 - **Connector (Người Kết Nối)**: Empathetic, collaborative, and team-centric. Bridges people and ideas, resolves conflicts, and champions user needs.
-- **Communicator (Người Truyền Cảm Hứng)**: Expressive, persuasive, and visionary. Specializes in storytelling, communication, public presentation, and advocacy.
+- **Communicator (Người Truyền Đạt)**: Expressive, persuasive, and visionary. Specializes in storytelling, communication, public presentation, and advocacy.
 
 ---
 

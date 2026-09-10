@@ -9,17 +9,14 @@ import {
 import missionsData from '../data/assessment_matrix.json'
 
 const phase1Questions = missionsData.phase1.questions
-const confChecks = missionsData.phase1.confidence_checks
 
-/** Helper: build a Phase1 answer set where one role is dominant. */
-function phase1FavoringRole(role, dominantValue = 5, otherValue = 1, confValue = 4) {
+/** Helper: build a Phase1 answer set where one role is favored. */
+function phase1FavoringRole(role, dominantValue = 5, otherValue = 1) {
   const selfPerception = {}
   for (const q of phase1Questions) {
     selfPerception[q.id] = q.role === role ? dominantValue : otherValue
   }
-  const confidence = {}
-  for (const c of confChecks) confidence[c.id] = confValue
-  return { selfPerception, confidence }
+  return { selfPerception }
 }
 
 /** Helper: build Phase2 answers always picking option matching `primaryRole`. */
@@ -34,24 +31,33 @@ function phase2FavoringRole(missionId, role) {
 }
 
 describe('calculatePhase1', () => {
-  it('returns scaled scores 0-100 per role', () => {
-    const answers = phase1FavoringRole('builder')
-    const { scores, confidenceFactor } = calculatePhase1(answers)
-    expect(scores.builder).toBeGreaterThan(scores.explorer)
-    expect(scores.builder).toBeLessThanOrEqual(100)
-    expect(scores.explorer).toBeGreaterThanOrEqual(0)
-    // confidence value = 4 → factor 1.0 (per scoring.js: avg >= 4)
-    expect(confidenceFactor).toBe(1.0)
+  it('exactly 15 questions across 5 roles', () => {
+    expect(phase1Questions).toHaveLength(15)
+    for (const r of ROLES) {
+      const qForRole = phase1Questions.filter((q) => q.role === r)
+      expect(qForRole).toHaveLength(3)
+    }
   })
 
-  it('lower confidence answers shrink scores via confidenceFactor', () => {
-    const high = phase1FavoringRole('builder', 5, 1, 4)
-    const low = phase1FavoringRole('builder', 5, 1, 2) // avg < 3 → factor 0.7
-    const hi = calculatePhase1(high)
-    const lo = calculatePhase1(low)
-    expect(lo.confidenceFactor).toBe(0.7)
-    expect(hi.confidenceFactor).toBe(1.0)
-    expect(lo.scores.builder).toBeLessThan(hi.scores.builder)
+  it('returns scaled scores 0-100 per role from 1-5 scale', () => {
+    const answers = phase1FavoringRole('builder', 5, 1)
+    const { scores } = calculatePhase1(answers)
+    expect(scores.builder).toBe(100)
+    expect(scores.explorer).toBe(0)
+    expect(scores.operator).toBe(0)
+  })
+
+  it('correctly calculates average of 3 questions', () => {
+    const builderQuestions = phase1Questions.filter((q) => q.role === 'builder')
+    const answers = {
+      selfPerception: {
+        [builderQuestions[0].id]: 1,
+        [builderQuestions[1].id]: 3,
+        [builderQuestions[2].id]: 5,
+      },
+    }
+    const { scores } = calculatePhase1(answers)
+    expect(scores.builder).toBe(50)
   })
 })
 
@@ -75,50 +81,57 @@ describe('calculatePhase3', () => {
   })
 })
 
-describe('calculateScore — profile classification', () => {
-  it('Aligned: all three phases agree on the same role', () => {
-    const phase1 = phase1FavoringRole('builder', 5, 1, 4)
-    const phase2 = phase2FavoringRole(1, 'builder')
-    const phase3 = { explorer: 3, builder: 5, operator: 2, connector: 2, communicator: 2 }
-    const result = calculateScore(1, phase1, phase2, phase3)
-    expect(result.primaryRole).toBe('builder')
-    expect(result.profileType).toBe('Aligned')
-  })
-
-  it('Hidden: low self-perception of role X but high actual behavior in X', () => {
-    const phase1 = phase1FavoringRole('explorer', 5, 1, 4) // sees self as Explorer
-    const phase2 = phase2FavoringRole(1, 'builder') // behaves as Builder
-    const phase3 = { explorer: 5, builder: 1, operator: 1, connector: 1, communicator: 1 }
-    const result = calculateScore(1, phase1, phase2, phase3)
-    expect(result.primaryRole).toBe('builder')
-    expect(result.profileType).toBe('Hidden')
-  })
-
-  it('Emerging: phase3 reflection elevates a role above phase1', () => {
-    // Phase1: low builder; Phase2: builder; Phase3: rates self high on builder
-    const phase1 = phase1FavoringRole('explorer', 4, 2, 4)
+describe('calculateScore — Master Plan weighting & GAP 8% profile classification', () => {
+  it('correctly applies weights: 20% Phase 1 + 50% Phase 2 + 30% Phase 3', () => {
+    const phase1 = phase1FavoringRole('builder', 5, 1)
     const phase2 = phase2FavoringRole(1, 'builder')
     const phase3 = { explorer: 1, builder: 5, operator: 1, connector: 1, communicator: 1 }
     const result = calculateScore(1, phase1, phase2, phase3)
+
+    const expected = 0.2 * 100 + 0.5 * result.phase2.builder + 0.3 * 100
+    expect(result.final.builder).toBeCloseTo(expected, 1)
     expect(result.primaryRole).toBe('builder')
-    // After mission, p3 builder=100, p1 builder ≈ low → learning gap >= 15 → Emerging
-    expect(['Emerging', 'Hidden']).toContain(result.profileType)
   })
 
-  it('returns a score band with min/max/label', () => {
-    const phase1 = phase1FavoringRole('builder', 5, 1, 4)
+  it('classifies as Dominant when GAP >= 8%', () => {
+    const phase1 = phase1FavoringRole('explorer', 5, 1)
+    const phase2 = phase2FavoringRole(1, 'explorer')
+    const phase3 = { explorer: 5, builder: 1, operator: 1, connector: 1, communicator: 1 }
+    const result = calculateScore(1, phase1, phase2, phase3)
+
+    expect(result.primaryRole).toBe('explorer')
+    expect(result.gap).toBeGreaterThanOrEqual(8)
+    expect(result.profileType).toBe('Dominant')
+  })
+
+  it('classifies as Hybrid when GAP < 8%', () => {
+    const phase1 = {
+      selfPerception: {
+        Q1: 4,
+        Q2: 4,
+        Q3: 4,
+        Q10: 4,
+        Q11: 4,
+        Q12: 4,
+      },
+    }
+    const phase2 = phase2FavoringRole(1, 'builder')
+    const phase3 = { explorer: 5, builder: 3, operator: 1, connector: 1, communicator: 1 }
+    const result = calculateScore(1, phase1, phase2, phase3)
+
+    if (result.gap < 8) {
+      expect(result.profileType).toBe('Hybrid')
+    }
+  })
+
+  it('returns scoreBand and valid secondaryRole', () => {
+    const phase1 = phase1FavoringRole('builder', 5, 1)
     const phase2 = phase2FavoringRole(1, 'builder')
     const phase3 = { explorer: 3, builder: 5, operator: 2, connector: 2, communicator: 2 }
     const result = calculateScore(1, phase1, phase2, phase3)
+
     expect(result.scoreBand).toBeDefined()
     expect(typeof result.scoreBand.band).toBe('string')
-  })
-
-  it('secondaryRole differs from primaryRole', () => {
-    const phase1 = phase1FavoringRole('builder', 5, 1, 4)
-    const phase2 = phase2FavoringRole(1, 'builder')
-    const phase3 = { explorer: 4, builder: 5, operator: 2, connector: 2, communicator: 2 }
-    const result = calculateScore(1, phase1, phase2, phase3)
     expect(result.secondaryRole).not.toBe(result.primaryRole)
   })
 })

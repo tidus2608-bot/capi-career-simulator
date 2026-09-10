@@ -99,14 +99,6 @@
         "id": "Q39",
         "role": "communicator"
       }
-    ],
-    "confidence_checks": [
-      {
-        "id": "CONF1"
-      },
-      {
-        "id": "CONF2"
-      }
     ]
   },
   "phase3": {

@@ -38,7 +38,7 @@ function ComparisonColumn({ run, index, isEn, t }) {
   )
   const reportCatalog = useMemo(() => t('report.data', { returnObjects: true }) || {}, [t])
 
-  // 3.2: Con thường tỏa sáng khi (2-3 natural behaviors)
+  // 3.2: Bạn thường tỏa sáng khi (2-3 natural behaviors)
   const naturalBehaviors = useMemo(() => {
     if (Array.isArray(roleCatalog.natural_behaviors) && roleCatalog.natural_behaviors.length > 0) {
       return roleCatalog.natural_behaviors.slice(0, 3)
@@ -67,7 +67,7 @@ function ComparisonColumn({ run, index, isEn, t }) {
     roleCatalog.best_fit_for ||
     t('roles.best_environment_default', 'Môi trường làm việc năng động, kích thích sáng tạo.')
 
-  // 3.5: Con có thể thử (2-3 activities)
+  // 3.5: Bạn có thể thử (2-3 activities)
   const activitiesList = useMemo(() => {
     const acts = (reportCatalog.activities || []).filter((a) => a.role_id === primaryRoleKey)
     return acts.slice(0, 3)
@@ -224,7 +224,7 @@ function ComparisonColumn({ run, index, isEn, t }) {
         </div>
       </div>
 
-      {/* 3.2: Con thường sẽ tỏa sáng khi... */}
+      {/* 3.2: Bạn thường sẽ tỏa sáng khi... */}
       <div
         style={{
           borderTop: '1px solid #F1F5F9',
@@ -234,8 +234,21 @@ function ComparisonColumn({ run, index, isEn, t }) {
           gap: 12,
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <Icon icon="mdi:creation-outline" width={20} height={20} color="#843497" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+          <div
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: '50%',
+              backgroundColor: '#EEF2FF',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+            }}
+          >
+            <Icon icon="lucide:sparkles" width={16} height={16} color="#6366F1" />
+          </div>
           <h4
             style={{
               margin: 0,
@@ -245,7 +258,7 @@ function ComparisonColumn({ run, index, isEn, t }) {
               fontFamily: 'var(--font-display)',
             }}
           >
-            {t('compare.shine_when_title', 'Con thường sẽ tỏa sáng khi...')}
+            {t('compare.shine_when_title', 'Bạn thường sẽ tỏa sáng khi...')}
           </h4>
         </div>
         <ul
@@ -440,7 +453,7 @@ function ComparisonColumn({ run, index, isEn, t }) {
         </p>
       </div>
 
-      {/* 3.5: Con có thể thử */}
+      {/* 3.5: Bạn có thể thử */}
       <div
         style={{
           borderTop: '1px solid #F1F5F9',
@@ -461,7 +474,7 @@ function ComparisonColumn({ run, index, isEn, t }) {
               fontFamily: 'var(--font-display)',
             }}
           >
-            {t('compare.activities_try_title', 'Con có thể thử')}
+            {t('compare.activities_try_title', 'Bạn có thể thử')}
           </h4>
         </div>
         <ul

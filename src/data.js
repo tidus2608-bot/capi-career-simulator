@@ -15,7 +15,7 @@ export const CAPI_ROLES = {
   builder: {
     key: 'builder',
     name: 'Builder',
-    nameVn: 'Kỹ Sư Chế Tạo',
+    nameVn: 'Nhà Kiến Tạo',
     color: '#0284C7',
     bg: '#F0F9FF',
     icon: 'mdi:hammer-wrench',
@@ -23,7 +23,7 @@ export const CAPI_ROLES = {
   operator: {
     key: 'operator',
     name: 'Operator',
-    nameVn: 'Vận Hành Viên',
+    nameVn: 'Nhà Vận Hành',
     color: '#D97706',
     bg: '#FFFBEB',
     icon: 'mdi:cog-outline',
@@ -39,7 +39,7 @@ export const CAPI_ROLES = {
   communicator: {
     key: 'communicator',
     name: 'Communicator',
-    nameVn: 'Người Truyền Cảm Hứng',
+    nameVn: 'Người Truyền Đạt',
     color: '#E11D48',
     bg: '#FFF1F2',
     icon: 'mdi:bullhorn-outline',
@@ -60,7 +60,7 @@ export function getRoleConfig(roleKey) {
   )
 }
 
-export const CAPI_LAYERS = {
+const CAPI_LAYERS = {
   problem_discovery: {
     key: 'problem_discovery',
     nameVn: 'Khám phá vấn đề',
@@ -198,9 +198,8 @@ export const MISSION_ICONS = {
 // Numeric ID → mission object from missions.json
 export const CAPI_MISSIONS = Object.fromEntries(missionsData.missions.map((m) => [m.id, m]))
 
-// Phase 1 Likert questions (15) + confidence checks (2)
+// Phase 1 Likert questions (15)
 export const PHASE1_QUESTIONS = missionsData.phase1.questions
-export const CONFIDENCE_CHECKS = missionsData.phase1.confidence_checks
 
 // Phase 3 reflection questions (1 per role)
 export const PHASE3_QUESTIONS = missionsData.phase3.questions

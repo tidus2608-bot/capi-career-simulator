@@ -2,208 +2,223 @@
   "roles": {
     "explorer": {
       "name": "Explorer",
-      "tagline": "curiosity, asking questions, and exploring new directions",
-      "subtitle": "You stand out in your curiosity, asking questions, and exploring new directions.",
+      "tagline": "curiosity, asking deep questions, and discovering new directions",
+      "subtitle": "You stand out for your curiosity, penchant for questions, and exploring new paths.",
       "formal_role": "Problem Discovery",
-      "in_game_behavior": "Ask - analyze - understand problems",
-      "short_description": "Understand problems, context, and real-world needs before building solutions.",
-      "best_fit_for": "Curious, analytical, big-picture thinkers who ask the right questions",
-      "core_description": "Explorers are students with strong curiosity. They frequently ask why, what else is possible, or what if we try another way.",
+      "in_game_behavior": "Question - analyze - understand root causes",
+      "short_description": "Uncovers underlying issues, context, and actual needs before building solutions.",
+      "best_fit_for": "Curious minds, analytical thinkers, holistic observers who ask the right questions",
+      "core_description": "Explorers possess strong discovery drive. You constantly ask “why?”, “is there another way?”, or “what if we try a new direction?”. In Robotics & Tech, Explorers are vital during problem discovery, user research, hypothesis testing, tech scouting, and formulating the right questions before engineering begins.",
       "natural_behaviors": [
-        "Ask deep questions to thoroughly understand problems.",
-        "Explore root causes, contexts, and diverse possibilities.",
-        "Easily spot emerging problems and new opportunities.",
-        "Prefer experimenting with novel approaches over standard paths.",
-        "Enjoy brainstorming, research, observation, and discovery."
+        "Asking probing questions to understand issues deeply.",
+        "Exploring root causes, contexts, and diverse possibilities.",
+        "Quickly spotting emerging problems or untapped opportunities.",
+        "Preferring novel approaches over routine solutions.",
+        "Thriving on brainstorming, researching, observing, and discovering."
       ],
-      "parent_empathy": [
-        "If you notice your child always asking why? or disassembling things to see how they work, that is a hallmark of an Explorer.",
-        "If your child pauses before acting to research further, they simply need exploration room before choosing a path."
+      "self_recognition": [
+        "You often ask “why?”, enjoy deconstructing how things work, or imagine diverse ways to solve problems.",
+        "At times you prefer researching thoroughly before locking into a specific direction."
       ],
       "strengths": [
-        "Deep curiosity and thirst for learning.",
-        "Viewing challenges from multiple perspectives.",
-        "Quickly uncovering fresh insights.",
-        "Formulating incisive, powerful questions.",
-        "Passionate about exploring emerging tech and novel ideas."
+        "High curiosity and eager learning spirit.",
+        "Viewing problems from multiple distinct angles.",
+        "Easily identifying fresh insights.",
+        "Formulating sharp, investigative questions.",
+        "Keen to explore cutting-edge technologies and ideas.",
+        "Inspiring the team through thought-provoking questions."
       ],
       "watchouts": [
-        "Can get distracted when too many ideas arise simultaneously.",
-        "May take longer to decide due to endless researching.",
-        "Needs to practice turning questions into structured action plans."
+        "Can become scattered when managing too many ideas simultaneously.",
+        "May delay decisions in pursuit of more information.",
+        "Tends to initiate many projects without finishing them all.",
+        "Easily bored by repetitive, rigid tasks.",
+        "Needs to turn exploratory questions into concrete action plans."
       ],
       "qualifications": [
-        "Critical & analytical thinking",
+        "Critical thinking & analysis",
         "User & market research",
         "Experiment design",
-        "Systems overview",
-        "Precise questioning"
+        "Systemic overview",
+        "Root-cause inquiry"
       ],
-      "best_environment": "Scientific research, data analytics, field surveys, open-ended problem solving, and novel technology exploration."
+      "best_environment": "Scientific research, data analytics, field investigations, emerging problem solving, and pioneering technology."
     },
     "builder": {
       "name": "Builder",
-      "tagline": "turning ideas into working prototypes",
-      "subtitle": "You stand out in your ability to turn ideas into working prototypes.",
+      "tagline": "turning concepts into tangible, tested prototypes",
+      "subtitle": "You excel at turning ideas into tangible, working prototypes.",
       "formal_role": "Solution Building",
-      "in_game_behavior": "Design - create - experiment",
-      "short_description": "Design and build technical solutions, turning concepts into operational systems.",
-      "best_fit_for": "Makers, engineers, hands-on problem solvers who enjoy creating things",
-      "core_description": "Builders are students who learn best by creating concrete things. They love tinkering, assembling, coding, and seeing tangible results.",
+      "in_game_behavior": "Design - build - experiment",
+      "short_description": "Designs and constructs technical solutions, transforming ideas into operating systems.",
+      "best_fit_for": "Hands-on makers, hardware engineers, practical problem solvers",
+      "core_description": "Builders learn best by producing concrete artifacts. You love tinkering, assembling, fabricating, debugging, and seeing real tangible outcomes. In Robotics & Tech, Builders are critical during prototyping, mechanical design, coding, hardware integration, testing, and continuous product iteration.",
       "natural_behaviors": [
-        "Take immediate hands-on initiative to validate ideas.",
-        "Love assembling hardware, writing code, 3D modeling, and building demos.",
-        "Learn rapidly through iterative build-test-debug loops.",
-        "Focus intensely on whether a concept actually runs in practice.",
-        "Trust empirical evidence over pure theoretical discussion."
+        "Proactively taking action to test ideas.",
+        "Enjoying assembling, coding, drafting designs, and building demos.",
+        "Thriving in the build-test-debug-iterate loop.",
+        "Focusing on the question: “Does this actually run?”.",
+        "Trusting empirical evidence over theoretical discussions."
       ],
-      "parent_empathy": [
-        "If you notice your child building Lego, robots, models, or modifying items, that is natural for a Builder.",
-        "If your child prefers saying let me try rather than listening to lectures, they learn best through action."
+      "self_recognition": [
+        "You love building models, making prototypes, drafting CAD, or crafting completed items with your own hands.",
+        "You tend to say “let me try making it” and learn best through practical execution rather than pure lectures."
       ],
       "strengths": [
-        "Strong proactive bias for action.",
-        "Fast prototyping and rapid experimental iteration.",
-        "Resilient debugging when things do not work immediately.",
-        "Enjoys hands-on experiential learning.",
-        "Continuous improvement mindset across product versions."
+        "High proactive drive to execute.",
+        "Rapid prototyping and testing capabilities.",
+        "Persistent debugging when something fails to work.",
+        "Experiential, real-world learning mindset.",
+        "Iterative improvement across versions.",
+        "Transforms conceptual discussions into concrete reality."
       ],
       "watchouts": [
-        "May rush into building before fully understanding requirements.",
-        "Can overlook user needs if overly fixated on technical mechanics.",
-        "Needs to cultivate structured planning and clear communication."
+        "May act too quickly before fully understanding requirements.",
+        "Can overlook user needs when hyper-focused on the mechanism.",
+        "Can feel discouraged if prototypes fail without a structured debug plan.",
+        "May neglect documentation or explaining the process.",
+        "Needs to practice planning and communicating ideas to teammates."
       ],
       "qualifications": [
-        "Hands-on building (mechanical, electronics)",
+        "Hands-on fabrication (mechanics, electronics)",
         "CAD / 3D design (SolidWorks, Fusion 360)",
-        "Arduino / Embedded systems",
-        "Understanding sensors, circuits, actuators",
-        "Debugging & fixing real-world issues"
+        "Embedded programming / Arduino",
+        "Sensors, circuits & motor control",
+        "Practical troubleshooting & repair"
       ],
-      "best_environment": "Maker spaces, prototyping labs, robotics competitions, hackathons, hardware builds, and software engineering."
+      "best_environment": "Maker spaces, fabrication labs, robotics challenges, hackathons, hardware development, and hands-on coding."
     },
     "operator": {
       "name": "Operator",
       "tagline": "organizing, tracking, and executing tasks to completion",
-      "subtitle": "You stand out in organizing, tracking, and driving projects to completion.",
+      "subtitle": "You excel at organizing, tracking, and driving work to completion.",
       "formal_role": "Operations & Process",
       "in_game_behavior": "Plan - verify - optimize",
-      "short_description": "Ensure plans are executed accurately, safely, and to rigorous quality standards.",
-      "best_fit_for": "Organized, detail-oriented project managers focused on structured processes",
-      "core_description": "Operators excel at turning high-level goals into clear, actionable execution steps. They focus on sequencing, deadlines, standards, and risk mitigation.",
+      "short_description": "Ensures plans are executed accurately, safely, and to rigorous quality standards.",
+      "best_fit_for": "Organized thinkers, detail-oriented planners, QA testers, and operations managers",
+      "core_description": "Operators turn ambitious goals into clear, actionable steps. You pay close attention to sequence, deadlines, quality standards, risk mitigation, and keeping projects on track. In Robotics & Tech, Operators are indispensable for testing, robot operations, project management, safety compliance, system deployment, and workflow optimization.",
       "natural_behaviors": [
-        "Ensure the team has clear plans, role allocations, and deadlines.",
-        "Break complex missions into clear, manageable steps.",
-        "Rigorously verify criteria, safety checks, and edge cases.",
-        "Maintain a steady, reliable team rhythm and workflow.",
-        "Prioritize getting things done right, completely, and on schedule."
+        "Checking whether the team has a clear plan, defined roles, and timelines.",
+        "Deconstructing complex goals into manageable steps.",
+        "Rigorously monitoring bugs, progress, criteria, and specs.",
+        "Maintaining a consistent working rhythm for the team.",
+        "Focused on delivering work correctly, completely, and on schedule."
       ],
-      "parent_empathy": [
-        "If your child loves organizing belongings and following checklists, that reflects an Operator profile.",
-        "If your child gets stressed in chaotic environments, they simply perform best with clear structure."
+      "self_recognition": [
+        "You prefer structured checklists, tidy organization, careful preparation, and keeping track of timelines.",
+        "You work best in structured environments with clear procedures and predictable goals."
       ],
       "strengths": [
-        "Highly organized, disciplined, and dependable.",
+        "Highly organized and dependable.",
         "Meticulous attention to detail, deadlines, and standards.",
-        "Strong progress tracking and execution discipline.",
-        "Effective at mitigating risks and spotting errors early.",
-        "Helps teams consistently deliver predictable results."
+        "Strong progress tracking and oversight.",
+        "Proactive risk reduction and error detection.",
+        "Maintains stable execution across team milestones.",
+        "Ideal for operations, testing, QA, and workflow optimization."
       ],
       "watchouts": [
-        "May hesitate to try new paths without prior certainty.",
-        "Can feel stressed when unexpected changes disrupt the plan.",
-        "Needs to cultivate flexibility and embrace agile experimentation."
+        "May hesitate to try novel approaches without certainty.",
+        "Can feel stressed when plans shift abruptly.",
+        "May prioritize procedure over creative exploration.",
+        "Can become frustrated when others work without structure.",
+        "Needs to cultivate flexibility and embrace experimental ambiguity."
       ],
       "qualifications": [
         "Systems thinking",
-        "Process & workflow management (SOP)",
-        "Monitoring & optimization",
-        "Logistics / supply chain knowledge",
-        "Attention to detail"
+        "Standard Operating Procedures (SOP)",
+        "Process monitoring & optimization",
+        "Logistics & supply chain",
+        "Meticulous quality control"
       ],
-      "best_environment": "Project management, supply chain/logistics coordination, quality assurance (QA), workflow optimization, and systems operations."
+      "best_environment": "Project management, logistics/supply chain, quality assurance (QA), workflow optimization, and mission operations."
     },
     "connector": {
       "name": "Connector",
-      "tagline": "empathizing with people and bridging team members together",
-      "subtitle": "You stand out in understanding people and bringing stakeholders together.",
+      "tagline": "empathizing with people and bridging diverse viewpoints",
+      "subtitle": "You excel at understanding people and bridging diverse viewpoints.",
       "formal_role": "Team Connection & Empathy",
       "in_game_behavior": "Listen - empathize - unite",
-      "short_description": "Understand human needs, listen actively, and bridge team members into a cohesive unit.",
-      "best_fit_for": "Empathetic team builders, community advocates, and cross-functional facilitators",
-      "core_description": "Connectors excel at understanding human emotions and bridging gaps between team members, users, and diverse stakeholders.",
+      "short_description": "Understands human needs, listens to teammates, and fosters collaborative harmony.",
+      "best_fit_for": "Empathetic leaders, team facilitators, user advocates, and collaborative communicators",
+      "core_description": "Connectors excel at understanding people and bridging team members, users, and stakeholders. You naturally attend to team morale, individual motivations, emotional dynamics, and collaborative synergy. In Robotics & Tech, Connectors are essential for user advocacy, cross-functional teamwork, stakeholder coordination, social impact design, and real-world tech adoption.",
       "natural_behaviors": [
-        "Ensure everyone has a voice and feels heard.",
-        "Notice when someone is struggling or when the team is misaligned.",
-        "De-escalate tension and synthesize conflicting viewpoints.",
-        "Always start from user-centric questions: who is impacted, what do they need?",
-        "Thrive in teamwork, interviewing, coordination, and peer support."
+        "Ensuring every team member feels heard and included.",
+        "Noticing who is struggling or when disagreements arise.",
+        "Diffusing tension and finding common ground between conflicting ideas.",
+        "Starting with human needs: who is affected, what do they feel and need?",
+        "Enjoying teamwork, interviewing, facilitation, and peer support."
       ],
-      "parent_empathy": [
-        "If your child shows deep concern for friends and quickly senses others moods, they are a Connector.",
-        "If your child often asks is everyone okay?, they possess high emotional intelligence and empathy."
+      "self_recognition": [
+        "You naturally look out for teammates, spot when someone is overwhelmed, and cultivate a supportive atmosphere.",
+        "You possess high social empathy and strive for shared consensus and mutual understanding."
       ],
       "strengths": [
-        "Deep active listening and genuine empathy.",
-        "Keen understanding of user and community needs.",
-        "Fosters harmonious, trust-filled team collaboration.",
-        "Synthesizes diverse perspectives into shared goals.",
-        "Makes technology human-centric and accessible."
+        "Active listening and deep empathy.",
+        "Insightful grasp of user and community needs.",
+        "Fosters harmonious, collaborative team dynamics.",
+        "Unifies divergent viewpoints into shared goals.",
+        "Excels in teamwork, user research, and social impact.",
+        "Bridges technical tools with genuine human usefulness."
       ],
       "watchouts": [
-        "May prioritize avoiding conflict over making hard decisions.",
-        "Can get drained by prolonged interpersonal tension.",
-        "Needs to develop assertiveness and objective prioritization."
+        "Can over-prioritize feelings at the expense of primary deliverables.",
+        "May hesitate to make difficult choices to avoid disappointing others.",
+        "Can become drained during persistent team conflict.",
+        "Needs to practice decisive boundary setting and prioritization.",
+        "Needs to translate empathy into structured, practical execution."
       ],
       "qualifications": [
-        "Communication & presentation skills",
-        "Teamwork & facilitation",
+        "Communication & facilitation",
+        "Teamwork & consensus building",
         "Stakeholder management",
-        "Marketing & storytelling",
-        "Basic tech understanding"
+        "User empathy & storytelling",
+        "Foundational tech literacy"
       ],
-      "best_environment": "Cross-functional team coordination, event management, community outreach, multi-stakeholder collaboration, and partnership development."
+      "best_environment": "Interdisciplinary project coordination, event operations, community outreach, cross-functional teams, and partnership development."
     },
     "communicator": {
       "name": "Communicator",
-      "tagline": "expressing ideas clearly and inspiring others through storytelling",
-      "subtitle": "You stand out in conveying ideas and helping everyone see a common meaning.",
+      "tagline": "articulating ideas, storytelling, and conveying clarity",
+      "subtitle": "You excel at articulating ideas, storytelling, and conveying clarity.",
       "formal_role": "Communication & Storytelling",
-      "in_game_behavior": "Explain - inspire - persuade",
-      "short_description": "Transform complex technological concepts into clear, engaging, and persuasive stories.",
-      "best_fit_for": "Speakers, writers, media creators, and tech advocates who love explaining ideas",
-      "core_description": "Communicators excel at articulating concepts. They express thoughts with clarity, share learning narratives, and help audiences grasp complex ideas.",
+      "in_game_behavior": "Explain - persuade - inspire",
+      "short_description": "Transforms complex technical concepts into accessible, compelling narratives.",
+      "best_fit_for": "Presenters, writers, STEM advocates, and tech communicators",
+      "core_description": "Communicators excel at articulating concepts. You enjoy speaking your thoughts, sharing what you learn, pitching concepts, and helping others understand complex ideas. In Robotics & Tech, Communicators are crucial because technology is inherently complex; a robot, AI model, or engineering innovation cannot create impact if no one can explain how it works, what problem it solves, and why users should care.",
       "natural_behaviors": [
-        "Love articulating ideas, explaining concepts, and presenting results.",
-        "Create engaging slides, posters, videos, or narratives for projects.",
-        "Translate complex technical jargon into accessible language.",
-        "Process information verbally through speaking, writing, and storytelling.",
-        "Care deeply about whether the audience is truly engaged and convinced."
+        "Articulating ideas clearly, summarizing insights, or presenting results.",
+        "Creating slides, infographics, videos, and compelling project narratives.",
+        "Translating dense technical concepts into relatable, plain language.",
+        "Processing insights verbally and through written expression.",
+        "Attentive to whether the audience is truly engaged and convinced."
       ],
-      "parent_empathy": [
-        "If your child loves sharing classroom stories or presenting their ideas, they are a Communicator.",
-        "If your child needs to talk things out to understand them, help them structure their narratives."
+      "self_recognition": [
+        "You love sharing stories, explaining new concepts you just learned, and presenting ideas enthusiastically.",
+        "You often speak out loud to structure your thoughts, excelling when crafting well-structured narratives."
       ],
       "strengths": [
-        "Clear, persuasive, and structured articulation.",
-        "Compelling storytelling and presentation skills.",
-        "Demystifies complex technical concepts.",
-        "Inspires teams with enthusiasm and clarity.",
-        "Well-suited for pitching, advocacy, workshops, and tutorials."
+        "Clear, structured idea articulation.",
+        "Persuasive storytelling and presentation.",
+        "Demystifies complex technical subjects.",
+        "Commands attention and sparks group momentum.",
+        "Ideal for pitching, public presentations, media, and tutorials.",
+        "Makes engineering solutions accessible and relatable to users."
       ],
       "watchouts": [
-        "May talk more than execute without a concrete action plan.",
-        "Can get overly attached to presentation over technical validation.",
-        "Needs to practice concise, data-backed, and evidence-based delivery."
+        "May talk more than execute if lacking an action plan.",
+        "Can focus too heavily on presentation over verifying the product.",
+        "Can be overly sensitive to audience reactions.",
+        "Needs to cultivate deep listening and data rigor.",
+        "Needs to practice concise, evidence-backed communication."
       ],
       "qualifications": [
-        "Presentation & public speaking",
-        "Writing & communications",
-        "Inspiring & mentoring",
-        "Visual storytelling & design",
-        "Persuasive communication"
+        "Public presentation & pitching",
+        "Technical writing & communication",
+        "Facilitation & training",
+        "Visual storytelling & infographic design",
+        "Persuasive discourse"
       ],
-      "best_environment": "STEM science communication, project pitching, tech content creation, workshop training, and community advocacy."
+      "best_environment": "STEM communication, project pitching, tech content creation, workshop facilitation, and technology advocacy."
     }
   }
 }

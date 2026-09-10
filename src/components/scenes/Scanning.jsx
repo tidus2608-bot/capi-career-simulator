@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { capiAudio } from '../../audio.js'
-import { PHASE1_QUESTIONS, CONFIDENCE_CHECKS } from '../../data.js'
+import { PHASE1_QUESTIONS } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
 import SceneShell from './SceneShell.jsx'
 import Button from '../Button.jsx'
@@ -43,7 +43,7 @@ export default function ScanningScene() {
   }, [scanQuestions, setScanQuestions])
 
   const selectedQuestions = scanQuestions || []
-  const total = selectedQuestions.length ? selectedQuestions.length + CONFIDENCE_CHECKS.length : 0
+  const total = selectedQuestions.length
 
   const showIntro = scanIntroActive
   const setShowIntro = setScanIntroActive
@@ -60,28 +60,15 @@ export default function ScanningScene() {
     )
   }
 
-  const isConfidencePhase = idx >= selectedQuestions.length
-  const currentQ = isConfidencePhase
-    ? CONFIDENCE_CHECKS[idx - selectedQuestions.length]
-    : selectedQuestions[idx]
-
-  const currentValue = isConfidencePhase
-    ? phase1Answers.confidence?.[currentQ?.id]
-    : phase1Answers.selfPerception?.[currentQ?.id]
+  const currentQ = selectedQuestions[idx]
+  const currentValue = phase1Answers.selfPerception?.[currentQ?.id]
 
   const handleSelectOption = (v) => {
     capiAudio.sfx('click')
-    if (isConfidencePhase) {
-      setPhase1Answers((prev) => ({
-        ...prev,
-        confidence: { ...prev.confidence, [currentQ.id]: v },
-      }))
-    } else {
-      setPhase1Answers((prev) => ({
-        ...prev,
-        selfPerception: { ...prev.selfPerception, [currentQ.id]: v },
-      }))
-    }
+    setPhase1Answers((prev) => ({
+      ...prev,
+      selfPerception: { ...prev.selfPerception, [currentQ.id]: v },
+    }))
   }
 
   const next = () => {
@@ -90,9 +77,7 @@ export default function ScanningScene() {
       capiAudio.sfx('scan')
       const spFull = {}
       for (const q of selectedQuestions) spFull[q.id] = phase1Answers.selfPerception[q.id] ?? 3
-      const cfFull = {}
-      for (const c of CONFIDENCE_CHECKS) cfFull[c.id] = phase1Answers.confidence[c.id] ?? 3
-      onScanDone({ selfPerception: spFull, confidence: cfFull })
+      onScanDone({ selfPerception: spFull })
       navigate('/role-reveal')
     } else {
       setIdx(idx + 1)

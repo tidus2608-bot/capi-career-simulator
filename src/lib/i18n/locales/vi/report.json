@@ -27,16 +27,16 @@
     "secondary_also_a": "Bạn cũng là một {{name}} với {{tagline}}",
     "primary_title_template": "Bạn phù hợp nhất là một <highlight>{{name}}</highlight> với {{tagline}}",
     "secondary_title_template": "Bạn cũng là một <highlight>{{name}}</highlight> với {{tagline}}",
-    "primary_highest_score": "Học sinh có điểm năng lực thực tế cao nhất ở vai trò {{role}} ({{score}}%)",
-    "secondary_high_score": "Học sinh có điểm năng lực thực tế cao ở vai trò {{role}} ({{score}}%)",
-    "parent_notice_when": "Bố mẹ có thể nhận ra điều này khi con...",
-    "child_shines_when": "Con thường sẽ tỏa sáng khi...",
-    "parent_expressions_note": "Đó chính là những biểu hiện tự nhiên của nhóm {{role}}.",
+    "primary_highest_score": "Điểm số ghi nhận năng lực nổi trội nhất của bạn ở vai trò {{role}} ({{score}}%)",
+    "secondary_high_score": "Điểm số ghi nhận năng lực bổ trợ nổi trội của bạn ở vai trò {{role}} ({{score}}%)",
+    "parent_notice_when": "Dấu hiệu nhận biết tự nhiên:",
+    "child_shines_when": "Hành vi tự nhiên khi giải quyết vấn đề:",
+    "parent_expressions_note": "Đó là những dấu hiệu tự nhiên của bạn ở nhóm vai trò {{role}}.",
     "suitable_environment": "Môi trường phù hợp: ",
     "radar_ranking_title": "Biểu đồ Phân tích năng lực & Bảng xếp hạng",
     "evidence_simulation_title": "Minh chứng từ Mô phỏng Lab",
     "evidence_eyebrow": "NHẬT KÝ QUAN SÁT THỰC NGHIỆM • LAB OBSERVATION",
-    "evidence_subtitle": "Ghi nhận những quyết định và hành vi thực tế của con trong quá trình tương tác giải quyết tình huống mô phỏng.",
+    "evidence_subtitle": "Ghi nhận những quyết định và hành vi thực tế của bạn trong quá trình tương tác giải quyết tình huống mô phỏng.",
     "evidence_activity_record": "Nhật ký Hoạt động Mô phỏng",
     "evidence_primary_role": "Tín hiệu Chủ đạo",
     "evidence_secondary_role": "Tín hiệu Bổ trợ",
@@ -44,7 +44,7 @@
     "evidence_mission_context": "Bối cảnh Thực nghiệm",
     "evidence_verified_badge": "DỮ LIỆU ĐÃ XÁC THỰC",
     "dev_path_title": "Lộ trình Phát triển",
-    "dev_step1_try": "Con có thể thử",
+    "dev_step1_try": "Bạn có thể thử",
     "dev_step2_balance": "Mảnh ghép nên rèn thêm",
     "dev_step3_skills": "Kỹ năng nên học",
     "dev_balance_with": "Rèn luyện khả năng quy trình & tổ chức",
@@ -66,249 +66,249 @@
         {
           "mission_id": "river_rescue",
           "role_id": "explorer",
-          "evidence_template": "Trong nhiệm vụ River Rescue, con thể hiện xu hướng đặt câu hỏi về bối cảnh cứu hộ, điều kiện dòng sông và các rủi ro trước khi chọn giải pháp."
+          "evidence_template": "Trong nhiệm vụ River Rescue, bạn thể hiện xu hướng đặt câu hỏi về bối cảnh cứu hộ, điều kiện dòng sông và các rủi ro trước khi chọn giải pháp."
         },
         {
           "mission_id": "river_rescue",
           "role_id": "builder",
-          "evidence_template": "Trong nhiệm vụ River Rescue, con thể hiện xu hướng muốn tạo hoặc thử một giải pháp robot cụ thể để hỗ trợ cứu hộ."
+          "evidence_template": "Trong nhiệm vụ River Rescue, bạn thể hiện xu hướng muốn tạo hoặc thử một giải pháp robot cụ thể để hỗ trợ cứu hộ."
         },
         {
           "mission_id": "river_rescue",
           "role_id": "operator",
-          "evidence_template": "Trong nhiệm vụ River Rescue, con ưu tiên quy trình an toàn, thứ tự triển khai và cách kiểm soát rủi ro khi robot hoạt động."
+          "evidence_template": "Trong nhiệm vụ River Rescue, bạn ưu tiên quy trình an toàn, thứ tự triển khai và cách kiểm soát rủi ro khi robot hoạt động."
         },
         {
           "mission_id": "river_rescue",
           "role_id": "connector",
-          "evidence_template": "Trong nhiệm vụ River Rescue, con chú ý đến người bị ảnh hưởng, đội cứu hộ và cách phối hợp giữa các bên trong tình huống khẩn cấp."
+          "evidence_template": "Trong nhiệm vụ River Rescue, bạn chú ý đến người bị ảnh hưởng, đội cứu hộ và cách phối hợp giữa các bên trong tình huống khẩn cấp."
         },
         {
           "mission_id": "river_rescue",
           "role_id": "communicator",
-          "evidence_template": "Trong nhiệm vụ River Rescue, con thể hiện xu hướng truyền đạt thông tin rõ ràng để đội nhóm và người liên quan hiểu cần làm gì."
+          "evidence_template": "Trong nhiệm vụ River Rescue, bạn thể hiện xu hướng truyền đạt thông tin rõ ràng để đội nhóm và người liên quan hiểu cần làm gì."
         },
         {
           "mission_id": "ai_healthcare",
           "role_id": "explorer",
-          "evidence_template": "Trong nhiệm vụ AI Healthcare, con thể hiện xu hướng tìm hiểu nguyên nhân, dữ liệu và các khả năng khác nhau trước khi chọn cách ứng dụng AI."
+          "evidence_template": "Trong nhiệm vụ AI Healthcare, bạn thể hiện xu hướng tìm hiểu nguyên nhân, dữ liệu và các khả năng khác nhau trước khi chọn cách ứng dụng AI."
         },
         {
           "mission_id": "ai_healthcare",
           "role_id": "builder",
-          "evidence_template": "Trong nhiệm vụ AI Healthcare, con có xu hướng muốn thử nghiệm mô hình, prototype hoặc giải pháp kỹ thuật để kiểm tra tính khả thi."
+          "evidence_template": "Trong nhiệm vụ AI Healthcare, bạn có xu hướng muốn thử nghiệm mô hình, prototype hoặc giải pháp kỹ thuật để kiểm tra tính khả thi."
         },
         {
           "mission_id": "ai_healthcare",
           "role_id": "operator",
-          "evidence_template": "Trong nhiệm vụ AI Healthcare, con chú ý đến độ chính xác, quy trình kiểm tra và sự an toàn khi triển khai công nghệ trong y tế."
+          "evidence_template": "Trong nhiệm vụ AI Healthcare, bạn chú ý đến độ chính xác, quy trình kiểm tra và sự an toàn khi triển khai công nghệ trong y tế."
         },
         {
           "mission_id": "ai_healthcare",
           "role_id": "connector",
-          "evidence_template": "Trong nhiệm vụ AI Healthcare, con quan tâm đến bệnh nhân, bác sĩ, người chăm sóc và nhu cầu thật của những người sử dụng giải pháp."
+          "evidence_template": "Trong nhiệm vụ AI Healthcare, bạn quan tâm đến bệnh nhân, bác sĩ, người chăm sóc và nhu cầu thật của những người sử dụng giải pháp."
         },
         {
           "mission_id": "ai_healthcare",
           "role_id": "communicator",
-          "evidence_template": "Trong nhiệm vụ AI Healthcare, con thể hiện xu hướng giải thích giải pháp theo cách người dùng, bệnh nhân hoặc người không chuyên có thể hiểu được."
+          "evidence_template": "Trong nhiệm vụ AI Healthcare, bạn thể hiện xu hướng giải thích giải pháp theo cách người dùng, bệnh nhân hoặc người không chuyên có thể hiểu được."
         },
         {
           "mission_id": "smart_waste",
           "role_id": "explorer",
-          "evidence_template": "Trong nhiệm vụ Smart Waste, con thể hiện xu hướng tìm hiểu nguyên nhân rác thải, hành vi người dùng và các cách tiếp cận khác nhau trước khi quyết định."
+          "evidence_template": "Trong nhiệm vụ Smart Waste, bạn thể hiện xu hướng tìm hiểu nguyên nhân rác thải, hành vi người dùng và các cách tiếp cận khác nhau trước khi quyết định."
         },
         {
           "mission_id": "smart_waste",
           "role_id": "builder",
-          "evidence_template": "Trong nhiệm vụ Smart Waste, con có xu hướng chọn cách tạo thử nghiệm nhanh, mô hình hoặc hệ thống phân loại rác để kiểm tra ý tưởng."
+          "evidence_template": "Trong nhiệm vụ Smart Waste, bạn có xu hướng chọn cách tạo thử nghiệm nhanh, mô hình hoặc hệ thống phân loại rác để kiểm tra ý tưởng."
         },
         {
           "mission_id": "smart_waste",
           "role_id": "operator",
-          "evidence_template": "Trong nhiệm vụ Smart Waste, con chú ý đến quy trình thu gom, phân loại, theo dõi dữ liệu và cách vận hành hệ thống ổn định."
+          "evidence_template": "Trong nhiệm vụ Smart Waste, bạn chú ý đến quy trình thu gom, phân loại, theo dõi dữ liệu và cách vận hành hệ thống ổn định."
         },
         {
           "mission_id": "smart_waste",
           "role_id": "connector",
-          "evidence_template": "Trong nhiệm vụ Smart Waste, con quan tâm đến thói quen của học sinh, gia đình, cộng đồng và cách khiến mọi người cùng tham gia."
+          "evidence_template": "Trong nhiệm vụ Smart Waste, bạn quan tâm đến thói quen của học sinh, gia đình, cộng đồng và cách khiến mọi người cùng tham gia."
         },
         {
           "mission_id": "smart_waste",
           "role_id": "communicator",
-          "evidence_template": "Trong nhiệm vụ Smart Waste, con thể hiện xu hướng truyền thông, giải thích và kêu gọi mọi người thay đổi hành vi phân loại rác."
+          "evidence_template": "Trong nhiệm vụ Smart Waste, bạn thể hiện xu hướng truyền thông, giải thích và kêu gọi mọi người thay đổi hành vi phân loại rác."
         },
         {
           "mission_id": "smart_home",
           "role_id": "explorer",
-          "evidence_template": "Trong nhiệm vụ Smart Home, con thể hiện xu hướng khám phá nhu cầu trong gia đình, các tình huống sử dụng và những khả năng mới của nhà thông minh."
+          "evidence_template": "Trong nhiệm vụ Smart Home, bạn thể hiện xu hướng khám phá nhu cầu trong gia đình, các tình huống sử dụng và những khả năng mới của nhà thông minh."
         },
         {
           "mission_id": "smart_home",
           "role_id": "builder",
-          "evidence_template": "Trong nhiệm vụ Smart Home, con có xu hướng chọn cách tạo prototype, lắp cảm biến hoặc thử nghiệm tính năng để kiểm tra giải pháp."
+          "evidence_template": "Trong nhiệm vụ Smart Home, bạn có xu hướng chọn cách tạo prototype, lắp cảm biến hoặc thử nghiệm tính năng để kiểm tra giải pháp."
         },
         {
           "mission_id": "smart_home",
           "role_id": "operator",
-          "evidence_template": "Trong nhiệm vụ Smart Home, con chú ý đến sự ổn định, an toàn, quy trình vận hành và khả năng kiểm soát thiết bị trong nhà."
+          "evidence_template": "Trong nhiệm vụ Smart Home, bạn chú ý đến sự ổn định, an toàn, quy trình vận hành và khả năng kiểm soát thiết bị trong nhà."
         },
         {
           "mission_id": "smart_home",
           "role_id": "connector",
-          "evidence_template": "Trong nhiệm vụ Smart Home, con quan tâm đến trải nghiệm của các thành viên trong gia đình và cách công nghệ hỗ trợ nhu cầu khác nhau."
+          "evidence_template": "Trong nhiệm vụ Smart Home, bạn quan tâm đến trải nghiệm của các thành viên trong gia đình và cách công nghệ hỗ trợ nhu cầu khác nhau."
         },
         {
           "mission_id": "smart_home",
           "role_id": "communicator",
-          "evidence_template": "Trong nhiệm vụ Smart Home, con thể hiện xu hướng giải thích tính năng nhà thông minh theo cách dễ hiểu để người dùng cảm thấy yên tâm."
+          "evidence_template": "Trong nhiệm vụ Smart Home, bạn thể hiện xu hướng giải thích tính năng nhà thông minh theo cách dễ hiểu để người dùng cảm thấy yên tâm."
         },
         {
           "mission_id": "drone_delivery",
           "role_id": "explorer",
-          "evidence_template": "Trong nhiệm vụ Drone Delivery, con thể hiện xu hướng tìm hiểu nhiều yếu tố như địa hình, thời tiết, khoảng cách, người nhận và các rủi ro giao hàng."
+          "evidence_template": "Trong nhiệm vụ Drone Delivery, bạn thể hiện xu hướng tìm hiểu nhiều yếu tố như địa hình, thời tiết, khoảng cách, người nhận và các rủi ro giao hàng."
         },
         {
           "mission_id": "drone_delivery",
           "role_id": "builder",
-          "evidence_template": "Trong nhiệm vụ Drone Delivery, con có xu hướng muốn thử thiết kế, mô phỏng hoặc tối ưu cách drone vận chuyển hàng hóa."
+          "evidence_template": "Trong nhiệm vụ Drone Delivery, bạn có xu hướng muốn thử thiết kế, mô phỏng hoặc tối ưu cách drone vận chuyển hàng hóa."
         },
         {
           "mission_id": "drone_delivery",
           "role_id": "operator",
-          "evidence_template": "Trong nhiệm vụ Drone Delivery, con chú ý đến lộ trình, thời gian, an toàn bay, quy trình kiểm tra và phương án dự phòng."
+          "evidence_template": "Trong nhiệm vụ Drone Delivery, bạn chú ý đến lộ trình, thời gian, an toàn bay, quy trình kiểm tra và phương án dự phòng."
         },
         {
           "mission_id": "drone_delivery",
           "role_id": "connector",
-          "evidence_template": "Trong nhiệm vụ Drone Delivery, con quan tâm đến người gửi, người nhận, cộng đồng xung quanh và cách dịch vụ giao hàng ảnh hưởng đến họ."
+          "evidence_template": "Trong nhiệm vụ Drone Delivery, bạn quan tâm đến người gửi, người nhận, cộng đồng xung quanh và cách dịch vụ giao hàng ảnh hưởng đến họ."
         },
         {
           "mission_id": "drone_delivery",
           "role_id": "communicator",
-          "evidence_template": "Trong nhiệm vụ Drone Delivery, con thể hiện xu hướng truyền đạt hướng dẫn, cảnh báo hoặc giá trị của giải pháp drone cho người dùng."
+          "evidence_template": "Trong nhiệm vụ Drone Delivery, bạn thể hiện xu hướng truyền đạt hướng dẫn, cảnh báo hoặc giá trị của giải pháp drone cho người dùng."
         },
         {
           "mission_id": "disaster_response",
           "role_id": "explorer",
-          "evidence_template": "Trong nhiệm vụ Disaster Response, con thể hiện xu hướng phân tích tình huống, tìm hiểu dữ liệu hiện trường và cân nhắc nhiều kịch bản ứng phó."
+          "evidence_template": "Trong nhiệm vụ Disaster Response, bạn thể hiện xu hướng phân tích tình huống, tìm hiểu dữ liệu hiện trường và cân nhắc nhiều kịch bản ứng phó."
         },
         {
           "mission_id": "disaster_response",
           "role_id": "builder",
-          "evidence_template": "Trong nhiệm vụ Disaster Response, con có xu hướng muốn tạo hoặc điều chỉnh giải pháp robot để hỗ trợ tìm kiếm, cứu hộ hoặc vận chuyển vật tư."
+          "evidence_template": "Trong nhiệm vụ Disaster Response, bạn có xu hướng muốn tạo hoặc điều chỉnh giải pháp robot để hỗ trợ tìm kiếm, cứu hộ hoặc vận chuyển vật tư."
         },
         {
           "mission_id": "disaster_response",
           "role_id": "operator",
-          "evidence_template": "Trong nhiệm vụ Disaster Response, con ưu tiên quy trình khẩn cấp, phân công nhiệm vụ, kiểm soát rủi ro và triển khai theo thứ tự an toàn."
+          "evidence_template": "Trong nhiệm vụ Disaster Response, bạn ưu tiên quy trình khẩn cấp, phân công nhiệm vụ, kiểm soát rủi ro và triển khai theo thứ tự an toàn."
         },
         {
           "mission_id": "disaster_response",
           "role_id": "connector",
-          "evidence_template": "Trong nhiệm vụ Disaster Response, con chú ý đến nạn nhân, đội cứu hộ, chính quyền, tình nguyện viên và cách các bên phối hợp với nhau."
+          "evidence_template": "Trong nhiệm vụ Disaster Response, bạn chú ý đến nạn nhân, đội cứu hộ, chính quyền, tình nguyện viên và cách các bên phối hợp với nhau."
         },
         {
           "mission_id": "disaster_response",
           "role_id": "communicator",
-          "evidence_template": "Trong nhiệm vụ Disaster Response, con thể hiện xu hướng truyền tin rõ ràng, nhanh chóng và dễ hiểu trong bối cảnh khẩn cấp."
+          "evidence_template": "Trong nhiệm vụ Disaster Response, bạn thể hiện xu hướng truyền tin rõ ràng, nhanh chóng và dễ hiểu trong bối cảnh khẩn cấp."
         }
       ],
       "missingpiece": [
         {
           "primary_role": "explorer",
           "missing_role": "operator",
-          "copy": "Để sự tò mò của con tạo ra kết quả rõ ràng hơn, con nên rèn thêm tính quy trình của một Operator. Thay vì khám phá quá nhiều hướng cùng lúc, con có thể tập chọn một câu hỏi trọng tâm, đặt deadline và ghi lại kết quả sau mỗi lần thử.",
+          "copy": "Để sự tò mò của bạn tạo ra kết quả rõ ràng hơn, bạn nên rèn thêm tính quy trình của một Operator. Thay vì khám phá quá nhiều hướng cùng lúc, bạn có thể tập chọn một câu hỏi trọng tâm, đặt deadline và ghi lại kết quả sau mỗi lần thử.",
           "activities_to_train": "Lập checklist cho một mini project.Ghi nhật ký khám phá: câu hỏi, giả thuyết, kết quả.Tập đặt deadline cho từng bước tìm hiểu.Làm bảng so sánh các phương án trước khi chọn."
         },
         {
           "primary_role": "explorer",
           "missing_role": "builder",
-          "copy": "Để sự tò mò của con không chỉ dừng ở ý tưởng, con nên luyện thêm khả năng tạo mẫu và thử nghiệm của một Builder. Sau khi có một giả thuyết, con có thể làm một prototype nhỏ để kiểm tra xem ý tưởng có hoạt động không.",
+          "copy": "Để sự tò mò của bạn không chỉ dừng ở ý tưởng, bạn nên luyện thêm khả năng tạo mẫu và thử nghiệm của một Builder. Sau khi có một giả thuyết, bạn có thể làm một prototype nhỏ để kiểm tra xem ý tưởng có hoạt động không.",
           "activities_to_train": "Làm mô hình giấy hoặc Lego cho ý tưởng.Thử prototype trong 30–60 phút.Học Scratch/Blockly/Micro:bit để mô phỏng ý tưởng.Ghi lại phiên bản 1, lỗi và phiên bản cải tiến."
         },
         {
           "primary_role": "explorer",
           "missing_role": "communicator",
-          "copy": "Để người khác hiểu được những điều con khám phá, con nên luyện thêm khả năng truyền đạt của một Communicator. Con có thể tập kể lại phát hiện của mình bằng slide, video ngắn hoặc bài trình bày 3 phút.",
-          "activities_to_train": "Làm slide “Con đã khám phá được gì?”.Quay video giải thích một chủ đề STEM.Trình bày 3 phút trước gia đình/lớp.Viết bài ngắn tóm tắt phát hiện."
+          "copy": "Để người khác hiểu được những điều bạn khám phá, bạn nên luyện thêm khả năng truyền đạt của một Communicator. Bạn có thể tập kể lại phát hiện của mình bằng slide, video ngắn hoặc bài trình bày 3 phút.",
+          "activities_to_train": "Làm slide “Bạn đã khám phá được gì?”.Quay video giải thích một chủ đề STEM.Trình bày 3 phút trước đội nhóm/gia đình.Viết bài ngắn tóm tắt phát hiện."
         },
         {
           "primary_role": "builder",
           "missing_role": "explorer",
-          "copy": "Để sản phẩm con làm ra giải quyết đúng vấn đề, con nên rèn thêm sự tò mò của một Explorer. Trước khi bắt tay build, con có thể hỏi: người dùng thật sự cần gì, vấn đề gốc là gì, còn cách nào khác không?",
+          "copy": "Để sản phẩm bạn làm ra giải quyết đúng vấn đề, bạn nên rèn thêm sự tò mò của một Explorer. Trước khi bắt tay build, bạn có thể hỏi: người dùng thật sự cần gì, vấn đề gốc là gì, còn cách nào khác không?",
           "activities_to_train": "Phỏng vấn 2–3 người dùng trước khi build.Viết 5 câu hỏi “vì sao” cho vấn đề.Tìm 3 cách giải quyết khác nhau trước khi chọn.Làm moodboard/research board cho sản phẩm."
         },
         {
           "primary_role": "builder",
           "missing_role": "operator",
-          "copy": "Để quá trình build hiệu quả hơn, con nên rèn thêm tính quy trình của một Operator. Con có thể tập chia nhỏ việc, đặt mốc kiểm tra, ghi lại lỗi và quản lý thời gian cho từng phiên bản prototype.",
+          "copy": "Để quá trình build hiệu quả hơn, bạn nên rèn thêm tính quy trình của một Operator. Bạn có thể tập chia nhỏ việc, đặt mốc kiểm tra, ghi lại lỗi và quản lý thời gian cho từng phiên bản prototype.",
           "activities_to_train": "Dùng checklist build-test-fix.Tạo bảng bug log đơn giản.Chia dự án thành milestone nhỏ.Đặt tiêu chí “xong” cho mỗi phiên bản."
         },
         {
           "primary_role": "builder",
           "missing_role": "connector",
-          "copy": "Để sản phẩm con làm ra hữu ích hơn với người thật, con nên rèn thêm sự thấu hiểu của một Connector. Con có thể hỏi người dùng thử sản phẩm, quan sát họ gặp khó ở đâu và điều chỉnh thiết kế dựa trên phản hồi.",
+          "copy": "Để sản phẩm bạn làm ra hữu ích hơn với người thật, bạn nên rèn thêm sự thấu hiểu của một Connector. Bạn có thể hỏi người dùng thử sản phẩm, quan sát họ gặp khó ở đâu và điều chỉnh thiết kế dựa trên phản hồi.",
           "activities_to_train": "Cho bạn bè/người thân test prototype.Ghi lại 3 điểm người dùng thấy khó hiểu.Vẽ user persona đơn giản.Làm user journey cho sản phẩm."
         },
         {
           "primary_role": "builder",
           "missing_role": "communicator",
-          "copy": "Để người khác hiểu được giá trị sản phẩm của con, con nên rèn thêm khả năng truyền đạt của một Communicator. Con có thể tập giải thích sản phẩm giải quyết vấn đề gì, hoạt động ra sao và vì sao nó hữu ích.",
+          "copy": "Để người khác hiểu được giá trị sản phẩm của bạn, bạn nên rèn thêm khả năng truyền đạt của một Communicator. Bạn có thể tập giải thích sản phẩm giải quyết vấn đề gì, hoạt động ra sao và vì sao nó hữu ích.",
           "activities_to_train": "Làm video demo sản phẩm 1 phút.Tập pitch theo cấu trúc Problem-Solution-Impact.Làm poster giới thiệu prototype.Viết hướng dẫn sử dụng ngắn."
         },
         {
           "primary_role": "operator",
           "missing_role": "explorer",
-          "copy": "Để khả năng vận hành của con không bị bó hẹp trong những cách làm quen thuộc, con nên rèn thêm sự tò mò của một Explorer. Trước khi lập kế hoạch, con có thể hỏi: còn cách nào tốt hơn không, rủi ro nào mình chưa nhìn thấy, người dùng thật sự cần gì?",
+          "copy": "Để khả năng vận hành của bạn không bị bó hẹp trong những cách làm quen thuộc, bạn nên rèn thêm sự tò mò của một Explorer. Trước khi lập kế hoạch, bạn có thể hỏi: còn cách nào tốt hơn không, rủi ro nào mình chưa nhìn thấy, người dùng thật sự cần gì?",
           "activities_to_train": "Trước mỗi kế hoạch, viết 3 câu hỏi khám phá.So sánh 2–3 cách làm khác nhau.Làm retrospective sau dự án.Quan sát cách nhóm khác giải quyết cùng vấn đề."
         },
         {
           "primary_role": "operator",
           "missing_role": "builder",
-          "copy": "Để kế hoạch của con gắn với sản phẩm thực tế hơn, con nên rèn thêm khả năng tạo mẫu của một Builder. Con có thể thử làm demo nhỏ, kiểm tra từng phần và học từ lỗi thực tế.",
+          "copy": "Để kế hoạch của bạn gắn với sản phẩm thực tế hơn, bạn nên rèn thêm khả năng tạo mẫu của một Builder. Bạn có thể thử làm demo nhỏ, kiểm tra từng phần và học từ lỗi thực tế.",
           "activities_to_train": "Tự làm prototype nhỏ theo kế hoạch.Test từng module thay vì chờ bản cuối.Học debugging cơ bản.Làm checklist test cho từng phiên bản."
         },
         {
           "primary_role": "operator",
           "missing_role": "communicator",
-          "copy": "Để quy trình của con được cả nhóm hiểu và làm theo, con nên rèn thêm khả năng truyền đạt của một Communicator. Con có thể tập giải thích kế hoạch bằng sơ đồ, checklist ngắn hoặc hướng dẫn dễ hiểu.",
+          "copy": "Để quy trình của bạn được cả nhóm hiểu và làm theo, bạn nên rèn thêm khả năng truyền đạt của một Communicator. Bạn có thể tập giải thích kế hoạch bằng sơ đồ, checklist ngắn hoặc hướng dẫn dễ hiểu.",
           "activities_to_train": "Trình bày kế hoạch trong 3 phút.Làm sơ đồ workflow cho nhóm.Viết hướng dẫn từng bước.Tập update tiến độ bằng 3 ý chính."
         },
         {
           "primary_role": "connector",
           "missing_role": "operator",
-          "copy": "Để khả năng kết nối của con tạo ra kết quả rõ ràng hơn, con nên rèn thêm tính quy trình của một Operator. Sau khi lắng nghe nhiều ý kiến, con có thể tập lập kế hoạch, phân công việc và theo dõi tiến độ để nhóm đi đến kết quả.",
+          "copy": "Để khả năng kết nối của bạn tạo ra kết quả rõ ràng hơn, bạn nên rèn thêm tính quy trình của một Operator. Sau khi lắng nghe nhiều ý kiến, bạn có thể tập lập kế hoạch, phân công việc và theo dõi tiến độ để nhóm đi đến kết quả.",
           "activities_to_train": "Lập agenda cho buổi họp nhóm.Tạo bảng phân công ai-làm-gì-khi-nào.Ghi biên bản họp ngắn.Theo dõi action items sau thảo luận."
         },
         {
           "primary_role": "connector",
           "missing_role": "builder",
-          "copy": "Để sự thấu hiểu của con trở thành giải pháp cụ thể, con nên rèn thêm khả năng tạo mẫu của một Builder. Con có thể thử biến insight từ người dùng thành bản phác thảo, prototype hoặc demo nhỏ.",
+          "copy": "Để sự thấu hiểu của bạn trở thành giải pháp cụ thể, bạn nên rèn thêm khả năng tạo mẫu của một Builder. Bạn có thể thử biến insight từ người dùng thành bản phác thảo, prototype hoặc demo nhỏ.",
           "activities_to_train": "Vẽ sketch giải pháp từ insight người dùng.Làm prototype giấy.Tổ chức buổi test nhanh với người dùng.Cải tiến prototype dựa trên phản hồi."
         },
         {
           "primary_role": "connector",
           "missing_role": "communicator",
-          "copy": "Để những điều con hiểu về con người được lan tỏa tốt hơn, con nên rèn thêm khả năng truyền đạt của một Communicator. Con có thể tập kể lại câu chuyện người dùng bằng hình ảnh, slide hoặc bài trình bày ngắn.",
+          "copy": "Để những điều bạn hiểu về con người được lan tỏa tốt hơn, bạn nên rèn thêm khả năng truyền đạt của một Communicator. Bạn có thể tập kể lại câu chuyện người dùng bằng hình ảnh, slide hoặc bài trình bày ngắn.",
           "activities_to_train": "Viết user story.Làm slide kể câu chuyện người dùng.Trình bày insight cho nhóm.Tạo poster/social post cho dự án cộng đồng."
         },
         {
           "primary_role": "communicator",
           "missing_role": "operator",
-          "copy": "Để khả năng truyền đạt của con tạo ra kết quả rõ ràng hơn, con nên rèn thêm tính quy trình của một Operator. Con có thể tập lập dàn ý, quản lý thời gian trình bày, chuẩn bị checklist và theo dõi việc cần làm trước deadline.",
+          "copy": "Để khả năng truyền đạt của bạn tạo ra kết quả rõ ràng hơn, bạn nên rèn thêm tính quy trình của một Operator. Bạn có thể tập lập dàn ý, quản lý thời gian trình bày, chuẩn bị checklist và theo dõi việc cần làm trước deadline.",
           "activities_to_train": "Lập outline trước khi thuyết trình.Dùng checklist chuẩn bị slide/demo.Tập trình bày trong giới hạn thời gian.Làm timeline cho phần truyền thông dự án."
         },
         {
           "primary_role": "communicator",
           "missing_role": "builder",
-          "copy": "Để câu chuyện của con gắn với sản phẩm thật, con nên rèn thêm khả năng tạo mẫu của một Builder. Con có thể thử làm demo nhỏ, hiểu cách sản phẩm hoạt động và dùng chính trải nghiệm đó để trình bày thuyết phục hơn.",
+          "copy": "Để câu chuyện của bạn gắn với sản phẩm thật, bạn nên rèn thêm khả năng tạo mẫu của một Builder. Bạn có thể thử làm demo nhỏ, hiểu cách sản phẩm hoạt động và dùng chính trải nghiệm đó để trình bày thuyết phục hơn.",
           "activities_to_train": "Tự làm demo/prototype nhỏ.Tham gia phần build của nhóm ít nhất một module.Quay video giải thích sản phẩm đang chạy thật.Học coding hoặc robotics cơ bản."
         },
         {
           "primary_role": "communicator",
           "missing_role": "connector",
-          "copy": "Để thông điệp của con chạm đến người nghe hơn, con nên rèn thêm sự thấu hiểu của một Connector. Trước khi trình bày, con có thể hỏi: người nghe là ai, họ quan tâm điều gì, họ cần hiểu điều gì nhất?",
+          "copy": "Để thông điệp của bạn chạm đến người nghe hơn, bạn nên rèn thêm sự thấu hiểu của một Connector. Trước khi trình bày, bạn có thể hỏi: người nghe là ai, họ quan tâm điều gì, họ cần hiểu điều gì nhất?",
           "activities_to_train": "Phỏng vấn người nghe trước khi làm nội dung.Tạo audience persona.Điều chỉnh bài nói cho từng nhóm người nghe.Luyện active listening trong thảo luận nhóm."
         }
       ],
@@ -480,7 +480,7 @@
           "resource_type": "skill",
           "name": "Research & Inquiry",
           "skill_area": "Đặt câu hỏi, tìm kiếm thông tin, kiểm chứng nguồn",
-          "why_recommended": "Giúp con biến sự tò mò thành quá trình tìm hiểu có hệ thống.",
+          "why_recommended": "Giúp bạn biến sự tò mò thành quá trình tìm hiểu có hệ thống.",
           "level": "beginner"
         },
         {
@@ -488,7 +488,7 @@
           "resource_type": "skill",
           "name": "Scientific Thinking",
           "skill_area": "Giả thuyết, thử nghiệm, quan sát, kết luận",
-          "why_recommended": "Giúp con kiểm tra ý tưởng bằng bằng chứng thay vì chỉ suy đoán.",
+          "why_recommended": "Giúp bạn kiểm tra ý tưởng bằng bằng chứng thay vì chỉ suy đoán.",
           "level": "beginner"
         },
         {
@@ -496,7 +496,7 @@
           "resource_type": "digital_skill",
           "name": "Mind Mapping",
           "skill_area": "Sắp xếp ý tưởng",
-          "why_recommended": "Giúp con gom nhiều câu hỏi và ý tưởng thành cấu trúc dễ hiểu.",
+          "why_recommended": "Giúp bạn gom nhiều câu hỏi và ý tưởng thành cấu trúc dễ hiểu.",
           "level": "beginner"
         },
         {
@@ -504,7 +504,7 @@
           "resource_type": "digital_skill",
           "name": "Google Forms / Survey Basics",
           "skill_area": "Thu thập dữ liệu đơn giản",
-          "why_recommended": "Giúp con tự khảo sát, quan sát và phân tích vấn đề thực tế.",
+          "why_recommended": "Giúp bạn tự khảo sát, quan sát và phân tích vấn đề thực tế.",
           "level": "beginner"
         },
         {
@@ -520,7 +520,7 @@
           "resource_type": "skill",
           "name": "Prototyping",
           "skill_area": "Tạo mẫu nhanh",
-          "why_recommended": "Giúp con biến ý tưởng thành mô hình, demo hoặc sản phẩm thử nghiệm.",
+          "why_recommended": "Giúp bạn biến ý tưởng thành mô hình, demo hoặc sản phẩm thử nghiệm.",
           "level": "beginner"
         },
         {
@@ -528,7 +528,7 @@
           "resource_type": "skill",
           "name": "Debugging",
           "skill_area": "Tìm lỗi và sửa lỗi",
-          "why_recommended": "Giúp con kiên trì cải tiến khi sản phẩm chưa hoạt động đúng.",
+          "why_recommended": "Giúp bạn kiên trì cải tiến khi sản phẩm chưa hoạt động đúng.",
           "level": "beginner"
         },
         {
@@ -536,7 +536,7 @@
           "resource_type": "digital_skill",
           "name": "Scratch / Blockly / MakeCode",
           "skill_area": "Lập trình kéo thả",
-          "why_recommended": "Là bước khởi đầu tốt để con tạo sản phẩm số hoặc điều khiển thiết bị đơn giản.",
+          "why_recommended": "Là bước khởi đầu tốt để bạn tạo sản phẩm số hoặc điều khiển thiết bị đơn giản.",
           "level": "beginner"
         },
         {
@@ -544,7 +544,7 @@
           "resource_type": "digital_skill",
           "name": "Tinkercad / CAD Basics",
           "skill_area": "Thiết kế mô hình 3D",
-          "why_recommended": "Giúp con thiết kế hình dạng, cơ cấu hoặc prototype đơn giản.",
+          "why_recommended": "Giúp bạn thiết kế hình dạng, cơ cấu hoặc prototype đơn giản.",
           "level": "beginner"
         },
         {
@@ -552,7 +552,7 @@
           "resource_type": "topic",
           "name": "Engineering Design Process",
           "skill_area": "Thiết kế, build, test, improve",
-          "why_recommended": "Giúp con hiểu quy trình kỹ thuật từ vấn đề đến sản phẩm hoàn thiện.",
+          "why_recommended": "Giúp bạn hiểu quy trình kỹ thuật từ vấn đề đến sản phẩm hoàn thiện.",
           "level": "beginner"
         },
         {
@@ -560,7 +560,7 @@
           "resource_type": "skill",
           "name": "Planning & Time Management",
           "skill_area": "Quản lý thời gian, deadline, ưu tiên",
-          "why_recommended": "Giúp con biến mục tiêu thành kế hoạch có thể thực hiện.",
+          "why_recommended": "Giúp bạn biến mục tiêu thành kế hoạch có thể thực hiện.",
           "level": "beginner"
         },
         {
@@ -568,7 +568,7 @@
           "resource_type": "skill",
           "name": "Quality Assurance Basics",
           "skill_area": "Test case, bug report, checklist",
-          "why_recommended": "Giúp con kiểm tra lỗi và cải thiện chất lượng sản phẩm.",
+          "why_recommended": "Giúp bạn kiểm tra lỗi và cải thiện chất lượng sản phẩm.",
           "level": "beginner"
         },
         {
@@ -576,7 +576,7 @@
           "resource_type": "digital_skill",
           "name": "Google Sheets / Excel Basics",
           "skill_area": "Bảng tính, theo dõi tiến độ, dữ liệu",
-          "why_recommended": "Giúp con quản lý task, kết quả test và timeline hiệu quả hơn.",
+          "why_recommended": "Giúp bạn quản lý task, kết quả test và timeline hiệu quả hơn.",
           "level": "beginner"
         },
         {
@@ -584,7 +584,7 @@
           "resource_type": "digital_skill",
           "name": "Trello / Notion / Task Board",
           "skill_area": "Quản lý công việc nhóm",
-          "why_recommended": "Giúp con theo dõi ai làm gì, deadline nào, trạng thái ra sao.",
+          "why_recommended": "Giúp bạn theo dõi ai làm gì, deadline nào, trạng thái ra sao.",
           "level": "beginner"
         },
         {
@@ -600,7 +600,7 @@
           "resource_type": "skill",
           "name": "Active Listening",
           "skill_area": "Lắng nghe, đặt câu hỏi, phản hồi",
-          "why_recommended": "Giúp con hiểu người khác sâu hơn mà không vội kết luận.",
+          "why_recommended": "Giúp bạn hiểu người khác sâu hơn mà không vội kết luận.",
           "level": "beginner"
         },
         {
@@ -608,7 +608,7 @@
           "resource_type": "skill",
           "name": "Team Collaboration",
           "skill_area": "Phối hợp nhóm, giải quyết mâu thuẫn",
-          "why_recommended": "Giúp con kết nối mọi người nhưng vẫn giữ mục tiêu chung.",
+          "why_recommended": "Giúp bạn kết nối mọi người nhưng vẫn giữ mục tiêu chung.",
           "level": "beginner"
         },
         {
@@ -616,7 +616,7 @@
           "resource_type": "digital_skill",
           "name": "Persona Mapping",
           "skill_area": "Chân dung người dùng",
-          "why_recommended": "Giúp con biến sự thấu hiểu người dùng thành insight rõ ràng.",
+          "why_recommended": "Giúp bạn biến sự thấu hiểu người dùng thành insight rõ ràng.",
           "level": "beginner"
         },
         {
@@ -624,7 +624,7 @@
           "resource_type": "digital_skill",
           "name": "Miro / FigJam",
           "skill_area": "Collaboration, user journey, stakeholder map",
-          "why_recommended": "Giúp con trực quan hóa nhu cầu, quan điểm và mối quan hệ giữa các bên.",
+          "why_recommended": "Giúp bạn trực quan hóa nhu cầu, quan điểm và mối quan hệ giữa các bên.",
           "level": "beginner"
         },
         {
@@ -632,7 +632,7 @@
           "resource_type": "topic",
           "name": "Human-Centered Design",
           "skill_area": "Thiết kế lấy con người làm trung tâm",
-          "why_recommended": "Giúp con tạo giải pháp công nghệ phù hợp với người dùng thật.",
+          "why_recommended": "Giúp bạn tạo giải pháp công nghệ phù hợp với người dùng thật.",
           "level": "intermediate"
         },
         {
@@ -640,7 +640,7 @@
           "resource_type": "skill",
           "name": "Public Speaking",
           "skill_area": "Nói trước đám đông, trình bày ý tưởng",
-          "why_recommended": "Giúp con diễn đạt tự tin, rõ ràng và có cấu trúc.",
+          "why_recommended": "Giúp bạn diễn đạt tự tin, rõ ràng và có cấu trúc.",
           "level": "beginner"
         },
         {
@@ -648,7 +648,7 @@
           "resource_type": "skill",
           "name": "Storytelling",
           "skill_area": "Kể chuyện, cấu trúc thông điệp",
-          "why_recommended": "Giúp con biến ý tưởng hoặc dữ liệu thành câu chuyện dễ nhớ.",
+          "why_recommended": "Giúp bạn biến ý tưởng hoặc dữ liệu thành câu chuyện dễ nhớ.",
           "level": "beginner"
         },
         {
@@ -656,7 +656,7 @@
           "resource_type": "digital_skill",
           "name": "Canva / Google Slides",
           "skill_area": "Thiết kế slide, poster, visual communication",
-          "why_recommended": "Giúp con truyền đạt ý tưởng trực quan và hấp dẫn hơn.",
+          "why_recommended": "Giúp bạn truyền đạt ý tưởng trực quan và hấp dẫn hơn.",
           "level": "beginner"
         },
         {
@@ -664,7 +664,7 @@
           "resource_type": "digital_skill",
           "name": "CapCut / Basic Video Editing",
           "skill_area": "Làm video demo, explainer video",
-          "why_recommended": "Giúp con tạo nội dung giới thiệu sản phẩm hoặc giải thích công nghệ.",
+          "why_recommended": "Giúp bạn tạo nội dung giới thiệu sản phẩm hoặc giải thích công nghệ.",
           "level": "beginner"
         },
         {
@@ -681,9 +681,9 @@
           "role_id": "explorer",
           "activity_type": "school",
           "activity_name": "Mini Research Project",
-          "description": "Chọn một câu hỏi con tò mò, tìm hiểu qua sách/video/phỏng vấn, rồi trình bày lại phát hiện.",
+          "description": "Chọn một câu hỏi bạn tò mò, tìm hiểu qua sách/video/phỏng vấn, rồi trình bày lại phát hiện.",
           "where_to_do": "Ở trường / ở nhà",
-          "why_fit": "Giúp con biến sự tò mò thành quá trình khám phá có cấu trúc.",
+          "why_fit": "Giúp bạn biến sự tò mò thành quá trình khám phá có cấu trúc.",
           "level": "beginner"
         },
         {
@@ -699,9 +699,9 @@
           "role_id": "explorer",
           "activity_type": "home",
           "activity_name": "Question Journal",
-          "description": "Mỗi tuần ghi lại 3 câu hỏi con tò mò và chọn 1 câu để tìm hiểu sâu.",
+          "description": "Mỗi tuần ghi lại 3 câu hỏi bạn tò mò và chọn 1 câu để tìm hiểu sâu.",
           "where_to_do": "Ở nhà",
-          "why_fit": "Giúp con luyện thói quen đặt câu hỏi và theo đuổi câu hỏi đến cùng.",
+          "why_fit": "Giúp bạn luyện thói quen đặt câu hỏi và theo đuổi câu hỏi đến cùng.",
           "level": "beginner"
         },
         {
@@ -710,7 +710,7 @@
           "activity_name": "Robotics Discovery Club",
           "description": "Tham gia CLB robotics với vai trò tìm hiểu cảm biến, môi trường, bài toán và các cách giải.",
           "where_to_do": "CLB / workshop",
-          "why_fit": "Giúp con khám phá công nghệ robot qua vấn đề thực tế.",
+          "why_fit": "Giúp bạn khám phá công nghệ robot qua vấn đề thực tế.",
           "level": "beginner"
         },
         {
@@ -737,14 +737,14 @@
           "activity_name": "Field Observation",
           "description": "Quan sát một vấn đề thật trong trường/nhà/khu phố và ghi lại phát hiện.",
           "where_to_do": "Cộng đồng / trường học",
-          "why_fit": "Giúp con học cách nhìn vấn đề từ đời sống thực tế.",
+          "why_fit": "Giúp bạn học cách nhìn vấn đề từ đời sống thực tế.",
           "level": "beginner"
         },
         {
           "role_id": "explorer",
           "activity_type": "competition",
           "activity_name": "Invention Challenge",
-          "description": "Tham gia thử thách sáng tạo, nơi con phải tìm vấn đề và đề xuất ý tưởng mới.",
+          "description": "Tham gia thử thách sáng tạo, nơi bạn phải tìm vấn đề và đề xuất ý tưởng mới.",
           "where_to_do": "Cuộc thi / sự kiện",
           "why_fit": "Phù hợp với năng lượng khám phá và tìm hướng đi mới.",
           "level": "intermediate"
@@ -755,7 +755,7 @@
           "activity_name": "Build-a-Prototype Challenge",
           "description": "Tạo một mô hình hoặc prototype đơn giản cho một vấn đề cụ thể.",
           "where_to_do": "Ở trường / CLB",
-          "why_fit": "Giúp con biến ý tưởng thành sản phẩm thử nghiệm.",
+          "why_fit": "Giúp bạn biến ý tưởng thành sản phẩm thử nghiệm.",
           "level": "beginner"
         },
         {
@@ -764,7 +764,7 @@
           "activity_name": "Weekend Maker Project",
           "description": "Cuối tuần làm một sản phẩm nhỏ: robot giấy, mô hình, app mini, mạch đơn giản.",
           "where_to_do": "Ở nhà",
-          "why_fit": "Giúp con học qua hành động và thấy kết quả cụ thể.",
+          "why_fit": "Giúp bạn học qua hành động và thấy kết quả cụ thể.",
           "level": "beginner"
         },
         {
@@ -782,7 +782,7 @@
           "activity_name": "Scratch / Blockly Mini Game",
           "description": "Làm một game hoặc simulation nhỏ bằng Scratch/Blockly.",
           "where_to_do": "Online / ở nhà",
-          "why_fit": "Giúp con luyện tư duy tạo sản phẩm số mà không cần code phức tạp.",
+          "why_fit": "Giúp bạn luyện tư duy tạo sản phẩm số mà không cần code phức tạp.",
           "level": "beginner"
         },
         {
@@ -809,7 +809,7 @@
           "activity_name": "Fix & Improve",
           "description": "Chọn một đồ vật/quy trình nhỏ trong nhà và nghĩ cách cải tiến.",
           "where_to_do": "Ở nhà",
-          "why_fit": "Giúp con luyện tư duy cải tiến từ vấn đề gần gũi.",
+          "why_fit": "Giúp bạn luyện tư duy cải tiến từ vấn đề gần gũi.",
           "level": "beginner"
         },
         {
@@ -818,7 +818,7 @@
           "activity_name": "Tinkercad Basic Design",
           "description": "Học thiết kế 3D cơ bản và tạo một mô hình đơn giản.",
           "where_to_do": "Online / ở nhà",
-          "why_fit": "Giúp con chuyển ý tưởng từ đầu sang mô hình trực quan.",
+          "why_fit": "Giúp bạn chuyển ý tưởng từ đầu sang mô hình trực quan.",
           "level": "intermediate"
         },
         {
@@ -827,7 +827,7 @@
           "activity_name": "Class Project Planner",
           "description": "Đảm nhận vai trò lập timeline, checklist và phân công trong bài tập nhóm.",
           "where_to_do": "Ở trường",
-          "why_fit": "Giúp con luyện năng lực tổ chức và đưa việc đến kết quả.",
+          "why_fit": "Giúp bạn luyện năng lực tổ chức và đưa việc đến kết quả.",
           "level": "beginner"
         },
         {
@@ -836,7 +836,7 @@
           "activity_name": "Weekly Planning Routine",
           "description": "Mỗi tuần lập kế hoạch học tập, việc nhà, hoạt động cá nhân và tự check tiến độ.",
           "where_to_do": "Ở nhà",
-          "why_fit": "Giúp con phát triển thói quen quản lý thời gian.",
+          "why_fit": "Giúp bạn phát triển thói quen quản lý thời gian.",
           "level": "beginner"
         },
         {
@@ -854,7 +854,7 @@
           "activity_name": "Trello / Notion Task Board",
           "description": "Tạo bảng task đơn giản: To do, Doing, Done cho một dự án nhỏ.",
           "where_to_do": "Online / ở nhà",
-          "why_fit": "Giúp con trực quan hóa tiến độ và trách nhiệm.",
+          "why_fit": "Giúp bạn trực quan hóa tiến độ và trách nhiệm.",
           "level": "beginner"
         },
         {
@@ -881,7 +881,7 @@
           "activity_name": "Personal Checklist System",
           "description": "Tạo checklist cho việc học, chuẩn bị đi học, chuẩn bị đồ dùng hoặc lịch luyện tập.",
           "where_to_do": "Ở nhà",
-          "why_fit": "Giúp con dùng thế mạnh tổ chức vào đời sống hằng ngày.",
+          "why_fit": "Giúp bạn dùng thế mạnh tổ chức vào đời sống hằng ngày.",
           "level": "beginner"
         },
         {
@@ -899,7 +899,7 @@
           "activity_name": "Group Facilitator",
           "description": "Trong thảo luận nhóm, đảm nhận vai trò lắng nghe, mời các bạn phát biểu và nối ý kiến.",
           "where_to_do": "Ở trường",
-          "why_fit": "Giúp con phát triển khả năng kết nối và điều phối con người.",
+          "why_fit": "Giúp bạn phát triển khả năng kết nối và điều phối con người.",
           "level": "beginner"
         },
         {
@@ -917,7 +917,7 @@
           "activity_name": "User Interviewer",
           "description": "Phỏng vấn người dùng hoặc bạn học để hiểu nhu cầu trước khi thiết kế giải pháp.",
           "where_to_do": "Dự án nhóm",
-          "why_fit": "Giúp con biến sự thấu cảm thành insight cụ thể.",
+          "why_fit": "Giúp bạn biến sự thấu cảm thành insight cụ thể.",
           "level": "intermediate"
         },
         {
@@ -926,7 +926,7 @@
           "activity_name": "User Persona Canvas",
           "description": "Tạo chân dung người dùng: họ là ai, cần gì, khó khăn gì, mong muốn gì.",
           "where_to_do": "Online / ở nhà",
-          "why_fit": "Giúp con tổ chức thông tin về con người một cách rõ ràng.",
+          "why_fit": "Giúp bạn tổ chức thông tin về con người một cách rõ ràng.",
           "level": "beginner"
         },
         {
@@ -944,7 +944,7 @@
           "activity_name": "Peer Support Buddy",
           "description": "Hỗ trợ bạn mới, bạn gặp khó khăn hoặc nhóm cần người lắng nghe.",
           "where_to_do": "Ở trường",
-          "why_fit": "Giúp con phát triển sự thấu cảm nhưng vẫn học cách giữ ranh giới.",
+          "why_fit": "Giúp bạn phát triển sự thấu cảm nhưng vẫn học cách giữ ranh giới.",
           "level": "beginner"
         },
         {
@@ -953,7 +953,7 @@
           "activity_name": "Human-Centered Design Challenge",
           "description": "Tham gia dự án giải quyết vấn đề cộng đồng bằng cách bắt đầu từ nhu cầu người dùng.",
           "where_to_do": "Workshop / cuộc thi",
-          "why_fit": "Giúp con kết nối công nghệ với vấn đề thật của con người.",
+          "why_fit": "Giúp bạn kết nối công nghệ với vấn đề thật của bạn người.",
           "level": "intermediate"
         },
         {
@@ -962,7 +962,7 @@
           "activity_name": "Stakeholder Mapper",
           "description": "Xác định những ai liên quan đến một vấn đề và nhu cầu của từng nhóm.",
           "where_to_do": "Dự án nhóm",
-          "why_fit": "Giúp con hiểu hệ sinh thái xung quanh một giải pháp.",
+          "why_fit": "Giúp bạn hiểu hệ sinh thái xung quanh một giải pháp.",
           "level": "intermediate"
         },
         {
@@ -971,7 +971,7 @@
           "activity_name": "Class Presenter",
           "description": "Đại diện nhóm trình bày kết quả bài tập, dự án hoặc thí nghiệm.",
           "where_to_do": "Ở trường",
-          "why_fit": "Giúp con luyện diễn đạt rõ ràng và tự tin trước người nghe.",
+          "why_fit": "Giúp bạn luyện diễn đạt rõ ràng và tự tin trước người nghe.",
           "level": "beginner"
         },
         {
@@ -989,7 +989,7 @@
           "activity_name": "Explainer Video",
           "description": "Làm video 1–3 phút giải thích một sản phẩm, robot hoặc khái niệm STEM.",
           "where_to_do": "Online / ở nhà",
-          "why_fit": "Giúp con luyện kỹ năng biến điều phức tạp thành nội dung dễ hiểu.",
+          "why_fit": "Giúp bạn luyện kỹ năng biến điều phức tạp thành nội dung dễ hiểu.",
           "level": "beginner"
         },
         {
@@ -1007,16 +1007,16 @@
           "activity_name": "Debate / Public Speaking Club",
           "description": "Tham gia CLB tranh biện, thuyết trình hoặc truyền thông học đường.",
           "where_to_do": "Ở trường / CLB",
-          "why_fit": "Giúp con luyện cấu trúc lập luận và phản hồi trước người nghe.",
+          "why_fit": "Giúp bạn luyện cấu trúc lập luận và phản hồi trước người nghe.",
           "level": "intermediate"
         },
         {
           "role_id": "communicator",
           "activity_type": "home",
           "activity_name": "Teach-back Practice",
-          "description": "Sau khi học một chủ đề, con thử giải thích lại cho bố mẹ/em/bạn trong 3 phút.",
+          "description": "Sau khi học một chủ đề, bạn thử giải thích lại cho người thân/đồng nghiệp/bạn bè trong 3 phút.",
           "where_to_do": "Ở nhà",
-          "why_fit": "Giúp con củng cố kiến thức thông qua diễn đạt.",
+          "why_fit": "Giúp bạn củng cố kiến thức thông qua diễn đạt.",
           "level": "beginner"
         },
         {
@@ -1025,7 +1025,7 @@
           "activity_name": "Slide / Poster Design",
           "description": "Làm slide, poster hoặc infographic cho một chủ đề công nghệ.",
           "where_to_do": "Online / ở nhà",
-          "why_fit": "Giúp con kết hợp ngôn ngữ, hình ảnh và cấu trúc thông tin.",
+          "why_fit": "Giúp bạn kết hợp ngôn ngữ, hình ảnh và cấu trúc thông tin.",
           "level": "beginner"
         },
         {
@@ -1034,7 +1034,7 @@
           "activity_name": "Campaign Storyteller",
           "description": "Viết bài, làm poster hoặc video truyền thông cho một hoạt động cộng đồng.",
           "where_to_do": "Cộng đồng / CLB",
-          "why_fit": "Giúp con dùng khả năng kể chuyện để tạo tác động tích cực.",
+          "why_fit": "Giúp bạn dùng khả năng kể chuyện để tạo tác động tích cực.",
           "level": "intermediate"
         }
       ],
@@ -1044,9 +1044,9 @@
           "primary_role": "explorer",
           "secondary_role": "builder",
           "profile_name": "Nhà Khám Phá Kiến Tạo",
-          "headline": "Con không chỉ tò mò về thế giới, mà còn muốn tự tay thử nghiệm để xem ý tưởng có thành hiện thực không.",
-          "portrait": "Con thường bắt đầu bằng câu hỏi “vì sao” hoặc “còn cách nào khác không”, sau đó muốn tạo một bản thử nhỏ để kiểm chứng. Trong nhóm, con có thể là người mở ra ý tưởng mới rồi kéo cả đội vào quá trình làm thử, sửa lỗi và cải tiến.",
-          "parent_empathy": "Nếu bố mẹ thấy con vừa hay hỏi nhiều, vừa thích tháo lắp, làm mô hình, thử nghiệm hoặc tự chế đồ vật, đó là biểu hiện rất rõ của nhóm Explorer + Builder.",
+          "headline": "Bạn không chỉ tò mò về thế giới, mà còn muốn tự tay thử nghiệm để xem ý tưởng có thành hiện thực không.",
+          "portrait": "Bạn thường bắt đầu bằng câu hỏi “vì sao” hoặc “còn cách nào khác không”, sau đó muốn tạo một bản thử nhỏ để kiểm chứng. Trong nhóm, bạn có thể là người mở ra ý tưởng mới rồi kéo cả đội vào quá trình làm thử, sửa lỗi và cải tiến.",
+          "parent_empathy": "Bạn có thể nhận thấy mình vừa hay hỏi nhiều, vừa thích tháo lắp, làm mô hình, thử nghiệm hoặc tự chế đồ vật, đó là biểu hiện rất rõ của nhóm Explorer + Builder.",
           "best_environment": "Dự án STEM, robotics, invention challenge, science fair, maker space, hoạt động cần nghiên cứu rồi làm prototype."
         },
         "explorer_operator": {
@@ -1054,9 +1054,9 @@
           "primary_role": "explorer",
           "secondary_role": "operator",
           "profile_name": "Nhà Khám Phá Có Chiến Lược",
-          "headline": "Con tò mò, thích tìm hiểu điều mới, nhưng cũng có khả năng sắp xếp thông tin để đi đến kết quả rõ ràng.",
-          "portrait": "Con thường muốn hiểu vấn đề thật kỹ trước khi hành động. Điểm mạnh của con là không chỉ đặt câu hỏi mà còn có thể tổ chức quá trình khám phá thành các bước cụ thể: tìm thông tin, so sánh lựa chọn, kiểm tra giả thuyết và rút kết luận.",
-          "parent_empathy": "Nếu bố mẹ thấy con hay tìm hiểu sâu một chủ đề, ghi chú, so sánh thông tin hoặc thích làm mọi thứ có trình tự, đó có thể là dấu hiệu của Explorer + Operator.",
+          "headline": "Bạn tò mò, thích tìm hiểu điều mới, nhưng cũng có khả năng sắp xếp thông tin để đi đến kết quả rõ ràng.",
+          "portrait": "Bạn thường muốn hiểu vấn đề thật kỹ trước khi hành động. Điểm mạnh của bạn là không chỉ đặt câu hỏi mà còn có thể tổ chức quá trình khám phá thành các bước cụ thể: tìm thông tin, so sánh lựa chọn, kiểm tra giả thuyết và rút kết luận.",
+          "parent_empathy": "Bạn có thể nhận thấy mình hay tìm hiểu sâu một chủ đề, ghi chú, so sánh thông tin hoặc thích làm mọi thứ có trình tự, đó có thể là dấu hiệu của Explorer + Operator.",
           "best_environment": "Nghiên cứu khoa học, phân tích dữ liệu, kiểm thử giả thuyết, dự án có nhiều thông tin cần sắp xếp, robotics research."
         },
         "explorer_connector": {
@@ -1064,9 +1064,9 @@
           "primary_role": "explorer",
           "secondary_role": "connector",
           "profile_name": "Nhà Khám Phá Thấu Cảm",
-          "headline": "Con tò mò về thế giới và đặc biệt quan tâm đến con người trong vấn đề đó.",
-          "portrait": "Con thường không chỉ hỏi “vấn đề là gì” mà còn hỏi “ai đang bị ảnh hưởng” và “họ thật sự cần gì”. Trong nhóm, con có thể giúp mọi người nhìn vấn đề từ nhiều góc độ, đặc biệt là góc nhìn của người dùng, cộng đồng hoặc bạn bè xung quanh.",
-          "parent_empathy": "Nếu bố mẹ thấy con vừa hay hỏi về mọi thứ, vừa rất để ý cảm xúc và nhu cầu của người khác, đó là biểu hiện của Explorer + Connector.",
+          "headline": "Bạn tò mò về thế giới và đặc biệt quan tâm đến bạn người trong vấn đề đó.",
+          "portrait": "Bạn thường không chỉ hỏi “vấn đề là gì” mà còn hỏi “ai đang bị ảnh hưởng” và “họ thật sự cần gì”. Trong nhóm, bạn có thể giúp mọi người nhìn vấn đề từ nhiều góc độ, đặc biệt là góc nhìn của người dùng, cộng đồng hoặc bạn bè xung quanh.",
+          "parent_empathy": "Bạn có thể nhận thấy mình vừa hay hỏi về mọi thứ, vừa rất để ý cảm xúc và nhu cầu của người khác, đó là biểu hiện của Explorer + Connector.",
           "best_environment": "User research, social impact project, human-centered design, phỏng vấn người dùng, dự án robotics vì cộng đồng."
         },
         "explorer_communicator": {
@@ -1074,9 +1074,9 @@
           "primary_role": "explorer",
           "secondary_role": "communicator",
           "profile_name": "Người Kể Chuyện Khám Phá",
-          "headline": "Con thích tìm hiểu điều mới và có khả năng kể lại phát hiện của mình theo cách hấp dẫn.",
-          "portrait": "Con thường bị thu hút bởi những câu hỏi mới, chủ đề mới hoặc công nghệ mới. Sau khi hiểu điều gì đó, con có xu hướng muốn kể lại, giải thích hoặc trình bày để người khác cũng hiểu và thấy hứng thú.",
-          "parent_empathy": "Nếu bố mẹ thấy con hay khám phá một chủ đề rồi kể lại rất hào hứng, thích làm slide, video hoặc giải thích điều mới cho người khác, đó là dấu hiệu của Explorer + Communicator.",
+          "headline": "Bạn thích tìm hiểu điều mới và có khả năng kể lại phát hiện của mình theo cách hấp dẫn.",
+          "portrait": "Bạn thường bị thu hút bởi những câu hỏi mới, chủ đề mới hoặc công nghệ mới. Sau khi hiểu điều gì đó, bạn có xu hướng muốn kể lại, giải thích hoặc trình bày để người khác cũng hiểu và thấy hứng thú.",
+          "parent_empathy": "Bạn có thể nhận thấy mình hay khám phá một chủ đề rồi kể lại rất hào hứng, thích làm slide, video hoặc giải thích điều mới cho người khác, đó là dấu hiệu của Explorer + Communicator.",
           "best_environment": "Science communication, thuyết trình STEM, làm video giải thích công nghệ, workshop, báo cáo dự án, demo sản phẩm."
         },
         "builder_explorer": {
@@ -1084,9 +1084,9 @@
           "primary_role": "builder",
           "secondary_role": "explorer",
           "profile_name": "Nhà Kiến Tạo Thử Nghiệm",
-          "headline": "Con thích bắt tay làm và dùng quá trình thử nghiệm để khám phá thêm nhiều khả năng mới.",
-          "portrait": "Con thường học tốt nhất khi được làm ra thứ gì đó cụ thể. Nhưng thay vì chỉ làm theo mẫu, con còn thích thử cách khác, thay đổi thiết kế, kiểm tra giả thuyết và khám phá xem sản phẩm có thể tốt hơn ở đâu.",
-          "parent_empathy": "Nếu bố mẹ thấy con rất thích làm mô hình, robot, sản phẩm nhỏ, nhưng cũng thường tự thay đổi, thử phiên bản khác hoặc hỏi “nếu làm cách này thì sao”, đó là biểu hiện của Builder + Explorer.",
+          "headline": "Bạn thích bắt tay làm và dùng quá trình thử nghiệm để khám phá thêm nhiều khả năng mới.",
+          "portrait": "Bạn thường học tốt nhất khi được làm ra thứ gì đó cụ thể. Nhưng thay vì chỉ làm theo mẫu, bạn còn thích thử cách khác, thay đổi thiết kế, kiểm tra giả thuyết và khám phá xem sản phẩm có thể tốt hơn ở đâu.",
+          "parent_empathy": "Bạn có thể nhận thấy mình rất thích làm mô hình, robot, sản phẩm nhỏ, nhưng cũng thường tự thay đổi, thử phiên bản khác hoặc hỏi “nếu làm cách này thì sao”, đó là biểu hiện của Builder + Explorer.",
           "best_environment": "Prototype lab, robotics challenge, hackathon, maker project, coding project, hoạt động build-test-learn."
         },
         "builder_operator": {
@@ -1094,9 +1094,9 @@
           "primary_role": "builder",
           "secondary_role": "operator",
           "profile_name": "Nhà Kiến Tạo Bền Bỉ",
-          "headline": "Con có khả năng biến ý tưởng thành sản phẩm và theo đuổi quá trình sửa lỗi đến khi hoàn thiện.",
-          "portrait": "Con thường thích làm ra sản phẩm cụ thể, nhưng không chỉ làm cho vui. Con có thể chú ý đến độ ổn định, chất lượng, lỗi kỹ thuật và cách cải tiến qua từng phiên bản. Trong nhóm, con giúp ý tưởng trở thành sản phẩm có thể chạy được và đáng tin cậy hơn.",
-          "parent_empathy": "Nếu bố mẹ thấy con thích lắp ráp, sửa lỗi, kiểm tra đi kiểm tra lại hoặc rất vui khi sản phẩm cuối cùng hoạt động ổn định, đó là dấu hiệu của Builder + Operator.",
+          "headline": "Bạn có khả năng biến ý tưởng thành sản phẩm và theo đuổi quá trình sửa lỗi đến khi hoàn thiện.",
+          "portrait": "Bạn thường thích làm ra sản phẩm cụ thể, nhưng không chỉ làm cho vui. Bạn có thể chú ý đến độ ổn định, chất lượng, lỗi kỹ thuật và cách cải tiến qua từng phiên bản. Trong nhóm, bạn giúp ý tưởng trở thành sản phẩm có thể chạy được và đáng tin cậy hơn.",
+          "parent_empathy": "Bạn có thể nhận thấy mình thích lắp ráp, sửa lỗi, kiểm tra đi kiểm tra lại hoặc rất vui khi sản phẩm cuối cùng hoạt động ổn định, đó là dấu hiệu của Builder + Operator.",
           "best_environment": "Robotics competition, engineering project, QA/testing, hardware build, software debugging, sản phẩm cần độ chính xác."
         },
         "builder_connector": {
@@ -1104,9 +1104,9 @@
           "primary_role": "builder",
           "secondary_role": "connector",
           "profile_name": "Nhà Kiến Tạo Vì Con Người",
-          "headline": "Con thích tạo ra sản phẩm thực tế và quan tâm sản phẩm đó có giúp ích cho người dùng hay không.",
-          "portrait": "Con thường muốn biến ý tưởng thành thứ có thể dùng được. Điểm đặc biệt là con không chỉ quan tâm sản phẩm có chạy không, mà còn để ý người dùng có cần nó không, có dễ dùng không, có tạo tác động tích cực không.",
-          "parent_empathy": "Nếu bố mẹ thấy con thích làm đồ vật, robot, app hoặc mô hình nhưng cũng thường hỏi “ai sẽ dùng cái này” hoặc “nó giúp được gì cho người khác”, đó là biểu hiện của Builder + Connector.",
+          "headline": "Bạn thích tạo ra sản phẩm thực tế và quan tâm sản phẩm đó có giúp ích cho người dùng hay không.",
+          "portrait": "Bạn thường muốn biến ý tưởng thành thứ có thể dùng được. Điểm đặc biệt là bạn không chỉ quan tâm sản phẩm có chạy không, mà còn để ý người dùng có cần nó không, có dễ dùng không, có tạo tác động tích cực không.",
+          "parent_empathy": "Bạn có thể nhận thấy mình thích làm đồ vật, robot, app hoặc mô hình nhưng cũng thường hỏi “ai sẽ dùng cái này” hoặc “nó giúp được gì cho người khác”, đó là biểu hiện của Builder + Connector.",
           "best_environment": "Human-centered robotics, product design, assistive technology, social innovation, dự án công nghệ vì cộng đồng."
         },
         "builder_communicator": {
@@ -1114,9 +1114,9 @@
           "primary_role": "builder",
           "secondary_role": "communicator",
           "profile_name": "Nhà Kiến Tạo Biết Kể Chuyện",
-          "headline": "Con có thể làm ra sản phẩm và giải thích giá trị của sản phẩm đó cho người khác hiểu.",
-          "portrait": "Con thường thích tạo ra demo, mô hình hoặc sản phẩm cụ thể. Sau đó, con cũng có khả năng trình bày quá trình làm, giải thích sản phẩm hoạt động ra sao và vì sao giải pháp này có ý nghĩa.",
-          "parent_empathy": "Nếu bố mẹ thấy con vừa thích build, vừa thích khoe sản phẩm, làm video demo, thuyết trình hoặc giải thích cách hoạt động, đó là dấu hiệu của Builder + Communicator.",
+          "headline": "Bạn có thể làm ra sản phẩm và giải thích giá trị của sản phẩm đó cho người khác hiểu.",
+          "portrait": "Bạn thường thích tạo ra demo, mô hình hoặc sản phẩm cụ thể. Sau đó, bạn cũng có khả năng trình bày quá trình làm, giải thích sản phẩm hoạt động ra sao và vì sao giải pháp này có ý nghĩa.",
+          "parent_empathy": "Bạn có thể nhận thấy mình vừa thích build, vừa thích khoe sản phẩm, làm video demo, thuyết trình hoặc giải thích cách hoạt động, đó là dấu hiệu của Builder + Communicator.",
           "best_environment": "Demo day, robotics showcase, product pitching, science fair, maker video, thuyết trình sản phẩm kỹ thuật."
         },
         "operator_explorer": {
@@ -1124,9 +1124,9 @@
           "primary_role": "operator",
           "secondary_role": "explorer",
           "profile_name": "Nhà Vận Hành Biết Khám Phá",
-          "headline": "Con làm việc có kế hoạch nhưng vẫn biết đặt câu hỏi để cải tiến cách làm.",
-          "portrait": "Con thường thích sự rõ ràng, có bước đi và tiêu chí cụ thể. Tuy nhiên, con không chỉ làm theo quy trình có sẵn mà còn biết quan sát, đặt câu hỏi và tìm cách tối ưu quy trình tốt hơn.",
-          "parent_empathy": "Nếu bố mẹ thấy con thích checklist, kế hoạch, nhưng vẫn tò mò tìm cách làm hiệu quả hơn hoặc hỏi vì sao quy trình lại như vậy, đó là biểu hiện của Operator + Explorer.",
+          "headline": "Bạn làm việc có kế hoạch nhưng vẫn biết đặt câu hỏi để cải tiến cách làm.",
+          "portrait": "Bạn thường thích sự rõ ràng, có bước đi và tiêu chí cụ thể. Tuy nhiên, bạn không chỉ làm theo quy trình có sẵn mà còn biết quan sát, đặt câu hỏi và tìm cách tối ưu quy trình tốt hơn.",
+          "parent_empathy": "Bạn có thể nhận thấy mình thích checklist, kế hoạch, nhưng vẫn tò mò tìm cách làm hiệu quả hơn hoặc hỏi vì sao quy trình lại như vậy, đó là biểu hiện của Operator + Explorer.",
           "best_environment": "Process improvement, robotics testing, data logging, quality improvement, dự án cần vừa kỷ luật vừa cải tiến."
         },
         "operator_builder": {
@@ -1134,9 +1134,9 @@
           "primary_role": "operator",
           "secondary_role": "builder",
           "profile_name": "Nhà Vận Hành Kỹ Thuật",
-          "headline": "Con có khả năng tổ chức quá trình làm việc và hỗ trợ biến kế hoạch thành sản phẩm cụ thể.",
-          "portrait": "Con thường chú ý đến kế hoạch, nhiệm vụ, deadline và tiêu chuẩn. Khi kết hợp với Builder, con có thể tham gia trực tiếp vào quá trình build, test, sửa lỗi và đảm bảo sản phẩm cuối cùng đạt yêu cầu.",
-          "parent_empathy": "Nếu bố mẹ thấy con vừa thích sắp xếp công việc, vừa thích tự tay sửa, kiểm tra hoặc hoàn thiện sản phẩm, đó là dấu hiệu của Operator + Builder.",
+          "headline": "Bạn có khả năng tổ chức quá trình làm việc và hỗ trợ biến kế hoạch thành sản phẩm cụ thể.",
+          "portrait": "Bạn thường chú ý đến kế hoạch, nhiệm vụ, deadline và tiêu chuẩn. Khi kết hợp với Builder, bạn có thể tham gia trực tiếp vào quá trình build, test, sửa lỗi và đảm bảo sản phẩm cuối cùng đạt yêu cầu.",
+          "parent_empathy": "Bạn có thể nhận thấy mình vừa thích sắp xếp công việc, vừa thích tự tay sửa, kiểm tra hoặc hoàn thiện sản phẩm, đó là dấu hiệu của Operator + Builder.",
           "best_environment": "Robotics operations, test engineering, technical project, vận hành đội thi, kiểm thử sản phẩm, triển khai hệ thống."
         },
         "operator_connector": {
@@ -1144,9 +1144,9 @@
           "primary_role": "operator",
           "secondary_role": "connector",
           "profile_name": "Người Điều Phối Tin Cậy",
-          "headline": "Con biết tổ chức công việc và giúp mọi người phối hợp với nhau hiệu quả hơn.",
-          "portrait": "Con thường chú ý đến việc nhóm đã rõ vai trò chưa, ai cần hỗ trợ, tiến độ có ổn không và mọi người có đang phối hợp tốt không. Con có thể là người giúp nhóm làm việc có trật tự nhưng vẫn giữ được sự hài hòa.",
-          "parent_empathy": "Nếu bố mẹ thấy con hay nhắc lịch, phân công việc, hỗ trợ bạn bè và muốn mọi người cùng hoàn thành nhiệm vụ, đó là biểu hiện của Operator + Connector.",
+          "headline": "Bạn biết tổ chức công việc và giúp mọi người phối hợp với nhau hiệu quả hơn.",
+          "portrait": "Bạn thường chú ý đến việc nhóm đã rõ vai trò chưa, ai cần hỗ trợ, tiến độ có ổn không và mọi người có đang phối hợp tốt không. Bạn có thể là người giúp nhóm làm việc có trật tự nhưng vẫn giữ được sự hài hòa.",
+          "parent_empathy": "Bạn có thể nhận thấy mình hay nhắc lịch, phân công việc, hỗ trợ bạn bè và muốn mọi người cùng hoàn thành nhiệm vụ, đó là biểu hiện của Operator + Connector.",
           "best_environment": "Điều phối sự kiện, project coordination, team operations, program management, robotics team logistics."
         },
         "operator_communicator": {
@@ -1154,9 +1154,9 @@
           "primary_role": "operator",
           "secondary_role": "communicator",
           "profile_name": "Người Dẫn Dắt Có Cấu Trúc",
-          "headline": "Con có khả năng trình bày rõ ràng và giúp nhóm đi theo kế hoạch cụ thể.",
-          "portrait": "Con thường thích thông tin rõ ràng, có cấu trúc và dễ theo dõi. Khi trình bày, con có thể giúp người khác hiểu mục tiêu, kế hoạch, tiến độ và việc cần làm tiếp theo.",
-          "parent_empathy": "Nếu bố mẹ thấy con hay giải thích việc cần làm theo từng bước, thích lập checklist rồi trình bày lại cho người khác, đó là biểu hiện của Operator + Communicator.",
+          "headline": "Bạn có khả năng trình bày rõ ràng và giúp nhóm đi theo kế hoạch cụ thể.",
+          "portrait": "Bạn thường thích thông tin rõ ràng, có cấu trúc và dễ theo dõi. Khi trình bày, bạn có thể giúp người khác hiểu mục tiêu, kế hoạch, tiến độ và việc cần làm tiếp theo.",
+          "parent_empathy": "Bạn có thể nhận thấy mình hay giải thích việc cần làm theo từng bước, thích lập checklist rồi trình bày lại cho người khác, đó là biểu hiện của Operator + Communicator.",
           "best_environment": "Thuyết trình kế hoạch, project update, team briefing, documentation, hướng dẫn sử dụng, quản lý workshop."
         },
         "connector_explorer": {
@@ -1164,9 +1164,9 @@
           "primary_role": "connector",
           "secondary_role": "explorer",
           "profile_name": "Người Kết Nối Khám Phá",
-          "headline": "Con quan tâm đến con người và luôn muốn hiểu sâu hơn nhu cầu thật phía sau vấn đề.",
-          "portrait": "Con thường bắt đầu bằng việc lắng nghe, quan sát và đặt câu hỏi. Con muốn hiểu người khác nghĩ gì, cảm thấy gì, cần gì, và vì sao vấn đề lại xảy ra. Trong nhóm, con giúp mọi người không chỉ làm nhanh mà còn làm đúng với nhu cầu thật.",
-          "parent_empathy": "Nếu bố mẹ thấy con rất để ý cảm xúc của người khác, đồng thời hay hỏi thêm để hiểu nguyên nhân, đó là dấu hiệu của Connector + Explorer.",
+          "headline": "Bạn quan tâm đến bạn người và luôn muốn hiểu sâu hơn nhu cầu thật phía sau vấn đề.",
+          "portrait": "Bạn thường bắt đầu bằng việc lắng nghe, quan sát và đặt câu hỏi. Bạn muốn hiểu người khác nghĩ gì, cảm thấy gì, cần gì, và vì sao vấn đề lại xảy ra. Trong nhóm, bạn giúp mọi người không chỉ làm nhanh mà còn làm đúng với nhu cầu thật.",
+          "parent_empathy": "Bạn có thể nhận thấy mình rất để ý cảm xúc của người khác, đồng thời hay hỏi thêm để hiểu nguyên nhân, đó là dấu hiệu của Connector + Explorer.",
           "best_environment": "User interview, community research, social project, service design, robotics solution for real users."
         },
         "connector_builder": {
@@ -1174,9 +1174,9 @@
           "primary_role": "connector",
           "secondary_role": "builder",
           "profile_name": "Người Kết Nối Tạo Giải Pháp",
-          "headline": "Con hiểu nhu cầu con người và muốn biến sự thấu hiểu đó thành giải pháp cụ thể.",
-          "portrait": "Con thường quan tâm người dùng cần gì, sau đó muốn cùng nhóm làm ra một thứ có thể giúp họ. Con có thể kết nối insight từ người dùng với prototype, mô hình hoặc sản phẩm thực tế.",
-          "parent_empathy": "Nếu bố mẹ thấy con vừa quan tâm người khác, vừa thích tạo ra giải pháp để giúp họ, đó là biểu hiện của Connector + Builder.",
+          "headline": "Bạn hiểu nhu cầu bạn người và muốn biến sự thấu hiểu đó thành giải pháp cụ thể.",
+          "portrait": "Bạn thường quan tâm người dùng cần gì, sau đó muốn cùng nhóm làm ra một thứ có thể giúp họ. Bạn có thể kết nối insight từ người dùng với prototype, mô hình hoặc sản phẩm thực tế.",
+          "parent_empathy": "Bạn có thể nhận thấy mình vừa quan tâm người khác, vừa thích tạo ra giải pháp để giúp họ, đó là biểu hiện của Connector + Builder.",
           "best_environment": "Assistive technology, social innovation, product design, human-centered robotics, dự án cộng đồng có prototype."
         },
         "connector_operator": {
@@ -1184,9 +1184,9 @@
           "primary_role": "connector",
           "secondary_role": "operator",
           "profile_name": "Người Kết Nối Có Tổ Chức",
-          "headline": "Con biết lắng nghe mọi người và biến sự phối hợp thành kế hoạch rõ ràng.",
-          "portrait": "Con thường chú ý đến nhu cầu của các thành viên, đồng thời biết nhóm cần kế hoạch, vai trò và tiến độ để đi đến kết quả. Con có thể là người giữ cho nhóm vừa hòa hợp vừa hiệu quả.",
-          "parent_empathy": "Nếu bố mẹ thấy con quan tâm bạn bè nhưng cũng hay nhắc lịch, phân chia việc hoặc muốn mọi thứ rõ ràng, đó là dấu hiệu của Connector + Operator.",
+          "headline": "Bạn biết lắng nghe mọi người và biến sự phối hợp thành kế hoạch rõ ràng.",
+          "portrait": "Bạn thường chú ý đến nhu cầu của các thành viên, đồng thời biết nhóm cần kế hoạch, vai trò và tiến độ để đi đến kết quả. Bạn có thể là người giữ cho nhóm vừa hòa hợp vừa hiệu quả.",
+          "parent_empathy": "Bạn có thể nhận thấy mình quan tâm bạn bè nhưng cũng hay nhắc lịch, phân chia việc hoặc muốn mọi thứ rõ ràng, đó là dấu hiệu của Connector + Operator.",
           "best_environment": "Program coordination, event operations, club management, stakeholder coordination, robotics education program."
         },
         "connector_communicator": {
@@ -1194,9 +1194,9 @@
           "primary_role": "connector",
           "secondary_role": "communicator",
           "profile_name": "Người Kể Chuyện Kết Nối",
-          "headline": "Con có khả năng thấu hiểu người khác và truyền đạt thông điệp theo cách chạm đến người nghe.",
-          "portrait": "Con thường để ý cảm xúc, nhu cầu và góc nhìn của người khác. Khi truyền đạt, con không chỉ nói cho rõ mà còn biết điều chỉnh cách nói để người nghe cảm thấy được hiểu và muốn tham gia.",
-          "parent_empathy": "Nếu bố mẹ thấy con hay quan tâm mọi người, thích kể chuyện, giải thích hoặc đứng ra nói giúp nhóm, đó là biểu hiện của Connector + Communicator.",
+          "headline": "Bạn có khả năng thấu hiểu người khác và truyền đạt thông điệp theo cách chạm đến người nghe.",
+          "portrait": "Bạn thường để ý cảm xúc, nhu cầu và góc nhìn của người khác. Khi truyền đạt, bạn không chỉ nói cho rõ mà còn biết điều chỉnh cách nói để người nghe cảm thấy được hiểu và muốn tham gia.",
+          "parent_empathy": "Bạn có thể nhận thấy mình hay quan tâm mọi người, thích kể chuyện, giải thích hoặc đứng ra nói giúp nhóm, đó là biểu hiện của Connector + Communicator.",
           "best_environment": "Community project, truyền thông xã hội, giáo dục, workshop, pitching giải pháp xã hội, team presentation."
         },
         "communicator_explorer": {
@@ -1204,9 +1204,9 @@
           "primary_role": "communicator",
           "secondary_role": "explorer",
           "profile_name": "Người Truyền Đạt Ham Khám Phá",
-          "headline": "Con thích tìm hiểu điều mới và có khả năng biến điều đó thành câu chuyện dễ hiểu.",
-          "portrait": "Con thường học bằng cách đặt câu hỏi, tìm hiểu thêm, rồi nói hoặc viết lại để hiểu sâu hơn. Trong nhóm, con có thể giúp biến những phát hiện mới thành thông điệp rõ ràng, hấp dẫn và dễ nhớ.",
-          "parent_empathy": "Nếu bố mẹ thấy con hay tìm hiểu một chủ đề rồi kể lại, giải thích lại hoặc làm nội dung chia sẻ, đó là dấu hiệu của Communicator + Explorer.",
+          "headline": "Bạn thích tìm hiểu điều mới và có khả năng biến điều đó thành câu chuyện dễ hiểu.",
+          "portrait": "Bạn thường học bằng cách đặt câu hỏi, tìm hiểu thêm, rồi nói hoặc viết lại để hiểu sâu hơn. Trong nhóm, bạn có thể giúp biến những phát hiện mới thành thông điệp rõ ràng, hấp dẫn và dễ nhớ.",
+          "parent_empathy": "Bạn có thể nhận thấy mình hay tìm hiểu một chủ đề rồi kể lại, giải thích lại hoặc làm nội dung chia sẻ, đó là dấu hiệu của Communicator + Explorer.",
           "best_environment": "Science communication, content STEM, presentation, explainer video, workshop, storytelling về công nghệ."
         },
         "communicator_builder": {
@@ -1214,9 +1214,9 @@
           "primary_role": "communicator",
           "secondary_role": "builder",
           "profile_name": "Người Truyền Đạt Tạo Tác",
-          "headline": "Con không chỉ nói ý tưởng hay, mà còn muốn có sản phẩm hoặc demo để minh họa điều mình nói.",
-          "portrait": "Con thường thích trình bày, kể chuyện và giải thích. Khi kết hợp với Builder, con sẽ mạnh hơn nếu được tự tay làm demo, prototype hoặc sản phẩm nhỏ để phần trình bày có bằng chứng thực tế.",
-          "parent_empathy": "Nếu bố mẹ thấy con thích thuyết trình nhưng cũng muốn làm slide, demo, mô hình hoặc video sản phẩm, đó là biểu hiện của Communicator + Builder.",
+          "headline": "Bạn không chỉ nói ý tưởng hay, mà còn muốn có sản phẩm hoặc demo để minh họa điều mình nói.",
+          "portrait": "Bạn thường thích trình bày, kể chuyện và giải thích. Khi kết hợp với Builder, bạn sẽ mạnh hơn nếu được tự tay làm demo, prototype hoặc sản phẩm nhỏ để phần trình bày có bằng chứng thực tế.",
+          "parent_empathy": "Bạn có thể nhận thấy mình thích thuyết trình nhưng cũng muốn làm slide, demo, mô hình hoặc video sản phẩm, đó là biểu hiện của Communicator + Builder.",
           "best_environment": "Product demo, maker presentation, pitch competition, robotics showcase, content creation có sản phẩm thật."
         },
         "communicator_operator": {
@@ -1224,9 +1224,9 @@
           "primary_role": "communicator",
           "secondary_role": "operator",
           "profile_name": "Người Truyền Đạt Có Cấu Trúc",
-          "headline": "Con có khả năng giải thích rõ ràng, mạch lạc và giúp người khác hiểu từng bước cần làm.",
-          "portrait": "Con thường thích trình bày ý tưởng, nhưng không nói một cách rời rạc. Con có xu hướng sắp xếp thông tin thành dàn ý, bước làm, checklist hoặc hướng dẫn để người khác dễ theo dõi.",
-          "parent_empathy": "Nếu bố mẹ thấy con thích giải thích, làm slide, viết hướng dẫn hoặc trình bày theo từng bước rất rõ, đó là dấu hiệu của Communicator + Operator.",
+          "headline": "Bạn có khả năng giải thích rõ ràng, mạch lạc và giúp người khác hiểu từng bước cần làm.",
+          "portrait": "Bạn thường thích trình bày ý tưởng, nhưng không nói một cách rời rạc. Bạn có xu hướng sắp xếp thông tin thành dàn ý, bước làm, checklist hoặc hướng dẫn để người khác dễ theo dõi.",
+          "parent_empathy": "Bạn có thể nhận thấy mình thích giải thích, làm slide, viết hướng dẫn hoặc trình bày theo từng bước rất rõ, đó là dấu hiệu của Communicator + Operator.",
           "best_environment": "Training, documentation, project reporting, product tutorial, workshop facilitation, technical presentation."
         },
         "communicator_connector": {
@@ -1234,9 +1234,9 @@
           "primary_role": "communicator",
           "secondary_role": "connector",
           "profile_name": "Người Kể Chuyện Truyền Cảm Hứng",
-          "headline": "Con biết truyền đạt ý tưởng và tạo sự kết nối cảm xúc với người nghe.",
-          "portrait": "Con thường mạnh ở việc nói, viết, kể chuyện hoặc trình bày. Khi kết hợp với Connector, con không chỉ truyền đạt thông tin mà còn biết để ý người nghe cần gì, cảm thấy gì và thông điệp nào sẽ chạm đến họ.",
-          "parent_empathy": "Nếu bố mẹ thấy con hay kể chuyện, giải thích, quan tâm cảm xúc người khác và thường là người giúp mọi người hiểu nhau hơn, đó là biểu hiện của Communicator + Connector.",
+          "headline": "Bạn biết truyền đạt ý tưởng và tạo sự kết nối cảm xúc với người nghe.",
+          "portrait": "Bạn thường mạnh ở việc nói, viết, kể chuyện hoặc trình bày. Khi kết hợp với Connector, bạn không chỉ truyền đạt thông tin mà còn biết để ý người nghe cần gì, cảm thấy gì và thông điệp nào sẽ chạm đến họ.",
+          "parent_empathy": "Bạn có thể nhận thấy mình hay kể chuyện, giải thích, quan tâm cảm xúc người khác và thường là người giúp mọi người hiểu nhau hơn, đó là biểu hiện của Communicator + Connector.",
           "best_environment": "Public speaking, community communication, marketing, education, social campaign, pitching dự án tác động xã hội."
         }
       }
@@ -1249,12 +1249,17 @@
       "drone_delivery": "Nhiệm vụ Drone Delivery",
       "disaster_response": "Nhiệm vụ Disaster Response"
     },
-    "evidence_fallback": "Trong nhiệm vụ {{mission}}, con đã thể hiện các tố chất cốt lõi của một {{role}}.",
+    "evidence_fallback": "Trong nhiệm vụ {{mission}}, bạn đã thể hiện các tố chất cốt lõi của một {{role}}.",
     "levels": {
       "basic": "Cơ bản",
       "intermediate": "Trung cấp",
       "advanced": "Nâng cao"
     },
-    "natural_behavior_headline": "Xu hướng hành vi"
+    "natural_behavior_headline": "Xu hướng hành vi",
+    "card_strengths_title": "Điểm mạnh nổi bật của bạn",
+    "card_watchouts_title": "Điểm cần lưu ý & Điểm mù",
+    "card_behaviors_title": "Hành vi tự nhiên khi tiếp cận vấn đề",
+    "card_recognition_title": "Dấu hiệu tự nhận diện",
+    "combination_archetype": "Bộ đôi kết hợp"
   }
 }
