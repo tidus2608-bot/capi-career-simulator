@@ -121,4 +121,46 @@ describe('QASection', () => {
     expect(buttons[1].className).toContain('p2-selected')
     expect(buttons[2].className).not.toContain('p2-selected')
   })
+
+  it('renders hotkey indicators when showHotkeys is true', () => {
+    const choiceOptions = [
+      { label: 'A', text: 'Option A' },
+      { label: 'B', text: 'Option B' },
+    ]
+
+    const { container } = render(
+      <QASection
+        questionText="Scenario question?"
+        options={choiceOptions}
+        selectedValue={undefined}
+        onSelect={() => {}}
+        showHotkeys={true}
+      />,
+    )
+
+    const hotkeys = container.querySelectorAll('.p2-option-hotkey')
+    expect(hotkeys).toHaveLength(2)
+    expect(hotkeys[0].textContent).toBe('A')
+    expect(hotkeys[1].textContent).toBe('B')
+  })
+
+  it('hides hotkey indicators when showHotkeys is false', () => {
+    const choiceOptions = [
+      { label: 'A', text: 'Option A' },
+      { label: 'B', text: 'Option B' },
+    ]
+
+    const { container } = render(
+      <QASection
+        questionText="Scenario question?"
+        options={choiceOptions}
+        selectedValue={undefined}
+        onSelect={() => {}}
+        showHotkeys={false}
+      />,
+    )
+
+    const hotkeys = container.querySelectorAll('.p2-option-hotkey')
+    expect(hotkeys).toHaveLength(0)
+  })
 })

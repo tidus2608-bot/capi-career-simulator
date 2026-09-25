@@ -7,3 +7,7 @@ if (!process.env.VITE_SUPABASE_URL) {
 if (!process.env.VITE_SUPABASE_ANON_KEY) {
   process.env.VITE_SUPABASE_ANON_KEY = 'mock-anon-key'
 }
+
+if (typeof window !== 'undefined') {
+  window.scrollTo = () => {}
+}
