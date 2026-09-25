@@ -1,14 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import Button from '../Button.jsx'
 import { capiAudio } from '../../audio.js'
 import { CAPI_MISSIONS } from '../../data.js'
 import { useWizard } from '../../contexts/WizardContext.jsx'
-import QASection from '../QASection.jsx'
-import SceneShell from './SceneShell.jsx'
 import TransitionScreen from './TransitionScreen.jsx'
-import CapiImage from '../CapiImage.jsx'
+import QAPageLayout from './QAPageLayout.jsx'
 
 const MISSION_PADS = {
   1: [98, 146.8, 196, 293.7],
@@ -42,13 +39,14 @@ export default function MissionPlayScene() {
   const m = CAPI_MISSIONS[missionId]
   const qs = m ? m.questions : []
 
+  const answersRef = useRef(answers)
+  useEffect(() => {
+    answersRef.current = answers
+  }, [answers])
+
   const [stage, setStage] = useState(() => {
     if (idx > 0) return 'q'
     return 'intro'
-  })
-  const [picked, setPicked] = useState(() => {
-    const currentQ = qs[idx]
-    return currentQ ? (answers[currentQ.id] ?? null) : null
   })
 
   useEffect(() => {
@@ -69,25 +67,32 @@ export default function MissionPlayScene() {
   }, [idx, missionId, qs.length])
 
   const q = qs[idx]
+  const picked = q ? (answers[q.id] ?? null) : null
   const illoSrc = `/illos/m${missionId}-q${String(idx + 1).padStart(2, '0')}.webp`
-  const progress = qs.length > 0 ? Math.round(((idx + 1) / qs.length) * 100) : 0
+
+  const answeredIndices = qs
+    .map((item, i) => (answers[item.id] !== undefined ? i : -1))
+    .filter((i) => i !== -1)
+  const maxAnsweredIdx = answeredIndices.length > 0 ? Math.max(...answeredIndices) : -1
+  const maxNavigableIdx = Math.min(qs.length - 1, maxAnsweredIdx + 1)
+  const canGoNext = idx < maxNavigableIdx
 
   const selectOption = (opt) => {
     capiAudio.sfx('click')
-    setPicked(opt.label)
+    const choice = typeof opt === 'string' ? opt : (opt.label || opt.value || opt)
+    setAnswers((prev) => {
+      const updated = { ...prev, [q.id]: choice }
+      answersRef.current = updated
+      return updated
+    })
   }
 
   const goNext = () => {
-    if (picked === null) return
-    const newAnswers = { ...answers, [q.id]: picked }
-    setAnswers(newAnswers)
     capiAudio.sfx('confirm')
     if (idx + 1 >= qs.length) {
       setStage('ending')
     } else {
-      setIdx(idx + 1)
-      const nextQ = qs[idx + 1]
-      setPicked(newAnswers[nextQ?.id] ?? null)
+      setIdx((prev) => prev + 1)
     }
   }
 
@@ -96,9 +101,7 @@ export default function MissionPlayScene() {
       navigate('/mission-pick')
       return
     }
-    const prevQ = qs[idx - 1]
-    setIdx(idx - 1)
-    setPicked(answers[prevQ.id] ?? null)
+    setIdx((prev) => prev - 1)
   }
 
   if (stage === 'intro') {
@@ -124,82 +127,26 @@ export default function MissionPlayScene() {
   if (!q) return null
 
   return (
-    <SceneShell light>
-      <div className="p2-new-layout qa-page-layout">
-        {/* Split Layout */}
-        <div className="p1-split-layout">
-          <div className="p1-left-illustration p1-left-illustration--cover">
-            <CapiImage
-              src={illoSrc}
-              alt=""
-              theme="light"
-              priority
-              fallbackSrc={`/illos/m${missionId}-preview.webp`}
-              style={{ height: '100%' }}
-            />
-          </div>
-
-          <div className="p1-right-content">
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'clamp(14px, 2vh, 20px)',
-                width: '100%',
-              }}
-            >
-              {/* Chapter Title Badge */}
-              {t(`missions.${missionId}.questions.${q.id}.chapter`, '') && (
-                <div className="p2-chapter-badge">
-                  {t(`missions.${missionId}.questions.${q.id}.chapter`)}
-                </div>
-              )}
-
-              {/* Progress Bar Container */}
-              <div className="p1-progress-bar-container">
-                <div className="p1-progress-labels">
-                  <span>
-                    {t('common.question_progress', {
-                      num: String(idx + 1).padStart(2, '0'),
-                      total: String(qs.length).padStart(2, '0'),
-                    })}
-                  </span>
-                  <span>{t('common.percent_completed', { percent: progress })}</span>
-                </div>
-                <div className="p1-progress-outer">
-                  <div className="p1-progress-inner" style={{ width: `${progress}%` }} />
-                </div>
-              </div>
-
-              <QASection
-                key={idx}
-                questionText={t(`missions.${missionId}.questions.${q.id}.dialogue`)}
-                options={q.options.map((opt) => ({
-                  label: opt.label,
-                  text: t(`missions.${missionId}.questions.${q.id}.options.${opt.label}`),
-                  ...opt,
-                }))}
-                selectedValue={picked}
-                onSelect={selectOption}
-              />
-            </div>
-
-            <div className="p2-new-actions" style={{ width: '100%', marginTop: 'auto' }}>
-              <Button variant="outline" onClick={goBack}>
-                {t('common.back')}
-              </Button>
-              <Button
-                variant="solid"
-                active={picked !== null}
-                disabled={picked === null}
-                onClick={goNext}
-              >
-                {t('common.continue_btn')} →
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </SceneShell>
+    <QAPageLayout
+      imageSrc={illoSrc}
+      fallbackImageSrc={`/illos/m${missionId}-preview.webp`}
+      chapterBadge={t(`missions.${missionId}.questions.${q.id}.chapter`, '')}
+      idx={idx}
+      total={qs.length}
+      questionText={t(`missions.${missionId}.questions.${q.id}.dialogue`)}
+      options={q.options.map((opt) => ({
+        label: opt.label,
+        hotkey: opt.label,
+        text: t(`missions.${missionId}.questions.${q.id}.options.${opt.label}`),
+        ...opt,
+      }))}
+      selectedValue={picked}
+      onSelect={selectOption}
+      onBack={goBack}
+      onNext={goNext}
+      canGoNext={canGoNext}
+      backText={t('common.back')}
+      coverImage
+    />
   )
 }

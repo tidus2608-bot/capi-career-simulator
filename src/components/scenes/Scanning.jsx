@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { capiAudio } from '../../audio.js'
@@ -22,6 +22,11 @@ export default function ScanningScene() {
     phase1Answers,
     setPhase1Answers,
   } = useWizard()
+
+  const answersRef = useRef(phase1Answers)
+  useEffect(() => {
+    answersRef.current = phase1Answers
+  }, [phase1Answers])
 
   useEffect(() => {
     capiAudio.pad([130.8, 196, 261.6, 392], 'cold')
@@ -65,22 +70,27 @@ export default function ScanningScene() {
 
   const handleSelectOption = (v) => {
     capiAudio.sfx('click')
-    setPhase1Answers((prev) => ({
-      ...prev,
-      selfPerception: { ...prev.selfPerception, [currentQ.id]: v },
-    }))
+    setPhase1Answers((prev) => {
+      const updated = {
+        ...prev,
+        selfPerception: { ...prev.selfPerception, [currentQ.id]: v },
+      }
+      answersRef.current = updated
+      return updated
+    })
   }
 
   const next = () => {
     capiAudio.sfx('click')
     if (idx + 1 >= total) {
       capiAudio.sfx('scan')
+      const currentSP = answersRef.current?.selfPerception || {}
       const spFull = {}
-      for (const q of selectedQuestions) spFull[q.id] = phase1Answers.selfPerception[q.id] ?? 3
+      for (const q of selectedQuestions) spFull[q.id] = currentSP[q.id] ?? 3
       onScanDone({ selfPerception: spFull })
       navigate('/role-reveal')
     } else {
-      setIdx(idx + 1)
+      setIdx((prev) => prev + 1)
     }
   }
 
@@ -173,6 +183,14 @@ export default function ScanningScene() {
 
   const imgPath = '/illos/capi-phase1.webp'
 
+  const currentSP = phase1Answers?.selfPerception || {}
+  const answeredIndices = selectedQuestions
+    .map((item, i) => (currentSP[item.id] !== undefined ? i : -1))
+    .filter((i) => i !== -1)
+  const maxAnsweredIdx = answeredIndices.length > 0 ? Math.max(...answeredIndices) : -1
+  const maxNavigableIdx = Math.min(total - 1, maxAnsweredIdx + 1)
+  const canGoNext = idx < maxNavigableIdx
+
   return (
     <QAPageLayout
       imageSrc={imgPath}
@@ -181,14 +199,14 @@ export default function ScanningScene() {
       questionText={t(`questions.${currentQ.id}`)}
       options={[5, 4, 3, 2, 1].map((val) => ({
         value: val,
+        hotkey: String(val),
         text: t(`likert.${val}`),
       }))}
       selectedValue={currentValue}
       onSelect={handleSelectOption}
       onBack={back}
       onNext={next}
-      nextDisabled={currentValue === undefined || currentValue === null}
-      isFinished={idx + 1 >= total}
+      canGoNext={canGoNext}
     />
   )
 }

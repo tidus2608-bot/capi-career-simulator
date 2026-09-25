@@ -44,31 +44,31 @@ describe('IntroScene', () => {
 
     // Hero section
     expect(
-      screen.getByText(/CAPI GENE · (MÔ PHỎNG NGHỀ NGHIỆP|JOB SIMULATOR)/i),
+      screen.getByText(/CAPI GENE - (GIẢI MÃ GEN NGHỀ NGHIỆP|DECODE CAREER GENES)/i),
     ).toBeInTheDocument()
     expect(
-      screen.getByRole('button', { name: /Khám phá bản thân|Explore Yourself/i }),
+      screen.getByRole('button', { name: /Giải mã ngay|Decode Now/i }),
     ).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /Tìm hiểu thêm|Learn More/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Tìm hiểu Capi Gene|Learn About Capi Gene/i })).toBeInTheDocument()
 
     // Perspectives section
-    expect(screen.getByText(/CƠ CHẾ HOẠT ĐỘNG|HOW IT WORKS/i)).toBeInTheDocument()
-    expect(screen.getByText(/Ba góc nhìn|Three perspectives/i)).toBeInTheDocument()
-    expect(screen.getByRole('heading', { name: /TÔI NGHĨ|I THINK/i })).toBeInTheDocument()
-    expect(screen.getByRole('heading', { name: /TÔI LÀM|I DO/i })).toBeInTheDocument()
-    expect(screen.getByRole('heading', { name: /TÔI NHÌN LẠI|I REFLECT/i })).toBeInTheDocument()
+    expect(screen.getByText(/TRIẾT LÝ HOẠT ĐỘNG|OPERATING PHILOSOPHY/i)).toBeInTheDocument()
+    expect(screen.getByText(/BÓC TÁCH "TAM GIÁC PHẢN XẠ"|DECONSTRUCTING/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /TÔI NGHĨ GÌ\?|WHAT DO I THINK\?/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /TÔI LÀM GÌ\?|WHAT DO I DO\?/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /TÔI NHÌN LẠI ĐƯỢC GÌ\?|WHAT DO I REFLECT/i })).toBeInTheDocument()
     expect(
-      screen.getByText(/Điều thú vị không nằm ở một đáp án|The beauty isn't in finding/i),
+      screen.getByText(/Điểm đắt giá nhất|The most valuable takeaway/i),
     ).toBeInTheDocument()
 
     // Genes section
-    expect(screen.getByText(/Năm cách để đóng góp|Five ways to contribute/i)).toBeInTheDocument()
+    expect(screen.getByText(/GIẢI MÃ BỘ 5 CAPI GENE|DECODING THE 5 CAPI GENES/i)).toBeInTheDocument()
     expect(screen.getAllByRole('tab').length).toBe(5)
 
     // Ready section
     expect(screen.getByText(/Sẵn sàng khám phá|Ready to discover/i)).toBeInTheDocument()
     expect(
-      screen.getByRole('button', { name: /Bắt đầu trải nghiệm|Start Simulation/i }),
+      screen.getByRole('button', { name: /Khám phá ngay|Explore Now/i }),
     ).toBeInTheDocument()
   })
 
@@ -81,7 +81,7 @@ describe('IntroScene', () => {
       </MemoryRouter>,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: /Khám phá bản thân|Explore Yourself/i }))
+    fireEvent.click(screen.getByRole('button', { name: /Giải mã ngay|Decode Now/i }))
 
     // Modal dialog opens
     expect(
@@ -104,7 +104,7 @@ describe('IntroScene', () => {
       </MemoryRouter>,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: /Khám phá bản thân|Explore Yourself/i }))
+    fireEvent.click(screen.getByRole('button', { name: /Giải mã ngay|Decode Now/i }))
 
     const loginBtn = screen.getByRole('button', { name: /Đăng nhập ngay|Log in now/i })
     fireEvent.click(loginBtn)
@@ -126,7 +126,7 @@ describe('IntroScene', () => {
       </MemoryRouter>,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: /Bắt đầu trải nghiệm|Start Simulation/i }))
+    fireEvent.click(screen.getByRole('button', { name: /Khám phá ngay|Explore Now/i }))
 
     expect(
       screen.getByText(

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { capiAudio } from '../../audio.js'
@@ -17,6 +17,11 @@ export default function ReflectionScene() {
     setReflectIndex: setIdx,
   } = useWizard()
 
+  const answersRef = useRef(answers)
+  useEffect(() => {
+    answersRef.current = answers
+  }, [answers])
+
   useEffect(() => {
     capiAudio.pad([130.8, 196, 261.6, 392])
   }, [])
@@ -28,21 +33,26 @@ export default function ReflectionScene() {
 
   const handleSelectOption = (v) => {
     capiAudio.sfx('click')
-    setAnswers((prev) => ({ ...prev, [q.role]: v }))
+    setAnswers((prev) => {
+      const updated = { ...prev, [q.role]: v }
+      answersRef.current = updated
+      return updated
+    })
   }
 
   const next = () => {
     capiAudio.sfx('click')
     if (idx + 1 >= PHASE3_QUESTIONS.length) {
       capiAudio.sfx('success')
+      const currentAns = answersRef.current || {}
       const full = {}
       for (const pq of PHASE3_QUESTIONS) {
-        full[pq.role] = answers[pq.role] ?? 3
+        full[pq.role] = currentAns[pq.role] ?? 3
       }
       onReflectDone(full)
       navigate('/certificate')
     } else {
-      setIdx(idx + 1)
+      setIdx((prev) => prev + 1)
     }
   }
 
@@ -57,6 +67,13 @@ export default function ReflectionScene() {
 
   const imgPath = `/illos/bg-${q.role}.webp`
 
+  const answeredIndices = PHASE3_QUESTIONS
+    .map((item, i) => (answers[item.role] !== undefined ? i : -1))
+    .filter((i) => i !== -1)
+  const maxAnsweredIdx = answeredIndices.length > 0 ? Math.max(...answeredIndices) : -1
+  const maxNavigableIdx = Math.min(PHASE3_QUESTIONS.length - 1, maxAnsweredIdx + 1)
+  const canGoNext = idx < maxNavigableIdx
+
   return (
     <QAPageLayout
       imageSrc={imgPath}
@@ -66,13 +83,13 @@ export default function ReflectionScene() {
       options={[5, 4, 3, 2, 1].map((val) => ({
         text: t(`likert_fit.${val}`),
         value: val,
+        hotkey: String(val),
       }))}
       selectedValue={currentValue}
       onSelect={handleSelectOption}
       onBack={back}
       onNext={next}
-      nextDisabled={currentValue === null}
-      isFinished={idx + 1 >= PHASE3_QUESTIONS.length}
+      canGoNext={canGoNext}
       coverImage
     />
   )

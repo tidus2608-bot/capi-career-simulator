@@ -91,16 +91,6 @@ export default function IntroScene() {
         {/* SECTION 1: HERO                                              */}
         {/* ============================================================ */}
         <section id="hero" className="intro-hero-section">
-          <img
-            src="/illos/bg-hero-dark.webp"
-            alt=""
-            className="intro-hero-bg-img"
-            onError={(e) => {
-              if (!e?.currentTarget) return
-              e.currentTarget.style.display = 'none'
-            }}
-          />
-
           <div className="intro-hero-content-wrapper">
             <div className="intro-hero-text-block fade-up">
               <div className="intro-hero-badge">{t('intro.hero_badge')}</div>
