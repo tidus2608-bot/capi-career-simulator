@@ -2,9 +2,10 @@
 
 A React + Vite career-discovery game for Vietnamese students. Three-phase flow (self-perception scan → mission simulation → reflection) produces a 12-section certificate identifying the player's primary and secondary career roles.
 
-- **Frontend**: React 18 + Vite 5, vanilla JS/JSX with TypeScript supported via `allowJs`. Mascot, particles, radar charts, ambient WebAudio.
+- **Frontend**: React 19 + Vite 8, vanilla JS/JSX with TypeScript supported via `allowJs`. Mascot, particles, radar charts, ambient WebAudio.
 - **Auth + storage**: Supabase (Google OAuth, RLS-scoped `runs` table per user).
-- **Admin**: Cloudflare Pages Function `/admin.html` reads Supabase via service-role key (no D1).
+- **Admin API**: Cloudflare Pages Functions under `/api/*` read Supabase via service-role key (no D1).
+  The admin page (`public/admin.html`) was removed in commit `752d577`, so these endpoints currently have no UI.
 - **Deploy**: Cloudflare Pages from `main` via GitHub Actions.
 
 ## Setup
@@ -79,12 +80,17 @@ Individual checks:
 
 ```
 src/
-  App.jsx              # Top-level state machine, Supabase client, save flow
+  App.jsx              # Top-level layout, route guards, restart flow
   main.tsx             # Entry point
   data.js              # UI data: roles, themes, missions index, helpers
   audio.js             # CapiAudio (WebAudio engine)
   types.ts             # Domain types (Role, ScoringResult, etc.)
+  contexts/
+    WizardContext.jsx  # Game state (persisted to localStorage), auth session, run save flow
   lib/
+    supabase.js        # Browser Supabase client (anon key)
+    format.js          # Date/number formatting helpers
+    i18n/              # i18next setup + vi/en locale files
     scoring.js         # Pure scoring engine (3-phase model)
     scoring.test.js    # Profile-classification tests
   components/
@@ -96,6 +102,7 @@ src/
     LanguageSwitch.jsx # Canonical language switcher
     ErrorBoundary.jsx  # Async-failure fallback
     scenes/            # Modular scene views (Intro, Play, Report, History, Credits...)
+    history/           # History page parts (card, answers modal, login prompt, helpers)
     report/            # Report breakdown & certificate sub-components
   data/
     assessment_matrix.json # Source of truth for question/mission/role data
@@ -104,10 +111,13 @@ functions/             # Cloudflare Pages Functions (admin only)
   _auth.ts             # HMAC-signed session cookies + admin allowlist
   _admins.ts           # Service-role admin membership helper
   _supabase.ts         # Service-role REST helper
+  _http.ts             # Shared JSON response + query-param helpers
   api/
     admins.ts          # GET/POST/DELETE /api/admins (admin management)
     results.ts         # GET /api/results  (admin: aggregates + paginated rows)
     export.ts          # GET /api/export   (admin: CSV dump)
+    feedback.ts        # GET /api/feedback (admin: feedback aggregates + paginated rows)
+    export-feedback.ts # GET /api/export-feedback (admin: feedback CSV dump)
     auth/
       session.ts       # POST /api/auth/session (validate token + set session cookie)
       status.ts        # GET /api/auth/status   (check session status)
@@ -172,4 +182,4 @@ To require the verify job before merging, enable in **Settings → Branches → 
 - **Admin reads Supabase via Cloudflare Functions** using the service-role key. The service-role key is never shipped to the browser.
 - **Admin authorization is database-backed** via `public.admins`. The `admins` table grants no direct anon/authenticated table access; all list/create/delete operations go through protected Cloudflare Functions.
 - **No `/api/submit` D1 endpoint** — that path was retired in PR 2 of the overhaul. The old D1 binding was dropped from `wrangler.toml`.
-- **Scoring** lives in `src/lib/scoring.js` — pure functions, fully unit-tested, easy to port to TypeScript. The single source of truth for all question/mission/role data is `src/data/missions.json`.
+- **Scoring** lives in `src/lib/scoring.js` — pure functions, fully unit-tested, easy to port to TypeScript. The single source of truth for all question/mission/role data is `src/data/assessment_matrix.json`.

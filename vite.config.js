@@ -16,10 +16,7 @@ export default defineConfig({
           if (id.includes('node_modules/@supabase')) {
             return 'vendor-supabase'
           }
-          if (
-            id.includes('src/data/assessment_matrix.json') ||
-            id.includes('src/data/missions.json')
-          ) {
+          if (id.includes('src/data/assessment_matrix.json')) {
             return 'data-missions'
           }
           if (id.includes('src/lib/i18n/locales/')) {
