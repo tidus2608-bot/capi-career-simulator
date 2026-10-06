@@ -83,6 +83,29 @@ describe('session round-trip', () => {
     expect(await verifySession(req, env)).toBeNull()
   })
 
+  it('rejects a signature made with a different secret', async () => {
+    const env = {
+      SESSION_SECRET: 'a-very-long-test-secret-32+chars',
+      ALLOWED_DOMAIN: 'example.com',
+    }
+    const token = await createSession('user@example.com', 'another-secret-also-32-chars-long')
+    const req = new Request('https://x.test/', { headers: { Cookie: `admin_session=${token}` } })
+    expect(await verifySession(req, env)).toBeNull()
+  })
+
+  it('rejects a signature that is not valid base64 without throwing', async () => {
+    const env = {
+      SESSION_SECRET: 'a-very-long-test-secret-32+chars',
+      ALLOWED_DOMAIN: 'example.com',
+    }
+    const token = await createSession('user@example.com', env.SESSION_SECRET)
+    const [payload] = token.split('.')
+    const req = new Request('https://x.test/', {
+      headers: { Cookie: `admin_session=${payload}.!!not-base64!!` },
+    })
+    expect(await verifySession(req, env)).toBeNull()
+  })
+
   it('rejects a session for an email no longer allowed', async () => {
     const envSign = {
       SESSION_SECRET: 's3cret-test-32-chars-or-more----',

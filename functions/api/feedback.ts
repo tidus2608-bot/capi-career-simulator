@@ -1,4 +1,5 @@
 import { verifySession } from '../_auth.js'
+import { intParam, json } from '../_http.js'
 import { supabaseRest } from '../_supabase.js'
 
 interface Env {
@@ -18,6 +19,14 @@ interface FeedbackRow {
   consent_given: boolean
 }
 
+/** Shape returned by the `admin_feedback_stats` RPC (supabase/migrations/0004_admin_stats.sql). */
+interface FeedbackStats {
+  total: number
+  avg_q1: number | null
+  avg_q11: number | null
+  bug_reports_count: number
+}
+
 export async function onRequestGet({
   request,
   env,
@@ -25,81 +34,30 @@ export async function onRequestGet({
   request: Request
   env: Env
 }): Promise<Response> {
-  const cors = corsHeaders(request)
-
   const email = await verifySession(request, env)
   if (!email) {
-    return json({ ok: false, error: 'Unauthorized' }, 401, cors)
+    return json({ ok: false, error: 'Unauthorized' }, 401)
   }
 
   const url = new URL(request.url)
-  const limit = Math.min(parseInt(url.searchParams.get('limit') || '50', 10), 1000)
-  const offset = Math.max(parseInt(url.searchParams.get('offset') || '0', 10), 0)
+  const limit = intParam(url.searchParams.get('limit'), 50, 1, 1000)
+  const offset = intParam(url.searchParams.get('offset'), 0, 0, Number.MAX_SAFE_INTEGER)
 
   try {
     const sb = supabaseRest(env)
 
-    const { rows, total } = await sb.select<FeedbackRow>('feedback_responses', {
+    const { rows } = await sb.select<FeedbackRow>('feedback_responses', {
       select: 'id,created_at,run_id,user_id,answers,consent_given',
-      order: 'created_at.desc',
+      order: 'created_at.desc,id.desc',
       limit,
       offset,
-      count: 'exact',
     })
 
-    const { rows: allRows } = await sb.select<FeedbackRow>('feedback_responses', {
-      select: 'answers',
-      limit: 10000,
-    })
+    const stats = await sb.rpc<FeedbackStats>('admin_feedback_stats', {})
 
-    const q1Scores: number[] = []
-    const q11Scores: number[] = []
-    let bugReportCount = 0
-
-    for (const r of allRows) {
-      const ans = r.answers || {}
-      if (typeof ans.q1 === 'number') q1Scores.push(ans.q1)
-      if (typeof ans.q11 === 'number') q11Scores.push(ans.q11)
-      if (Array.isArray(ans.q13) && ans.q13.length > 0) bugReportCount++
-    }
-
-    const stats = {
-      total: total ?? allRows.length,
-      avg_q1: avg(q1Scores),
-      avg_q11: avg(q11Scores),
-      bug_reports_count: bugReportCount,
-    }
-
-    return json({ ok: true, stats, rows, limit, offset }, 200, cors)
+    return json({ ok: true, stats, rows, limit, offset })
   } catch (err) {
     console.error('feedback error', err)
-    return json({ ok: false, error: 'Internal error' }, 500, cors)
+    return json({ ok: false, error: 'Internal error' }, 500)
   }
-}
-
-export async function onRequestOptions({ request }: { request: Request }): Promise<Response> {
-  return new Response(null, {
-    headers: {
-      ...corsHeaders(request),
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  })
-}
-
-function corsHeaders(request: Request): Record<string, string> {
-  const origin = request.headers.get('Origin') || ''
-  return { 'Access-Control-Allow-Origin': origin, Vary: 'Origin' }
-}
-
-function json(body: unknown, status: number, extraHeaders: Record<string, string> = {}): Response {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { 'Content-Type': 'application/json', ...extraHeaders },
-  })
-}
-
-function avg(arr: number[]): number | null {
-  if (!arr.length) return null
-  return arr.reduce((a, b) => a + b, 0) / arr.length
 }

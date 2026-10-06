@@ -34,17 +34,27 @@ export function isAllowed(email: string, env: AuthEnv): boolean {
   return false
 }
 
-async function hmacSign(data: string, secret: string): Promise<string> {
-  const enc = new TextEncoder()
-  const key = await crypto.subtle.importKey(
+function hmacKey(secret: string, usage: 'sign' | 'verify'): Promise<CryptoKey> {
+  return crypto.subtle.importKey(
     'raw',
-    enc.encode(secret),
+    new TextEncoder().encode(secret),
     { name: 'HMAC', hash: 'SHA-256' },
     false,
-    ['sign'],
+    [usage],
   )
-  const sig = await crypto.subtle.sign('HMAC', key, enc.encode(data))
+}
+
+async function hmacSign(data: string, secret: string): Promise<string> {
+  const key = await hmacKey(secret, 'sign')
+  const sig = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(data))
   return btoa(String.fromCharCode(...new Uint8Array(sig)))
+}
+
+/** Constant-time signature check (crypto.subtle.verify compares internally). */
+async function hmacVerify(data: string, sigB64: string, secret: string): Promise<boolean> {
+  const sig = Uint8Array.from(atob(sigB64), (c) => c.charCodeAt(0))
+  const key = await hmacKey(secret, 'verify')
+  return crypto.subtle.verify('HMAC', key, sig, new TextEncoder().encode(data))
 }
 
 export async function createSession(email: string, secret: string): Promise<string> {
@@ -62,8 +72,7 @@ export async function verifySession(request: Request, env: AuthEnv): Promise<str
     if (parts.length !== 2) return null
     const [payload, sig] = parts
     if (!payload || !sig) return null
-    const expectedSig = await hmacSign(payload, env.SESSION_SECRET)
-    if (sig !== expectedSig) return null
+    if (!(await hmacVerify(payload, sig, env.SESSION_SECRET))) return null
 
     const { email, ts } = JSON.parse(atob(payload)) as { email?: string; ts?: number }
     if (!email || !ts) return null

@@ -40,7 +40,7 @@ export async function onRequestGet({
     for (let offset = 0; ; offset += PAGE) {
       const { rows } = await sb.select<FeedbackRow>('feedback_responses', {
         select: 'id,created_at,run_id,user_id,answers,consent_given',
-        order: 'created_at.desc',
+        order: 'created_at.desc,id.desc',
         limit: PAGE,
         offset,
       })

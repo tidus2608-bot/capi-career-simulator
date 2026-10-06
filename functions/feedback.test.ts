@@ -14,6 +14,10 @@ afterEach(() => {
   vi.restoreAllMocks()
 })
 
+function fetchCalls() {
+  return vi.mocked(globalThis.fetch).mock.calls
+}
+
 describe('GET /api/feedback', () => {
   it('returns 401 when unauthorized', async () => {
     const response = await getFeedback({
@@ -54,7 +58,7 @@ describe('GET /api/feedback', () => {
         ),
       )
       .mockResolvedValueOnce(
-        new Response(JSON.stringify([{ answers: { q1: 5, q11: 4, q13: ['ui_glitch'] } }]), {
+        new Response(JSON.stringify({ total: 1, avg_q1: 5, avg_q11: 4, bug_reports_count: 1 }), {
           status: 200,
         }),
       )
@@ -77,6 +81,45 @@ describe('GET /api/feedback', () => {
     expect(body.stats.avg_q1).toBe(5)
     expect(body.stats.bug_reports_count).toBe(1)
     expect(body.rows).toHaveLength(1)
+    expect(String(fetchCalls()[3]?.[0])).toBe(
+      'https://example.supabase.co/rest/v1/rpc/admin_feedback_stats',
+    )
+  })
+
+  it('falls back to default pagination for non-numeric limit/offset', async () => {
+    const token = await createSession('admin@example.com', env.SESSION_SECRET)
+    vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify([{ email: 'admin@example.com' }]), {
+          status: 200,
+          headers: { 'Content-Range': '0-0/1' },
+        }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify([{ email: 'admin@example.com' }]), { status: 200 }),
+      )
+      .mockResolvedValueOnce(new Response(JSON.stringify([]), { status: 200 }))
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({ total: 0, avg_q1: null, avg_q11: null, bug_reports_count: 0 }),
+          { status: 200 },
+        ),
+      )
+
+    const response = await getFeedback({
+      request: new Request('https://site.test/api/feedback?limit=abc&offset=-5', {
+        headers: { Cookie: `admin_session=${token}` },
+      }),
+      env,
+    })
+
+    expect(response.status).toBe(200)
+    const body = (await response.json()) as { limit: number; offset: number }
+    expect(body.limit).toBe(50)
+    expect(body.offset).toBe(0)
+    const selectUrl = new URL(String(fetchCalls()[2]?.[0]))
+    expect(selectUrl.searchParams.get('limit')).toBe('50')
+    expect(selectUrl.searchParams.get('offset')).toBe('0')
   })
 })
 

@@ -20,3 +20,14 @@
 # HTML entry point - Never cache stale HTML so new releases are instant
 /index.html
   Cache-Control: public, max-age=0, must-revalidate
+
+# Security headers for every route.
+# CSP ships as Report-Only first: violations appear in the browser console
+# without blocking anything. Switch the header name to Content-Security-Policy
+# once production shows no violations (e.g. a custom Supabase domain).
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.iconify.design https://api.simplesvg.com https://api.unisvg.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
