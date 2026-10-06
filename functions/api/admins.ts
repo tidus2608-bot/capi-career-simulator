@@ -7,6 +7,7 @@ import {
   listAdmins,
 } from '../_admins.js'
 import { verifySession } from '../_auth.js'
+import { json } from '../_http.js'
 
 interface Env {
   SESSION_SECRET: string
@@ -122,14 +123,4 @@ function serverError(error: unknown): Response {
   console.error('admins error', error)
   const message = error instanceof Error ? error.message : String(error)
   return json({ ok: false, error: 'Internal error', detail: message }, 500)
-}
-
-function json(body: unknown, status = 200): Response {
-  return Response.json(body, {
-    status,
-    headers: {
-      'Cache-Control': 'no-store',
-      'X-Content-Type-Options': 'nosniff',
-    },
-  })
 }

@@ -51,7 +51,7 @@ export async function onRequestGet({
       const { rows } = await sb.select<RunRow>('runs', {
         select:
           'id,created_at,display_name,theme,mission_id,primary_role,secondary_role,profile_type,confidence_factor,scores',
-        order: 'created_at.desc',
+        order: 'created_at.desc,id.desc',
         limit: PAGE,
         offset,
       })

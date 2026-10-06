@@ -1,4 +1,5 @@
 import { verifySession } from '../_auth.js'
+import { intParam, json } from '../_http.js'
 import { supabaseRest } from '../_supabase.js'
 
 interface Env {
@@ -27,6 +28,16 @@ interface RunRow {
   }
 }
 
+/** Shape returned by the `admin_run_stats` RPC (supabase/migrations/0004_admin_stats.sql). */
+interface RunStats {
+  total: number
+  distinct_roles: number
+  avg_confidence_factor: number | null
+  role_dist: Array<{ key: string; count: number }>
+  mission_dist: Array<{ mission_id: number; count: number }>
+  profile_dist: Array<{ profile_type: string; count: number }>
+}
+
 /**
  * GET /api/results
  *
@@ -40,108 +51,61 @@ export async function onRequestGet({
   request: Request
   env: Env
 }): Promise<Response> {
-  const cors = corsHeaders(request)
-
   const email = await verifySession(request, env)
   if (!email) {
-    return json({ ok: false, error: 'Unauthorized' }, 401, cors)
+    return json({ ok: false, error: 'Unauthorized' }, 401)
   }
 
   const url = new URL(request.url)
-  const limit = Math.min(parseInt(url.searchParams.get('limit') || '50', 10), 1000)
-  const offset = Math.max(parseInt(url.searchParams.get('offset') || '0', 10), 0)
-  const role = url.searchParams.get('role')
-  const mission = url.searchParams.get('mission')
+  const limit = intParam(url.searchParams.get('limit'), 50, 1, 1000)
+  const offset = intParam(url.searchParams.get('offset'), 0, 0, Number.MAX_SAFE_INTEGER)
+  const role = url.searchParams.get('role') || null
+  const missionParam = url.searchParams.get('mission')
+  if (missionParam && !/^\d+$/.test(missionParam)) {
+    return json({ ok: false, error: 'Invalid mission' }, 400)
+  }
+  const mission = missionParam ? Number(missionParam) : null
 
   try {
     const sb = supabaseRest(env)
 
     const filterParts: string[] = []
     if (role) filterParts.push(`primary_role=eq.${encodeURIComponent(role)}`)
-    if (mission) filterParts.push(`mission_id=eq.${encodeURIComponent(mission)}`)
+    if (mission != null) filterParts.push(`mission_id=eq.${mission}`)
     const filter = filterParts.join('&')
 
-    const { rows, total } = await sb.select<RunRow>('runs', {
+    const { rows } = await sb.select<RunRow>('runs', {
       select:
         'id,created_at,display_name,theme,mission_id,primary_role,secondary_role,profile_type,confidence_factor,scores',
       filter,
-      order: 'created_at.desc',
+      order: 'created_at.desc,id.desc',
       limit,
       offset,
-      count: 'exact',
     })
 
-    const { rows: allRows } = await sb.select<RunRow>('runs', {
-      select: 'primary_role,mission_id,profile_type,confidence_factor',
-      filter,
-      limit: 10000,
-    })
+    const agg = await sb.rpc<RunStats>('admin_run_stats', { p_role: role, p_mission: mission })
 
     const stats = {
-      total: total ?? allRows.length,
-      distinct_roles: new Set(allRows.map((r) => r.primary_role).filter(Boolean)).size,
-      avg_confidence_factor: avg(
-        allRows.map((r) => r.confidence_factor).filter((n): n is number => n != null),
-      ),
+      total: agg.total,
+      distinct_roles: agg.distinct_roles,
+      avg_confidence_factor: agg.avg_confidence_factor,
     }
 
-    const roleDist = countBy(allRows, 'primary_role').map(([key, count]) => ({ key, count }))
-    const missionDist = countBy(allRows, 'mission_id').map(([key, count]) => ({
-      mission_id: key,
-      count,
-    }))
-    const profileDist = countBy(allRows, 'profile_type').map(([key, count]) => ({
-      profile_type: key,
-      count,
-    }))
-
-    return json(
-      { ok: true, stats, roleDist, missionDist, profileDist, rows, limit, offset },
-      200,
-      cors,
-    )
+    return json({
+      ok: true,
+      stats,
+      roleDist: agg.role_dist,
+      missionDist: agg.mission_dist,
+      profileDist: agg.profile_dist,
+      rows,
+      limit,
+      offset,
+    })
   } catch (err) {
     console.error('results error', err)
     // Authenticated admins see the actual error; this is gated above by
     // verifySession, so it's safe to surface details to the caller.
     const message = err instanceof Error ? err.message : String(err)
-    return json({ ok: false, error: 'Internal error', detail: message }, 500, cors)
+    return json({ ok: false, error: 'Internal error', detail: message }, 500)
   }
-}
-
-export async function onRequestOptions({ request }: { request: Request }): Promise<Response> {
-  return new Response(null, {
-    headers: {
-      ...corsHeaders(request),
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  })
-}
-
-function corsHeaders(request: Request): Record<string, string> {
-  const origin = request.headers.get('Origin') || ''
-  return { 'Access-Control-Allow-Origin': origin, Vary: 'Origin' }
-}
-
-function json(body: unknown, status: number, extraHeaders: Record<string, string> = {}): Response {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { 'Content-Type': 'application/json', ...extraHeaders },
-  })
-}
-
-function countBy<T>(rows: T[], key: keyof T): Array<[unknown, number]> {
-  const map = new Map<unknown, number>()
-  for (const r of rows) {
-    const v = r[key]
-    if (v == null || v === '') continue
-    map.set(v, (map.get(v) || 0) + 1)
-  }
-  return [...map.entries()].sort((a, b) => b[1] - a[1])
-}
-
-function avg(arr: number[]): number | null {
-  if (!arr.length) return null
-  return arr.reduce((a, b) => a + b, 0) / arr.length
 }

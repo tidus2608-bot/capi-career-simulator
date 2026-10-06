@@ -17,7 +17,9 @@ cp .env.example .env
 
 Apply the database schema and RLS to your Supabase project (one-off). This must
 include `supabase/migrations/0002_admins.sql` so Cloudflare Functions can check
-database-backed admin membership:
+database-backed admin membership, and `supabase/migrations/0004_admin_stats.sql`
+(the `/api/results` and `/api/feedback` aggregates call these RPCs, so apply it
+before deploying Functions that depend on it):
 
 ```bash
 # Either: paste supabase/migrations/0001_runs.sql into the Supabase SQL editor
@@ -115,6 +117,8 @@ supabase/
   migrations/
     0001_runs.sql      # `runs` schema + RLS policies
     0002_admins.sql    # `admins` schema + RLS lock-down
+    0003_feedback.sql  # `feedback_responses` schema + insert-only RLS
+    0004_admin_stats.sql # service-role-only aggregate RPCs for admin stats
 ```
 
 ## Deploy
